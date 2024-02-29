@@ -5,4 +5,6 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->get('/', 'Home::index');
+$routes->get("/", "Usr\Home::index");
+$routes->get("/home", "Usr\Home::index");
+$routes->get("/home/home", "Usr\Home::home");
