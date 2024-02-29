@@ -13,7 +13,7 @@ class Home extends BaseController
 
     public function home()
     {
-        return view("usr/home");
+        return uview("usr/home/home");
     }
 
 }
