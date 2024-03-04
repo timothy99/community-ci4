@@ -18,7 +18,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item" id="li-home-home-upper">
                 <a class="nav-link" href="/home/home">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>대시보드</span>
@@ -32,21 +32,19 @@
             <div class="sidebar-heading">다중메뉴</div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
+            <li class="nav-item" id="li-menu-menu1-upper">
+                <a class="nav-link collapsed" href="/menu/menu1" data-toggle="collapse" data-target="#div-menu-menu1" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>다중메뉴</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="div-menu-menu1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">다중메뉴 설명</h6>
-                        <a class="collapse-item" href="buttons.html">다중메뉴1</a>
-                        <a class="collapse-item" href="cards.html">다중메뉴2</a>
+                        <a class="collapse-item" id="a-menu-menu1" href="/menu/menu1">다중메뉴1</a>
+                        <a class="collapse-item" id="a-menu-menu2" href="/menu/menu2">다중메뉴2</a>
                     </div>
                 </div>
             </li>
-
 
             <!-- Divider -->
             <hr class="sidebar-divider">
