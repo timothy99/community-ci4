@@ -69,6 +69,33 @@ class MemberModel extends Model
         return $proc_result;
     }
 
+    public function getMemberIdDuplicate($data)
+    {
+        $result = true;
+        $message = "중복된 아이디가 없습니다.";
+        $member_id = $data["member_id"];
+
+        $db = db_connect();
+        $builder = $db->table("mng_member");
+        $builder->select("count(*) as cnt");
+        $builder->where("del_yn", "N");
+        $builder->where("member_id", $member_id);
+        $info = $builder->get()->getFirstRow();
+
+        $cnt = $info->cnt;
+        if ($cnt > 0) {
+            $result = false;
+            $message = "아이디가 중복되었습니다. 다른 아이디를 선택해주세요.";
+        }
+
+        $proc_result = array();
+        $proc_result["result"] = $result;
+        $proc_result["message"] = $message;
+
+        return $proc_result;
+    }
+
+    // 회원정보 입력
     public function procMember($data)
     {
         $security_model = new SecurityModel();
@@ -135,6 +162,59 @@ class MemberModel extends Model
         $proc_result["result"] = $result;
         $proc_result["message"] = $message;
         $proc_result["insert_id"] = $insert_id;
+
+        return $proc_result;
+    }
+
+    // 회원 로그인 결과
+    public function getMemberLoginInfo($data)
+    {
+        $security_model = new SecurityModel();
+
+        $result = true;
+        $message = "정상처리";
+
+        $today = date("YmdHis");
+
+        $member_id = $data["member_id"];
+        $member_password = $data["member_password"];
+        $ip_address = $data["ip_address"];
+
+        $member_password_enc = $security_model->getPasswordEncrypt($member_password);
+
+        $db = db_connect();
+
+        $builder = $db->table("mng_member");
+        $builder->select("*");
+        $builder->where("del_yn", "N");
+        $builder->where("member_id", $member_id);
+        $builder->where("member_password", $member_password_enc);
+        $list = $builder->get()->getResult();
+        $cnt = count($list);
+
+        if ($cnt == 1) {
+            $member_info = $list[0];
+            try {
+                $builder = $db->table("mng_member");
+                $builder->set("last_login_date", $today);
+                $builder->set("last_login_ip", $ip_address);
+                $result = $builder->update();
+                $db->transComplete();
+            } catch (Throwable $t) {
+                $result = false;
+                $message = "입력에 오류가 발생했습니다.";
+                logMessage($t->getMessage());
+            }
+        } else {
+            $result = false;
+            $message = "회원정보가 다릅니다. 다시 확인해주세요.";
+            $member_info = (object)array();
+        }
+
+        $proc_result = array();
+        $proc_result["result"] = $result;
+        $proc_result["message"] = $message;
+        $proc_result["member_info"] = $member_info;
 
         return $proc_result;
     }

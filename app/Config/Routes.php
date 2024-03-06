@@ -15,4 +15,6 @@ $routes->get("/member/myinfo", "Usr\Member::myinfo");
 $routes->get("/member/login", "Usr\Member::login");
 $routes->get("/member/join", "Usr\Member::join");
 $routes->get("/member/forgot", "Usr\Member::forgot");
+$routes->post("/member/signup", "Usr\Member::signup");
 $routes->post("/member/signin", "Usr\Member::signin");
+$routes->get("/member/logout", "Usr\Member::logout");
