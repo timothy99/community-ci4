@@ -65,7 +65,7 @@ Events::on("post_controller_constructor", function () {
     getUserSession() ?? setBaseSession(); // 사용자 세션이 없다면 기본 세션 생성
 
     $previous_url = previous_url();
-    if($previous_url != base_url()."/user/login") { // 이전페이지가 로그인 페이지면 입력하지 않는다.
+    if($previous_url != base_url()."/member/login") { // 이전페이지가 로그인 페이지면 입력하지 않는다.
         setUserSessionInfo("user_referer", $previous_url); // 이전 url
     }
 

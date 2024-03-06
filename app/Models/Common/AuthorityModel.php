@@ -31,7 +31,7 @@ class AuthorityModel extends Model
         $login_arr = array();
         $login_arr[] = "mypage/mypage";
         if (in_array($uri, $login_arr) == true && $auth_group == "guest") {
-            header("Location: /user/login");
+            header("Location: /member/login");
             exit;
         }
     }

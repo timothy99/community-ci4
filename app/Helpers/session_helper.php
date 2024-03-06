@@ -52,9 +52,9 @@ function setBaseSession()
 {
     // 세션이 비어 있으면 언어설정만 한국어로
     $session_info = (object)array(); // 기본 만들기
-    $session_info->user_idx = null; // 인덱스
-    $session_info->user_id = null; // 아이디
-    $session_info->nickname = "로그인 안함"; // 별명
+    $session_info->m_idx = null; // 인덱스
+    $session_info->member_id = null; // 아이디
+    $session_info->member_nickname = "로그인 안함"; // 별명
     $session_info->auth_group = "guest"; // 별명
     $session_info->layer_closed = array(); // 레이어 닫은거 먼저 빈 정보 생성
     setUserSession($session_info); // 세션 넣기
