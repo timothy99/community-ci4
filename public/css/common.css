@@ -1,0 +1,12 @@
+.form-control-inline {
+    width : auto;
+    margin-left : 0.5em;
+}
+
+.btn-inline {
+    margin-left : 0.5em;
+}
+
+.col-flex {
+    display : flex;
+}

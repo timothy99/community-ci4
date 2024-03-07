@@ -16,6 +16,7 @@
 
     <!-- Custom styles for this template-->
     <link href="../../css/sb-admin-2.min.css?ver=<?=CSS_VER ?>" rel="stylesheet">
+    <link href="../../css/common.css?ver=<?=CSS_VER ?>" rel="stylesheet">
 
     <!-- Bootstrap core JavaScript-->
     <script src="../../vendor/jquery/jquery.min.js?ver=<?=JS_VER ?>"></script>
