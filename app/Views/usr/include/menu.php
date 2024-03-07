@@ -55,8 +55,8 @@
             </div>
 
             <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
+            <li class="nav-item" id="li-board-notice-upper">
+                <a class="nav-link" href="/board/notice/list" id="a-board-notice">
                     <i class="fas fa-fw fa-table"></i>
                     <span>공지사항</span>
                 </a>
@@ -69,7 +69,6 @@
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-
-
+\
         </ul>
         <!-- End of Sidebar -->
