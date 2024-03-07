@@ -21,7 +21,7 @@ class AuthorityModel extends Model
 
         // 관리자 접근인데 권한이 관리자가 아니라면
         if ($segment0 == "csl" && $auth_group != "admin") {
-            header("Location: /user/login");
+            redirect_alert("권한이 필요합니다. 권한이 있다면 다시 로그인해주세요. 문제가 계속된다면 알려주세요.", getUserSessionInfo("previous_url"));
             exit;
         }
 

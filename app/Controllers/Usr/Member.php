@@ -51,7 +51,7 @@ class Member extends BaseController
         $proc_result = array();
         $proc_result["result"] = $result;
         $proc_result["message"] = $message;
-        $proc_result["return_url"] = getUserSessionInfo("full_url");
+        $proc_result["return_url"] = getUserSessionInfo("previous_url");
         $proc_result["member_info"] = $member_info;
 
         return json_encode($proc_result);

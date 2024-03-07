@@ -65,22 +65,15 @@ Events::on("post_controller_constructor", function () {
     getUserSession() ?? setBaseSession(); // 사용자 세션이 없다면 기본 세션 생성
 
     $previous_url = previous_url();
-    if($previous_url != base_url()."/member/login") { // 이전페이지가 로그인 페이지면 입력하지 않는다.
-        setUserSessionInfo("user_referer", $previous_url); // 이전 url
+    if (strpos($previous_url, "/member/login") == 0) { // 이전페이지가 로그인 페이지면 입력하지 않는다.
+        setUserSessionInfo("previous_url", $previous_url); // 이전 url
     }
 
+    setUserSessionInfo("current_url", current_url()); // 현재 사용자가 보고 있는 화면 url
+
     $request = \Config\Services::request();
-
-    // 현재 사용자가 보고 있는 화면 url
-    $site_url = site_url();
-    $request_uri = $request->getServer("REQUEST_URI");
-    $full_url = $site_url.$request_uri;
-    $full_url = str_replace("//", "/", $full_url);
-    $full_url = str_replace(":/", "://", $full_url);
-    setUserSessionInfo("full_url", $full_url); // 이전 url
-
     $segments = $request->getUri()->getSegments(); // segments 확인
-    $authority_model->checkAuthority($segments);
+    $authority_model->checkAuthority($segments); // 권한 체크
 });
 
 // CI에서 기본적 DB이벤트(select등 모두 포함)가 발생되었을때의 로깅
