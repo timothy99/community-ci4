@@ -19,6 +19,12 @@ class Member extends BaseController
 
     public function login()
     {
+        // 이미 로그인을 한 상태라면 메인으로 보낸다.
+        $auth_group = getUserSessionInfo("auth_group");
+        if ($auth_group != "guest") {
+            return redirect()->to("/");
+        }
+
         return view("usr/member/login");
     }
 
@@ -48,10 +54,16 @@ class Member extends BaseController
         setUserSessionInfo("member_nickname", $member_info->member_nickname);
         setUserSessionInfo("auth_group", $member_info->auth_group);
 
+        $return_url = getUserSessionInfo("previous_url");
+        $auth_group = getUserSessionInfo("auth_group");
+        if ($auth_group == "admin") {
+            $return_url = "/csl/dashboard/dashboard";
+        }
+
         $proc_result = array();
         $proc_result["result"] = $result;
         $proc_result["message"] = $message;
-        $proc_result["return_url"] = getUserSessionInfo("previous_url");
+        $proc_result["return_url"] = $return_url;
         $proc_result["member_info"] = $member_info;
 
         return json_encode($proc_result);
@@ -59,6 +71,12 @@ class Member extends BaseController
 
     public function join()
     {
+        // 이미 로그인을 한 상태라면 메인으로 보낸다.
+        $auth_group = getUserSessionInfo("auth_group");
+        if ($auth_group != "guest") {
+            return redirect()->to("/");
+        }
+
         $data = array();
         $data["uri"] = $this->request->getUri()->getPath();
 

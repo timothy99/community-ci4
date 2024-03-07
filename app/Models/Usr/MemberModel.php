@@ -198,6 +198,7 @@ class MemberModel extends Model
                 $builder = $db->table("mng_member");
                 $builder->set("last_login_date", $today);
                 $builder->set("last_login_ip", $ip_address);
+                $builder->where("member_id", $member_id);
                 $result = $builder->update();
                 $db->transComplete();
             } catch (Throwable $t) {

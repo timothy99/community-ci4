@@ -11,28 +11,28 @@
     <title><?=SITE_NAME ?> > 회원가입</title>
 
     <!-- Custom fonts for this template-->
-    <link href="../../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="../../usr/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="../../css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="../../usr/css/sb-admin-2.min.css" rel="stylesheet">
 
     <!-- Bootstrap core JavaScript-->
-    <script src="../../vendor/jquery/jquery.min.js"></script>
-    <script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../usr/vendor/jquery/jquery.min.js"></script>
+    <script src="../../usr/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../../usr/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="../../js/sb-admin-2.min.js"></script>
+    <script src="../../usr/js/sb-admin-2.min.js"></script>
 
     <!-- User Javascript -->
 <?php   if ($uri == "/member/join") { // 회원가입일때 우편번호 검색 스크립트 로딩 ?>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script src="../../js/postcode.js"></script>
+    <script src="../../usr/js/postcode.js"></script>
 <?php   } ?>
-    <script src="../../js/ajax.js"></script>
+    <script src="../../usr/js/ajax.js"></script>
 
 </head>
 

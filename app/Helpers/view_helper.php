@@ -1,5 +1,6 @@
 <?php
 
+// 사용자 뷰
 function uview($view_file, $proc_result = array())
 {
     $view_result = null;
@@ -10,6 +11,21 @@ function uview($view_file, $proc_result = array())
     $view_result .= view($view_file, $proc_result);
     $view_result .= view("/usr/include/footer", $proc_result); 
     $view_result .= view("/usr/include/script", $proc_result); 
+
+    return $view_result;
+}
+
+// 관리자(admin) 뷰
+function aview($view_file, $proc_result = array())
+{
+    $view_result = null;
+
+    $view_result .= view("/csl/include/header", $proc_result); 
+    $view_result .= view("/csl/include/menu", $proc_result); 
+    $view_result .= view("/csl/include/top", $proc_result); 
+    $view_result .= view($view_file, $proc_result);
+    $view_result .= view("/csl/include/footer", $proc_result); 
+    $view_result .= view("/csl/include/script", $proc_result); 
 
     return $view_result;
 }
