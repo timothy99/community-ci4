@@ -11,7 +11,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3"><?=SITE_NAME_ADMIN ?></div>
+                <div class="sidebar-brand-text mx-3"><?=env("app.sitenameAdmin") ?></div>
             </a>
 
             <!-- Divider -->

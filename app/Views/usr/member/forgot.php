@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title><?=SITE_NAME ?> > 암호분실</title>
+    <title><?=env("app.sitename") ?> > 암호분실</title>
 
     <!-- Custom fonts for this template-->
     <link href="../../usr/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
