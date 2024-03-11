@@ -64,7 +64,19 @@ class Board extends BaseController
 
     public function write()
     {
-        // do something...
+        $segments = $this->request->getUri()->getSegments(); // segments 확인
+        $board_id = $segments[1];
+
+        $result = true;
+        $message = "정상";
+
+
+        $proc_result = array();
+        $proc_result["result"] = $result;
+        $proc_result["message"] = $message;
+        $proc_result["board_id"] = $board_id;
+
+        return aview("csl/board/edit", $proc_result);
     }
 
     public function edit()

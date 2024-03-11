@@ -7,15 +7,38 @@
             <h6 class="m-0 font-weight-bold text-primary">쓰기</h6>
         </div>
         <div class="card-body">
+            <div class="row">
+                <div class="col-12">
+                        <form class="user">
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input type="text" class="form-control form-control-user" id="post_code" name="post_code" placeholder="우편번호" readonly="">
+                                </div>
+                                <div class="col-sm-6">
+                                    <button type="button" class="btn btn-info btn-user btn-block" onclick="postcode_open()">검색</button>
+                                </div>
+                            </div>
+                        </form>
+                </div>
+
+            </div>
+
+
+
+
+
+
+
             <div class="table-responsive">
 
 
 
             </div>
             <div class="d-flex justify-content-center">
+                <a href="/csl/board/<?=$board_id ?>/write" type="button" class="btn btn-info float-right">글쓰기</a>
 
             </div>
-            <a href="/csl/board/<?=$board_id ?>/write" type="button" class="btn btn-info float-right">글쓰기</a>
+            
         </div>
     </div>
 </div>
