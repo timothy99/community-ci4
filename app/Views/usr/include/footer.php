@@ -1,27 +1,17 @@
-            </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; <?=env("app.companyName") ?> 2024</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
-
+    <footer class="main-footer">
+        <div class="float-right d-none d-sm-block">
+            <b>Version</b> <?=env("app.programVer") ?>
         </div>
-        <!-- End of Content Wrapper -->
+        <strong>Copyright &copy; <?=date("Y") ?> <a href="<?=env("app.baseURL") ?>"><?=env("app.companyName") ?></a> </strong> All rights reserved.
+    </footer>
 
-    </div>
-    <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
 
 </body>
-
 </html>

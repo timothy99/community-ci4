@@ -1,74 +1,47 @@
-<body id="page-top">
-
-    <!-- Page Wrapper -->
-    <div id="wrapper">
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <a href="/" class="brand-link text-center">
+            <span class="brand-text font-weight-light"><?=env("app.sitename") ?></span>
+        </a>
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
-
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/csl">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+        <div class="sidebar">
+            <!-- Sidebar user (optional) -->
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="info">
+                    <a href="#" class="text-center"><?=getUserSessionInfo("member_nickname") ?></a>
                 </div>
-                <div class="sidebar-brand-text mx-3"><?=env("app.sitenameAdmin") ?></div>
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item" id="li-dashboard">
-                <a class="nav-link" href="/csl/dashboard/dashboard">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>대시보드</span>
-                </a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">게시판</div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item" id="li-board-notice-list">
-                <a class="nav-link collapsed" id="a-board-notice-list-upper" href="/csl/board/notice/list" data-toggle="collapse" data-target="#div-board-notice-list" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>게시판</span>
-                </a>
-                <div id="div-board-notice-list" class="collapse" aria-labelledby="collapseTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">게시판</h6>
-                        <a class="collapse-item" id="a-board-notice-list" href="/csl/board/notice/list">공지사항</a>
-                        <a class="collapse-item" id="a-board-free-list" href="/csl/board/free/list">자유</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                단일메뉴
             </div>
 
-            <!-- Nav Item - Tables -->
-            <li class="nav-item" id="li-member-list">
-                <a class="nav-link" href="/csl/member/list" id="a-member-list">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>회원관리</span>
-                </a>
-            </li>
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <li class="nav-header">메뉴</li>
+                    <li class="nav-item" id="li-home-home">
+                        <a href="/home/home" class="nav-link" id="upper-home-home">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>대시보드</p>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="li-board-notice-list">
+                        <a href="#" class="nav-link" id="upper-board-notice-list">
+                            <i class="nav-icon fas fa-table"></i>
+                            <p>게시판<i class="fas fa-angle-left right"></i></p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/board/notice/list" class="nav-link" id="a-board-notice-list">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>공지사항</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-        </ul>
-        <!-- End of Sidebar -->
+                </ul>
+            </nav>
+            <!-- /.sidebar-menu -->
+        </div>
+        <!-- /.sidebar -->
+    </aside>
