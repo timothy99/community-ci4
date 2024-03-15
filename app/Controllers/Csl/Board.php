@@ -16,7 +16,7 @@ class Board extends BaseController
     public function list()
     {
         $segments = $this->request->getUri()->getSegments(); // segments 확인
-        $board_id = $segments[1];
+        $board_id = $segments[2];
 
         $board_model = new BoardModel();
         $paging_model = new PagingModel();

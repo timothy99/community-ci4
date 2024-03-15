@@ -25,7 +25,7 @@ class Member extends BaseController
             return redirect()->to("/");
         }
 
-        return view("usr/member/login");
+        return uview("usr/member/login");
     }
 
     public function signin()
@@ -80,7 +80,7 @@ class Member extends BaseController
         $data = array();
         $data["uri"] = $this->request->getUri()->getPath();
 
-        return view("usr/member/join", $data);
+        return uview("usr/member/join", $data);
     }
 
     public function signup()
@@ -139,7 +139,7 @@ class Member extends BaseController
 
     public function forgot()
     {
-        return view("usr/member/forgot");
+        return uview("usr/member/forgot");
     }
 
     // 로그아웃

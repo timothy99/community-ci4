@@ -1,6 +1,6 @@
 <?php
 
-// 사용자 뷰
+// 사용자 뷰 (메뉴바가 상단에 있음)
 function uview($view_file, $proc_result = array())
 {
     $view_result = null;
@@ -14,7 +14,7 @@ function uview($view_file, $proc_result = array())
     return $view_result;
 }
 
-// 관리자(admin) 뷰
+// 관리자(admin) 뷰 - 메뉴바가 좌측에 있음
 function aview($view_file, $proc_result = array())
 {
     $view_result = null;

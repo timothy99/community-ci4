@@ -18,4 +18,7 @@
     <script src="/resource/vendor/bootstrap/js/bootstrap.bundle.min.js?ver=<?=env("app.jsVer") ?>"></script>
     <!-- AdminLTE App -->
     <script src="/resource/usr/js/adminlte.min.js?ver=<?=env("app.jsVer") ?>"></script>
+    <!-- User js-->
+    <script src="/resource/usr/js/ajax.js?ver=<?=env("app.jsVer") ?>"></script>
+    <script src="/resource/usr/js/postcode.js?ver=<?=env("app.jsVer") ?>"></script>
 </head>

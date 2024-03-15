@@ -1,77 +1,96 @@
-<div class="container-fluid">
-    <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">게시판</h1>
-    <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">목록</h6>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>번호</th>
-                            <th>제목</th>
-                            <th>등록자</th>
-                            <th>날짜</th>
-                            <th>조회수</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>게시판</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">홈</a></li>
+                        <li class="breadcrumb-item active">게시판</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">목록</h3>
+                            <div class="card-tools">
+                                <div class="input-group input-group-sm">
+                                    <select class="form-control" id="search_condition" name="search_condition">
+                                        <option value="">선택하세요</option>
+                                        <option value="title">제목</option>
+                                        <option value="contents">내용</option>
+                                    </select>
+                                    <input type="text" id="search_text" name="search_text" class="form-control float-right ml-2" placeholder="검색">
+                                    <div class="input-group-append">
+                                    <button type="submit" class="btn btn-default">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table class="table table-bordered">
+                                <thead class="text-center">
+                                    <tr>
+                                        <th>번호</th>
+                                        <th>제목</th>
+                                        <th>등록자</th>
+                                        <th>날짜</th>
+                                        <th>조회수</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
 <?php   foreach($list as $no => $val) { ?>
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>61</td>
-                            <td>2011/04/25</td>
-                        </tr>
+                                    <tr>
+                                        <td>Tiger Nixon</td>
+                                        <td>System Architect</td>
+                                        <td>Edinburgh</td>
+                                        <td>61</td>
+                                        <td>2011/04/25</td>
+                                    </tr>
 <?php   } ?>
 <?php   if (count($list) == 0) { ?>
-                        <tr>
-                            <td colspan="6" class="text-center">데이터가 없습니다.</td>
-                        </tr>
+                                    <tr>
+                                        <td colspan="6" class="text-center">데이터가 없습니다.</td>
+                                    </tr>
 <?php   } ?>
-                    </tbody>
-                </table>
-            </div>
-            <div class="d-flex justify-content-center">
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer clearfix">
 <?=$paging_view ?>
-            </div>
-            <a href="/csl/board/<?=$board_id ?>/write" type="button" class="btn btn-info float-right">글쓰기</a>
-        </div>
-        <div class="card-footer">
-            <form id="frm" name="frm">
-                <div class="row">
-                    <div class="col-md-3 col-sm-hidden col-xs-hidden"></div>
-                    <div class="col-md-6 col-flex d-flex justify-content-center">
-                        <select id="search_condition" name="search_condition" class="form-control form-control-inline">
-                            <option value="" selected disabled>전체</option>
-                            <option value="title">제목</option>
-                            <option value="contents">내용</option>
-                        </select>
-                        <input type="text" id="search_text" name="search_text" class="form-control form-control-inline" value="<?=$search_arr["search_text"] ?>">
-                        <button type="button" id="search_button" name="search_button" class="btn btn-info btn-inline">검색</button>
-                        <a href="/board/<?=$board_id ?>/list" type="button" id="cancel_button" name="cancel_button" class="btn btn-warning btn-inline">취소</a>
+                            <button type="button" class="btn btn-info float-right" id="write" name="write">글쓰기</button>
+                        </div>
                     </div>
-                    <div class="col-md-3 col-sm-hidden col-xs-hidden"></div>
+                    <!-- /.card -->
                 </div>
-            </form>
-        </div>
-    </div>
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
 </div>
 
 <script>
     $(window).on("load", function() {
         // 메뉴강조
-        $("#li-board-notice-list").addClass("active");
-        $("#div-board-notice-list").addClass("show");
-        $("#a-board-notice-list").addClass("active");
-        $("#a-board-notice-list-upper").removeClass("collapsed");
-
-        // 셀렉트 박스 선택
-        $("#search_condition").val("<?=$search_arr["search_condition"] ?>").prop("selected", true);
+        $("#li-board-notice-list").addClass("menu-open");
+        $("#upper-board-notice-list").addClass("active");
+        $("#a-board-<?=$board_id ?>-list").addClass("active");
     });
 
     $(function() {
