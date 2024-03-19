@@ -33,7 +33,7 @@
                                     </select>
                                     <input type="text" id="search_text" name="search_text" class="form-control float-right ml-2" placeholder="검색">
                                     <div class="input-group-append">
-                                    <button type="submit" class="btn btn-default">
+                                    <button type="button" class="btn btn-default" id="search_button" name="search_button">
                                         <i class="fas fa-search"></i>
                                     </button>
                                     </div>
@@ -49,17 +49,15 @@
                                         <th>제목</th>
                                         <th>등록자</th>
                                         <th>날짜</th>
-                                        <th>조회수</th>
                                     </tr>
                                 </thead>
                                 <tbody>
 <?php   foreach($list as $no => $val) { ?>
                                     <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011/04/25</td>
+                                        <td><?=$val->list_no ?></td>
+                                        <td><a href="/csl/board/<?=$board_id ?>/view/<?=$val->b_idx ?>"><?=$val->title ?></a></td>
+                                        <td><?=$val->ins_id ?></td>
+                                        <td><?=$val->ins_date_txt ?></td>
                                     </tr>
 <?php   } ?>
 <?php   if (count($list) == 0) { ?>
@@ -91,6 +89,10 @@
         $("#li-board-notice-list").addClass("menu-open");
         $("#upper-board-notice-list").addClass("active");
         $("#a-board-<?=$board_id ?>-list").addClass("active");
+
+        // 셀렉트 박스 선택
+        $("#search_condition").val("<?=$search_arr["search_condition"] ?>").prop("selected", true);
+        $("#search_text").val("<?=$search_arr["search_text"] ?>");
     });
 
     $(function() {
@@ -103,11 +105,15 @@
         $("#search_button").click(function(e) {
             search();
         });
+
+        $("#write").click(function(e) {
+            location.href = "/csl/board/<?=$board_id ?>/write";
+        });
     });
 
     function search() {
         var search_text = $("#search_text").val();
         var search_condition = $("#search_condition").val();
-        location.href = "/board/<?=$board_id ?>/list?page=1&search_text="+search_text+"&search_condition="+search_condition;
+        location.href = "/csl/board/<?=$board_id ?>/list?page=1&search_text="+search_text+"&search_condition="+search_condition;
     }
 </script>

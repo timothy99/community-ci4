@@ -98,3 +98,4 @@ define('EVENT_PRIORITY_HIGH', 10);
  */
 define("CSS_VER", "0.0.1");
 define("JS_VER", "0.0.2");
+defined("UPLOADPATH") || define("UPLOADPATH", WRITEPATH."uploads/"); // 업로드 경로

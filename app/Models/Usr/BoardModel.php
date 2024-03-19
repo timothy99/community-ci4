@@ -26,7 +26,7 @@ class BoardModel extends Model
         $builder = $db->table("mng_board");
         $builder->select("*");
         $builder->where("del_yn", "N");
-        $cnt = $builder->countAllResults();
+        $cnt = $builder->countAllResults(false);
         $list = $builder->get()->getResult();
 
         $proc_result = array();
