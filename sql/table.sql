@@ -27,6 +27,7 @@ create table mng_board (
     title varchar(1000) not null comment '제목',
     contents text not null comment '내용',
     http_link varchar(500) default null comment '인터넷 링크',
+    file_idxs varchar(4000) null comment '파일 인덱스들',
     comment_cnt int not null default 0 comment '댓글 등록수',
     heart_cnt int not null default 0 comment '공감수',
     hit_cnt int not null default 0 comment '조회수',
