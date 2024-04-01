@@ -2,7 +2,7 @@
         <div class="float-right d-none d-sm-block">
             <b>Version</b> <?=env("app.programVer") ?>
         </div>
-        <strong>Copyright &copy; <?=date("Y") ?> <a href="<?=env("app.baseURL") ?>"><?=env("app.companyName") ?></a> </strong> All rights reserved.
+        <strong>Copyright &copy; 2014-2021 <?=env("app.companyName") ?>.</strong> All rights reserved.
     </footer>
 
     <!-- Control Sidebar -->

@@ -18,6 +18,24 @@ $routes->get("/member/forgot", "Usr\Member::forgot");
 $routes->post("/member/signup", "Usr\Member::signup");
 $routes->post("/member/signin", "Usr\Member::signin");
 $routes->get("/member/logout", "Usr\Member::logout");
-
 $routes->get("/board", "Usr\Board::index");
 $routes->get("/board/(:alpha)/list", "Usr\Board::list");
+
+$routes->get("/csl", "Csl\Dashboard::index");
+$routes->get("/csl/dashboard", "Csl\Dashboard::index");
+$routes->get("/csl/dashboard/dashboard", "Csl\Dashboard::dashboard");
+
+$routes->get("/csl/member", "Csl\Member::index");
+$routes->get("/csl/member/list", "Csl\Member::list");
+
+$routes->get("/csl/board/(:alpha)/list", "Csl\Board::list");
+$routes->get("/csl/board/(:alpha)/write", "Csl\Board::write");
+$routes->get("/csl/board/(:alpha)/edit/(:num)", "Csl\Board::edit");
+$routes->post("/csl/board/(:alpha)/update", "Csl\Board::update");
+$routes->get("/csl/board/(:alpha)/view/(:num)", "Csl\Board::view");
+$routes->post("/csl/board/(:alpha)/delete/(:num)", "Csl\Board::delete");
+
+$routes->post("/csl/attach/upload", "Csl\Attach::upload");
+$routes->post("/csl/attach/list", "Csl\Attach::list");
+$routes->get("/csl/attach/view/(:alphanum)", "Csl\Attach::view");
+$routes->get("/csl/attach/download/(:alphanum)", "Csl\Attach::download");

@@ -1,72 +1,71 @@
-<div class="container-fluid">
-    <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">공지사항</h1>
-    <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">목록</h6>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>번호</th>
-                            <th>제목</th>
-                            <th>등록자</th>
-                            <th>날짜</th>
-                            <th>조회수</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-<?php   foreach($list as $no => $val) { ?>
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>61</td>
-                            <td>2011/04/25</td>
-                        </tr>
-<?php   } ?>
-<?php   if (count($list) == 0) { ?>
-                        <tr>
-                            <td colspan="6" class="text-center">데이터가 없습니다.</td>
-                        </tr>
-<?php   } ?>
-                    </tbody>
-                </table>
-            </div>
-            <div class="d-flex justify-content-center">
+            <div class="container">
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">총 <?=number_format($cnt) ?>건</h3>
+                                <div class="card-tools">
+                                    <div class="input-group input-group-sm">
+                                        <select class="form-control" id="search_condition" name="search_condition">
+                                            <option value="">선택하세요</option>
+                                            <option value="title">제목</option>
+                                            <option value="contents">내용</option>
+                                        </select>
+                                        <input type="text" id="search_text" name="search_text" class="form-control float-right ml-3" placeholder="검색어를 입력하세요" value="<?=$search_arr["search_text"] ?>">
+                                        <div class="input-group-append">
+                                            <button type="button" class="btn btn-default" id="search_button" name="search_button">
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- /.card-header -->
+                            <div class="card-body">
+                                <table class="table table-bordered table-hover">
+                                    <thead class="text-center">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>제목</th>
+                                            <th>등록일</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+<?php
+    foreach ($list as $no => $val) :
+?>
+                                        <tr>
+                                            <td class="text-center">1</td>
+                                            <td>2</td>
+                                            <td>3</td>
+                                        </tr>
+<?php
+    endforeach;
+?>
+<?php
+    if (count($list) == 0) :
+?>
+                                        <tr>
+                                            <td colspan="5" class="text-center">데이터가 없습니다</td>
+                                        </tr>
+<?php
+    endif;
+?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                            <div class="card-footer float-right row justify-content-center">
 <?=$paging_view ?>
-            </div>
-        </div>
-        <div class="card-footer">
-            <form id="frm" name="frm">
-                <div class="row">
-                    <div class="col-md-3 col-sm-hidden col-xs-hidden"></div>
-                    <div class="col-md-6 col-flex d-flex justify-content-center">
-                        <select id="search_condition" name="search_condition" class="form-control form-control-inline">
-                            <option value="" selected disabled>전체</option>
-                            <option value="title">제목</option>
-                            <option value="contents">내용</option>
-                        </select>
-                        <input type="text" id="search_text" name="search_text" class="form-control form-control-inline" value="<?=$search_arr["search_text"] ?>">
-                        <button type="button" id="search_button" name="search_button" class="btn btn-info btn-inline">검색</button>
-                        <a href="/board/<?=$board_id ?>/list" type="button" id="cancel_button" name="cancel_button" class="btn btn-warning btn-inline">취소</a>
+                            </div>
+                        </div><!-- /.card -->
                     </div>
-                    <div class="col-md-3 col-sm-hidden col-xs-hidden"></div>
                 </div>
-            </form>
-        </div>
-    </div>
-</div>
+            </div><!-- /.container-fluid -->
+        </section><!-- /.content -->
+    </div><!-- /.content-wrapper -->
 
 <script>
     $(window).on("load", function() {
-        // 메뉴강조
-        $("#li-board-notice-upper").addClass("active");
-        $("#a-board-notice").addClass("active");
-
         // 셀렉트 박스 선택
         $("#search_condition").val("<?=$search_arr["search_condition"] ?>").prop("selected", true);
     });
