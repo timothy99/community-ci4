@@ -53,6 +53,6 @@
 <script>
     $(window).on("load", function() {
         // 메뉴강조
-        $("#a-dashboard-dashboard").addClass("active");
+        $("#a-dashboard-main").addClass("active");
     });
 </script>

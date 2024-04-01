@@ -11,20 +11,95 @@ class MemberModel extends Model
     public function getMemberList($data)
     {
         $result = true;
-        $message = "중복된 아이디가 없습니다.";
-        $member_id = $data["member_id"];
+        $message = "목록 불러오기가 완료되었습니다.";
+
+        $rows = $data["rows"];
+        $page = $data["page"];
+
+        $search_arr = $data["search_arr"];
+        $search_condition = $search_arr["search_condition"];
+        $search_text = base64_encode($search_arr["search_text"]);
+
+        // 오프셋 계산
+        $offset = ($page-1)*$rows;
+        if ($offset < 0) {
+            $offset = 0;
+        }
 
         $db = db_connect();
         $builder = $db->table("mng_member");
-        $builder->select("count(*) as cnt");
+        $builder->select("*");
+        $builder->where("del_yn", "N");
+        if ($search_text != null) {
+            $builder->where($search_condition, $search_text);
+        }
+        $cnt = $builder->countAllResults(false);
+        $list = $builder->get()->getResult();
+
+        $proc_result = array();
+        $proc_result["result"] = $result;
+        $proc_result["message"] = $message;
+        $proc_result["list"] = $list;
+        $proc_result["cnt"] = $cnt;
+
+        return $proc_result;
+    }
+
+    public function getMemberInfo($member_id)
+    {
+        $result = true;
+        $message = "목록 불러오기가 완료되었습니다.";
+
+        $db = db_connect();
+        $builder = $db->table("mng_member");
+        $builder->select("*");
         $builder->where("del_yn", "N");
         $builder->where("member_id", $member_id);
-        $info = $builder->get()->getFirstRow();
+        $info = $builder->get()->getRow();
 
-        $cnt = $info->cnt;
-        if ($cnt > 0) {
+        $proc_result = array();
+        $proc_result["result"] = $result;
+        $proc_result["message"] = $message;
+        $proc_result["info"] = $info;
+
+        return $proc_result;
+    }
+
+    public function checkSigninInfo($data)
+    {
+        $result = true;
+        $message = "정상처리";
+
+        $member_id = $data["member_id"];
+        $member_name = $data["member_name"];
+        $member_nickname = $data["member_nickname"];
+        $phone = $data["phone"];
+        $email = $data["email"];
+        $post_code = $data["post_code"];
+
+        if ($member_name == null) {
             $result = false;
-            $message = "아이디가 중복되었습니다. 다른 아이디를 선택해주세요.";
+            $message = "이름을 입력해주세요.";
+        }
+
+        if ($member_nickname == null) {
+            $result = false;
+            $message = "닉네임을 입력해주세요.";
+        }
+
+        if ($phone == null) {
+            $result = false;
+            $message = "전화번호를 입력해주세요.";
+        }
+
+        if ($email == null) {
+            $result = false;
+            $message = "이메일을 입력해주세요.";
+        }
+
+        if ($post_code == null) {
+            $result = false;
+            $message = "주소를 입력해주세요.";
         }
 
         $proc_result = array();
@@ -35,7 +110,7 @@ class MemberModel extends Model
     }
 
     // 회원정보 입력
-    public function procMember($data)
+    public function procMemberUpdate($data)
     {
         $security_model = new SecurityModel();
 
@@ -43,9 +118,9 @@ class MemberModel extends Model
         $message = "정상처리";
 
         $today = date("YmdHis");
+        $upd_id = getUserSessionInfo("member_id");
 
         $member_id = $data["member_id"];
-        $member_password = $data["member_password"];
         $member_name = $data["member_name"];
         $member_nickname = $data["member_nickname"];
         $phone = $data["phone"];
@@ -53,43 +128,25 @@ class MemberModel extends Model
         $post_code = $data["post_code"];
         $addr1 = $data["addr1"];
         $addr2 = $data["addr2"];
-
-        $gender = "M";
-        $join_type = "direct";
-        $email_yn = "N";
-        $post_yn = "N";
-        $sms_yn = "N";
-        $auth_group = "common";
-
-        $member_password_enc = $security_model->getPasswordEncrypt($member_password);
+        $auth_group = $data["auth_group"];
 
         try {
             $db = db_connect();
             $db->transStart();
             $builder = $db->table("mng_member");
-            $builder->set("member_id", $member_id);
-            $builder->set("member_password", $member_password_enc);
             $builder->set("member_name", $member_name);
             $builder->set("member_nickname", $member_nickname);
             $builder->set("email", $email);
             $builder->set("phone", $phone);
-            $builder->set("gender", $gender);
             $builder->set("post_code", $post_code);
             $builder->set("addr1", $addr1);
             $builder->set("addr2", $addr2);
-            $builder->set("join_type", $join_type);
-            $builder->set("email_yn", $email_yn);
-            $builder->set("post_yn", $post_yn);
-            $builder->set("sms_yn", $sms_yn);
             $builder->set("auth_group", $auth_group);
             $builder->set("last_login_date", $today);
-            $builder->set("del_yn", "N");
-            $builder->set("ins_id", $member_id);
-            $builder->set("ins_date", $today);
-            $builder->set("upd_id", $member_id);
+            $builder->set("upd_id", $upd_id);
             $builder->set("upd_date", $today);
-            $result = $builder->insert();
-            $insert_id = $db->insertID();
+            $builder->where("member_id", $member_id);
+            $result = $builder->update();
             $db->transComplete();
         } catch (Throwable $t) {
             $result = false;
@@ -100,13 +157,12 @@ class MemberModel extends Model
         $proc_result = array();
         $proc_result["result"] = $result;
         $proc_result["message"] = $message;
-        $proc_result["insert_id"] = $insert_id;
 
         return $proc_result;
     }
 
-    // 회원 로그인 결과
-    public function getMemberLoginInfo($data)
+    // 회원정보 입력
+    public function procMemberDelete($data)
     {
         $security_model = new SecurityModel();
 
@@ -114,47 +170,29 @@ class MemberModel extends Model
         $message = "정상처리";
 
         $today = date("YmdHis");
+        $upd_id = getUserSessionInfo("member_id");
 
         $member_id = $data["member_id"];
-        $member_password = $data["member_password"];
-        $ip_address = $data["ip_address"];
 
-        $member_password_enc = $security_model->getPasswordEncrypt($member_password);
-
-        $db = db_connect();
-
-        $builder = $db->table("mng_member");
-        $builder->select("*");
-        $builder->where("del_yn", "N");
-        $builder->where("member_id", $member_id);
-        $builder->where("member_password", $member_password_enc);
-        $list = $builder->get()->getResult();
-        $cnt = count($list);
-
-        if ($cnt == 1) {
-            $member_info = $list[0];
-            try {
-                $builder = $db->table("mng_member");
-                $builder->set("last_login_date", $today);
-                $builder->set("last_login_ip", $ip_address);
-                $builder->where("member_id", $member_id);
-                $result = $builder->update();
-                $db->transComplete();
-            } catch (Throwable $t) {
-                $result = false;
-                $message = "입력에 오류가 발생했습니다.";
-                logMessage($t->getMessage());
-            }
-        } else {
+        try {
+            $db = db_connect();
+            $db->transStart();
+            $builder = $db->table("mng_member");
+            $builder->set("del_yn", "Y");
+            $builder->set("upd_id", $upd_id);
+            $builder->set("upd_date", $today);
+            $builder->where("member_id", $member_id);
+            $result = $builder->update();
+            $db->transComplete();
+        } catch (Throwable $t) {
             $result = false;
-            $message = "회원정보가 다릅니다. 다시 확인해주세요.";
-            $member_info = (object)array();
+            $message = "입력에 오류가 발생했습니다.";
+            logMessage($t->getMessage());
         }
 
         $proc_result = array();
         $proc_result["result"] = $result;
         $proc_result["message"] = $message;
-        $proc_result["member_info"] = $member_info;
 
         return $proc_result;
     }

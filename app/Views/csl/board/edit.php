@@ -1,8 +1,10 @@
 <form class="form-horizontal" id="frm" name="frm">
     <input type="hidden" id="b_idx" name="b_idx" value="<?=$b_idx ?>">
     <input type="hidden" id="board_id" name="board_id" value="<?=$board_id ?>">
-    <input type="hidden" id="summer_code" name="summer_code">
+    <input type="hidden" id="summernote_code" name="summernote_code">
     <input type="hidden" id="upload_result" name="upload_result">
+    <input type="hidden" id="contents_code" name="contents_code" value='<?=base64_encode($info->contents) ?>'>
+    <input type="hidden" id="summer_code" name="summer_code">
     <ul id="ul_file_list" name="ul_file_list" style="display:none">
 <?php   foreach($file_list as $no => $val) { ?>
         <li id="<?=$val->file_id ?>">
@@ -100,7 +102,9 @@
         $("#a-board-<?=$board_id ?>-list").addClass("active");
 
         $("#title").val("<?=$info->title ?>"); // 내용채우기
-        summernote_initialize("contents", "<?=$info->contents ?>", summernote_settings); // 썸머노트 내용 초기화
+        $("#contents").summernote(summernote_settings); // 썸머노트 초기화
+        var contents_code = $("#contents_code").val();
+        $("#contents").summernote("pasteHTML",  decodeUnicode(contents_code)); // 내용 넣기
     });
 
     $(function() {
@@ -114,4 +118,3 @@
         });
     });
 </script>
-

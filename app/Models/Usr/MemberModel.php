@@ -57,7 +57,7 @@ class MemberModel extends Model
             $message = "입력된 비밀번호가 다릅니다.";
         }
 
-        if (strlen($member_password) < 8 != strlen($member_password_confirm) < 8) {
+        if (strlen($member_password) < 8) {
             $result = false;
             $message = "입력된 비밀번호는 8자리 이상이어야 합니다.";
         }
@@ -115,13 +115,7 @@ class MemberModel extends Model
         $addr1 = $data["addr1"];
         $addr2 = $data["addr2"];
 
-        $gender = "M";
-        $join_type = "direct";
-        $email_yn = "N";
-        $post_yn = "N";
-        $sms_yn = "N";
         $auth_group = "common";
-
         $member_password_enc = $security_model->getPasswordEncrypt($member_password);
 
         try {
@@ -134,14 +128,9 @@ class MemberModel extends Model
             $builder->set("member_nickname", $member_nickname);
             $builder->set("email", $email);
             $builder->set("phone", $phone);
-            $builder->set("gender", $gender);
             $builder->set("post_code", $post_code);
             $builder->set("addr1", $addr1);
             $builder->set("addr2", $addr2);
-            $builder->set("join_type", $join_type);
-            $builder->set("email_yn", $email_yn);
-            $builder->set("post_yn", $post_yn);
-            $builder->set("sms_yn", $sms_yn);
             $builder->set("auth_group", $auth_group);
             $builder->set("last_login_date", $today);
             $builder->set("del_yn", "N");

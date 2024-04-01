@@ -6,7 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\Common\AttachModel;
 use App\Models\Common\FileModel;
 
-class Attach extends BaseController
+class File extends BaseController
 {
     public function index()
     {
@@ -26,7 +26,7 @@ class Attach extends BaseController
         $proc_result["message"] = $message;
         $proc_result["file_id"] = $file_id;
 
-        $user_file = $this->request->getFile("file"); // 올린 파일 정보 갖고 오기
+        $user_file = $this->request->getFile("attach"); // 올린 파일 정보 갖고 오기
         if ($user_file == null) {
             $result = false;
             $proc_result["result"] = false;
@@ -38,22 +38,23 @@ class Attach extends BaseController
             if($is_valid == false) { // 올린 파일이 잘못된 경우
                 throw new \RuntimeException($user_file->getErrorString()."(".$user_file->getError().")"); // 에러를 던진다
             } else { // 파일이 정상인 경우
-                $validation_rule = ["file"=>["label"=>"Image File", "rules"=>"uploaded[file]|is_image[file]"]]; // 이미지인지 검증
+                $validation_rule = ["file"=>["label"=>"Image File", "rules"=>"uploaded[attach]|is_image[attach]"]]; // 이미지인지 검증
                 $validation_result = $this->validate($validation_rule);
                 if ($validation_result == false) { // 이미지가 아닌 경우
                     $proc_result = $attach_model->uploadFile($user_file); // 파일을 올린다.
                     $file_id = $proc_result["file_id"];
                     $file_name_org = $proc_result["file_name_org"];
-                    $proc_result["file_path"] = "/csl/attach/download/".$file_id;
-                    $proc_result["file_html"] = "<a href=\"/csl/attach/download/".$file_id."\">".$file_name_org."</a>";
+                    $proc_result["file_path"] = "/csl/file/download/".$file_id;
+                    $proc_result["file_html"] = "<a href=\"/csl/file/download/".$file_id."\">".$file_name_org."</a>";
                     $proc_result["down_html"] = $proc_result["file_html"];
                 } else { // 이미지 파일인 경우
                     $proc_result = $attach_model->uploadImage($user_file); // 파일을 올린다.
                     $file_id = $proc_result["file_id"];
                     $file_name_org = $proc_result["file_name_org"];
-                    $proc_result["file_path"] = "/csl/attach/view/".$file_id;
-                    $proc_result["file_html"] = "<img src=\"/csl/attach/view/".$file_id."\" style=\"width:auto\">"; // 이미지 파일인 경우 img 태그를 제공
-                    $proc_result["down_html"] = "<a href=\"/csl/attach/download/".$file_id."\">".$file_name_org."</a>";
+                    $proc_result["file_path"] = "/csl/file/view/".$file_id;
+                    $proc_result["file_html"] = "<img src=\"/csl/file/view/".$file_id."\" style=\"width:auto\">"; // 이미지 파일인 경우 img 태그를 제공
+                    $proc_result["down_html"] = "<a href=\"/csl/file/download/".$file_id."\">".$file_name_org."</a>";
+                    
                 }
             }
         }

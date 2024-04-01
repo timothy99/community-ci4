@@ -21,14 +21,12 @@ class Board extends BaseController
         $paging_model = new PagingModel();
         $date_model = new DateModel();
 
-        $segments = $this->request->getUri()->getSegments(); // segments 확인
-        $board_id = $segments[2];
+        $board_id = $this->request->getUri()->getSegment(3); // segments 확인
 
         $rows = 10;
         $page = $this->request->getGet("page") ?? 1;
         $search_text = $this->request->getGet("search_text", FILTER_SANITIZE_SPECIAL_CHARS) ?? "";
-        $search_condition = $this->request->getGet("search_condition", FILTER_SANITIZE_SPECIAL_CHARS) ?? "";
-        $search_condition = $search_condition == "null" ? "" : $search_condition; // null 이라는 텍스트로 들어와서 처리 함
+        $search_condition = $this->request->getGet("search_condition", FILTER_SANITIZE_SPECIAL_CHARS) ?? "title";
 
         $search_arr = array();
         $search_arr["search_text"] = $search_text;
@@ -80,12 +78,14 @@ class Board extends BaseController
 
         $b_idx = 0;
         $title = "";
-        $contents = "";
+        $contents = "&nbsp;";
+        $contents_code = "&nbsp;";
 
         $info = (object)array();
         $info->b_idx = $b_idx;
         $info->title = $title;
         $info->contents = $contents;
+        $info->contents_code = $contents_code;
 
         $proc_result = array();
         $proc_result["result"] = $result;
@@ -110,7 +110,8 @@ class Board extends BaseController
         $title = $this->request->getPost("title", FILTER_SANITIZE_SPECIAL_CHARS);
         $summer_code = (string)$this->request->getPost("summer_code");
         $summer_code = str_replace("<p><br></p><p>", "", $summer_code);
-        $summer_code = base64_encode($summer_code);
+        $summer_code = str_replace("\r\n", "", $summer_code);
+
         $file_list = $this->request->getPost("file_list") ?? array();
         if (count($file_list) > 0) {
             $file_idxs = implode("|", $file_list);
@@ -170,9 +171,8 @@ class Board extends BaseController
         $info = $model_result["info"];
 
         $info->ins_date_txt = $date_model->convertTextToDate($info->ins_date, 1, 1);
-        $info->contents_decode = base64_decode($info->contents);
 
-        $file_arr = explode("|", $info->file_idxs);
+        $file_arr = strlen($info->file_idxs) > 0 ? explode("|", $info->file_idxs) : array();
         $file_list = array();
         if (count($file_arr) > 0) {
             foreach($file_arr as $no => $val) {
@@ -227,7 +227,7 @@ class Board extends BaseController
 
         $model_result = $board_model->getBoardInfo($b_idx);
         $info = $model_result["info"];
-        $file_arr = explode("|", $info->file_idxs);
+        $file_arr = strlen($info->file_idxs) > 0 ? explode("|", $info->file_idxs) : array();
         $file_list = array();
         if (count($file_arr) > 0) {
             foreach($file_arr as $no => $val) {
@@ -248,4 +248,3 @@ class Board extends BaseController
     }
 
 }
-

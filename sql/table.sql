@@ -18,7 +18,7 @@ create table mng_admin (
     upd_date varchar(14) not null comment '수정일',
     primary key (a_idx),
     unique key member_idx (m_idx)
-) engine=innodb default charset=utf8 comment='관리자 권한 부여';
+) engine=InnoDB default charset=utf8 comment='관리자 권한 부여';
 
 create table mng_board (
     b_idx int not null auto_increment comment '게시물 번호',
@@ -38,7 +38,7 @@ create table mng_board (
     upd_date varchar(14) not null comment '수정일',
     primary key (b_idx),
     unique key board_id (board_id)
-) engine=innodb default charset=utf8 comment='게시판';
+) engine=InnoDB default charset=utf8 comment='게시판';
 
 create table mng_board_comment (
     bc_idx int not null auto_increment comment '인덱스',
@@ -50,7 +50,7 @@ create table mng_board_comment (
     upd_id varchar(70) default null comment '수정자 [mng_member.m_idx]',
     upd_date varchar(14) not null comment '수정일',
     primary key (bc_idx)
-) engine=innodb default charset=utf8 comment='게시판 댓글';
+) engine=InnoDB default charset=utf8 comment='게시판 댓글';
 
 create table mng_file (
     f_idx int not null auto_increment comment '연번',
@@ -68,32 +68,27 @@ create table mng_file (
     upd_date varchar(14) not null comment '수정일',
     primary key (f_idx),
     unique key file_id (file_id)
-) engine=innodb default charset=utf8 comment='파일 정보';
+) engine=InnoDB default charset=utf8 comment='파일 정보';
 
 create table mng_member (
     m_idx int not null auto_increment comment '인덱스',
     member_id varchar(64) not null comment '사용자 아이디',
+    member_password varchar(1000) not null comment '암호',
     member_name varchar(60) not null comment '이름',
     member_nickname varchar(60) not null comment '별명',
     email varchar(100) default null comment '이메일',
     phone varchar(13) default null comment '휴대전화 번호',
-    gender varchar(1) default null comment '성별',
     post_code varchar(5) default null comment '우편번호',
     addr1 varchar(200) default null comment '주소1',
     addr2 varchar(200) default null comment '주소2',
-    join_type varchar(10) default null comment '가입경로(sns등)',
-    email_yn enum('Y', 'N') not null comment '이메일 수신여부',
-    post_yn enum('Y', 'N') not null comment '우편물 수신 여부',
-    sms_yn enum('Y', 'N') not null comment 'sms 수신 여부',
     auth_group varchar(20) not null comment '권한 그룹',
     last_login_date varchar(14) not null comment '최종 로그인 시간',
     last_login_ip varchar(15) default null comment '마지막 로그인 ip',
     del_yn enum('Y', 'N') not null comment '삭제 여부',
-    ins_id varchar(70) default null comment '등록자 [mng_member.m_idx]',
+    ins_id varchar(70) default null comment '등록자',
     ins_date varchar(14) not null comment '등록일',
-    upd_id varchar(70) default null comment '수정자 [mng_member.m_idx]',
+    upd_id varchar(70) default null comment '수정자',
     upd_date varchar(14) not null comment '수정일',
-    org_seq int default null comment '원본 seq',
     primary key (m_idx),
     unique key mem_usr_id (member_id)
-) engine=innodb default charset=utf8 comment='회원정보';
+) engine=InnoDB default charset=utf8 comment='회원정보';

@@ -25,7 +25,7 @@ class Member extends BaseController
             return redirect()->to("/");
         }
 
-        return uview("usr/member/login");
+        return view("usr/member/login");
     }
 
     public function signin()
@@ -57,7 +57,7 @@ class Member extends BaseController
         $return_url = getUserSessionInfo("previous_url");
         $auth_group = getUserSessionInfo("auth_group");
         if ($auth_group == "admin") {
-            $return_url = "/csl/dashboard/dashboard";
+            $return_url = "/csl/dashboard/main";
         }
 
         $proc_result = array();
@@ -80,7 +80,7 @@ class Member extends BaseController
         $data = array();
         $data["uri"] = $this->request->getUri()->getPath();
 
-        return uview("usr/member/join", $data);
+        return view("usr/member/join", $data);
     }
 
     public function signup()
