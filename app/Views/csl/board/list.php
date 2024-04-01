@@ -27,7 +27,6 @@
                             <div class="card-tools">
                                 <div class="input-group input-group-sm">
                                     <select class="form-control" id="search_condition" name="search_condition">
-                                        <option value="">선택하세요</option>
                                         <option value="title">제목</option>
                                         <option value="contents">내용</option>
                                     </select>

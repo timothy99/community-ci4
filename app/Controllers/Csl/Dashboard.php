@@ -11,9 +11,9 @@ class Dashboard extends BaseController
         return redirect()->to("/csl/dashboard/dashboard");
     }
 
-    public function dashboard()
+    public function main()
     {
-        return aview("csl/dashboard/dashboard");
+        return aview("csl/dashboard/main");
     }
 
 }
