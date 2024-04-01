@@ -29,7 +29,7 @@
                             <div class="col-12">
                                 <dl class="row">
                                     <dt class="col-sm-2">내용</dt>
-                                    <dd class="col-sm-10"><?=$info->contents_decode ?></dd>
+                                    <dd class="col-sm-10"><?=$info->contents ?></dd>
                                     <dt class="col-sm-2">등록자</dt>
                                     <dd class="col-sm-10"><?=$info->ins_id ?></dd>
                                     <dt class="col-sm-2">등록일</dt>
@@ -37,7 +37,7 @@
                                     <dt class="col-sm-2">첨부파일</dt>
                                     <dd class="col-sm-10">
 <?php   foreach($file_list as $no => $val) { ?>
-                                        <a href="/csl/attach/download/<?=$val->file_id ?>"><?=$val->file_name_org ?></a><br>
+                                        <a href="/csl/file/download/<?=$val->file_id ?>"><?=$val->file_name_org ?></a><br>
 <?php   } ?>
                                     </dd>
                                 </dl>

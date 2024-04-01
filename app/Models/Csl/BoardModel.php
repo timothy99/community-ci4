@@ -30,8 +30,11 @@ class BoardModel extends Model
         $builder = $db->table("mng_board");
         $builder->select("*");
         $builder->where("del_yn", "N");
-        $builder->like($search_condition, $search_text);
+        if ($search_text != null) {
+            $builder->like($search_condition, $search_text);
+        }
         $builder->where("board_id", $board_id);
+        $builder->orderBy("b_idx", "desc");
         $cnt = $builder->countAllResults(false);
         $list = $builder->get()->getResult();
 
