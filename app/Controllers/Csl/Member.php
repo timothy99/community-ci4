@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\Csl\MemberModel;
 use App\Models\Common\PagingModel;
 use App\Models\Common\DateModel;
+use App\Models\Common\SpreadsheetModel;
 
 class Member extends BaseController
 {
@@ -28,10 +29,12 @@ class Member extends BaseController
         $search_text = $this->request->getGet("search_text", FILTER_SANITIZE_SPECIAL_CHARS) ?? "";
         $search_condition = $this->request->getGet("search_condition", FILTER_SANITIZE_SPECIAL_CHARS) ?? "member_id";
         $search_condition = $search_condition == "null" ? "" : $search_condition; // null 이라는 텍스트로 들어와서 처리 함
+        $auth_group = $this->request->getGet("auth_group", FILTER_SANITIZE_SPECIAL_CHARS) ?? "";
 
         $search_arr = array();
         $search_arr["search_text"] = $search_text;
         $search_arr["search_condition"] = $search_condition;
+        $search_arr["auth_group"] = $auth_group;
         $search_arr["page"] = $page;
         $http_query = http_build_query($search_arr);
 
@@ -179,6 +182,47 @@ class Member extends BaseController
         $proc_result["return_url"] = "/csl/member/list";
 
         return json_encode($proc_result);
+    }
+
+    // 엑셀 다운로드
+    public function excel()
+    {
+        $member_model = new MemberModel();
+        $spreadsheet_model = new SpreadsheetModel();
+        $date_model = new DateModel();
+
+        $search_text = $this->request->getGet("search_text", FILTER_SANITIZE_SPECIAL_CHARS) ?? "";
+        $search_condition = $this->request->getGet("search_condition", FILTER_SANITIZE_SPECIAL_CHARS) ?? "member_id";
+        $search_condition = $search_condition == "null" ? "" : $search_condition; // null 이라는 텍스트로 들어와서 처리 함
+        $auth_group = $this->request->getGet("auth_group", FILTER_SANITIZE_SPECIAL_CHARS) ?? "";
+
+        $search_arr = array();
+        $search_arr["search_text"] = $search_text;
+        $search_arr["search_condition"] = $search_condition;
+        $search_arr["auth_group"] = $auth_group;
+
+        $data = array();
+        $data["search_arr"] = $search_arr;
+        $data["rows"] = 0;
+        $data["page"] = 0;
+
+        $model_result = $member_model->getMemberList($data);
+        $list = $model_result["list"];
+
+        $content_list = array();
+        foreach($list as $no => $val) {
+            $content = array();
+            $content[] = $val->member_id;
+            $content[] = $val->member_name;
+            $content[] = $date_model->convertTextToDate($val->last_login_date, 1, 1);
+            $content[] = $date_model->convertTextToDate($val->ins_date, 1, 1);
+            $content[] = $val->auth_group;
+            $content_list[] = $content;
+        }
+
+        $header_list = ["아이디", "성명", "로그인", "가입일", "회원등급"]; // 헤더
+        $filename = "회원목록_".date("YmdHis").".xlsx"; // 엑셀로 받을 파일명
+        $spreadsheet_model->procExcelWrite($content_list, $filename, $header_list); // 엑셀출력
     }
 
 }

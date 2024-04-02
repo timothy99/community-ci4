@@ -31,6 +31,7 @@ $routes->get("/csl/member/view/(:alphanum)", "Csl\Member::view");
 $routes->get("/csl/member/edit/(:alphanum)", "Csl\Member::edit");
 $routes->post("/csl/member/update", "Csl\Member::update");
 $routes->post("/csl/member/delete/(:alphanum)", "Csl\Member::delete");
+$routes->get("/csl/member/excel", "Csl\Member::excel");
 
 $routes->get("/csl/board/(:alpha)/list", "Csl\Board::list");
 $routes->get("/csl/board/(:alpha)/write", "Csl\Board::write");

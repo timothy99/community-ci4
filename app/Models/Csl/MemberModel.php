@@ -18,12 +18,15 @@ class MemberModel extends Model
 
         $search_arr = $data["search_arr"];
         $search_condition = $search_arr["search_condition"];
-        $search_text = base64_encode($search_arr["search_text"]);
+        $search_text = $search_arr["search_text"];
+        $auth_group = $search_arr["auth_group"];
 
-        // 오프셋 계산
-        $offset = ($page-1)*$rows;
-        if ($offset < 0) {
-            $offset = 0;
+        if ($rows > 0) {
+            // 오프셋 계산
+            $offset = ($page-1)*$rows;
+            if ($offset < 0) {
+                $offset = 0;
+            }
         }
 
         $db = db_connect();
@@ -32,6 +35,12 @@ class MemberModel extends Model
         $builder->where("del_yn", "N");
         if ($search_text != null) {
             $builder->where($search_condition, $search_text);
+        }
+        if ($auth_group != null) {
+            $builder->where("auth_group", $auth_group);
+        }
+        if ($rows > 0) { // 0보다 클 경우 화면에 보여지는것이니 limit를 건다.
+            $builder->limit($rows, $offset);
         }
         $cnt = $builder->countAllResults(false);
         $list = $builder->get()->getResult();
