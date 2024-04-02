@@ -26,16 +26,18 @@
                             <h3 class="card-title">목록</h3>
                             <div class="card-tools">
                                 <div class="input-group input-group-sm">
-                                    <select class="form-control" id="search_condition" name="search_condition">
+                                    <select class="form-control" id="auth_group" name="auth_group">
+                                        <option value="">전체</option>
+                                        <option value="common">일반</option>
+                                        <option value="admin">관리자</option>
+                                    </select>
+                                    <select class="form-control ml-3" id="search_condition" name="search_condition">
                                         <option value="member_id">아이디</option>
                                         <option value="member_name">이름</option>
                                     </select>
-                                    <input type="text" id="search_text" name="search_text" class="form-control float-right ml-2" placeholder="검색">
-                                    <div class="input-group-append">
-                                    <button type="button" class="btn btn-default" id="search_button" name="search_button">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                    </div>
+                                    <input type="text" id="search_text" name="search_text" class="form-control float-right ml-2" placeholder="검색어">
+                                    <button type="button" class="btn btn-sm btn-warning float-right ml-3" id="search_button" name="search_button">검색</button>
+                                    <button type="button" class="btn btn-sm btn-success float-right ml-3" id="excel" name="excel">엑셀다운로드</button>
                                 </div>
                             </div>
                         </div>
@@ -94,6 +96,7 @@
         // 셀렉트 박스 선택
         $("#search_condition").val("<?=$search_arr["search_condition"] ?>").prop("selected", true);
         $("#search_text").val("<?=$search_arr["search_text"] ?>");
+        $("#auth_group").val("<?=$search_arr["auth_group"] ?>").prop("selected", true);
     });
 
     $(function() {
@@ -107,6 +110,14 @@
             search();
         });
 
+        $("#excel").click(function(e) {
+            excel();
+        });
+
+        $("#auth_group").change(function(e) {
+            search();
+        });
+
         $("#write").click(function(e) {
             location.href = "/csl/member/write";
         });
@@ -115,6 +126,14 @@
     function search() {
         var search_text = $("#search_text").val();
         var search_condition = $("#search_condition").val();
-        location.href = "/csl/member/list?page=1&search_text="+search_text+"&search_condition="+search_condition;
+        var auth_group = $("#auth_group").val();
+        location.href = "/csl/member/list?page=1&auth_group="+auth_group+"&search_text="+search_text+"&search_condition="+search_condition;
+    }
+
+    function excel() {
+        var search_text = $("#search_text").val();
+        var search_condition = $("#search_condition").val();
+        var auth_group = $("#auth_group").val();
+        location.href = "/csl/member/excel?page=1&auth_group="+auth_group+"&search_text="+search_text+"&search_condition="+search_condition;
     }
 </script>

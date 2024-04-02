@@ -35,6 +35,7 @@ class BoardModel extends Model
         }
         $builder->where("board_id", $board_id);
         $builder->orderBy("b_idx", "desc");
+        $builder->limit($rows, $offset);
         $cnt = $builder->countAllResults(false);
         $list = $builder->get()->getResult();
 

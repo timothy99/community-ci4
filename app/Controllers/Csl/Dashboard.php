@@ -8,7 +8,7 @@ class Dashboard extends BaseController
 {
     public function index()
     {
-        return redirect()->to("/csl/dashboard/dashboard");
+        return redirect()->to("/csl/dashboard/main");
     }
 
     public function main()
