@@ -18,7 +18,7 @@ class BoardModel extends Model
 
         $search_arr = $data["search_arr"];
         $search_condition = $search_arr["search_condition"];
-        $search_text = base64_encode($search_arr["search_text"]);
+        $search_text = $search_arr["search_text"];
 
         // 오프셋 계산
         $offset = ($page-1)*$rows;
