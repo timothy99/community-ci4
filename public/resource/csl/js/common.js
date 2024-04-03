@@ -57,6 +57,47 @@ function ajax3(ajax_url, form_id, div_id) {
     });
 }
 
+// 특정 데이터만 폼에 새로 만들어 넘긴후 html을 받아오기
+function ajax4(ajax_url, div_id) {
+    $.ajax({
+        url: ajax_url,
+        type: "POST",
+        dataType: "json",
+        success: function(proc_result) {
+            var result = proc_result.result;
+            var message = proc_result.message;
+            var return_html = proc_result.return_html;
+            if(result == true) {
+                $("#"+div_id).html(return_html);
+            } else {
+                alert(message);
+            }
+        }
+    });
+}
+
+// 외부에서 생성된 폼을 전체 넣기
+function ajax5(ajax_url, form_data) {
+    $.ajax({
+        url: ajax_url,
+        type: "POST",
+        dataType: "json",
+        data: form_data,
+        contentType: false,
+        processData: false,
+        success: function(proc_result) {
+            var result = proc_result.result;
+            var message = proc_result.message;
+            var return_url = proc_result.return_url;
+            if(result == true) {
+                location.href = return_url;
+            } else {
+                alert(message);
+            }
+        }
+    });
+}
+
 // 파일첨부 로직
 function upload(file_id) {
     var form_data = new FormData($("#frm")[0]);

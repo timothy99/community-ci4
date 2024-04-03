@@ -5,6 +5,7 @@ namespace App\Controllers\Csl;
 use App\Controllers\BaseController;
 use App\Models\Common\DateModel;
 use App\Models\Csl\BoardModel;
+use App\Models\Csl\CommentModel;
 use App\Models\Common\PagingModel;
 use App\Models\Common\FileModel;
 
@@ -157,6 +158,7 @@ class Board extends BaseController
         $board_model = new BoardModel();
         $date_model = new DateModel();
         $file_model = new FileModel();
+        $comment_model = new CommentModel();
 
         $segments = $this->request->getUri()->getSegments(); // segments 확인
         $board_id = $segments[2];
@@ -181,12 +183,17 @@ class Board extends BaseController
             }
         }
 
+        // 댓글목록
+        $model_result = $comment_model->getCommentList($b_idx);
+        $comment_list = $model_result["list"];
+
         $proc_result = array();
         $proc_result["result"] = $result;
         $proc_result["message"] = $message;
         $proc_result["board_id"] = $board_id;
         $proc_result["info"] = $info;
         $proc_result["file_list"] = $file_list;
+        $proc_result["comment_list"] = $comment_list;
 
         return aview("csl/board/view", $proc_result);
     }
