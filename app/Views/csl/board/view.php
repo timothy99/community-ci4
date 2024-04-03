@@ -53,6 +53,52 @@
                 </div>
             </div>
             <!-- /.row -->
+<?php   if (count($comment_list) > 0) { ?>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="col-12">
+                                <table class="table">
+                                    <tbody>
+<?php       foreach($comment_list as $no => $val) { ?>
+<form id="frm_<?=$val->bc_idx ?>" name="frm_<?=$val->bc_idx ?>"><input type="hidden" id="ddd" name="ddd" value="123"></form>
+                                        <tr id="bc_<?=$val->bc_idx ?>">
+                                            <td><?=$val->comment ?></td>
+                                            <td style="width:70px"><button type="button" class="btn btn-xs btn-danger" id="comment_delete" name="comment_delete" onclick="comment_delete(<?=$val->bc_idx ?>)">삭제</button></td>
+                                            <td style="width:70px"><button type="button" class="btn btn-xs btn-success" id="comment_edit" name="comment_edit" onclick="comment_edit(<?=$val->bc_idx ?>)">수정</button></td>
+                                        </tr>
+<?php       } ?>
+                                    </tbody>
+                                </table>
+                                <dl class="row">
+                                    <dd class="col-sm-11 text-right">총 댓글수</dd>
+                                    <dd class="col-sm-1 text-center"><?=count($comment_list) ?></dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<?php   } ?>
+            <form id="insert_frm" name="insert_frm">
+                <input type="hidden" id="b_idx" name="b_idx" value="<?=$info->b_idx ?>">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card card-warning">
+                            <div class="card-body">
+                                <div class="form-group row">
+                                    <label for="comment" class="col-sm-1 col-form-label">댓글</label>
+                                    <div class="col-sm-10">
+                                        <textarea class="form-control" id="comment" name="comment" rows="4"></textarea>
+                                    </div>
+                                    <button type="button" class="btn btn-info float-right" id="comment_insert" name="comment_insert">등록</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
@@ -76,5 +122,27 @@
                 ajax2("/csl/board/<?=$board_id ?>/delete/<?=$info->b_idx ?>");
             }
         });
+
+        $("#comment_insert").click(function(e) {
+            ajax1("/csl/comment/insert", "insert_frm");
+        });
     });
+
+    function comment_edit(bc_idx) {
+        ajax4("/csl/comment/edit/"+bc_idx, "bc_"+bc_idx);
+    }
+
+    function comment_update(bc_idx) {
+        var update_form = new FormData();
+        var comment = $("#comment_"+bc_idx).val();
+        update_form.append("bc_idx", bc_idx);
+        update_form.append("comment", comment);
+        ajax5("/csl/comment/update", update_form);
+    }
+
+    function comment_delete(bc_idx) {
+        if(confirm("댓글을 삭제하나요? 삭제하면 복구가 불가능합니다.")) {
+            ajax2("/csl/comment/delete/"+bc_idx);
+        }
+    }
 </script>
