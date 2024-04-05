@@ -20,8 +20,8 @@ function aview($view_file, $proc_result = array())
     $view_result = null;
 
     $view_result .= view("/csl/include/header", $proc_result);
-    $view_result .= view("/csl/include/menu", $proc_result);
     $view_result .= view("/csl/include/top", $proc_result);
+    $view_result .= view("/csl/include/menu", $proc_result);
     $view_result .= view($view_file, $proc_result);
     $view_result .= view("/csl/include/footer", $proc_result);
 
