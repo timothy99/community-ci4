@@ -14,7 +14,7 @@
             </div>
             <!-- Sidebar Menu -->
             <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <ul class="nav nav-pills nav-sidebar nav-flat nav-child-indent flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <li class="nav-header">메뉴</li>
                     <li class="nav-item" id="li-dashboard-main">
                         <a href="/csl/dashboard/main" class="nav-link" id="a-dashboard-main">
