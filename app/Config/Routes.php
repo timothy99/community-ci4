@@ -20,6 +20,7 @@ $routes->post("/member/signin", "Usr\Member::signin");
 $routes->get("/member/logout", "Usr\Member::logout");
 $routes->get("/board", "Usr\Board::index");
 $routes->get("/board/(:alpha)/list", "Usr\Board::list");
+$routes->get("/board/(:alpha)/view/(:num)", "Usr\Board::view");
 
 $routes->get("/csl", "Csl\Dashboard::index");
 $routes->get("/csl/dashboard", "Csl\Dashboard::index");

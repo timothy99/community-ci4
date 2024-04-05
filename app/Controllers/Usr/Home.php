@@ -3,6 +3,7 @@
 namespace App\Controllers\Usr;
 
 use App\Controllers\BaseController;
+use App\Models\Usr\BoardModel;
 
 class Home extends BaseController
 {
@@ -13,7 +14,32 @@ class Home extends BaseController
 
     public function home()
     {
-        return uview("usr/home/home");
+        $board_model = new BoardModel();
+
+        $result = true;
+        $message = "정상처리";
+
+        $data = array();
+        $data["rows"] = 5;
+        $data["page"] = 1;
+        $data["board_id"] = "notice";
+        $data["search_arr"]["search_condition"] = null;
+        $data["search_arr"]["search_text"] = null;
+
+        $model_result = $board_model->getBoardList($data);
+        $notice_list = $model_result["list"];
+
+        $data["board_id"] = "free";
+        $model_result = $board_model->getBoardList($data);
+        $free_list = $model_result["list"];
+
+        $proc_result = array();
+        $proc_result["result"] = $result;
+        $proc_result["message"] = $message;
+        $proc_result["notice_list"] = $notice_list;
+        $proc_result["free_list"] = $free_list;
+
+        return uview("usr/home/home", $proc_result);
     }
 
 }

@@ -24,27 +24,68 @@
                     <div class="col-lg-12">
                         <div class="card card-primary card-outline">
                             <div class="card-header">
-                                <h3 class="card-title m-0">서시</h3>
+                                <h3 class="card-title m-0">최신 공지사항</h3>
                             </div>
                             <div class="card-body">
-                                <h6 class="card-title">윤동주</h6>
-
-                                <p class="card-text">죽는 날까지 하늘을 우러러 한 점 부끄럼이 없기를, 잎새에 이는 바람에도 나는 괴로워했다. 별을 노래하는 마음으로 모든 죽어 가는 것을 사랑해야지 그리고 나한테 주어진 길을 걸어가야겠다. 오늘 밤에도 별이 바람에 스치운다.</p>
-                                <a href="#" class="btn btn-primary">링크</a>
+                                <table class="table table-bordered">
+                                    <thead class="text-center">
+                                        <tr>
+                                            <th>제목</th>
+                                            <th>날짜</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+<?php   foreach($notice_list as $no => $val) { ?>
+                                        <tr>
+                                            <td><a href="/board/notice/view/<?=$val->b_idx ?>"><?=$val->title ?></a></td>
+                                            <td><?=$val->ins_date_txt ?></td>
+                                        </tr>
+<?php   } ?>
+<?php   if (count($notice_list) == 0) { ?>
+                                        <tr>
+                                            <td colspan="6" class="text-center">데이터가 없습니다.</td>
+                                        </tr>
+<?php   } ?>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- /.row -->
+                </div><!-- /.row -->
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card card-primary card-outline">
+                            <div class="card-header">
+                                <h3 class="card-title m-0">최신 자유게시판</h3>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-bordered">
+                                    <thead class="text-center">
+                                        <tr>
+                                            <th>제목</th>
+                                            <th>날짜</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+<?php   foreach($free_list as $no => $val) { ?>
+                                        <tr>
+                                            <td><a href="/board/free/view/<?=$val->b_idx ?>"><?=$val->title ?></a></td>
+                                            <td><?=$val->ins_date_txt ?></td>
+                                        </tr>
+<?php   } ?>
+<?php   if (count($free_list) == 0) { ?>
+                                        <tr>
+                                            <td colspan="6" class="text-center">데이터가 없습니다.</td>
+                                        </tr>
+<?php   } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.row -->
             </div><!-- /.container-fluid -->
-        </div>
-        <!-- /.content -->
+        </div><!-- /.content -->
+    </div><!-- /.content-wrapper -->
 
-    </div>
-    <!-- /.content-wrapper -->
-
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
