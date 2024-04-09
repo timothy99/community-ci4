@@ -4,6 +4,12 @@
                     <li class="nav-item">
                         <a href="/" class="nav-link">홈</a>
                     </li>
+                    <li class="nav-item">
+                        <a href="/board/notice/list" class="nav-link">공지사항</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/board/free/list" class="nav-link">자유게시판</a>
+                    </li>
 <?php   if (getUserSessionInfo("auth_group") == "guest") { ?>
                     <li class="nav-item">
                         <a href="/member/login" class="nav-link">로그인</a>

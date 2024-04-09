@@ -14,7 +14,7 @@
     </ul>
     <div class="content-wrapper">
         <section class="content-header">
-            <div class="container-fluid">
+            <div class="container">
                 <div class="row mb-2">
                     <div class="col-sm-6">
                         <h1>게시판</h1>
@@ -30,7 +30,7 @@
         </section>
 
         <section class="content">
-            <div class="container-fluid">
+            <div class="container">
                 <div class="row">
                     <!-- left column -->
                     <div class="col-md-12">
@@ -63,7 +63,7 @@
                                         <ul class="list-unstyled" id="visible_file_list">
 <?php   foreach($file_list as $no1 => $val1) { ?>
                                             <li id="<?=$val1->file_id ?>">
-                                                <a href="/csl/attach/download/<?=$val1->file_id ?>"><?=$val1->file_name_org ?></a>
+                                                <a href="/usr/attach/download/<?=$val1->file_id ?>"><?=$val1->file_name_org ?></a>
                                                 &nbsp;&nbsp;&nbsp;
                                                 <a id="<?=$val1->file_id ?>" href="javascript:void(0)" onclick="file_delete('<?=$val1->file_id ?>')">
                                                     삭제
@@ -110,7 +110,7 @@
     $(function() {
         $("#save").click(function(e) {
             $("#summer_code").val($("#contents").summernote("code"));
-            ajax1("/csl/board/<?=$board_id ?>/update", "frm");
+            ajax1("/board/<?=$board_id ?>/update", "frm");
         });
 
         $("#cancel").click(function(e) {
