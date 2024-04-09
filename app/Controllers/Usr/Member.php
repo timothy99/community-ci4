@@ -32,32 +32,48 @@ class Member extends BaseController
     {
         $member_model = new MemberModel();
 
-        $result = false;
+        $result = true;
         $message = "정상처리";
 
         $member_id = $this->request->getPost("member_id", FILTER_SANITIZE_SPECIAL_CHARS);
         $member_password = $this->request->getPost("member_password", FILTER_SANITIZE_SPECIAL_CHARS);
         $ip_address = $this->request->getIPAddress();
-
-        $data = array();
-        $data["member_id"] = $member_id;
-        $data["member_password"] = $member_password;
-        $data["ip_address"] = $ip_address;
-
-        $model_result = $member_model->getMemberLoginInfo($data);
-        $result = $model_result["result"];
-        $message = $model_result["message"];
-        $member_info = $model_result["member_info"];
-
-        setUserSessionInfo("m_idx", $member_info->m_idx);
-        setUserSessionInfo("member_id", $member_info->member_id);
-        setUserSessionInfo("member_nickname", $member_info->member_nickname);
-        setUserSessionInfo("auth_group", $member_info->auth_group);
-
         $return_url = getUserSessionInfo("previous_url");
-        $auth_group = getUserSessionInfo("auth_group");
-        if ($auth_group == "admin") {
-            $return_url = "/csl/dashboard/main";
+
+        if ($member_id == null) {
+            $result = false;
+            $message = "아이디를 입력해주세요";
+        }
+
+        if ($member_password == null) {
+            $result = false;
+            $message = "암호를 입력해주세요";
+        }
+
+        if ($result == true) {
+            $data = array();
+            $data["member_id"] = $member_id;
+            $data["member_password"] = $member_password;
+            $data["ip_address"] = $ip_address;
+
+            $model_result = $member_model->getMemberLoginInfo($data);
+            $result = $model_result["result"];
+            $message = $model_result["message"];
+            $member_info = $model_result["member_info"];
+
+            setUserSessionInfo("m_idx", $member_info->m_idx);
+            setUserSessionInfo("member_id", $member_info->member_id);
+            setUserSessionInfo("member_nickname", $member_info->member_nickname);
+            setUserSessionInfo("auth_group", $member_info->auth_group);
+
+            $auth_group = getUserSessionInfo("auth_group");
+            if ($auth_group == "admin") {
+                $return_url = "/csl/dashboard/main";
+            }
+        } else {
+            $result = false;
+            $message = "회원정보가 없습니다. 회원정보를 확인하세요.";
+            $member_info = (object)array();
         }
 
         $proc_result = array();
