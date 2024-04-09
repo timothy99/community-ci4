@@ -45,8 +45,11 @@
                             </table>
                         </div>
                         <!-- /.card-body -->
-                        <div class="card-footer float-right row justify-content-center">
+                        <div class="card-footer clear-fix">
 <?=$paging_view ?>
+<?php   if ($board_id != "notice") { ?>
+                            <button type="button" class="btn btn-info float-right" id="write" name="write">글쓰기</button>
+<?php   } ?>
                         </div>
                     </div><!-- /.card -->
                 </div>
@@ -59,6 +62,7 @@
     $(window).on("load", function() {
         // 셀렉트 박스 선택
         $("#search_condition").val("<?=$search_arr["search_condition"] ?>").prop("selected", true);
+        $("#search_text").val("<?=$search_arr["search_text"] ?>");
     });
 
     $(function() {
@@ -70,6 +74,10 @@
 
         $("#search_button").click(function(e) {
             search();
+        });
+
+        $("#write").click(function(e) {
+            location.href = "/board/<?=$board_id ?>/write";
         });
     });
 

@@ -6,85 +6,38 @@ use CodeIgniter\Model;
 use Throwable;
 use App\Models\Common\DateModel;
 
-class BoardModel extends Model
+class CommentModel extends Model
 {
-    public function getBoardList($data)
+    public function getCommentList($b_idx)
     {
         $date_model = new DateModel();
 
         $result = true;
         $message = "목록 불러오기가 완료되었습니다.";
 
-        $rows = $data["rows"];
-        $page = $data["page"];
-        $board_id = $data["board_id"];
-        $search_arr = $data["search_arr"];
-
-        $search_condition = $search_arr["search_condition"];
-        $search_text = $search_arr["search_text"];
-
-        // 오프셋 계산
-        $offset = ($page-1)*$rows;
-        if ($offset < 0) {
-            $offset = 0;
-        }
-
         $db = db_connect();
-        $builder = $db->table("mng_board");
+        $builder = $db->table("mng_board_comment");
         $builder->select("*");
-        $builder->where("board_id", $board_id);
         $builder->where("del_yn", "N");
-
-        if ($search_text != null) {
-            $builder->like($search_condition, $search_text);
-        }
-
-        $builder->orderBy("b_idx", "desc");
-        $builder->limit($rows, $offset);
-        $cnt = $builder->countAllResults(false);
+        $builder->where("b_idx", $b_idx);
+        $builder->orderBy("bc_idx", "desc");
         $list = $builder->get()->getResult();
 
-        $start_row = ($page-1)*$rows;
         foreach($list as $no => $val) {
-            $list[$no]->list_no = $cnt-$start_row-$no;
             $list[$no]->ins_date_txt = $date_model->convertTextToDate($val->ins_date, 1, 1);
+            $list[$no]->comment = str_replace("&#13;&#10;", "<br>", $val->comment);
         }
 
         $proc_result = array();
         $proc_result["result"] = $result;
         $proc_result["message"] = $message;
         $proc_result["list"] = $list;
-        $proc_result["cnt"] = $cnt;
-
-        return $proc_result;
-    }
-
-    public function getBoardInfo($b_idx)
-    {
-        $date_model = new DateModel();
-
-        $result = true;
-        $message = "정상처리";
-
-        $db = db_connect();
-        $builder = $db->table("mng_board");
-        $builder->select("*");
-        $builder->where("del_yn", "N");
-        $builder->where("b_idx", $b_idx);
-        $info = $builder->get()->getRow();
-
-        $info->ins_date_txt = $date_model->convertTextToDate($info->ins_date, 1, 1);
-
-        $proc_result = array();
-        $proc_result["result"] = $result;
-        $proc_result["message"] = $message;
-        $proc_result["info"] = $info;
 
         return $proc_result;
     }
 
     // 게시판 입력
-    public function procBoardInsert($data)
+    public function procCommentInsert($data)
     {
         // 게시판 입력과 관련된 기본 정보
         $user_id = getUserSessionInfo("member_id");
@@ -93,19 +46,15 @@ class BoardModel extends Model
         $result = true;
         $message = "입력이 잘 되었습니다";
 
-        $title = $data["title"];
-        $contents = $data["contents"];
-        $board_id = $data["board_id"];
-        $file_idxs = $data["file_idxs"];
+        $b_idx = $data["b_idx"];
+        $comment = $data["comment"];
 
         try {
             $db = db_connect();
             $db->transStart();
-            $builder = $db->table("mng_board");
-            $builder->set("board_id", $board_id);
-            $builder->set("title", $title);
-            $builder->set("contents", $contents);
-            $builder->set("file_idxs", $file_idxs);
+            $builder = $db->table("mng_board_comment");
+            $builder->set("b_idx", $b_idx);
+            $builder->set("comment", $comment);
             $builder->set("del_yn", "N");
             $builder->set("ins_id", $user_id);
             $builder->set("ins_date", $today);
@@ -128,6 +77,120 @@ class BoardModel extends Model
 
         return $model_result;
     }
+
+    // 댓글 삭제
+    public function procCommentDelete($bc_idx)
+    {
+        // 게시판 입력과 관련된 기본 정보
+        $member_id = getUserSessionInfo("member_id");
+        $today = date("YmdHis");
+
+        $result = true;
+        $message = "입력이 잘 되었습니다";
+
+        try {
+            $db = db_connect();
+            $db->transStart();
+            $builder = $db->table("mng_board_comment");
+            $builder->set("del_yn", "Y");
+            $builder->set("upd_id", $member_id);
+            $builder->set("upd_date", $today);
+            $builder->where("bc_idx", $bc_idx);
+            $result = $builder->update();
+            $db->transComplete();
+        } catch (Throwable $t) {
+            $result = false;
+            $message = "입력에 오류가 발생했습니다.";
+            logMessage($t->getMessage());
+        }
+
+        $model_result = array();
+        $model_result["result"] = $result;
+        $model_result["message"] = $message;
+
+        return $model_result;
+    }
+
+    public function getCommentInfo($bc_idx)
+    {
+        $result = true;
+        $message = "목록 불러오기가 완료되었습니다.";
+
+        $db = db_connect();
+        $builder = $db->table("mng_board_comment");
+        $builder->select("*");
+        $builder->where("del_yn", "N");
+        $builder->where("bc_idx", $bc_idx);
+        $info = $builder->get()->getRow();
+
+        $proc_result = array();
+        $proc_result["result"] = $result;
+        $proc_result["message"] = $message;
+        $proc_result["info"] = $info;
+
+        return $proc_result;
+    }
+
+    // 게시판 입력
+    public function procCommentUpdate($data)
+    {
+        // 게시판 입력과 관련된 기본 정보
+        $user_id = getUserSessionInfo("member_id");
+        $today = date("YmdHis");
+
+        $result = true;
+        $message = "입력이 잘 되었습니다";
+
+        $bc_idx = $data["bc_idx"];
+        $comment = $data["comment"];
+
+        try {
+            $db = db_connect();
+            $db->transStart();
+            $builder = $db->table("mng_board_comment");
+            $builder->set("comment", $comment);
+            $builder->set("upd_id", $user_id);
+            $builder->set("upd_date", $today);
+            $builder->where("bc_idx", $bc_idx);
+            $result = $builder->update();
+            $db->transComplete();
+        } catch (Throwable $t) {
+            $result = false;
+            $message = "입력에 오류가 발생했습니다.";
+            logMessage($t->getMessage());
+            $db->transRollback();
+        }
+
+        $model_result = array();
+        $model_result["result"] = $result;
+        $model_result["message"] = $message;
+
+        return $model_result;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // 게시판 입력
     public function procBoardUpdate($data)
@@ -157,7 +220,6 @@ class BoardModel extends Model
             $builder->set("upd_id", $user_id);
             $builder->set("upd_date", $today);
             $builder->where("b_idx", $b_idx);
-            $builder->where("ins_id", $user_id);
             $result = $builder->update();
             $db->transComplete();
         } catch (Throwable $t) {
@@ -173,38 +235,7 @@ class BoardModel extends Model
         return $model_result;
     }
 
-    // 게시판 삭제
-    public function procBoardDelete($b_idx)
-    {
-        // 게시판 입력과 관련된 기본 정보
-        $member_id = getUserSessionInfo("member_id");
-        $today = date("YmdHis");
 
-        $result = true;
-        $message = "입력이 잘 되었습니다";
-
-        try {
-            $db = db_connect();
-            $db->transStart();
-            $builder = $db->table("mng_board");
-            $builder->set("del_yn", "Y");
-            $builder->set("upd_id", $member_id);
-            $builder->set("upd_date", $today);
-            $builder->where("b_idx", $b_idx);
-            $builder->where("ins_id", $member_id);
-            $result = $builder->update();
-            $db->transComplete();
-        } catch (Throwable $t) {
-            $result = false;
-            $message = "입력에 오류가 발생했습니다.";
-            logMessage($t->getMessage());
-        }
-
-        $model_result = array();
-        $model_result["result"] = $result;
-        $model_result["message"] = $message;
-
-        return $model_result;
-    }
 
 }
+

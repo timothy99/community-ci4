@@ -21,6 +21,14 @@ $routes->get("/member/logout", "Usr\Member::logout");
 $routes->get("/board", "Usr\Board::index");
 $routes->get("/board/(:alpha)/list", "Usr\Board::list");
 $routes->get("/board/(:alpha)/view/(:num)", "Usr\Board::view");
+$routes->get("/board/(:alpha)/write", "Usr\Board::write");
+$routes->get("/board/(:alpha)/edit/(:num)", "Usr\Board::edit");
+$routes->post("/board/(:alpha)/update", "Usr\Board::update");
+$routes->post("/board/(:alpha)/delete/(:num)", "Usr\Board::delete");
+$routes->post("/file/upload", "Usr\File::upload");
+$routes->get("/file/view/(:alphanum)", "Usr\File::view");
+$routes->get("/file/download/(:alphanum)", "Usr\File::download");
+
 
 $routes->get("/csl", "Csl\Dashboard::index");
 $routes->get("/csl/dashboard", "Csl\Dashboard::index");
@@ -50,3 +58,8 @@ $routes->post("/csl/comment/insert", "Csl\Comment::insert");
 $routes->post("/csl/comment/delete/(:num)", "Csl\Comment::delete");
 $routes->post("/csl/comment/edit/(:num)", "Csl\Comment::edit");
 $routes->post("/csl/comment/update", "Csl\Comment::update");
+
+$routes->post("/comment/insert", "Usr\Comment::insert");
+$routes->post("/comment/delete/(:num)", "Usr\Comment::delete");
+$routes->post("/comment/edit/(:num)", "Usr\Comment::edit");
+$routes->post("/comment/update", "Usr\Comment::update");

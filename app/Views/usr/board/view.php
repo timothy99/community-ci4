@@ -23,12 +23,15 @@
                                 </dl>
                             </div>
                         </div>
+<?php   if (getUserSessionInfo("member_id") == $info->ins_id) { ?>
                         <div class="card-footer">
                             <div class="d-flex justify-content-end">
+                                <button type="button" class="btn btn-warning ml-3" id="list" name="list">목록</button>
                                 <button type="button" class="btn btn-danger ml-3" id="delete" name="delete">삭제</button>
                                 <button type="button" class="btn btn-success ml-3" id="edit" name="edit">수정</button>
                             </div>
                         </div>
+<?php   } ?>
                     </div>
                 </div>
             </div>
@@ -42,12 +45,18 @@
                                 <table class="table">
                                     <tbody>
 <?php       foreach($comment_list as $no => $val) { ?>
-<form id="frm_<?=$val->bc_idx ?>" name="frm_<?=$val->bc_idx ?>"><input type="hidden" id="ddd" name="ddd" value="123"></form>
+                                        <form id="frm_<?=$val->bc_idx ?>" name="frm_<?=$val->bc_idx ?>"></form>
+<?php           if (getUserSessionInfo("member_id") == $info->ins_id) { ?>
                                         <tr id="bc_<?=$val->bc_idx ?>">
                                             <td><?=$val->comment ?></td>
                                             <td style="width:70px"><button type="button" class="btn btn-xs btn-danger" id="comment_delete" name="comment_delete" onclick="comment_delete(<?=$val->bc_idx ?>)">삭제</button></td>
                                             <td style="width:70px"><button type="button" class="btn btn-xs btn-success" id="comment_edit" name="comment_edit" onclick="comment_edit(<?=$val->bc_idx ?>)">수정</button></td>
                                         </tr>
+<?php           } else { ?>
+                                        <tr id="bc_<?=$val->bc_idx ?>">
+                                            <td colspan="3"><?=$val->comment ?></td>
+                                        </tr>
+<?php           } ?>
 <?php       } ?>
                                     </tbody>
                                 </table>
@@ -84,26 +93,41 @@
 </div><!-- /.content-wrapper -->
 
 <script>
-    $(window).on("load", function() {
-        // 셀렉트 박스 선택
-        $("#search_condition").val("<?=$search_arr["search_condition"] ?>").prop("selected", true);
-    });
-
     $(function() {
-        $("#search_text").keydown(function(e) {
-            if(e.keyCode == 13) {
-                search();
+        $("#list").click(function(e) {
+            location.href = "/board/<?=$board_id ?>/list";
+        });
+
+        $("#edit").click(function(e) {
+            location.href = "/board/<?=$board_id ?>/edit/<?=$info->b_idx ?>";
+        });
+
+        $("#delete").click(function(e) {
+            if(confirm("글을 삭제하나요? 삭제하면 복구가 불가능합니다.")) {
+                ajax2("/board/<?=$board_id ?>/delete/<?=$info->b_idx ?>");
             }
         });
 
-        $("#search_button").click(function(e) {
-            search();
+        $("#comment_insert").click(function(e) {
+            ajax1("/comment/insert", "insert_frm");
         });
     });
 
-    function search() {
-        var search_text = $("#search_text").val();
-        var search_condition = $("#search_condition").val();
-        location.href = "/board/<?=$board_id ?>/list?page=1&search_text="+search_text+"&search_condition="+search_condition;
+    function comment_edit(bc_idx) {
+        ajax4("/comment/edit/"+bc_idx, "bc_"+bc_idx);
+    }
+
+    function comment_update(bc_idx) {
+        var update_form = new FormData();
+        var comment = $("#comment_"+bc_idx).val();
+        update_form.append("bc_idx", bc_idx);
+        update_form.append("comment", comment);
+        ajax5("/comment/update", update_form);
+    }
+
+    function comment_delete(bc_idx) {
+        if(confirm("댓글을 삭제하나요? 삭제하면 복구가 불가능합니다.")) {
+            ajax2("/comment/delete/"+bc_idx);
+        }
     }
 </script>
