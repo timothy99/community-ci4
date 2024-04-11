@@ -18,7 +18,7 @@ class AuthorityModel extends Model
 
         $segment0 = $segments[0] ?? null;
         $segment1 = $segments[1] ?? null;
-
+        $segment2 = $segments[2] ?? null;
 
         // 관리자 페이지인데, 로그인을 안했다면 로그인 페이지로 보낸다. 
         if ($segment0 == "csl" && $auth_group == "guest") {
@@ -38,6 +38,13 @@ class AuthorityModel extends Model
         $login_arr = array();
         $login_arr[] = "mypage/mypage";
         if (in_array($uri, $login_arr) == true && $auth_group == "guest") {
+            header("Location: /member/login");
+            exit;
+        }
+
+        // 등록수정삭제등에는 로그인이 필요하다.
+        $authority_arr = ["write", "update", "delete", "edit"];
+        if (in_array($segment2, $authority_arr) && $auth_group == "guest") {
             header("Location: /member/login");
             exit;
         }
