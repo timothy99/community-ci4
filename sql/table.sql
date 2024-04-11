@@ -73,6 +73,7 @@ create table mng_file (
 create table mng_member (
     m_idx int not null auto_increment comment '인덱스',
     member_id varchar(64) not null comment '사용자 아이디',
+    member_password varchar(1000) not null comment '암호',
     member_name varchar(60) not null comment '이름',
     member_nickname varchar(60) not null comment '별명',
     email varchar(100) default null comment '이메일',
