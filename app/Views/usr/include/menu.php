@@ -1,27 +1,25 @@
-            <div class="collapse navbar-collapse order-3 justify-content-end" id="navbarCollapse">
-                <!-- Left navbar links -->
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a href="/" class="nav-link">홈</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/board/notice/list" class="nav-link">공지사항</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/board/free/list" class="nav-link">자유게시판</a>
-                    </li>
+                <div class="collapse navbar-collapse order-3 justify-content-end" id="navbarCollapse">
+                    <!-- Left navbar links -->
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a href="/" class="nav-link">홈</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/board/notice/list" class="nav-link">공지사항</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/board/free/list" class="nav-link">자유게시판</a>
+                        </li>
 <?php   if (getUserSessionInfo("auth_group") == "guest") { ?>
-                    <li class="nav-item">
-                        <a href="/member/login" class="nav-link">로그인</a>
-                    </li>
+                        <li class="nav-item">
+                            <a href="/member/login" class="nav-link">로그인</a>
+                        </li>
 <?php   } else { ?>
-                    <li class="nav-item">
-                        <a href="/member/logout" class="nav-link">로그아웃</a>
-                    </li>
+                        <li class="nav-item">
+                            <a href="/member/logout" class="nav-link">로그아웃</a>
+                        </li>
 <?php   } ?>
-                </ul>
+                    </ul>
+                </div>
             </div>
-
-        </div>
-    </nav>
-    <!-- /.navbar -->
+        </nav><!-- /.navbar -->

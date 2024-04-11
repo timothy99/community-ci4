@@ -1,62 +1,83 @@
-        <div class="container">
-            <div class="row mt-3">
-                <div class="col-12">
-                    <div class="card card-primary">
-                        <div class="card-header">
-                            <h3 class="card-title">총 <?=number_format($cnt) ?>건</h3>
-                            <div class="card-tools">
-                                <div class="input-group input-group-sm">
-                                    <select class="form-control" id="search_condition" name="search_condition">
-                                        <option value="title">제목</option>
-                                        <option value="contents">내용</option>
-                                    </select>
-                                    <input type="text" id="search_text" name="search_text" class="form-control float-right ml-3" placeholder="검색어를 입력하세요" value="<?=$search_arr["search_text"] ?>">
-                                    <div class="input-group-append">
-                                        <button type="button" class="btn btn-default" id="search_button" name="search_button">
-                                            <i class="fas fa-search"></i>
-                                        </button>
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <div class="container">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>대시보드</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="/">홈</a></li>
+                                <li class="breadcrumb-item active">대시보드</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div><!-- /.container -->
+            </section>
+
+            <!-- Main content -->
+            <div class="content">
+                <div class="container">
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">총 <?=number_format($cnt) ?>건</h3>
+                                    <div class="card-tools">
+                                        <div class="input-group input-group-sm">
+                                            <select class="form-control" id="search_condition" name="search_condition">
+                                                <option value="title">제목</option>
+                                                <option value="contents">내용</option>
+                                            </select>
+                                            <input type="text" id="search_text" name="search_text" class="form-control float-right ml-3" placeholder="검색어를 입력하세요" value="<?=$search_arr["search_text"] ?>">
+                                            <div class="input-group-append">
+                                                <button type="button" class="btn btn-default" id="search_button" name="search_button">
+                                                    <i class="fas fa-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div><!-- /.card-header -->
-                        <div class="card-body">
-                            <table class="table table-bordered table-hover">
-                                <thead class="text-center">
-                                    <tr>
-                                        <th>#</th>
-                                        <th>제목</th>
-                                        <th>등록일</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                                </div><!-- /.card-header -->
+                                <div class="card-body">
+                                    <table class="table table-bordered table-hover">
+                                        <thead class="text-center">
+                                            <tr>
+                                                <th>#</th>
+                                                <th>제목</th>
+                                                <th>등록일</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
 <?php   foreach ($list as $no => $val) { ?>
-                                    <tr>
-                                        <td class="text-center"><?=$val->list_no ?></td>
-                                        <td><a href="/board/<?=$board_id ?>/view/<?=$val->b_idx ?>"><?=$val->title ?></td>
-                                        <td><?=$val->ins_date_txt ?></td>
-                                    </tr>
+                                            <tr>
+                                                <td class="text-center"><?=$val->list_no ?></td>
+                                                <td><a href="/board/<?=$board_id ?>/view/<?=$val->b_idx ?>"><?=$val->title ?></td>
+                                                <td><?=$val->ins_date_txt ?></td>
+                                            </tr>
 <?php   } ?>
 <?php   if (count($list) == 0) { ?>
-                                    <tr>
-                                        <td colspan="5" class="text-center">데이터가 없습니다</td>
-                                    </tr>
+                                            <tr>
+                                                <td colspan="5" class="text-center">데이터가 없습니다</td>
+                                            </tr>
 <?php   } ?>
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- /.card-body -->
-                        <div class="card-footer clear-fix">
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+                                <div class="card-footer clear-fix">
 <?=$paging_view ?>
 <?php   if ($board_id != "notice") { ?>
-                            <button type="button" class="btn btn-info float-right" id="write" name="write">글쓰기</button>
+                                    <button type="button" class="btn btn-info float-right" id="write" name="write">글쓰기</button>
 <?php   } ?>
+                                </div>
+                            </div>
                         </div>
-                    </div><!-- /.card -->
-                </div>
-            </div>
-        </div><!-- /.container-fluid -->
-    </section><!-- /.content -->
-</div><!-- /.content-wrapper -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div><!-- /.content -->
+        </div><!-- /.content-wrapper -->
 
 <script>
     $(window).on("load", function() {
