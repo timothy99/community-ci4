@@ -59,6 +59,8 @@ create table mng_file (
     file_directory varchar(10) not null comment '저장된 파일의 경로(연/월)',
     file_name_uploaded varchar(1000) not null comment '저장된 파일 전체 경로',
     file_size int not null comment '파일 크기',
+    image_width int not null default 0 comment '가로해상도(이미지)',
+    image_height int not null default 0 comment '세로해상도(이미지)',
     mime_type varchar(200) not null comment '파일 mime type',
     category varchar(100) not null comment '사용자가 지정한 파일 형식',
     del_yn enum('Y', 'N') not null comment '삭제 여부',
