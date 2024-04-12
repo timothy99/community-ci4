@@ -80,6 +80,8 @@ class FileModel extends Model
         $file_directory = $file_info["file_directory"];
         $file_name_uploaded = $file_info["file_name_uploaded"];
         $file_size = $file_info["file_size"];
+        $image_width = $file_info["image_width"];
+        $image_height = $file_info["image_height"];
         $mime_type = $file_info["mime_type"];
         $category = $file_info["category"];
         $file_id = $file_info["file_id"];
@@ -100,6 +102,8 @@ class FileModel extends Model
             $builder->set("file_directory", $file_directory);
             $builder->set("file_name_uploaded", $file_name_uploaded);
             $builder->set("file_size", $file_size);
+            $builder->set("image_width", $image_width);
+            $builder->set("image_height", $image_height);
             $builder->set("mime_type", $mime_type);
             $builder->set("category", $category);
             $builder->set("del_yn", "N");
@@ -155,12 +159,19 @@ class FileModel extends Model
             $image->resize($width, $height, true, $master_dimension);
         }
         $image->save($image_path, $quality); // 이미지를 저장할때 퀄리티 조정은 반드시 한다. CI프레임워크의 기본값은 90
+        $image_width = $image->getWidth();
+        $image_height = $image->getHeight();
 
         // 파일에 대한 저장 용량 얻기
         $file = new \CodeIgniter\Files\File($image_path);
         $file_size = $file->getSize();
 
-        return $file_size;
+        $proc_result = array();
+        $proc_result["file_size"] = $file_size;
+        $proc_result["image_width"] = $image_width;
+        $proc_result["image_height"] = $image_height;
+
+        return $proc_result;
     }
 
     public function getFileInfo($file_id)
@@ -189,8 +200,6 @@ class FileModel extends Model
         } else {
             $file_id = $db_info->file_id;
             $file_name_org = $db_info->file_name_org;
-            $download_html = "<a href=\"/attach/download/".$file_id."\">".$file_name_org."</a>";
-            $db_info->download_html = $download_html;
             $db_info->file_name_org = $file_name_org;
         }
 
@@ -214,6 +223,123 @@ class FileModel extends Model
         }
 
         return $raw_file;
+    }
+
+    public function uploadImage($user_file)
+    {
+        $file_model = new FileModel();
+
+        $limit_size = 10; // 10메가 바이트 업로드 제한 사이즈 메가바이트 단위로 입력
+        $width = 2000; // 가로 해상도 160, 가로 해상도로 0을 입력하면 세로를 기준으로 리사이징을 한다
+        $height = 0; // 세로 해상도에 따라 조정, 세로 해상도로 0을 입력하면 가로를 기준으로 리사이징을 한다
+
+        $proc_result = array();
+
+        $result = true;
+        $message = "파일업로드 시작";
+        $file_id = 0;
+
+        // mimetype이 정상인지 확인한다
+        $mime_type = $user_file->getMimeType();
+        $check_mime_type = $this->checkMimeType($mime_type, "image"); // 이미지 파일용 체크
+        if($check_mime_type == false) {
+            $result = false;
+            $message = "이미지가 아닙니다.";
+        }
+
+        // 허용된 이미지 크기를 넘지 않는지 확인한다.
+        $upload_size = $user_file->getSize();
+        $check_upload_size = $this->checkFileSize($upload_size, $limit_size);
+        if($check_upload_size == false) {
+            $result = false;
+            $message = "이미지가 큽니다";
+        }
+
+        if($result == false) { // 오류발생
+            $file_id = 0;
+            $file_name_org = "error";
+            $image_width = 100;
+        } else {
+            // 이미지를 저장하고 저장된 경로를 반환한다.
+            $file_info = $this->saveFile($user_file);
+            $file_path = $file_info["file_directory"]."/".$file_info["file_name_uploaded"];
+            $model_result = $file_model->resizeImageFile($file_path, $width, $height); // 이미지 리사이즈 하기
+
+            $file_size = $model_result["file_size"];
+            $image_width = $model_result["image_width"];
+            $image_height = $model_result["image_height"];
+
+            // 위에서 구한 파일의 크기와 형식을 저장
+            $file_info["file_size"] = $file_size;
+            $file_info["image_width"] = $image_width;
+            $file_info["image_height"] = $image_height;
+            $file_info["mime_type"] = $mime_type;
+            $file_info["category"] = "image";
+            $model_result = $file_model->insertFileInfo($file_info); // DB에 파일 정보 저장
+            $result = $model_result["result"];
+            $message = $model_result["message"];
+            $file_id = $model_result["file_id"];
+            $file_name_org = $model_result["file_name_org"];
+        }
+
+        if ($image_width > 700) {
+            $html_image_width = 700;
+        } else {
+            $html_image_width = $image_width;
+        }
+
+        $proc_result["result"] = $result;
+        $proc_result["message"] = $message;
+        $proc_result["file_id"] = $file_id;
+        $proc_result["file_name_org"] = $file_name_org;
+        $proc_result["html_image_width"] = $html_image_width;
+
+        return $proc_result;
+    }
+
+    public function uploadFile($user_file)
+    {
+        $result = true;
+        $message = "파일업로드 시작";
+        $file_id = 0;
+        $limit_size = 10; // 10메가 바이트 업로드 제한 사이즈 메가바이트 단위로 입력
+
+        // mimetype이 정상인지 확인한다
+        $mime_type = $user_file->getMimeType();
+
+        // 허용된 이미지 크기를 넘지 않는지 확인한다.
+        $upload_size = $user_file->getSize();
+        $check_file_size = $this->checkFileSize($upload_size, $limit_size);
+        if($check_file_size == false) {
+            $result = false;
+            $message = "파일이 ".$limit_size."MB 보다 큽니다";
+        }
+
+        if($result == false) {
+            $file_id = 0;
+            $file_name_org = "error";
+        } else {
+            // 이미지를 저장하고 저장된 경로를 반환한다.
+            $file_info = $this->saveFile($user_file);
+
+            // 위에서 구한 파일의 크기와 형식을 저장
+            $file_info["file_size"] = $upload_size;
+            $file_info["mime_type"] = $mime_type;
+            $file_info["category"] = "file";
+            $model_result = $this->insertFileInfo($file_info); // DB에 파일 정보 저장
+            $result = $model_result["result"];
+            $message = $model_result["message"];
+            $file_id = $model_result["file_id"];
+            $file_name_org = $model_result["file_name_org"];
+        }
+
+        $proc_result = array();
+        $proc_result["result"] = $result;
+        $proc_result["message"] = $message;
+        $proc_result["file_id"] = $file_id;
+        $proc_result["file_name_org"] = $file_name_org;
+
+        return $proc_result;
     }
 
 }
