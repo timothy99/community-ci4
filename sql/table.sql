@@ -37,7 +37,7 @@ create table mng_board (
     upd_id varchar(70) not null comment '수정자',
     upd_date varchar(14) not null comment '수정일',
     primary key (b_idx),
-    unique key board_id (board_id)
+    key board_id (board_id)
 ) engine=innodb default charset=utf8 comment='게시판';
 
 create table mng_board_comment (
