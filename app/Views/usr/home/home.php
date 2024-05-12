@@ -22,6 +22,32 @@
                 <div class="container">
                     <div class="row mt-3">
                         <div class="col-12">
+                            <div id="carouselExampleCaptions" class="carousel slide carousel-fade" data-ride="carousel">
+                                <div class="carousel-inner">
+<?php   foreach ($slide_list as $no => $val) { ?>
+                                    <div class="carousel-item <?=$val->active_class ?>">
+                                        <img src="/file/view/<?=$val->slide_file ?>" class="d-block w-100" alt="...">
+                                        <div class="carousel-caption d-none d-md-block">
+                                            <h5><?=$val->title ?></h5>
+                                            <p><?=$val->contents ?></p>
+                                        </div>
+                                    </div>
+<?php   } ?>
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-target="#carouselExampleCaptions" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-target="#carouselExampleCaptions" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-12">
                             <div class="card card-primary card-outline">
                                 <div class="card-header">
                                     <h3 class="card-title m-0">최신 공지사항</h3>

@@ -63,3 +63,10 @@ $routes->post("/comment/insert", "Usr\Comment::insert");
 $routes->post("/comment/delete/(:num)", "Usr\Comment::delete");
 $routes->post("/comment/edit/(:num)", "Usr\Comment::edit");
 $routes->post("/comment/update", "Usr\Comment::update");
+
+$routes->get("/csl/slide/list", "Csl\Slide::list");
+$routes->get("/csl/slide/write", "Csl\Slide::write");
+$routes->get("/csl/slide/edit/(:num)", "Csl\Slide::edit");
+$routes->post("/csl/slide/update", "Csl\Slide::update");
+$routes->get("/csl/slide/view/(:num)", "Csl\Slide::view");
+$routes->post("/csl/slide/delete/(:num)", "Csl\Slide::delete");

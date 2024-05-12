@@ -28,6 +28,12 @@
                             <p>회원</p>
                         </a>
                     </li>
+                    <li class="nav-item" id="li-slide-list">
+                        <a href="/csl/slide/list" class="nav-link" id="a-slide-list">
+                            <i class="nav-icon fas fa-solid fa-circle"></i>
+                            <p>슬라이드</p>
+                        </a>
+                    </li>
                     <li class="nav-item" id="li-board-notice-list">
                         <a href="#" class="nav-link" id="upper-board-notice-list">
                             <i class="nav-icon fas fa-solid fa-circle"></i>

@@ -179,14 +179,6 @@ class FileModel extends Model
         $file_id = (string)$file_id;
         $db = db_connect();
         $builder = $db->table("mng_file");
-        $builder->select("file_id");
-        $builder->select("file_name_org");
-        $builder->select("file_directory");
-        $builder->select("file_name_uploaded");
-        $builder->select("file_size");
-        $builder->select("mime_type");
-        $builder->select("category");
-        $builder->select("ins_id");
         $builder->where("file_id", $file_id);
         $builder->where("del_yn", "N");
         $db_info = $builder->get()->getFirstRow(); // 쿼리 실행
