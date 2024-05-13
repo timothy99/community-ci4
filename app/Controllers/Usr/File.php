@@ -19,13 +19,16 @@ class File extends BaseController
         $result = true;
         $message = "파일 업로드를 시작합니다.";
         $file_id = 0;
+        $input_file_id = (string)$this->request->getPost("file_id");
+        $quality = 80; // 이미지 저장시 퀄리티 quality를 지정하지 않아도 80으로 되어 있다.
 
         $proc_result = array();
         $proc_result["result"] = $result;
         $proc_result["message"] = $message;
         $proc_result["file_id"] = $file_id;
+        $proc_result["input_file_id"] = $input_file_id;
 
-        $user_file = $this->request->getFile("attach"); // 올린 파일 정보 갖고 오기
+        $user_file = $this->request->getFile($input_file_id); // 올린 파일 정보 갖고 오기
         if ($user_file == null) {
             $result = false;
             $proc_result["result"] = false;
@@ -37,7 +40,7 @@ class File extends BaseController
             if($is_valid == false) { // 올린 파일이 잘못된 경우
                 throw new \RuntimeException($user_file->getErrorString()."(".$user_file->getError().")"); // 에러를 던진다
             } else { // 파일이 정상인 경우
-                $validation_rule = ["file"=>["label"=>"Image File", "rules"=>"uploaded[attach]|is_image[attach]"]]; // 이미지인지 검증
+                $validation_rule = ["file"=>["label"=>"Image File", "rules"=>"uploaded[".$input_file_id."]|is_image[".$input_file_id."]"]]; // 이미지인지 검증
                 $validation_result = $this->validate($validation_rule);
                 if ($validation_result == false) { // 이미지가 아닌 경우
                     $proc_result = $file_model->uploadFile($user_file); // 파일을 올린다.
@@ -47,7 +50,7 @@ class File extends BaseController
                     $proc_result["file_html"] = "<a href=\"/file/download/".$file_id."\">".$file_name_org."</a>";
                     $proc_result["down_html"] = $proc_result["file_html"];
                 } else { // 이미지 파일인 경우
-                    $proc_result = $file_model->uploadImage($user_file); // 파일을 올린다.
+                    $proc_result = $file_model->uploadImage($user_file, $quality); // 파일을 올린다.
                     $file_id = $proc_result["file_id"];
                     $file_name_org = $proc_result["file_name_org"];
                     $html_image_width = $proc_result["html_image_width"];
