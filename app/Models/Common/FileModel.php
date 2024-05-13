@@ -217,7 +217,7 @@ class FileModel extends Model
         return $raw_file;
     }
 
-    public function uploadImage($user_file)
+    public function uploadImage($user_file, $quality = 80)
     {
         $file_model = new FileModel();
 
@@ -255,7 +255,7 @@ class FileModel extends Model
             // 이미지를 저장하고 저장된 경로를 반환한다.
             $file_info = $this->saveFile($user_file);
             $file_path = $file_info["file_directory"]."/".$file_info["file_name_uploaded"];
-            $model_result = $file_model->resizeImageFile($file_path, $width, $height); // 이미지 리사이즈 하기
+            $model_result = $file_model->resizeImageFile($file_path, $width, $height, $quality); // 이미지 리사이즈 하기
 
             $file_size = $model_result["file_size"];
             $image_width = $model_result["image_width"];

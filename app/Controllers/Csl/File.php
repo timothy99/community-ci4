@@ -20,6 +20,7 @@ class File extends BaseController
         $message = "파일 업로드를 시작합니다.";
         $file_id = 0;
         $input_file_id = (string)$this->request->getPost("file_id");
+        $quality = 80; // 이미지 저장시 퀄리티 quality를 지정하지 않아도 80으로 되어 있다.
 
         $proc_result = array();
         $proc_result["result"] = $result;
@@ -49,7 +50,7 @@ class File extends BaseController
                     $proc_result["file_html"] = "<a href=\"/csl/file/download/".$file_id."\">".$file_name_org."</a>";
                     $proc_result["down_html"] = $proc_result["file_html"];
                 } else { // 이미지 파일인 경우
-                    $proc_result = $file_model->uploadImage($user_file); // 파일을 올린다.
+                    $proc_result = $file_model->uploadImage($user_file, $quality); // 파일을 올린다.
                     $file_id = $proc_result["file_id"];
                     $file_name_org = $proc_result["file_name_org"];
                     $html_image_width = $proc_result["html_image_width"];
