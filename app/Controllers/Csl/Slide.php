@@ -21,7 +21,7 @@ class Slide extends BaseController
         $paging_model = new PagingModel();
         $date_model = new DateModel();
 
-        $rows = 10;
+        $rows = $this->request->getGet("rows") ?? 10;
         $page = $this->request->getGet("page") ?? 1;
         $search_text = $this->request->getGet("search_text", FILTER_SANITIZE_SPECIAL_CHARS) ?? "";
         $search_condition = $this->request->getGet("search_condition", FILTER_SANITIZE_SPECIAL_CHARS) ?? "title";
@@ -30,6 +30,7 @@ class Slide extends BaseController
         $search_arr["search_text"] = $search_text;
         $search_arr["search_condition"] = $search_condition;
         $search_arr["page"] = $page;
+        $search_arr["rows"] = $rows;
         $http_query = http_build_query($search_arr);
 
         $data = array();
@@ -58,7 +59,6 @@ class Slide extends BaseController
         $proc_result["message"] = $message;
         $proc_result["list"] = $list;
         $proc_result["cnt"] = $cnt;
-        $proc_result["page"] = $page;
         $proc_result["paging"] = $paging;
         $proc_result["paging_view"] = $paging_view;
         $proc_result["search_arr"] = $search_arr;

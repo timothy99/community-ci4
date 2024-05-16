@@ -23,10 +23,23 @@
                 <div class="col-md-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">목록</h3>
+                            <h3 class="card-title">총 <?=number_format($cnt) ?> 건</h3>
                             <div class="card-tools">
                                 <div class="input-group input-group-sm">
-                                    <select class="form-control" id="auth_group" name="auth_group">
+                                    목록수
+                                    <select class="form-control ml-3" id="rows" name="rows" onchange="search()">
+                                        <option value="10">10</option>
+                                        <option value="20">20</option>
+                                        <option value="30">30</option>
+                                        <option value="40">40</option>
+                                        <option value="50">50</option>
+                                        <option value="60">60</option>
+                                        <option value="70">70</option>
+                                        <option value="80">80</option>
+                                        <option value="90">90</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                    <select class="form-control ml-3" id="auth_group" name="auth_group">
                                         <option value="">전체</option>
                                         <option value="common">일반</option>
                                         <option value="admin">관리자</option>
@@ -97,6 +110,7 @@
         $("#search_condition").val("<?=$search_arr["search_condition"] ?>").prop("selected", true);
         $("#search_text").val("<?=$search_arr["search_text"] ?>");
         $("#auth_group").val("<?=$search_arr["auth_group"] ?>").prop("selected", true);
+        $("#rows").val("<?=$search_arr["rows"] ?>").prop("selected", true);
     });
 
     $(function() {
@@ -127,7 +141,8 @@
         var search_text = $("#search_text").val();
         var search_condition = $("#search_condition").val();
         var auth_group = $("#auth_group").val();
-        location.href = "/csl/member/list?page=1&auth_group="+auth_group+"&search_text="+search_text+"&search_condition="+search_condition;
+        var rows = $("#rows").val();
+        location.href = "/csl/member/list?page=1&auth_group="+auth_group+"&search_text="+search_text+"&search_condition="+search_condition+"&rows="+rows;
     }
 
     function excel() {

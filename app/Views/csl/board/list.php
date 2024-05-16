@@ -23,18 +23,31 @@
                 <div class="col-md-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">목록</h3>
+                            <h3 class="card-title">총 <?=number_format($cnt) ?> 건</h3>
                             <div class="card-tools">
                                 <div class="input-group input-group-sm">
-                                    <select class="form-control" id="search_condition" name="search_condition">
+                                    목록수
+                                    <select class="form-control ml-3" id="rows" name="rows" onchange="search()">
+                                        <option value="10">10</option>
+                                        <option value="20">20</option>
+                                        <option value="30">30</option>
+                                        <option value="40">40</option>
+                                        <option value="50">50</option>
+                                        <option value="60">60</option>
+                                        <option value="70">70</option>
+                                        <option value="80">80</option>
+                                        <option value="90">90</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                    <select class="form-control ml-3" id="search_condition" name="search_condition">
                                         <option value="title">제목</option>
                                         <option value="contents">내용</option>
                                     </select>
                                     <input type="text" id="search_text" name="search_text" class="form-control float-right ml-2" placeholder="검색">
                                     <div class="input-group-append">
-                                    <button type="button" class="btn btn-default" id="search_button" name="search_button">
-                                        <i class="fas fa-search"></i>
-                                    </button>
+                                        <button type="button" class="btn btn-default" id="search_button" name="search_button">
+                                            <i class="fas fa-search"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -92,6 +105,7 @@
         // 셀렉트 박스 선택
         $("#search_condition").val("<?=$search_arr["search_condition"] ?>").prop("selected", true);
         $("#search_text").val("<?=$search_arr["search_text"] ?>");
+        $("#rows").val("<?=$search_arr["rows"] ?>").prop("selected", true);
     });
 
     $(function() {
@@ -113,6 +127,7 @@
     function search() {
         var search_text = $("#search_text").val();
         var search_condition = $("#search_condition").val();
-        location.href = "/csl/board/<?=$board_id ?>/list?page=1&search_text="+search_text+"&search_condition="+search_condition;
+        var rows = $("#rows").val();
+        location.href = "/csl/board/<?=$board_id ?>/list?page=1&search_text="+search_text+"&search_condition="+search_condition+"&rows="+rows;
     }
 </script>
