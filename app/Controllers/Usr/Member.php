@@ -61,10 +61,19 @@ class Member extends BaseController
             $message = $model_result["message"];
             $member_info = $model_result["member_info"];
 
-            setUserSessionInfo("m_idx", $member_info->m_idx);
-            setUserSessionInfo("member_id", $member_info->member_id);
-            setUserSessionInfo("member_nickname", $member_info->member_nickname);
-            setUserSessionInfo("auth_group", $member_info->auth_group);
+            if (isset($member_info->m_idx) == false) {
+                $result = false;
+                $message = "회원정보가 없거나 아이디 또는 암호가 틀립니다. 회원정보를 확인하세요.";
+                $member_info = (object)array();
+                $auth_group = "guest";
+            } else {
+                setUserSessionInfo("m_idx", $member_info->m_idx);
+                setUserSessionInfo("member_id", $member_info->member_id);
+                setUserSessionInfo("member_nickname", $member_info->member_nickname);
+                setUserSessionInfo("auth_group", $member_info->auth_group);
+
+                $auth_group = $member_info->auth_group;
+            }
 
             $auth_group = getUserSessionInfo("auth_group");
             if ($auth_group == "admin") {
