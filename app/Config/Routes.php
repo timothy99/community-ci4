@@ -29,7 +29,6 @@ $routes->post("/file/upload", "Usr\File::upload");
 $routes->get("/file/view/(:alphanum)", "Usr\File::view");
 $routes->get("/file/download/(:alphanum)", "Usr\File::download");
 
-
 $routes->get("/csl", "Csl\Dashboard::index");
 $routes->get("/csl/dashboard", "Csl\Dashboard::index");
 $routes->get("/csl/dashboard/main", "Csl\Dashboard::main");
@@ -70,3 +69,5 @@ $routes->get("/csl/slide/edit/(:num)", "Csl\Slide::edit");
 $routes->post("/csl/slide/update", "Csl\Slide::update");
 $routes->get("/csl/slide/view/(:num)", "Csl\Slide::view");
 $routes->post("/csl/slide/delete/(:num)", "Csl\Slide::delete");
+
+$routes->post("/mail/send", "Usr\Mail::send");
