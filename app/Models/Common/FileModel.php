@@ -129,12 +129,16 @@ class FileModel extends Model
     }
 
     // 이미지 파일 리사이즈
-    public function resizeImageFile($file_path, $width, $height, $quality = 80)
+    public function resizeImageFile($file_path, $width, $height, $quality = 80, $mime_type = "image/jpg")
     {
         $image_path = UPLOADPATH.$file_path;
         $image = \Config\Services::image();
         $image->withFile($image_path); // 어느 이미지 수정할지 결정
-        $image->convert(IMAGETYPE_JPEG); // 모든 이미지를 jpg로 변경해서 이미지에 대해서는 퀄리티를 조정할수 있게 한다.
+        if ($mime_type == "image/png") {
+            $image->convert(IMAGETYPE_PNG); // png일 경우 투명이미지가 있을수 있으니 따로 리사이징해 저장
+        } else {
+            $image->convert(IMAGETYPE_JPEG); // 그 외 이미지는 모두 jpg로 가공한다.
+        }
 
         // 이미지의 가로세로 해상도를 구해서 0보다 크지만 지정된 이미지 크기보다 큰 경우 최대 해상도로 고정
         $image_width = $image->getWidth();
@@ -255,7 +259,7 @@ class FileModel extends Model
             // 이미지를 저장하고 저장된 경로를 반환한다.
             $file_info = $this->saveFile($user_file);
             $file_path = $file_info["file_directory"]."/".$file_info["file_name_uploaded"];
-            $model_result = $file_model->resizeImageFile($file_path, $width, $height, $quality); // 이미지 리사이즈 하기
+            $model_result = $file_model->resizeImageFile($file_path, $width, $height, $quality, $mime_type); // 이미지 리사이즈 하기
 
             $file_size = $model_result["file_size"];
             $image_width = $model_result["image_width"];
