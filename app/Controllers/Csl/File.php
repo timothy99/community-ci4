@@ -14,6 +14,8 @@ class File extends BaseController
 
     public function upload()
     {
+        ini_set("memory_limit", "256M");
+
         $file_model = new FileModel();
 
         $result = true;
