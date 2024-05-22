@@ -87,3 +87,10 @@ $routes->get("/csl/bulk/view/(:num)", "Csl\Bulk::view");  // 상세 목록의 �
 $routes->get("/csl/bulk/edit/(:num)", "Csl\Bulk::edit"); // 데이터 수정
 $routes->post("/csl/bulk/update", "Csl\Bulk::update"); // 수정 로직
 $routes->post("/csl/bulk/delete/(:num)/(:num)", "Csl\Bulk::delete"); // 삭제 로직
+
+$routes->get("/csl/menu/list", "Csl\Menu::list");
+$routes->get("/csl/menu/write/(:num)", "Csl\Menu::write");
+$routes->get("/csl/menu/edit/(:num)", "Csl\Menu::edit");
+$routes->post("/csl/menu/update", "Csl\Menu::update");
+$routes->get("/csl/menu/view/(:num)", "Csl\Menu::view");
+$routes->post("/csl/menu/delete/(:num)", "Csl\Menu::delete");
