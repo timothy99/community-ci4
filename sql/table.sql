@@ -149,3 +149,20 @@ create table mng_contents (
     upd_date varchar(14) not null comment '수정일'
 ) comment '콘텐츠';
 
+create table mng_menu (
+    m_idx int not null auto_increment comment '인덱스',
+    upper_idx int not null default 0 comment '상위 인덱스',
+    idx1 int not null default 0 comment '인덱스1',
+    idx2 int not null default 0 comment '인덱스2',
+    idx3 int not null default 0 comment '인덱스3',
+    order_no int not null default 0 comment '정렬순서',
+    menu_position int not null default 0 comment '메뉴 위치',
+    http_link varchar(4000) null comment '외부 링크',
+    del_yn enum('Y', 'N') not null comment '삭제 여부',
+    ins_id varchar(70) default null comment '등록자',
+    ins_date varchar(14) not null comment '등록일',
+    upd_id varchar(70) default null comment '수정자',
+    upd_date varchar(14) not null comment '수정일',
+    primary key (m_idx),
+    key idx1 (idx1, idx2, idx3)
+) engine=InnoDB default charset=utf8 comment='메뉴';
