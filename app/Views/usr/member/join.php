@@ -151,4 +151,14 @@
             location.href="/";
         });
     });
+
+    // 우편번호 검색된 결과값으로 페이지에 맞는 데이터 넣기
+    function postcode_after(data) {
+        // 우편번호와 주소 정보를 해당 필드에 넣는다.
+        document.getElementById("post_code").value = data.zonecode;
+        document.getElementById("addr1").value = data.addr1;
+        document.getElementById("addr2").value = data.addr2;
+        // 커서를 상세주소 필드로 이동한다.
+        document.getElementById("addr2").focus();
+    }
 </script>
