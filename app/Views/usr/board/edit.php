@@ -7,7 +7,7 @@
             <input type="hidden" id="summer_code" name="summer_code">
             <ul id="ul_file_list" name="ul_file_list" style="display:none">
 <?php   foreach($file_list as $no => $val) { ?>
-                <li id="<?=$val->file_id ?>">
+                <li id="ul_<?=$val->file_id ?>">
                     <input type="hidden" id="file_list" name="file_list[]" value="<?=$val->file_id ?>">
                 </li>
 <?php   } ?>
@@ -63,12 +63,15 @@
                                             <div class="col-sm-5">
                                                 <ul class="list-unstyled" id="visible_file_list">
 <?php   foreach($file_list as $no1 => $val1) { ?>
-                                                    <li id="<?=$val1->file_id ?>">
-                                                        <a href="/usr/attach/download/<?=$val1->file_id ?>"><?=$val1->file_name_org ?></a>
-                                                        &nbsp;&nbsp;&nbsp;
-                                                        <a id="<?=$val1->file_id ?>" href="javascript:void(0)" onclick="file_delete('<?=$val1->file_id ?>')">
-                                                            삭제
+                                                    <li id="visible_<?=$val1->file_id ?>">
+                                                        <a href="/csl/file/download/<?=$val1->file_id ?>">
+                                                            <?=$val1->file_name_org ?>
                                                         </a>
+                                                        <span class="ml-3">
+                                                            <button type="button" id="<?=$val1->file_id ?>" class="btn btn-danger btn-xs" onclick="file_delete('<?=$val1->file_id ?>')">
+                                                                삭제
+                                                            </button>
+                                                        </span>
                                                     </li>
 <?php   } ?>
                                                 </ul>
@@ -113,4 +116,12 @@
             history.go(-1);
         });
     });
+
+    function upload_after(proc_result) {
+        var file_id = proc_result.file_id;
+        var file_name_org = proc_result.file_name_org;
+
+        $("#ul_file_list").append("<li id='ul_"+file_id+"'><input type='hidden' id='file_list' name='file_list[]' value='"+file_id+"'></li>");
+        $("#visible_file_list").append("<li id='visible_"+file_id+"'><a href='/csl/file/download/"+file_id+"'>"+file_name_org+"</a><span class='ml-3'><button type='button' id='"+file_id+"' class='btn btn-danger btn-xs' onclick='file_delete(\""+file_id+"\")'>삭제</button></span></li>");
+    }
 </script>

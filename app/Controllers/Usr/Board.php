@@ -239,7 +239,7 @@ class Board extends BaseController
         $proc_result["info"] = $info;
         $proc_result["file_list"] = $file_list;
 
-        return aview("usr/board/edit", $proc_result);
+        return uview("usr/board/edit", $proc_result);
     }
 
 }

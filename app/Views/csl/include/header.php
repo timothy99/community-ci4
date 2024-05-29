@@ -14,7 +14,7 @@
     <script src="/resource/csl/js/adminlte.min.js?ver=<?=env("app.jsVer") ?>"></script><!-- AdminLTE App -->
 
     <!-- User js-->
-    <script src="/resource/csl/js/common.js?ver=<?=env("app.jsVer") ?>"></script>
+    <script src="/resource/csl/js/community.js?ver=<?=env("app.jsVer") ?>"></script>
     <script src="/resource/csl/js/postcode.js?ver=<?=env("app.jsVer") ?>"></script>
 
     <!-- InputMask -->

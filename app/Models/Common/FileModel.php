@@ -69,22 +69,23 @@ class FileModel extends Model
         $file_info["file_directory"] = $upload_date_path;
         $file_info["file_name_uploaded"] = $random_name;
         $file_info["file_id"] = $file_id;
+        $file_info["file_path"] = $file_id;
 
         return $file_info;
     }
 
     // 파일 정보 DB에 저장
-    public function insertFileInfo($file_info)
+    public function insertFileInfo($data)
     {
-        $file_name_org = $file_info["file_name_org"];
-        $file_directory = $file_info["file_directory"];
-        $file_name_uploaded = $file_info["file_name_uploaded"];
-        $file_size = $file_info["file_size"];
-        $image_width = $file_info["image_width"];
-        $image_height = $file_info["image_height"];
-        $mime_type = $file_info["mime_type"];
-        $category = $file_info["category"];
-        $file_id = $file_info["file_id"];
+        $file_name_org = $data["file_name_org"];
+        $file_directory = $data["file_directory"];
+        $file_name_uploaded = $data["file_name_uploaded"];
+        $file_size = $data["file_size"];
+        $image_width = $data["image_width"];
+        $image_height = $data["image_height"];
+        $mime_type = $data["mime_type"];
+        $category = $data["category"];
+        $file_id = $data["file_id"];
 
         $member_id = getUserSessionInfo("member_id"); // 세션의 정보중 아이디를 갖고 옵니다.
 
@@ -129,8 +130,15 @@ class FileModel extends Model
     }
 
     // 이미지 파일 리사이즈
-    public function resizeImageFile($file_path, $width, $height, $quality = 80, $mime_type = "image/jpg")
+    public function resizeImageFile($data)
     {
+
+        $file_path = $data["file_path"];
+        $mime_type = $data["mime_type"];
+        $width = $data["resize_width"];
+        $height = $data["resize_height"];
+        $quality = $data["quality"];
+
         $image_path = UPLOADPATH.$file_path;
         $image = \Config\Services::image();
         $image->withFile($image_path); // 어느 이미지 수정할지 결정
@@ -221,87 +229,17 @@ class FileModel extends Model
         return $raw_file;
     }
 
-    public function uploadImage($user_file, $quality = 80)
-    {
-        $file_model = new FileModel();
-
-        $limit_size = 10; // 10메가 바이트 업로드 제한 사이즈 메가바이트 단위로 입력
-        $width = 2000; // 가로 해상도 160, 가로 해상도로 0을 입력하면 세로를 기준으로 리사이징을 한다
-        $height = 0; // 세로 해상도에 따라 조정, 세로 해상도로 0을 입력하면 가로를 기준으로 리사이징을 한다
-
-        $proc_result = array();
-
-        $result = true;
-        $message = "파일업로드 시작";
-        $file_id = 0;
-
-        // mimetype이 정상인지 확인한다
-        $mime_type = $user_file->getMimeType();
-        $check_mime_type = $this->checkMimeType($mime_type, "image"); // 이미지 파일용 체크
-        if($check_mime_type == false) {
-            $result = false;
-            $message = "이미지가 아닙니다.";
-        }
-
-        // 허용된 이미지 크기를 넘지 않는지 확인한다.
-        $upload_size = $user_file->getSize();
-        $check_upload_size = $this->checkFileSize($upload_size, $limit_size);
-        if($check_upload_size == false) {
-            $result = false;
-            $message = "이미지가 큽니다";
-        }
-
-        if($result == false) { // 오류발생
-            $file_id = 0;
-            $file_name_org = "error";
-            $image_width = 100;
-        } else {
-            // 이미지를 저장하고 저장된 경로를 반환한다.
-            $file_info = $this->saveFile($user_file);
-            $file_path = $file_info["file_directory"]."/".$file_info["file_name_uploaded"];
-            $model_result = $file_model->resizeImageFile($file_path, $width, $height, $quality, $mime_type); // 이미지 리사이즈 하기
-
-            $file_size = $model_result["file_size"];
-            $image_width = $model_result["image_width"];
-            $image_height = $model_result["image_height"];
-
-            // 위에서 구한 파일의 크기와 형식을 저장
-            $file_info["file_size"] = $file_size;
-            $file_info["image_width"] = $image_width;
-            $file_info["image_height"] = $image_height;
-            $file_info["mime_type"] = $mime_type;
-            $file_info["category"] = "image";
-            $model_result = $file_model->insertFileInfo($file_info); // DB에 파일 정보 저장
-            $result = $model_result["result"];
-            $message = $model_result["message"];
-            $file_id = $model_result["file_id"];
-            $file_name_org = $model_result["file_name_org"];
-        }
-
-        if ($image_width > 700) {
-            $html_image_width = 700;
-        } else {
-            $html_image_width = $image_width;
-        }
-
-        $proc_result["result"] = $result;
-        $proc_result["message"] = $message;
-        $proc_result["file_id"] = $file_id;
-        $proc_result["file_name_org"] = $file_name_org;
-        $proc_result["html_image_width"] = $html_image_width;
-
-        return $proc_result;
-    }
-
-    public function uploadFile($user_file)
+    public function uploadFile($data)
     {
         $result = true;
         $message = "파일업로드 시작";
         $file_id = 0;
-        $limit_size = 10; // 10메가 바이트 업로드 제한 사이즈 메가바이트 단위로 입력
+        $limit_size = $data["limit_size"];
+        $user_file = $data["user_file"];
+        $category = $data["category"];
 
-        // mimetype이 정상인지 확인한다
-        $mime_type = $user_file->getMimeType();
+        $mime_type = $user_file->getMimeType(); // mimetype이 정상인지 확인한다
+        $data["mime_type"] = $mime_type;
 
         // 허용된 이미지 크기를 넘지 않는지 확인한다.
         $upload_size = $user_file->getSize();
@@ -311,18 +249,33 @@ class FileModel extends Model
             $message = "파일이 ".$limit_size."MB 보다 큽니다";
         }
 
+        $data["upload_size"] = $upload_size;
+        $data["file_size"] = $check_file_size;
         if($result == false) {
-            $file_id = 0;
             $file_name_org = "error";
         } else {
-            // 이미지를 저장하고 저장된 경로를 반환한다.
-            $file_info = $this->saveFile($user_file);
+            $file_info = $this->saveFile($user_file); // 파일을 저장하고 저장된 경로를 반환한다.
+            $data["file_name_org"] = $file_info["file_name_org"];
+            $data["file_directory"] = $file_info["file_directory"];
+            $data["file_name_uploaded"] = $file_info["file_name_uploaded"];
+            $data["file_id"] = $file_info["file_id"];
+            $file_path = $file_info["file_directory"]."/".$file_info["file_name_uploaded"];
+            $data["file_path"] = $file_path;
+            
 
-            // 위에서 구한 파일의 크기와 형식을 저장
-            $file_info["file_size"] = $upload_size;
-            $file_info["mime_type"] = $mime_type;
-            $file_info["category"] = "file";
-            $model_result = $this->insertFileInfo($file_info); // DB에 파일 정보 저장
+            // 이미지인 경우 리사이징 처리
+            if ($category == "image") {
+                $model_result = $this->resizeImageFile($data);
+                $data["file_size"] = $model_result["file_size"];
+                $data["image_width"] = $model_result["image_width"];
+                $data["image_height"] = $model_result["image_height"];
+            } else {
+                $data["image_width"] = 0;
+                $data["image_height"] = 0;
+            }
+
+            $model_result = $this->insertFileInfo($data); // DB에 파일 정보 저장
+
             $result = $model_result["result"];
             $message = $model_result["message"];
             $file_id = $model_result["file_id"];
@@ -334,6 +287,7 @@ class FileModel extends Model
         $proc_result["message"] = $message;
         $proc_result["file_id"] = $file_id;
         $proc_result["file_name_org"] = $file_name_org;
+        $proc_result["input_file_id"] = $data["input_file_id"];
 
         return $proc_result;
     }
