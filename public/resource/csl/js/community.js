@@ -105,56 +105,24 @@ function upload(file_id) {
     $.ajax({
         data : form_data,
         type : "POST",
-        url : "/file/upload",
+        url : "/csl/file/upload",
         dataType: "json",
         processData : false,
         contentType : false,
         success : function(proc_result) {
-            var result = proc_result.result;
-            var message = proc_result.message;
-            var file_id = proc_result.file_id;
-            var down_html = proc_result.down_html;
-            if (result == false) {
-                alert(message);
+            if (proc_result.result == false) {
+                alert(proc_result.message);
             } else {
-                $("#ul_file_list").append("<li id='"+file_id+"'><input type='hidden' id='file_list' name='file_list[]' value='"+file_id+"'></li>");
-                $("#visible_file_list").append("<li id='"+file_id+"'>"+down_html+"&nbsp;&nbsp;&nbsp; <a id='"+file_id+"' href='javascript:void(0)' onclick='file_delete(\""+file_id+"\")'>삭제</a></li>");
-            }
-        }
-    });
-}
-
-// 1개의 파일첨부 로직
-function upload2(file_id) {
-    var form_data = new FormData($("#frm")[0]);
-    form_data.append("file_id", file_id);
-    $.ajax({
-        data : form_data,
-        type : "POST",
-        url : "/file/upload",
-        dataType: "json",
-        processData : false,
-        contentType : false,
-        success : function(proc_result) {
-            var result = proc_result.result;
-            var message = proc_result.message;
-            var file_id = proc_result.file_id;
-            var input_file_id = proc_result.input_file_id;
-            var down_html = proc_result.down_html;
-            if (result == false) {
-                alert(message);
-            } else {
-                $("#"+input_file_id+"_hidden").val(file_id);
-                $("#"+input_file_id+"_visible").html("<li id='"+file_id+"'>"+down_html+"&nbsp;&nbsp;&nbsp; <a id='"+file_id+"' href='javascript:void(0)' onclick='file_delete(\""+file_id+"\")'>삭제</a></li>");
+                upload_after(proc_result);
             }
         }
     });
 }
 
 // 첨부파일 삭제(화면에서만)
-function file_delete(file_id)
-{
+function file_delete(file_id) {
     $("#"+file_id).remove();
+    $("input[value='"+file_id+"']").val("");
 }
 
 // base64decode
