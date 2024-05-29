@@ -8,7 +8,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">홈</a></li>
+                        <li class="breadcrumb-item"><a href="/">홈</a></li>
                         <li class="breadcrumb-item active">슬라이드</li>
                     </ol>
                 </div>
