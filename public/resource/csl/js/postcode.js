@@ -5,7 +5,7 @@ function postcode_close() {
 }
 
 function postcode_open() {
-    var element_wrap = document.getElementById("wrap");
+    var element_wrap = document.getElementById("wrap"); // 우편번호 찾기 찾기 화면을 넣을 element
     // 현재 scroll 위치를 저장해놓는다.
     var currentScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);
     new daum.Postcode({
@@ -40,17 +40,14 @@ function postcode_open() {
                     extraAddr = " (" + extraAddr + ")";
                 }
                 // 조합된 참고항목을 해당 필드에 넣는다.
-                document.getElementById("addr2").value = extraAddr;
+                data.addr1 = addr;
+                data.addr2 = extraAddr;
             
             } else {
-                document.getElementById("addr2").value = "";
+                data.addr2 = "";
             }
 
-            // 우편번호와 주소 정보를 해당 필드에 넣는다.
-            document.getElementById("post_code").value = data.zonecode;
-            document.getElementById("addr1").value = addr;
-            // 커서를 상세주소 필드로 이동한다.
-            document.getElementById("addr2").focus();
+            postcode_after(data); // 해당페이지의 우편번호 결과값 반영 함수를 호출한다.
 
             // iframe을 넣은 element를 안보이게 한다.
             // (autoClose:false 기능을 이용한다면, 아래 코드를 제거해야 화면에서 사라지지 않는다.)

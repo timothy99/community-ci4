@@ -4,12 +4,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>게시판</h1>
+                    <h1>회원</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">홈</a></li>
-                        <li class="breadcrumb-item active">게시판</li>
+                        <li class="breadcrumb-item"><a href="/">홈</a></li>
+                        <li class="breadcrumb-item active">회원</li>
                     </ol>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                 <div class="col-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title"><?=$info->member_id ?></h3>
+                            <h3 class="card-title">회원정보 보기</h3>
                         </div><!-- /.card-header -->
                         <div class="card-body">
                             <table class="table table-bordered table-hover table-striped">
