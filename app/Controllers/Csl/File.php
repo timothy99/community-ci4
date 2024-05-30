@@ -54,6 +54,7 @@ class File extends BaseController
                 $proc_result = $file_model->uploadFile($data); // 파일을 올린다.
             }
         }
+        $proc_result["category"] = $data["category"]; // 서머노트 html 생성 때문에 카테고리를 반환해준다.
 
         return json_encode($proc_result);
     }
