@@ -252,7 +252,7 @@ class FileModel extends Model
         }
 
         $data["upload_size"] = $upload_size;
-        $data["file_size"] = $check_file_size;
+        $data["file_size"] = $upload_size;
         if($result == false) {
             $file_name_org = "error";
         } else {
