@@ -27,7 +27,6 @@ class SlideModel extends Model
 
         $db = db_connect();
         $builder = $db->table("mng_slide");
-        $builder->select("*");
         $builder->where("del_yn", "N");
         if ($search_text != null) {
             $builder->like($search_condition, $search_text);

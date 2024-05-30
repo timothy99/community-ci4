@@ -174,7 +174,6 @@ class MemberModel extends Model
         $db = db_connect();
 
         $builder = $db->table("mng_member");
-        $builder->select("*");
         $builder->where("del_yn", "N");
         $builder->where("member_id", $member_id);
         $builder->where("member_password", $member_password_enc);

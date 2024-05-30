@@ -28,7 +28,6 @@ class BoardModel extends Model
 
         $db = db_connect();
         $builder = $db->table("mng_board");
-        $builder->select("*");
         $builder->where("del_yn", "N");
         if ($search_text != null) {
             $builder->like($search_condition, $search_text);
@@ -55,7 +54,6 @@ class BoardModel extends Model
 
         $db = db_connect();
         $builder = $db->table("mng_board");
-        $builder->select("*");
         $builder->where("del_yn", "N");
         $builder->where("b_idx", $b_idx);
         $info = $builder->get()->getRow();

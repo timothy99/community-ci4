@@ -17,7 +17,6 @@ class CommentModel extends Model
 
         $db = db_connect();
         $builder = $db->table("mng_board_comment");
-        $builder->select("*");
         $builder->where("del_yn", "N");
         $builder->where("b_idx", $b_idx);
         $builder->orderBy("bc_idx", "desc");
@@ -118,7 +117,6 @@ class CommentModel extends Model
 
         $db = db_connect();
         $builder = $db->table("mng_board_comment");
-        $builder->select("*");
         $builder->where("del_yn", "N");
         $builder->where("bc_idx", $bc_idx);
         $info = $builder->get()->getRow();
