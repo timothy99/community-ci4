@@ -65,11 +65,22 @@ Events::on("post_controller_constructor", function () {
     getUserSession() ?? setBaseSession(); // 사용자 세션이 없다면 기본 세션 생성
 
     $previous_url = previous_url();
-    if (strpos($previous_url, "/member/login") == 0) { // 이전페이지가 로그인 페이지면 입력하지 않는다.
+    $current_url = current_url();
+    $url_save_yn = true;
+
+    if (strpos($previous_url, "/member/login") > 0) { // 이전페이지가 로그인 페이지면 입력하지 않는다.
+        $url_save_yn = false;
+    }
+
+    if ($previous_url == $current_url) {
+        $url_save_yn = false;
+    }
+
+    if ($url_save_yn == true) {
         setUserSessionInfo("previous_url", $previous_url); // 이전 url
     }
 
-    setUserSessionInfo("current_url", current_url()); // 현재 사용자가 보고 있는 화면 url
+    setUserSessionInfo("current_url", $current_url); // 현재 사용자가 보고 있는 화면 url
 
     $request = \Config\Services::request();
     $segments = $request->getUri()->getSegments(); // segments 확인
