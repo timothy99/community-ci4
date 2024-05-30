@@ -196,6 +196,7 @@ class FileModel extends Model
         $builder->where("file_id", $file_id);
         $builder->where("del_yn", "N");
         $db_info = $builder->get()->getFirstRow(); // 쿼리 실행
+        $db_info->file_path = UPLOADPATH.$db_info->file_directory."/".$db_info->file_name_uploaded;
 
         if($db_info == null) {
             $db_info = new stdClass;

@@ -66,8 +66,7 @@ class File extends BaseController
         $file_id = $this->request->getUri()->getSegment(3);
 
         $file_info = $file_model->getFileInfo($file_id); // 파일소유권 확인 및 파일 정보 확인
-        $file_path = $file_model->getFilePath($file_info->file_directory, $file_info->file_name_uploaded); // 파일 업로드 경로 확보
-        $raw_file = $file_model->getRawFile($this->response, $file_path); // 파일 다운로드
+        $raw_file = $file_model->getRawFile($this->response, $file_info->file_path); // 파일 다운로드
 
         return $raw_file;
     }
@@ -77,11 +76,10 @@ class File extends BaseController
     {
         $file_model = new FileModel();
 
-        $file_id = $this->request->getUri()->getSegment(4);
+        $file_id = $this->request->getUri()->getSegment(3);
 
         $file_info = $file_model->getFileInfo($file_id); // 파일소유권 확인 및 파일 정보 확인
-        $file_path = $file_model->getFilePath($file_info->file_directory, $file_info->file_name_uploaded); // 파일 업로드 경로 확보
-        $file_download = $this->response->download($file_path, null)->setFileName($file_info->file_name_org); // 파일 다운로드
+        $file_download = $this->response->download($file_info->file_path, null)->setFileName($file_info->file_name_org); // 파일 다운로드
 
         return $file_download;
     }

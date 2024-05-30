@@ -71,3 +71,12 @@ $routes->get("/csl/slide/view/(:num)", "Csl\Slide::view");
 $routes->post("/csl/slide/delete/(:num)", "Csl\Slide::delete");
 
 $routes->post("/mail/send", "Usr\Mail::send");
+
+$routes->get("/csl/bulk/list", "Csl\Bulk::list"); // 벌크로 작업올린 목록
+$routes->get("/csl/bulk/excel/write", "Csl\Bulk::excelWrite"); // 벌크 작업 올리기
+$routes->post("/csl/bulk/excel/upload", "Csl\Bulk::excelUpload"); // 벌크 작업 저장 로직
+$routes->get("/csl/bulk/detail/(:num)", "Csl\Bulk::detail"); // 벌크로 올린 작업의 상세 목록
+$routes->get("/csl/bulk/view/(:num)", "Csl\Bulk::view");  // 상세 목록의 세부 정보 보기
+$routes->get("/csl/bulk/edit/(:num)", "Csl\Bulk::edit"); // 데이터 수정
+$routes->post("/csl/bulk/update", "Csl\Bulk::update"); // 수정 로직
+$routes->post("/csl/bulk/delete/(:num)/(:num)", "Csl\Bulk::delete"); // 삭제 로직

@@ -105,3 +105,35 @@ create table mng_member (
     primary key (m_idx),
     unique key mem_usr_id (member_id)
 ) engine=InnoDB default charset=utf8 comment='회원정보';
+
+create table mng_bulk
+(
+    b_idx int auto_increment comment '대량작업 인덱스' primary key,
+    title varchar(1000) not null comment '제목',
+    bulk_file varchar(32) null comment '대량작업 파일',
+    del_yn enum ('Y', 'N') default 'N' not null comment '삭제 여부',
+    ins_id varchar(70) not null comment '등록자',
+    ins_date varchar(14) not null comment '등록일',
+    upd_id varchar(70) not null comment '수정자',
+    upd_date varchar(14) not null comment '수정일'
+) comment '대량입력 메타';
+
+create table mng_bulk_detail
+(
+    bd_idx int auto_increment comment '대량작업 상세 인덱스' primary key,
+    b_idx int not null comment '대량작업 인덱스',
+    member_name varchar(60) not null comment '이름',
+    email varchar(100) default null comment '이메일',
+    phone varchar(13) default null comment '휴대전화 번호',
+    gender varchar(1) default null comment '성별',
+    post_code varchar(5) default null comment '우편번호',
+    addr1 varchar(200) default null comment '주소1',
+    addr2 varchar(200) default null comment '주소2',
+    del_yn enum ('Y', 'N') default 'N' not null comment '삭제 여부',
+    ins_id varchar(70) not null comment '등록자',
+    ins_date varchar(14) not null comment '등록일',
+    upd_id varchar(70) not null comment '수정자',
+    upd_date varchar(14) not null comment '수정일'
+) comment '대량입력 상세정보';
+
+create index mng_bulk_detail_b_idx_index on mng_bulk_detail (b_idx);
