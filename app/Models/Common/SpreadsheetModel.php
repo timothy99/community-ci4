@@ -32,7 +32,13 @@ class SpreadsheetModel extends Model
             $row_position = $no1+2;
             foreach($val1 as $no2 => $val2) {
                 $column_position = $column_array[$no2];
-                $sheet->setCellValue($column_position.$row_position, $val2);
+
+                // 제일 첫 자리가 0으로 시작하고 1자리 이상인경우 텍스트로 변경하여 저장. 한자리의 0이면 숫자 0이므로 제외
+                if (substr($val2, 0, 1) == "0" && strlen($val2) > 1) {
+                    $sheet->setCellValueExplicit($column_position.$row_position, $val2, \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+                } else {
+                    $sheet->setCellValue($column_position.$row_position, $val2);
+                }
             }
         }
 
