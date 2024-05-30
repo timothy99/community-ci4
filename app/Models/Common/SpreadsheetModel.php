@@ -4,7 +4,9 @@ namespace App\Models\Common;
 
 use CodeIgniter\Model;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
+use PhpOffice\PhpSpreadsheet\Reader\Xls as XlsReader;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
 
 class SpreadsheetModel extends Model
 {
@@ -42,13 +44,51 @@ class SpreadsheetModel extends Model
             }
         }
 
-        $write = new Xlsx($spreadsheet);
+        $write = new XlsxWriter($spreadsheet);
         ob_end_clean();
         header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         header("Content-Disposition: attachment; filename=".$filename);
         header("Cache-Control: max-age=0");
         $write->save("php://output");
         exit;
+    }
+
+    public function procExcelRead($file_info)
+    {
+        $result = false;
+        $message = "엑셀파일을 올려주세요.";
+
+        $file_ext = $file_info->file_ext;
+        if ($file_ext == "xls") {
+            $reader = new XlsReader();
+        } elseif ($file_ext == "xlsx") {
+            $reader = new XlsxReader();
+        } else {
+            $result = false;
+            $message = "엑셀파일을 올려주세요.";
+        }
+
+        $reader->setReadDataOnly(true);
+        $spreadsheet = $reader->load($file_info->file_path);
+        $spreadsheet_data = $spreadsheet->getSheet(0)->toArray(null, true, true, true);
+
+        $list = array();
+        foreach ($spreadsheet_data as $no => $val) {
+            if ($no > 1) {
+                $info = (object)array();
+                foreach($val as $no2 => $val2) {
+                    $info->$no2 = $val2;
+                }
+                $list[] = $info;
+            }
+        }
+
+        $proc_result = array();
+        $proc_result["result"] = $result;
+        $proc_result["message"] = $message;
+        $proc_result["list"] = $list;
+
+        return $proc_result;
     }
 
 }
