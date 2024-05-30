@@ -43,9 +43,15 @@ require rtrim($paths->systemDirectory, '\\/ ') . DIRECTORY_SEPARATOR . 'bootstra
 require_once SYSTEMPATH . 'Config/DotEnv.php';
 (new CodeIgniter\Config\DotEnv(ROOTPATH))->load();
 
-// Define ENVIRONMENT
+// Define ENVIRONMENT // 정해둔 ip인 경우 development 모드로 작동
 if (! defined('ENVIRONMENT')) {
-    define('ENVIRONMENT', env('CI_ENVIRONMENT', 'production'));
+    $ip_arr = explode("||", env("development.ip"));
+    $ip_addr = $_SERVER["REMOTE_ADDR"];
+    if (in_array($ip_addr, $ip_arr)) {
+        define('ENVIRONMENT', 'development');
+    } else {
+        define('ENVIRONMENT', 'production');
+    }
 }
 
 // Load Config Cache
