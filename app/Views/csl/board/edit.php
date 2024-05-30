@@ -117,4 +117,12 @@
             history.go(-1);
         });
     });
+
+    function upload_after(proc_result) {
+        var file_id = proc_result.file_id;
+        var file_name_org = proc_result.file_name_org;
+
+        $("#ul_file_list").append("<li id='ul_"+file_id+"'><input type='hidden' id='file_list' name='file_list[]' value='"+file_id+"'></li>");
+        $("#visible_file_list").append("<li id='visible_"+file_id+"'><a href='/csl/file/download/"+file_id+"'>"+file_name_org+"</a><span class='ml-3'><button type='button' id='"+file_id+"' class='btn btn-danger btn-xs' onclick='file_delete(\""+file_id+"\")'>삭제</button></span></li>");
+    }
 </script>
