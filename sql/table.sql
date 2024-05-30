@@ -18,7 +18,7 @@ create table mng_admin (
     upd_date varchar(14) not null comment '수정일',
     primary key (a_idx),
     unique key member_idx (m_idx)
-) engine=innodb default charset=utf8 comment='관리자 권한 부여';
+) engine=InnoDB default charset=utf8 comment='관리자 권한 부여';
 
 create table mng_board (
     b_idx int not null auto_increment comment '게시물 번호',
@@ -38,7 +38,7 @@ create table mng_board (
     upd_date varchar(14) not null comment '수정일',
     primary key (b_idx),
     key board_id (board_id)
-) engine=innodb default charset=utf8 comment='게시판';
+) engine=InnoDB default charset=utf8 comment='게시판';
 
 create table mng_board_comment (
     bc_idx int not null auto_increment comment '인덱스',
@@ -50,7 +50,7 @@ create table mng_board_comment (
     upd_id varchar(70) default null comment '수정자 [mng_member.m_idx]',
     upd_date varchar(14) not null comment '수정일',
     primary key (bc_idx)
-) engine=innodb default charset=utf8 comment='게시판 댓글';
+) engine=InnoDB default charset=utf8 comment='게시판 댓글';
 
 create table mng_file (
     f_idx int not null auto_increment comment '연번',
@@ -59,6 +59,7 @@ create table mng_file (
     file_directory varchar(10) not null comment '저장된 파일의 경로(연/월)',
     file_name_uploaded varchar(1000) not null comment '저장된 파일 전체 경로',
     file_size int not null comment '파일 크기',
+    file_ext varchar(10) default null comment '파일확장자',
     image_width int not null default 0 comment '가로해상도(이미지)',
     image_height int not null default 0 comment '세로해상도(이미지)',
     mime_type varchar(200) not null comment '파일 mime type',
@@ -70,7 +71,11 @@ create table mng_file (
     upd_date varchar(14) not null comment '수정일',
     primary key (f_idx),
     unique key file_id (file_id)
-) engine=innodb default charset=utf8 comment='파일 정보';
+) engine=InnoDB default charset=utf8 comment='파일 정보';
+
+/*
+    alter table mng_file add file_ext varchar(10) default null comment '파일확장자' after file_size;
+*/
 
 create table mng_member (
     m_idx int not null auto_increment comment '인덱스',
@@ -99,4 +104,4 @@ create table mng_member (
     org_seq int default null comment '원본 seq',
     primary key (m_idx),
     unique key mem_usr_id (member_id)
-) engine=innodb default charset=utf8 comment='회원정보';
+) engine=InnoDB default charset=utf8 comment='회원정보';
