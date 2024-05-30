@@ -81,6 +81,7 @@ class FileModel extends Model
         $file_directory = $data["file_directory"];
         $file_name_uploaded = $data["file_name_uploaded"];
         $file_size = $data["file_size"];
+        $file_ext = $data["file_ext"];
         $image_width = $data["image_width"];
         $image_height = $data["image_height"];
         $mime_type = $data["mime_type"];
@@ -103,6 +104,7 @@ class FileModel extends Model
             $builder->set("file_directory", $file_directory);
             $builder->set("file_name_uploaded", $file_name_uploaded);
             $builder->set("file_size", $file_size);
+            $builder->set("file_ext", $file_ext);
             $builder->set("image_width", $image_width);
             $builder->set("image_height", $image_height);
             $builder->set("mime_type", $mime_type);
@@ -238,8 +240,8 @@ class FileModel extends Model
         $user_file = $data["user_file"];
         $category = $data["category"];
 
-        $mime_type = $user_file->getMimeType(); // mimetype이 정상인지 확인한다
-        $data["mime_type"] = $mime_type;
+        $data["mime_type"] = $user_file->getMimeType(); // mimetype이 정상인지 확인한다
+        $data["file_ext"] = $user_file->getClientExtension(); // 파일 확장자
 
         // 허용된 이미지 크기를 넘지 않는지 확인한다.
         $upload_size = $user_file->getSize();
