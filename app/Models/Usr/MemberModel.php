@@ -76,7 +76,7 @@ class MemberModel extends Model
         $member_id = $data["member_id"];
 
         $db = db_connect();
-        $builder = $db->table("mng_member");
+        $builder = $db->table("member");
         $builder->select("count(*) as cnt");
         $builder->where("del_yn", "N");
         $builder->where("member_id", $member_id);
@@ -121,7 +121,7 @@ class MemberModel extends Model
         try {
             $db = db_connect();
             $db->transStart();
-            $builder = $db->table("mng_member");
+            $builder = $db->table("member");
             $builder->set("member_id", $member_id);
             $builder->set("member_password", $member_password_enc);
             $builder->set("member_name", $member_name);
@@ -173,7 +173,7 @@ class MemberModel extends Model
 
         $db = db_connect();
 
-        $builder = $db->table("mng_member");
+        $builder = $db->table("member");
         $builder->where("del_yn", "N");
         $builder->where("member_id", $member_id);
         $builder->where("member_password", $member_password_enc);
@@ -183,7 +183,7 @@ class MemberModel extends Model
         if ($cnt == 1) {
             $member_info = $list[0];
             try {
-                $builder = $db->table("mng_member");
+                $builder = $db->table("member");
                 $builder->set("last_login_date", $today);
                 $builder->set("last_login_ip", $ip_address);
                 $builder->where("member_id", $member_id);

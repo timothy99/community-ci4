@@ -28,7 +28,7 @@ class BulkModel extends Model
         }
 
         $db = db_connect();
-        $builder = $db->table("mng_bulk");
+        $builder = $db->table("bulk");
         $builder->where("del_yn", "N");
         if ($search_text != null) {
             $builder->like($search_condition, $search_text);
@@ -70,7 +70,7 @@ class BulkModel extends Model
         try {
             $db = db_connect();
             $db->transStart();
-            $builder = $db->table("mng_bulk");
+            $builder = $db->table("bulk");
             $builder->set("title", $title);
             $builder->set("bulk_file", $bulk_file);
             $builder->set("del_yn", "N");
@@ -82,7 +82,7 @@ class BulkModel extends Model
             $insert_id = $db->insertID();
 
             foreach ($list as $no => $val) {
-                $builder = $db->table("mng_bulk_detail");
+                $builder = $db->table("bulk_detail");
                 $builder->set("b_idx", $insert_id);
                 $builder->set("member_name", $val->A);
                 $builder->set("email", $val->B);
@@ -135,7 +135,7 @@ class BulkModel extends Model
         }
 
         $db = db_connect();
-        $builder = $db->table("mng_bulk_detail");
+        $builder = $db->table("bulk_detail");
         $builder->where("del_yn", "N");
         $builder->where("b_idx", $b_idx);
         if ($search_text != null) {
@@ -160,7 +160,7 @@ class BulkModel extends Model
         $message = "목록 불러오기가 완료되었습니다.";
 
         $db = db_connect();
-        $builder = $db->table("mng_bulk_detail");
+        $builder = $db->table("bulk_detail");
         $builder->where("del_yn", "N");
         $builder->where("bd_idx", $bd_idx);
         $info = $builder->get()->getRow();
@@ -195,7 +195,7 @@ class BulkModel extends Model
         try {
             $db = db_connect();
             $db->transStart();
-            $builder = $db->table("mng_bulk_detail");
+            $builder = $db->table("bulk_detail");
             $builder->set("member_name", $member_name);
             $builder->set("email", $email);
             $builder->set("phone", $phone);
@@ -236,7 +236,7 @@ class BulkModel extends Model
         try {
             $db = db_connect();
             $db->transStart();
-            $builder = $db->table("mng_bulk_detail");
+            $builder = $db->table("bulk_detail");
             $builder->set("del_yn", "Y");
             $builder->set("upd_id", $member_id);
             $builder->set("upd_date", $today);

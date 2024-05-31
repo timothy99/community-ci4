@@ -16,7 +16,7 @@ class CommentModel extends Model
         $message = "목록 불러오기가 완료되었습니다.";
 
         $db = db_connect();
-        $builder = $db->table("mng_board_comment");
+        $builder = $db->table("board_comment");
         $builder->where("del_yn", "N");
         $builder->where("b_idx", $b_idx);
         $builder->orderBy("bc_idx", "desc");
@@ -51,7 +51,7 @@ class CommentModel extends Model
         try {
             $db = db_connect();
             $db->transStart();
-            $builder = $db->table("mng_board_comment");
+            $builder = $db->table("board_comment");
             $builder->set("b_idx", $b_idx);
             $builder->set("comment", $comment);
             $builder->set("del_yn", "N");
@@ -90,7 +90,7 @@ class CommentModel extends Model
         try {
             $db = db_connect();
             $db->transStart();
-            $builder = $db->table("mng_board_comment");
+            $builder = $db->table("board_comment");
             $builder->set("del_yn", "Y");
             $builder->set("upd_id", $member_id);
             $builder->set("upd_date", $today);
@@ -116,7 +116,7 @@ class CommentModel extends Model
         $message = "목록 불러오기가 완료되었습니다.";
 
         $db = db_connect();
-        $builder = $db->table("mng_board_comment");
+        $builder = $db->table("board_comment");
         $builder->where("del_yn", "N");
         $builder->where("bc_idx", $bc_idx);
         $info = $builder->get()->getRow();
@@ -145,7 +145,7 @@ class CommentModel extends Model
         try {
             $db = db_connect();
             $db->transStart();
-            $builder = $db->table("mng_board_comment");
+            $builder = $db->table("board_comment");
             $builder->set("comment", $comment);
             $builder->set("upd_id", $user_id);
             $builder->set("upd_date", $today);
@@ -209,7 +209,7 @@ class CommentModel extends Model
         try {
             $db = db_connect();
             $db->transStart();
-            $builder = $db->table("mng_board");
+            $builder = $db->table("board");
             $builder->set("board_id", $board_id);
             $builder->set("title", $title);
             $builder->set("contents", $contents);

@@ -30,7 +30,7 @@ class BoardModel extends Model
         }
 
         $db = db_connect();
-        $builder = $db->table("mng_board");
+        $builder = $db->table("board");
         $builder->where("board_id", $board_id);
         $builder->where("del_yn", "N");
 
@@ -66,7 +66,7 @@ class BoardModel extends Model
         $message = "정상처리";
 
         $db = db_connect();
-        $builder = $db->table("mng_board");
+        $builder = $db->table("board");
         $builder->where("del_yn", "N");
         $builder->where("b_idx", $b_idx);
         $info = $builder->get()->getRow();
@@ -99,7 +99,7 @@ class BoardModel extends Model
         try {
             $db = db_connect();
             $db->transStart();
-            $builder = $db->table("mng_board");
+            $builder = $db->table("board");
             $builder->set("board_id", $board_id);
             $builder->set("title", $title);
             $builder->set("contents", $contents);
@@ -146,7 +146,7 @@ class BoardModel extends Model
         try {
             $db = db_connect();
             $db->transStart();
-            $builder = $db->table("mng_board");
+            $builder = $db->table("board");
             $builder->set("board_id", $board_id);
             $builder->set("title", $title);
             $builder->set("contents", $contents);
@@ -184,7 +184,7 @@ class BoardModel extends Model
         try {
             $db = db_connect();
             $db->transStart();
-            $builder = $db->table("mng_board");
+            $builder = $db->table("board");
             $builder->set("del_yn", "Y");
             $builder->set("upd_id", $member_id);
             $builder->set("upd_date", $today);
