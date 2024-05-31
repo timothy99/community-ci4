@@ -30,7 +30,7 @@ class MemberModel extends Model
         }
 
         $db = db_connect();
-        $builder = $db->table("mng_member");
+        $builder = $db->table("member");
         $builder->where("del_yn", "N");
         if ($search_text != null) {
             $builder->where($search_condition, $search_text);
@@ -59,7 +59,7 @@ class MemberModel extends Model
         $message = "목록 불러오기가 완료되었습니다.";
 
         $db = db_connect();
-        $builder = $db->table("mng_member");
+        $builder = $db->table("member");
         $builder->where("del_yn", "N");
         $builder->where("member_id", $member_id);
         $info = $builder->get()->getRow();
@@ -140,7 +140,7 @@ class MemberModel extends Model
         try {
             $db = db_connect();
             $db->transStart();
-            $builder = $db->table("mng_member");
+            $builder = $db->table("member");
             $builder->set("member_name", $member_name);
             $builder->set("member_nickname", $member_nickname);
             $builder->set("email", $email);
@@ -184,7 +184,7 @@ class MemberModel extends Model
         try {
             $db = db_connect();
             $db->transStart();
-            $builder = $db->table("mng_member");
+            $builder = $db->table("member");
             $builder->set("del_yn", "Y");
             $builder->set("upd_id", $upd_id);
             $builder->set("upd_date", $today);

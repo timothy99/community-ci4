@@ -98,7 +98,7 @@ class FileModel extends Model
         try {
             $db = db_connect();
             $db->transStart();
-            $builder = $db->table("mng_file");
+            $builder = $db->table("file");
             $builder->set("file_id", $file_id);
             $builder->set("file_name_org", $file_name_org);
             $builder->set("file_directory", $file_directory);
@@ -192,7 +192,7 @@ class FileModel extends Model
     {
         $file_id = (string)$file_id;
         $db = db_connect();
-        $builder = $db->table("mng_file");
+        $builder = $db->table("file");
         $builder->where("file_id", $file_id);
         $builder->where("del_yn", "N");
         $db_info = $builder->get()->getFirstRow(); // 쿼리 실행

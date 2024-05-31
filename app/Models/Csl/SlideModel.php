@@ -26,7 +26,7 @@ class SlideModel extends Model
         }
 
         $db = db_connect();
-        $builder = $db->table("mng_slide");
+        $builder = $db->table("slide");
         $builder->where("del_yn", "N");
         if ($search_text != null) {
             $builder->like($search_condition, $search_text);
@@ -59,7 +59,7 @@ class SlideModel extends Model
         $message = "목록 불러오기가 완료되었습니다.";
 
         $db = db_connect();
-        $builder = $db->table("mng_slide");
+        $builder = $db->table("slide");
         $builder->where("del_yn", "N");
         $builder->where("s_idx", $s_idx);
         $info = $builder->get()->getRow();
@@ -94,7 +94,7 @@ class SlideModel extends Model
         try {
             $db = db_connect();
             $db->transStart();
-            $builder = $db->table("mng_slide");
+            $builder = $db->table("slide");
             $builder->set("title", $title);
             $builder->set("contents", $contents);
             $builder->set("slide_file", $slide_file);
@@ -149,7 +149,7 @@ class SlideModel extends Model
         try {
             $db = db_connect();
             $db->transStart();
-            $builder = $db->table("mng_slide");
+            $builder = $db->table("slide");
             $builder->set("title", $title);
             $builder->set("contents", $contents);
             $builder->set("slide_file", $slide_file);
@@ -191,7 +191,7 @@ class SlideModel extends Model
         try {
             $db = db_connect();
             $db->transStart();
-            $builder = $db->table("mng_slide");
+            $builder = $db->table("slide");
             $builder->set("del_yn", "Y");
             $builder->set("upd_id", $member_id);
             $builder->set("upd_date", $today);
