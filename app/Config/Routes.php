@@ -70,6 +70,13 @@ $routes->post("/csl/slide/update", "Csl\Slide::update");
 $routes->get("/csl/slide/view/(:num)", "Csl\Slide::view");
 $routes->post("/csl/slide/delete/(:num)", "Csl\Slide::delete");
 
+$routes->get("/csl/contents/list", "Csl\Contents::list");
+$routes->get("/csl/contents/write", "Csl\Contents::write");
+$routes->get("/csl/contents/edit/(:num)", "Csl\Contents::edit");
+$routes->post("/csl/contents/update", "Csl\Contents::update");
+$routes->get("/csl/contents/view/(:num)", "Csl\Contents::view");
+$routes->post("/csl/contents/delete/(:num)", "Csl\Contents::delete");
+
 $routes->post("/mail/send", "Usr\Mail::send");
 
 $routes->get("/csl/bulk/list", "Csl\Bulk::list"); // 벌크로 작업올린 목록
