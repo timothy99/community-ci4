@@ -137,3 +137,15 @@ create table mng_bulk_detail
 ) comment '대량입력 상세정보';
 
 create index mng_bulk_detail_b_idx_index on mng_bulk_detail (b_idx);
+
+create table mng_contents (
+    c_idx int auto_increment comment '콘텐츠 인덱스' primary key,
+    title varchar(1000) not null comment '제목 - 구분용이며 페이지 기능에서는 사용하지 않음',
+    contents varchar(4000) not null comment '내용',
+    del_yn enum ('Y', 'N') default 'N' not null comment '삭제 여부',
+    ins_id varchar(70) not null comment '등록자',
+    ins_date varchar(14) not null comment '등록일',
+    upd_id varchar(70) not null comment '수정자',
+    upd_date varchar(14) not null comment '수정일'
+) comment '콘텐츠';
+
