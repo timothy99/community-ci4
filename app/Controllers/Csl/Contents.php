@@ -6,7 +6,6 @@ use App\Controllers\BaseController;
 use App\Models\Common\DateModel;
 use App\Models\Csl\ContentsModel;
 use App\Models\Common\PagingModel;
-use App\Models\Common\FileModel;
 
 class Contents extends BaseController
 {

@@ -26,6 +26,11 @@
                             <p>회원</p>
                         </a>
                     </li>
+                    <li class="nav-item" id="li-menu-list">
+                        <a href="/csl/menu/list" class="nav-link" id="a-menu-list">
+                            <p>사용자 메뉴</p>
+                        </a>
+                    </li>
                     <li class="nav-item" id="li-bulk-list">
                         <a href="/csl/bulk/list" class="nav-link" id="a-bulk-list">
                             <p>벌크</p>
