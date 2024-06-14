@@ -29,6 +29,11 @@ $routes->post("/file/upload", "Usr\File::upload");
 $routes->get("/file/view/(:alphanum)", "Usr\File::view");
 $routes->get("/file/download/(:alphanum)", "Usr\File::download");
 
+$routes->get("/contents/view/(:num)", "Usr\Contents::view");
+
+
+
+
 $routes->get("/csl", "Csl\Dashboard::index");
 $routes->get("/csl/dashboard", "Csl\Dashboard::index");
 $routes->get("/csl/dashboard/main", "Csl\Dashboard::main");

@@ -12,12 +12,12 @@
                         </li>
 <?php   foreach ($menu_list as $no => $val) { ?>
                         <li class="nav-item dropdown">
-                            <a id="dropdownSubMenu1" href="<?=$val->http_link ?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link <?php if (count($val->list) > 0) echo "dropdown-toggle"; ?>"><?=$val->menu_name ?></a>
+                            <a id="dropdownSubMenu1" href="<?=$val->http_link ?>" data-toggle="<?php if (count($val->list) > 0) echo "dropdown"; ?>" aria-haspopup="true" aria-expanded="false" class="nav-link <?php if (count($val->list) > 0) echo "dropdown-toggle"; ?>"><?=$val->menu_name ?></a>
 <?php       if (count($val->list) > 0) { ?>
                             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
 <?php           foreach ($val->list as $no2 => $val2) { ?>
                                 <li class="dropdown-submenu dropdown-hover"><!-- Level two dropdown-->
-                                    <a id="dropdownSubMenu2" href="<?=$val2->http_link ?>" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item <?php if (count($val2->list) > 0) echo "dropdown-toggle"; ?>"><?=$val2->menu_name ?></a>
+                                    <a id="dropdownSubMenu2" href="<?=$val2->http_link ?>" role="button" data-toggle="<?php if (count($val2->list) > 0) echo "dropdown"; ?>" aria-haspopup="true" aria-expanded="false" class="dropdown-item <?php if (count($val2->list) > 0) echo "dropdown-toggle"; ?>"><?=$val2->menu_name ?></a>
 <?php               if (count($val2->list) > 0) { ?>
                                     <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
 <?php                   foreach ($val2->list as $no3 => $val3) { ?>
