@@ -1,8 +1,16 @@
 <?php
 
+use App\Models\Usr\MenuModel;
+
 // 사용자 뷰 (메뉴바가 상단에 있음)
 function uview($view_file, $proc_result = array())
 {
+    $menu_model = new MenuModel();
+
+    $model_result = $menu_model->getMenuList();
+    $menu_list = $model_result["list"];
+    $proc_result["menu_list"] = $menu_list;
+
     $view_result = null;
 
     $view_result .= view("/usr/include/header", $proc_result);
