@@ -265,4 +265,75 @@ class MenuModel extends Model
         return $model_result;
     }
 
+    /**
+     * [Description for procMenuJsonInsert]
+     *
+     * 생성된 메뉴를 json으로 정리한다.
+     * 향후 사용자, 관리자등 권한이 많아질 경우를 대비해 data는 사용하지 않더라도 변수는 있음
+     * 
+     * @param array $data
+     * 
+     * @return $proc_result array
+     * 
+     * @author timothy99
+     */
+    public function procMenuJsonInsert($data)
+    {
+        $menu_model = new MenuModel();
+
+        $user_id = getUserSessionInfo("member_id");
+        $today = date("YmdHis");
+
+        $result = true;
+        $message = "입력이 잘 되었습니다";
+
+        $model_result = $menu_model->getMenuList();
+        $list = $model_result["list"];
+        $menu_json = json_encode($list);
+
+        try {
+            $db = db_connect();
+            $db->transStart();
+
+            $builder = $db->table("menu_json");
+            $builder->where("category", "user");
+            $builder->where("del_yn", "N");
+            $list = $builder->get()->getResult();
+            $cnt = count($list);
+            if ($cnt == 0) {
+                $builder = $db->table("menu_json");
+                $builder->set("menu_json", $menu_json);
+                $builder->set("category", "user");
+                $builder->set("del_yn", "N");
+                $builder->set("ins_id", $user_id);
+                $builder->set("ins_date", $today);
+                $builder->set("upd_id", $user_id);
+                $builder->set("upd_date", $today);
+                $builder->where("category", "user");
+                $result = $builder->insert();
+            } else {
+                $builder = $db->table("menu_json");
+                $builder->set("menu_json", $menu_json);
+                $builder->set("category", "user");
+                $builder->set("upd_id", $user_id);
+                $builder->set("upd_date", $today);
+                $builder->where("category", "user");
+                $result = $builder->update();
+            }
+
+            $db->transComplete();
+        } catch (Throwable $t) {
+            $result = false;
+            $message = "입력에 오류가 발생했습니다.";
+            logMessage($t->getMessage());
+            $db->transRollback();
+        }
+
+        $model_result = array();
+        $model_result["result"] = $result;
+        $model_result["message"] = $message;
+
+        return $model_result;
+    }
+
 }

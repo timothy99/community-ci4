@@ -167,3 +167,15 @@ create table mng_menu (
     primary key (m_idx),
     key idx1 (idx1, idx2, idx3)
 ) engine=InnoDB default charset=utf8 comment='메뉴';
+
+create table mng_menu_json (
+    mj_idx int not null auto_increment comment '인덱스',
+    category varchar(500) null comment '분류',
+    menu_json text null comment 'json형태의 메뉴 정보',
+    del_yn enum('Y', 'N') not null comment '삭제 여부',
+    ins_id varchar(70) default null comment '등록자',
+    ins_date varchar(14) not null comment '등록일',
+    upd_id varchar(70) default null comment '수정자',
+    upd_date varchar(14) not null comment '수정일',
+    primary key (mj_idx)
+) engine=InnoDB default charset=utf8 comment='json 형태의 메뉴 저장내용';

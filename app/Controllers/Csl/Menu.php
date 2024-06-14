@@ -95,6 +95,11 @@ class Menu extends BaseController
             $message = $model_result["message"];
         }
 
+        // 메뉴 업데이트 후 메뉴에 대한 json을 만들어서 메뉴불러오는데 지나치게 많은 쿼리를 실행하는걸 막는다.
+        if ($result == true) {
+            $model_result = $menu_model->procMenuJsonInsert($data);
+        }
+
         $proc_result = array();
         $proc_result["result"] = $result;
         $proc_result["message"] = $message;
