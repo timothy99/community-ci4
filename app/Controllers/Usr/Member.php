@@ -12,9 +12,9 @@ class Member extends BaseController
         return redirect()->to("/member/myinfo");
     }
 
-    public function myinfo()
+    public function view()
     {
-        return uview("usr/member/myinfo");
+        return uview("usr/member/view");
     }
 
     public function login()
