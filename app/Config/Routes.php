@@ -19,6 +19,7 @@ $routes->post("/member/signup", "Usr\Member::signup");
 $routes->post("/member/signin", "Usr\Member::signin");
 $routes->get("/member/logout", "Usr\Member::logout");
 $routes->post("/member/duplicate", "Usr\Member::duplicate");
+$routes->get("/member/view", "Usr\Member::view");
 
 $routes->get("/board", "Usr\Board::index");
 $routes->get("/board/(:alpha)/list", "Usr\Board::list");

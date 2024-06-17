@@ -137,10 +137,6 @@
 
 <script>
     $(window).on("load", function() {
-        // 메뉴강조
-        $("#li-member-list").addClass("menu-open");
-        $("#a-member-list").addClass("active");
-
         $("#email").inputmask({ alias: "email"});
         $("#phone").inputmask("999-9999-9999", { "placeholder": "000-0000-0000" });
     });

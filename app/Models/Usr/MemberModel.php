@@ -209,4 +209,34 @@ class MemberModel extends Model
         return $proc_result;
     }
 
+    // 회원 로그인 결과
+    public function getMemberInfo()
+    {
+        $security_model = new SecurityModel();
+
+        $result = true;
+        $message = "정상처리";
+
+        $today = date("YmdHis");
+        $member_id = getUserSessionInfo("member_id");
+        $auth_group = getUserSessionInfo("auth_group");
+
+        if ($auth_group == "guest") {
+            redirect_alert("로그인 해야합니다", "/");
+        }
+
+        $db = db_connect();
+        $builder = $db->table("member");
+        $builder->where("del_yn", "N");
+        $builder->where("member_id", $member_id);
+        $info = $builder->get()->getRow();
+
+        $proc_result = array();
+        $proc_result["result"] = $result;
+        $proc_result["message"] = $message;
+        $proc_result["info"] = $info;
+
+        return $proc_result;
+    }
+
 }

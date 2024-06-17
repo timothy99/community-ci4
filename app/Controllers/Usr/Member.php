@@ -3,6 +3,7 @@
 namespace App\Controllers\Usr;
 
 use App\Controllers\BaseController;
+use App\Models\Common\DateModel;
 use App\Models\Usr\MemberModel;
 
 class Member extends BaseController
@@ -14,7 +15,16 @@ class Member extends BaseController
 
     public function view()
     {
-        return uview("usr/member/view");
+        $member_model = new MemberModel();
+        $date_model = new DateModel();
+
+        $model_result = $member_model->getMemberInfo();
+        $info = $model_result["info"];
+        $info->last_login_date_txt = $date_model->convertTextToDate($info->last_login_date, 1, 1);
+        $info->ins_date_txt = $date_model->convertTextToDate($info->ins_date, 1, 1);
+        $model_result["info"] = $info;
+
+        return uview("usr/member/view", $model_result);
     }
 
     public function login()
