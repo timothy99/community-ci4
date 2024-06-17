@@ -36,8 +36,11 @@
                     <div class="col-sm-3">
                         아이디
                     </div>
-                    <div class="col-sm-9">
+                    <div class="col-sm-5">
                         <input type="text" class="form-control ml-3" id="member_id" name="member_id">
+                    </div>
+                    <div class="col-sm-4 d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary mr-3" id="duplicate" name="duplicate">중복확인</button>
                     </div>
                 </div>
                 <div class="input-group mb-3 d-flex align-items-center">
@@ -149,6 +152,10 @@
 
         $("#cancel").click(function() {
             location.href="/";
+        });
+
+        $("#duplicate").click(function() {
+            ajax6("/member/duplicate", "frm");
         });
     });
 

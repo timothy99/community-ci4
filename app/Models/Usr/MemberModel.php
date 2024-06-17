@@ -73,6 +73,7 @@ class MemberModel extends Model
     {
         $result = true;
         $message = "중복된 아이디가 없습니다.";
+
         $member_id = $data["member_id"];
 
         $db = db_connect();

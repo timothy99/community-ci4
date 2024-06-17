@@ -108,6 +108,23 @@ class Member extends BaseController
         return view("usr/member/join", $data);
     }
 
+    public function duplicate()
+    {
+        $member_model = new MemberModel();
+
+        $result = false;
+        $message = "정상처리";
+
+        $member_id = $this->request->getPost("member_id");
+
+        $data = array();
+        $data["member_id"] = $member_id;
+
+        $model_result = $member_model->getMemberIdDuplicate($data);
+
+        return json_encode($model_result);
+    }
+
     public function signup()
     {
         $member_model = new MemberModel();
