@@ -138,7 +138,7 @@
 <script>
     $(window).on("load", function() {
         $("#email").inputmask({ alias: "email"});
-        $("#phone").inputmask("999-9999-9999", { "placeholder": "000-0000-0000" });
+        $("#phone").inputmask("9{1,3}-9{1,4}-9{1,4}");
     });
 
     $(function() {

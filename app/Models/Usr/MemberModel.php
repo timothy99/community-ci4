@@ -239,4 +239,82 @@ class MemberModel extends Model
         return $proc_result;
     }
 
+    // 회원정보 입력
+    public function procMemberUpdate($data)
+    {
+        $result = true;
+        $message = "정상처리";
+
+        $today = date("YmdHis");
+        $member_id = getUserSessionInfo("member_id");
+
+        $member_name = $data["member_name"];
+        $member_nickname = $data["member_nickname"];
+        $phone = $data["phone"];
+        $email = $data["email"];
+        $post_code = $data["post_code"];
+        $addr1 = $data["addr1"];
+        $addr2 = $data["addr2"];
+
+        try {
+            $db = db_connect();
+            $db->transStart();
+            $builder = $db->table("member");
+            $builder->set("member_name", $member_name);
+            $builder->set("member_nickname", $member_nickname);
+            $builder->set("email", $email);
+            $builder->set("phone", $phone);
+            $builder->set("post_code", $post_code);
+            $builder->set("addr1", $addr1);
+            $builder->set("addr2", $addr2);
+            $builder->set("upd_id", $member_id);
+            $builder->set("upd_date", $today);
+            $builder->where("member_id", $member_id);
+            $result = $builder->update();
+            $db->transComplete();
+        } catch (Throwable $t) {
+            $result = false;
+            $message = "입력에 오류가 발생했습니다.";
+            logMessage($t->getMessage());
+        }
+
+        $proc_result = array();
+        $proc_result["result"] = $result;
+        $proc_result["message"] = $message;
+
+        return $proc_result;
+    }
+
+    // 회원정보 입력
+    public function procMemberDelete()
+    {
+        $result = true;
+        $message = "정상처리";
+
+        $today = date("YmdHis");
+        $member_id = getUserSessionInfo("member_id");
+
+        try {
+            $db = db_connect();
+            $db->transStart();
+            $builder = $db->table("member");
+            $builder->set("del_yn", "Y");
+            $builder->set("upd_id", $member_id);
+            $builder->set("upd_date", $today);
+            $builder->where("member_id", $member_id);
+            $result = $builder->update();
+            $db->transComplete();
+        } catch (Throwable $t) {
+            $result = false;
+            $message = "입력에 오류가 발생했습니다.";
+            logMessage($t->getMessage());
+        }
+
+        $proc_result = array();
+        $proc_result["result"] = $result;
+        $proc_result["message"] = $message;
+
+        return $proc_result;
+    }
+
 }

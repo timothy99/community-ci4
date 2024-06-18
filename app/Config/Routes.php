@@ -20,6 +20,10 @@ $routes->post("/member/signin", "Usr\Member::signin");
 $routes->get("/member/logout", "Usr\Member::logout");
 $routes->post("/member/duplicate", "Usr\Member::duplicate");
 $routes->get("/member/view", "Usr\Member::view");
+$routes->get("/member/edit", "Usr\Member::edit");
+$routes->post("/member/update", "Usr\Member::update");
+$routes->get("/member/leave", "Usr\Member::leave");
+$routes->post("/member/delete", "Usr\Member::delete");
 
 $routes->get("/board", "Usr\Board::index");
 $routes->get("/board/(:alpha)/list", "Usr\Board::list");
