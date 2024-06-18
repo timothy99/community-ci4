@@ -40,7 +40,8 @@
             </form>
             <hr>
             <p class="mb-1 text-center">
-                <a href="/member/forgot" class="btn btn-danger">암호분실</a>
+                <a href="/password/find" class="btn btn-warning">아이디찾기</a>
+                <a href="/password/forgot" class="btn btn-danger">암호분실</a>
                 <a href="/member/join" class="btn btn-info text-center">신규가입</a>
             </p>
         </div>

@@ -101,7 +101,6 @@ create table mng_member (
     ins_date varchar(14) not null comment '등록일',
     upd_id varchar(70) default null comment '수정자 [mng_member.m_idx]',
     upd_date varchar(14) not null comment '수정일',
-    org_seq int default null comment '원본 seq',
     primary key (m_idx),
     unique key mem_usr_id (member_id)
 ) engine=InnoDB default charset=utf8 comment='회원정보';
@@ -179,3 +178,13 @@ create table mng_menu_json (
     upd_date varchar(14) not null comment '수정일',
     primary key (mj_idx)
 ) engine=InnoDB default charset=utf8 comment='json 형태의 메뉴 저장내용';
+
+create table mng_member_reset (
+    mr_idx int not null auto_increment comment '인덱스',
+    member_id varchar(64) not null comment '사용자 아이디',
+    email varchar(100) default null comment '이메일',
+    reset_key varchar(32) default null comment '리셋키',
+    expire_date varchar(14) not null comment '암호화 변경 만료 시간(현재 시간으로부터 15분)',
+    primary key (mr_idx),
+    key mng_member_reset_reset_key (reset_key)
+) engine=InnoDB default charset=utf8 comment='암호를 초기화 하기 위한 정보';
