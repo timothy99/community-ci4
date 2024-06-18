@@ -3,6 +3,7 @@
 namespace App\Controllers\Usr;
 
 use App\Controllers\BaseController;
+use App\Models\Common\DateModel;
 use App\Models\Usr\MemberModel;
 
 class Member extends BaseController
@@ -12,9 +13,18 @@ class Member extends BaseController
         return redirect()->to("/member/myinfo");
     }
 
-    public function myinfo()
+    public function view()
     {
-        return uview("usr/member/myinfo");
+        $member_model = new MemberModel();
+        $date_model = new DateModel();
+
+        $model_result = $member_model->getMemberInfo();
+        $info = $model_result["info"];
+        $info->last_login_date_txt = $date_model->convertTextToDate($info->last_login_date, 1, 1);
+        $info->ins_date_txt = $date_model->convertTextToDate($info->ins_date, 1, 1);
+        $model_result["info"] = $info;
+
+        return uview("usr/member/view", $model_result);
     }
 
     public function login()
@@ -108,6 +118,20 @@ class Member extends BaseController
         return view("usr/member/join", $data);
     }
 
+    public function duplicate()
+    {
+        $member_model = new MemberModel();
+
+        $member_id = $this->request->getPost("member_id");
+
+        $data = array();
+        $data["member_id"] = $member_id;
+
+        $model_result = $member_model->getMemberIdDuplicate($data);
+
+        return json_encode($model_result);
+    }
+
     public function signup()
     {
         $member_model = new MemberModel();
@@ -173,6 +197,79 @@ class Member extends BaseController
         session_destroy();
 
         return redirect()->to("/home/home");
+    }
+
+    public function edit()
+    {
+        $member_model = new MemberModel();
+
+        $model_result = $member_model->getMemberInfo();
+
+        return uview("usr/member/edit", $model_result);
+    }
+
+    public function update()
+    {
+        $member_model = new MemberModel();
+
+        $result = false;
+        $message = "정상처리";
+
+        $member_name = $this->request->getPost("member_name", FILTER_SANITIZE_SPECIAL_CHARS);
+        $member_nickname = $this->request->getPost("member_nickname", FILTER_SANITIZE_SPECIAL_CHARS);
+        $phone = $this->request->getPost("phone", FILTER_SANITIZE_SPECIAL_CHARS);
+        $email = $this->request->getPost("email", FILTER_SANITIZE_SPECIAL_CHARS);
+        $post_code = $this->request->getPost("post_code", FILTER_SANITIZE_SPECIAL_CHARS);
+        $addr1 = $this->request->getPost("addr1", FILTER_SANITIZE_SPECIAL_CHARS);
+        $addr2 = $this->request->getPost("addr2", FILTER_SANITIZE_SPECIAL_CHARS);
+
+        $data = array();
+        $data["member_name"] = $member_name;
+        $data["member_nickname"] = $member_nickname;
+        $data["phone"] = $phone;
+        $data["email"] = $email;
+        $data["post_code"] = $post_code;
+        $data["addr1"] = $addr1;
+        $data["addr2"] = $addr2;
+
+        $model_result = $member_model->procMemberUpdate($data);
+        $result = $model_result["result"];
+        $message = $model_result["message"];
+
+        $proc_result = array();
+        $proc_result["result"] = $result;
+        $proc_result["message"] = $message;
+        $proc_result["return_url"] = "/member/view";
+
+        return json_encode($proc_result);
+    }
+
+    public function leave()
+    {
+        $member_model = new MemberModel();
+
+        $model_result = $member_model->getMemberInfo();
+
+        return uview("usr/member/leave", $model_result);
+    }
+
+    public function delete()
+    {
+        $member_model = new MemberModel();
+
+        $result = true;
+        $message = "정상처리";
+
+        $model_result = $member_model->procMemberDelete();
+
+        session_destroy();
+
+        $proc_result = array();
+        $proc_result["result"] = $result;
+        $proc_result["message"] = $message;
+        $proc_result["return_url"] = "/";
+
+        return json_encode($proc_result);
     }
 
 }

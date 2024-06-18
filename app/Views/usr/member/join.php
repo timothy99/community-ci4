@@ -36,8 +36,11 @@
                     <div class="col-sm-3">
                         아이디
                     </div>
-                    <div class="col-sm-9">
+                    <div class="col-sm-5">
                         <input type="text" class="form-control ml-3" id="member_id" name="member_id">
+                    </div>
+                    <div class="col-sm-4 d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary mr-3" id="duplicate" name="duplicate">중복확인</button>
                     </div>
                 </div>
                 <div class="input-group mb-3 d-flex align-items-center">
@@ -134,12 +137,8 @@
 
 <script>
     $(window).on("load", function() {
-        // 메뉴강조
-        $("#li-member-list").addClass("menu-open");
-        $("#a-member-list").addClass("active");
-
         $("#email").inputmask({ alias: "email"});
-        $("#phone").inputmask("999-9999-9999", { "placeholder": "000-0000-0000" });
+        $("#phone").inputmask("9{1,3}-9{1,4}-9{1,4}");
     });
 
     $(function() {
@@ -149,6 +148,10 @@
 
         $("#cancel").click(function() {
             location.href="/";
+        });
+
+        $("#duplicate").click(function() {
+            ajax6("/member/duplicate", "frm");
         });
     });
 

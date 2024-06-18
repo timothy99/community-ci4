@@ -33,10 +33,13 @@
 <?php   } ?>
 
 <?php   if (getUserSessionInfo("auth_group") == "guest") { ?>
-                        <li class="nav-item">
+                        <li class="nav-item ml-5">
                             <a href="/member/login" class="nav-link">로그인</a>
                         </li>
 <?php   } else { ?>
+                        <li class="nav-item pl-5">
+                            <a href="/member/view" class="nav-link"><?=getUserSessionInfo("member_nickname") ?></a>
+                        </li>
                         <li class="nav-item">
                             <a href="/member/logout" class="nav-link">로그아웃</a>
                         </li>

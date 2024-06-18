@@ -98,8 +98,18 @@ function ajax5(ajax_url, form_data) {
     });
 }
 
-
-
+// 데이터 확인하고 메시지만 노출하기
+function ajax6(ajax_url, form_id) {
+    $.ajax({
+        url: ajax_url,
+        type: "POST",
+        dataType: "json",
+        data: $("#"+form_id).serialize(),
+        success: function(proc_result) {
+            alert(proc_result.message);
+        }
+    });
+}
 
 // 파일첨부 로직
 function upload(file_id) {
