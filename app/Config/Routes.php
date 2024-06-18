@@ -14,7 +14,6 @@ $routes->get("/menu/menu2", "Usr\Menu::menu2");
 $routes->get("/member/myinfo", "Usr\Member::myinfo");
 $routes->get("/member/login", "Usr\Member::login");
 $routes->get("/member/join", "Usr\Member::join");
-$routes->get("/member/forgot", "Usr\Member::forgot");
 $routes->post("/member/signup", "Usr\Member::signup");
 $routes->post("/member/signin", "Usr\Member::signin");
 $routes->get("/member/logout", "Usr\Member::logout");
@@ -24,6 +23,17 @@ $routes->get("/member/edit", "Usr\Member::edit");
 $routes->post("/member/update", "Usr\Member::update");
 $routes->get("/member/leave", "Usr\Member::leave");
 $routes->post("/member/delete", "Usr\Member::delete");
+
+$routes->get("/password/find", "Usr\Password::find");
+$routes->post("/password/send", "Usr\Password::send");
+$routes->get("/password/forgot", "Usr\Password::forgot");
+$routes->post("/password/password", "Usr\Password::password");
+$routes->get("/password/reset/(:any)", "Usr\Password::reset");
+$routes->post("/password/update", "Usr\Password::update");
+$routes->get("/password/confirm", "Usr\Password::confirm");
+$routes->post("/password/search", "Usr\Password::search");
+$routes->get("/password/modify", "Usr\Password::modify");
+$routes->post("/password/change", "Usr\Password::change");
 
 $routes->get("/board", "Usr\Board::index");
 $routes->get("/board/(:alpha)/list", "Usr\Board::list");

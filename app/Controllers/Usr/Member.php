@@ -186,11 +186,6 @@ class Member extends BaseController
         return json_encode($proc_result);
     }
 
-    public function forgot()
-    {
-        return uview("usr/member/forgot");
-    }
-
     // 로그아웃
     public function logout()
     {
