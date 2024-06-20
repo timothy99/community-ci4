@@ -188,3 +188,21 @@ create table mng_member_reset (
     primary key (mr_idx),
     key mng_member_reset_reset_key (reset_key)
 ) engine=InnoDB default charset=utf8 comment='암호를 초기화 하기 위한 정보';
+
+create table mng_slide (
+    s_idx int auto_increment comment '슬라이드 인덱스' primary key,
+    title varchar(1000) not null comment '제목',
+    contents varchar(4000) not null comment '내용-슬라이드에선 실제 내용 출력되지 않으므로 alt내용을 의미함',
+    http_link varchar(1000) not null comment 'http 링크',
+    order_no int null comment '순서',
+    slide_file varchar(32) null comment '슬라이드 이미지',
+    start_date varchar(14) default '20000101000000' not null comment '게시 시작시간',
+    end_date varchar(14) default '99991231235959' not null comment '게시 종료시간',
+    display_yn enum ('Y', 'N') default 'Y' not null comment '노출 여부',
+    del_yn enum ('Y', 'N') default 'N' not null comment '삭제 여부',
+    ins_id varchar(70) not null comment '등록자',
+    ins_date varchar(14) not null comment '등록일',
+    upd_id varchar(70) not null comment '수정자',
+    upd_date varchar(14) not null comment '수정일'
+) comment '슬라이드';
+
