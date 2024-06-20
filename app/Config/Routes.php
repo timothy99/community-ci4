@@ -51,10 +51,7 @@ $routes->get("/contents/view/(:num)", "Usr\Contents::view");
 
 
 
-$routes->get("/csl", "Csl\Dashboard::index");
-$routes->get("/csl/dashboard", "Csl\Dashboard::index");
-$routes->get("/csl/dashboard/main", "Csl\Dashboard::main");
-
+$routes->get("/csl", "Csl\Member::index");
 $routes->get("/csl/member", "Csl\Member::index");
 $routes->get("/csl/member/list", "Csl\Member::list");
 $routes->get("/csl/member/view/(:alphanum)", "Csl\Member::view");
