@@ -1,4 +1,4 @@
-<script src="/resource/csl/js/postcode.js?ver=<?JS_VER ?>"></script>
+<script src="/resource/common/js/postcode.js?ver=<?JS_VER ?>"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <form class="form-horizontal" id="frm" name="frm">

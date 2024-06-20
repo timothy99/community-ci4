@@ -118,7 +118,7 @@ function upload(file_id) {
     $.ajax({
         data : form_data,
         type : "POST",
-        url : "/file/upload",
+        url : "/csl/file/upload",
         dataType: "json",
         processData : false,
         contentType : false,
@@ -134,8 +134,8 @@ function upload(file_id) {
 
 // 첨부파일 삭제(화면에서만)
 function file_delete(file_id) {
-    $("#ul_"+file_id).remove();
-    $("#visible_"+file_id).remove();
+    $("#"+file_id).remove();
+    $("input[value='"+file_id+"']").val("");
 }
 
 // base64decode
