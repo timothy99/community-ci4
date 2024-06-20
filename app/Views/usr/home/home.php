@@ -1,3 +1,18 @@
+        <div id="hd_pop">
+            <h2>팝업레이어 알림</h2>
+<?php   foreach($popup_list as $no => $val) { ?>
+            <div id="popup_<?=$val->p_idx ?>" class="hd_pops" style="top:<?=$val->position_top ?>px;left:<?=$val->position_left ?>px">
+                <div class="hd_pops_con" style="width:<?=$val->popup_width ?>px;height:<?=$val->popup_height ?>px">
+                    <p><img src="/file/view/<?=$val->popup_file ?>" alt="<?=$val->title ?>" class="img-fluid"></p>
+                </div>
+                <div class="hd_pops_footer">
+                    <button class="hd_pops_reject" onclick="popup_disabled(<?=$val->p_idx ?>, <?=$val->disabled_hours ?>)"><strong><?=$val->disabled_hours ?></strong>시간 동안 다시 열람하지 않습니다.</button>
+                    <button class="hd_pops_close" onclick="popup_close(<?=$val->p_idx ?>)">닫기 <i class="fa fa-times" aria-hidden="true"></i></button>
+                </div>
+            </div>
+<?php   } ?>
+        </div>
+
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
@@ -114,3 +129,13 @@
                 </div><!-- /.container-fluid -->
             </div><!-- /.content -->
         </div><!-- /.content-wrapper -->
+
+<script>
+    function popup_close(p_idx) {
+        $("#popup_"+p_idx).remove();
+    }
+    function popup_disabled(p_idx, disabled_hours) {
+        ajax7("/popup/disabled/"+p_idx+"/"+disabled_hours);
+        $("#popup_"+p_idx).remove();
+    }
+</script>

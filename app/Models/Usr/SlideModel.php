@@ -35,6 +35,14 @@ class SlideModel extends Model
         $builder->limit($rows, $offset);
         $cnt = $builder->countAllResults(false);
         $list = $builder->get()->getResult();
+        foreach ($list as $no => $val) {
+            if ($no == 0) {
+                $active_class = "active";
+            } else {
+                $active_class = "";
+            }
+            $list[$no]->active_class = $active_class;
+        }
 
         $proc_result = array();
         $proc_result["result"] = $result;

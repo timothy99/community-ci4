@@ -206,3 +206,22 @@ create table mng_slide (
     upd_date varchar(14) not null comment '수정일'
 ) comment '슬라이드';
 
+create table mng_popup (
+    p_idx int auto_increment comment '팝업 인덱스' primary key,
+    title varchar(1000) not null comment '제목',
+    popup_file varchar(32) null comment '레이어 팝업 이미지',
+    http_link varchar(1000) not null comment 'http 링크',
+    position_left int null comment '좌측 위치',
+    position_top int null comment '상단 위치',
+    popup_width int null comment '너비',
+    popup_height int null comment '높이',
+    disabled_hours int null comment '다시 보지 않음 누를시 안보이는 시간',
+    start_date varchar(14) default '20000101000000' not null comment '게시 시작시간',
+    end_date varchar(14) default '99991231235959' not null comment '게시 종료시간',
+    display_yn enum ('Y', 'N') default 'Y' not null comment '노출 여부',
+    del_yn enum ('Y', 'N') default 'N' not null comment '삭제 여부',
+    ins_id varchar(70) not null comment '등록자',
+    ins_date varchar(14) not null comment '등록일',
+    upd_id varchar(70) not null comment '수정자',
+    upd_date varchar(14) not null comment '수정일'
+) comment '레이어 팝업';

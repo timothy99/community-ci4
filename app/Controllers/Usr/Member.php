@@ -87,7 +87,7 @@ class Member extends BaseController
 
             $auth_group = getUserSessionInfo("auth_group");
             if ($auth_group == "admin") {
-                $return_url = "/csl/dashboard/main";
+                $return_url = "/csl/member/list";
             }
         } else {
             $result = false;
