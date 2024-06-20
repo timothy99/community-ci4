@@ -3,8 +3,9 @@
 namespace App\Controllers\Usr;
 
 use App\Controllers\BaseController;
-use App\Models\Csl\SlideModel;
+use App\Models\Usr\SlideModel;
 use App\Models\Usr\BoardModel;
+use App\Models\Usr\PopupModel;
 
 class Home extends BaseController
 {
@@ -17,6 +18,7 @@ class Home extends BaseController
     {
         $board_model = new BoardModel();
         $slide_model = new SlideModel();
+        $popup_model = new PopupModel();
 
         $result = true;
         $message = "정상처리";
@@ -38,12 +40,16 @@ class Home extends BaseController
         $model_result = $slide_model->getSlideList($data);
         $slide_list = $model_result["list"];
 
+        $model_result = $popup_model->getPopupList($data);
+        $popup_list = $model_result["list"];
+
         $proc_result = array();
         $proc_result["result"] = $result;
         $proc_result["message"] = $message;
         $proc_result["notice_list"] = $notice_list;
         $proc_result["free_list"] = $free_list;
         $proc_result["slide_list"] = $slide_list;
+        $proc_result["popup_list"] = $popup_list;
 
         return uview("usr/home/home", $proc_result);
     }

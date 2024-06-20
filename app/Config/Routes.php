@@ -47,6 +47,7 @@ $routes->get("/file/view/(:alphanum)", "Usr\File::view");
 $routes->get("/file/download/(:alphanum)", "Usr\File::download");
 
 $routes->get("/contents/view/(:num)", "Usr\Contents::view");
+$routes->post("/popup/disabled/(:num)/(:num)", "Usr\Popup::disabled");
 
 
 
@@ -113,3 +114,10 @@ $routes->get("/csl/menu/edit/(:num)", "Csl\Menu::edit");
 $routes->post("/csl/menu/update", "Csl\Menu::update");
 $routes->get("/csl/menu/view/(:num)", "Csl\Menu::view");
 $routes->post("/csl/menu/delete/(:num)", "Csl\Menu::delete");
+
+$routes->get("/csl/popup/list", "Csl\Popup::list");
+$routes->get("/csl/popup/write", "Csl\Popup::write");
+$routes->get("/csl/popup/edit/(:num)", "Csl\Popup::edit");
+$routes->post("/csl/popup/update", "Csl\Popup::update");
+$routes->get("/csl/popup/view/(:num)", "Csl\Popup::view");
+$routes->post("/csl/popup/delete/(:num)", "Csl\Popup::delete");

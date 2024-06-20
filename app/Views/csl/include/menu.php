@@ -16,11 +16,6 @@
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar nav-flat nav-child-indent flex-column">
                     <li class="nav-header">메뉴</li>
-                    <li class="nav-item" id="li-dashboard-main">
-                        <a href="/csl/dashboard/main" class="nav-link" id="a-dashboard-main">
-                            <p>대시보드</p>
-                        </a>
-                    </li>
                     <li class="nav-item" id="li-member-list">
                         <a href="/csl/member/list" class="nav-link" id="a-member-list">
                             <p>회원</p>
@@ -39,6 +34,11 @@
                     <li class="nav-item" id="li-slide-list">
                         <a href="/csl/slide/list" class="nav-link" id="a-slide-list">
                             <p>슬라이드</p>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="li-popup-list">
+                        <a href="/csl/popup/list" class="nav-link" id="a-popup-list">
+                            <p>레이어 팝업</p>
                         </a>
                     </li>
                     <li class="nav-item" id="li-contents-list">

@@ -123,6 +123,20 @@ function ajax6(ajax_url, form_id) {
     });
 }
 
+// 입력받은 데이터 없이 url의 세그멘트로만 처리후 경고창 안띄우기
+function ajax7(ajax_url) {
+    var progress_html = $("<div id='progress' style='display:none;'><div id='progress_loading'><img id='loading_img' src='/resource/community/image/loading.gif'/></div></div>").appendTo(document.body).show();
+    $.ajax({
+        url: ajax_url,
+        type: "POST",
+        dataType: "json",
+        success: function(proc_result) {
+            $("#progress").remove();
+        }
+    });
+}
+
+
 // 파일첨부 로직
 function upload(file_id) {
     var progress_html = $("<div id='progress' style='display:none;'><div id='progress_loading'><img id='loading_img' src='/resource/community/image/loading.gif'/></div></div>").appendTo(document.body).show();
