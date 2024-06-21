@@ -47,11 +47,14 @@ $routes->get("/file/view/(:alphanum)", "Usr\File::view");
 $routes->get("/file/download/(:alphanum)", "Usr\File::download");
 
 $routes->get("/contents/view/(:num)", "Usr\Contents::view");
+
 $routes->post("/popup/disabled/(:num)/(:num)", "Usr\Popup::disabled");
 
+$routes->post("/ask/write", "Usr\Ask::write");
 
 
 
+// 관리자
 $routes->get("/csl", "Csl\Member::index");
 $routes->get("/csl/member", "Csl\Member::index");
 $routes->get("/csl/member/list", "Csl\Member::list");
@@ -121,3 +124,6 @@ $routes->get("/csl/popup/edit/(:num)", "Csl\Popup::edit");
 $routes->post("/csl/popup/update", "Csl\Popup::update");
 $routes->get("/csl/popup/view/(:num)", "Csl\Popup::view");
 $routes->post("/csl/popup/delete/(:num)", "Csl\Popup::delete");
+
+$routes->get("/csl/ask/list", "Csl\Ask::list");
+$routes->post("/csl/ask/delete/(:num)", "Csl\Ask::delete");
