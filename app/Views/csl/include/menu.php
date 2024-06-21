@@ -41,6 +41,11 @@
                             <p>레이어 팝업</p>
                         </a>
                     </li>
+                    <li class="nav-item" id="li-ask-list">
+                        <a href="/csl/ask/list" class="nav-link" id="a-ask-list">
+                            <p>간편문의</p>
+                        </a>
+                    </li>
                     <li class="nav-item" id="li-contents-list">
                         <a href="/csl/contents/list" class="nav-link" id="a-contents-list">
                             <p>콘텐츠</p>

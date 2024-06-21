@@ -225,3 +225,12 @@ create table mng_popup (
     upd_id varchar(70) not null comment '수정자',
     upd_date varchar(14) not null comment '수정일'
 ) comment '레이어 팝업';
+
+create table mng_ask (
+    a_idx int auto_increment comment '문의 인덱스' primary key,
+    name varchar(200) not null comment '이름',
+    phone varchar(32) not null comment '전화',
+    del_yn enum ('Y', 'N') default 'N' not null comment '삭제 여부',
+    ins_date varchar(14) not null comment '등록일',
+    upd_date varchar(14) not null comment '수정일'
+) comment '단순문의';
