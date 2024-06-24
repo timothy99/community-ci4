@@ -24,7 +24,7 @@ class PopupModel extends Model
         $layer_closed = getUserSessionInfo("layer_closed");
         foreach ($layer_closed as $no1 => $val1) {
             foreach ($list as $no2 => $val2) {
-                if ($val1->p_idx == $val2->p_idx) {
+                if ($val1->p_idx == $val2->p_idx && $val1->expire_date > date("YmdHis")) {
                     unset($list[$no2]);
                 }
             }
