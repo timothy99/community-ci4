@@ -147,3 +147,7 @@ $routes->get("/csl/shortlink/edit/(:num)", "Csl\Shortlink::edit");
 $routes->post("/csl/shortlink/update", "Csl\Shortlink::update");
 $routes->get("/csl/shortlink/view/(:num)", "Csl\Shortlink::view");
 $routes->post("/csl/shortlink/delete/(:num)", "Csl\Shortlink::delete");
+
+$routes->get("/csl/privacy", "Csl\Privacy::index");
+$routes->get("/csl/privacy/list", "Csl\Privacy::list");
+
