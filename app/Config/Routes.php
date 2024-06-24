@@ -52,6 +52,19 @@ $routes->post("/popup/disabled/(:num)/(:num)", "Usr\Popup::disabled");
 
 $routes->post("/ask/write", "Usr\Ask::write");
 
+$routes->get("/s/(:num)", "Usr\Shortlink::hyperlink");
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // 관리자
@@ -127,3 +140,10 @@ $routes->post("/csl/popup/delete/(:num)", "Csl\Popup::delete");
 
 $routes->get("/csl/ask/list", "Csl\Ask::list");
 $routes->post("/csl/ask/delete/(:num)", "Csl\Ask::delete");
+
+$routes->get("/csl/shortlink/list", "Csl\Shortlink::list");
+$routes->get("/csl/shortlink/write", "Csl\Shortlink::write");
+$routes->get("/csl/shortlink/edit/(:num)", "Csl\Shortlink::edit");
+$routes->post("/csl/shortlink/update", "Csl\Shortlink::update");
+$routes->get("/csl/shortlink/view/(:num)", "Csl\Shortlink::view");
+$routes->post("/csl/shortlink/delete/(:num)", "Csl\Shortlink::delete");

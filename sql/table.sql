@@ -234,3 +234,15 @@ create table mng_ask (
     ins_date varchar(14) not null comment '등록일',
     upd_date varchar(14) not null comment '수정일'
 ) comment '단순문의';
+
+create table mng_shortlink (
+    sl_idx int not null auto_increment comment '단축url 인덱스',
+    title varchar(1000) not null comment '제목',
+    http_link varchar(1000) not null comment '이동할 링크',
+    del_yn enum('Y', 'N') not null default 'N' comment '삭제 여부',
+    ins_id varchar(70) not null comment '등록자',
+    ins_date varchar(14) not null comment '등록일',
+    upd_id varchar(70) not null comment '수정자',
+    upd_date varchar(14) not null comment '수정일',
+    primary key (sl_idx)
+) engine=InnoDB default charset=utf8 comment='단축url';

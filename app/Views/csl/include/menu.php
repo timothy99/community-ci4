@@ -36,6 +36,9 @@
                             <p>슬라이드</p>
                         </a>
                     </li>
+                    <li class="nav-item" id="li-shortlink-list">
+                        <a href="/csl/shortlink/list" class="nav-link" id="a-shortlink-list"><p>단축url</p></a>
+                    </li>
                     <li class="nav-item" id="li-popup-list">
                         <a href="/csl/popup/list" class="nav-link" id="a-popup-list">
                             <p>레이어 팝업</p>
