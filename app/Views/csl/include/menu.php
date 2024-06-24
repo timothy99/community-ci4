@@ -74,6 +74,11 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="nav-item" id="li-privacy-list">
+                        <a href="/csl/privacy/list" class="nav-link" id="a-privacy-list">
+                            <p>개인정보</p>
+                        </a>
+                    </li>
                     <li class="nav-item" id="li-member-logout">
                         <a href="/member/logout" class="nav-link" id="a-member-logout">
                             <p>로그아웃</p>

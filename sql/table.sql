@@ -246,3 +246,19 @@ create table mng_shortlink (
     upd_date varchar(14) not null comment '수정일',
     primary key (sl_idx)
 ) engine=InnoDB default charset=utf8 comment='단축url';
+
+create table mng_privacy (
+    p_idx int auto_increment comment '인덱스' primary key,
+    http_link varchar(1000) not null comment '링크',
+    memo varchar(2000) not null comment '상담메모',
+    ip_addr varchar(15) not null comment 'IP주소',
+    del_yn enum ('Y', 'N') default 'N' not null comment '삭제 여부',
+    ins_id varchar(70) not null comment '등록자',
+    ins_date varchar(14) not null comment '등록일',
+    upd_id varchar(70) not null comment '수정자',
+    upd_date varchar(14) not null comment '수정일'
+) comment '개인정보 처리시스템';
+
+create index mng_privacy_ins_id_idx on mng_privacy (ins_id);
+create index mng_privacy_upd_id_idx on mng_privacy (upd_id);
+

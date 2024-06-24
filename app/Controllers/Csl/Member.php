@@ -69,6 +69,8 @@ class Member extends BaseController
         $proc_result["board_id"] = $board_id;
         $proc_result["search_arr"] = $search_arr;
 
+        privacyInsert("대시보드 메인 접근");
+
         return aview("csl/member/list", $proc_result);
     }
 
