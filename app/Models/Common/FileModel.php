@@ -226,7 +226,7 @@ class FileModel extends Model
         try {
             $raw_file = $response->download($file_path, null); // 파일 다운로드
         } catch (Throwable $t) {
-            $raw_file = $response->download("resource/csl/image/no_image.png", null); // 기본 이미지로 다운로드
+            $raw_file = $response->download("resource/community/image/no_image.png", null); // 기본 이미지로 다운로드
         }
 
         return $raw_file;
