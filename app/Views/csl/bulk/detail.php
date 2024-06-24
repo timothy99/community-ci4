@@ -83,7 +83,7 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">
-<?=$paging_view ?>
+<?=$paging_info["paging_view"] ?>
                             <button type="button" class="btn btn-info float-right" id="list" name="list">목록</button>
                         </div>
                     </div>
@@ -104,9 +104,9 @@
         $("#a-bulk-list").addClass("active");
 
         // 셀렉트 박스 선택
-        $("#search_condition").val("<?=$search_arr["search_condition"] ?>").prop("selected", true);
-        $("#search_text").val("<?=$search_arr["search_text"] ?>");
-        $("#rows").val("<?=$search_arr["rows"] ?>").prop("selected", true);
+        $("#search_condition").val("<?=$data["search_arr"]["search_condition"] ?>").prop("selected", true);
+        $("#search_text").val("<?=$data["search_arr"]["search_text"] ?>");
+        $("#rows").val("<?=$data["search_arr"]["rows"] ?>").prop("selected", true);
     });
 
     $(function() {
@@ -129,6 +129,6 @@
         var search_text = $("#search_text").val();
         var search_condition = $("#search_condition").val();
         var rows = $("#rows").val();
-        location.href = "/csl/bulk/detail/<?=$search_arr["b_idx"] ?>?page=1&search_text="+search_text+"&search_condition="+search_condition+"&rows="+rows;
+        location.href = "/csl/bulk/detail/<?=$data["b_idx"] ?>?page=1&search_text="+search_text+"&search_condition="+search_condition+"&rows="+rows;
     }
 </script>
