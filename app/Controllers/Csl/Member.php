@@ -38,7 +38,6 @@ class Member extends BaseController
         $cnt = $model_result["cnt"];
 
         $data["cnt"] = $cnt;
-        $data["view_file"] = "/csl/paging/paging";
         $paging_info = $paging_model->getPagingInfo($data);
 
         $proc_result = array();

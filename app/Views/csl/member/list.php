@@ -109,8 +109,9 @@
         // 셀렉트 박스 선택
         $("#search_condition").val("<?=$data["search_arr"]["search_condition"] ?>").prop("selected", true);
         $("#search_text").val("<?=$data["search_arr"]["search_text"] ?>");
-        $("#auth_group").val("<?=$data["search_arr"]["auth_group"] ?>").prop("selected", true);
         $("#rows").val("<?=$data["search_arr"]["rows"] ?>").prop("selected", true);
+
+        $("#auth_group").val("<?=$data["search_arr"]["auth_group"] ?>").prop("selected", true);
     });
 
     $(function() {
