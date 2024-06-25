@@ -23,14 +23,6 @@ class PrivacyModel extends Model
         $search_condition = $search_arr["search_condition"];
         $search_text = $search_arr["search_text"];
 
-        if ($rows > 0) {
-            // 오프셋 계산
-            $offset = ($page-1)*$rows;
-            if ($offset < 0) {
-                $offset = 0;
-            }
-        }
-
         $db = $this->db;
         $builder = $db->table("privacy");
         $builder->where("del_yn", "N");
@@ -39,7 +31,7 @@ class PrivacyModel extends Model
         }
 
         if ($rows > 0) { // 0보다 클 경우 화면에 보여지는것이니 limit를 건다.
-            $builder->limit($rows, $offset);
+            $builder->limit($rows, getOffset($page, $rows));
         }
         $builder->orderBy("p_idx", "desc");
         $cnt = $builder->countAllResults(false);
