@@ -25,7 +25,7 @@ class Bulk extends BaseController
         $search_arr = array();
         $search_arr["rows"] = $this->request->getGet("rows") ?? 10;
         $search_arr["search_text"] = $this->request->getGet("search_text", FILTER_SANITIZE_SPECIAL_CHARS) ?? "";
-        $search_arr["search_condition"] = $this->request->getGet("search_condition", FILTER_SANITIZE_SPECIAL_CHARS) ?? "member_id";
+        $search_arr["search_condition"] = $this->request->getGet("search_condition", FILTER_SANITIZE_SPECIAL_CHARS) ?? "title";
         $search_arr["auth_group"] = $this->request->getGet("auth_group", FILTER_SANITIZE_SPECIAL_CHARS) ?? "";
 
         $data["search_arr"] = $search_arr;
@@ -37,7 +37,6 @@ class Bulk extends BaseController
         $cnt = $model_result["cnt"];
 
         $data["cnt"] = $cnt;
-        $data["view_file"] = "/csl/paging/paging";
         $paging_info = $paging_model->getPagingInfo($data);
 
         $proc_result = array();
@@ -114,7 +113,7 @@ class Bulk extends BaseController
         $search_arr = array();
         $search_arr["rows"] = $this->request->getGet("rows") ?? 10;
         $search_arr["search_text"] = $this->request->getGet("search_text", FILTER_SANITIZE_SPECIAL_CHARS) ?? "";
-        $search_arr["search_condition"] = $this->request->getGet("search_condition", FILTER_SANITIZE_SPECIAL_CHARS) ?? "member_id";
+        $search_arr["search_condition"] = $this->request->getGet("search_condition", FILTER_SANITIZE_SPECIAL_CHARS) ?? "member_name";
 
         $data["search_arr"] = $search_arr;
         $data["b_idx"] = $b_idx;
@@ -127,7 +126,6 @@ class Bulk extends BaseController
 
 
         $data["cnt"] = $cnt;
-        $data["view_file"] = "/csl/paging/paging";
         $paging_info = $paging_model->getPagingInfo($data);
 
         $proc_result = array();
