@@ -5,19 +5,21 @@ namespace App\Models\Csl;
 use CodeIgniter\Model;
 use App\Models\Common\SecurityModel;
 use Exception;
-use CodeIgniter\HTTP\Request;
+use App\Models\Common\DateModel;
 
 class PrivacyModel extends Model
 {
     public function getPrivacyList($data)
     {
+        $date_model = new DateModel();
+
         $result = true;
         $message = "목록 불러오기가 완료되었습니다.";
 
-        $rows = $data["rows"];
         $page = $data["page"];
 
         $search_arr = $data["search_arr"];
+        $rows = $search_arr["rows"];
         $search_condition = $search_arr["search_condition"];
         $search_text = $search_arr["search_text"];
 
@@ -42,6 +44,11 @@ class PrivacyModel extends Model
         $builder->orderBy("p_idx", "desc");
         $cnt = $builder->countAllResults(false);
         $list = $builder->get()->getResult();
+
+        foreach($list as $no => $val) {
+            $list[$no]->list_no = $cnt-$no-(($page-1)*$rows);
+            $list[$no]->ins_date_txt = $date_model->convertTextToDate($val->ins_date, 1, 1);
+        }
 
         $proc_result = array();
         $proc_result["result"] = $result;
