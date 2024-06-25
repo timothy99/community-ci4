@@ -19,23 +19,15 @@ class Slide extends BaseController
     {
         $slide_model = new SlideModel();
         $paging_model = new PagingModel();
-        $date_model = new DateModel();
-
-        $rows = $this->request->getGet("rows") ?? 10;
-        $page = $this->request->getGet("page") ?? 1;
-        $search_text = $this->request->getGet("search_text", FILTER_SANITIZE_SPECIAL_CHARS) ?? "";
-        $search_condition = $this->request->getGet("search_condition", FILTER_SANITIZE_SPECIAL_CHARS) ?? "title";
-
-        $search_arr = array();
-        $search_arr["search_text"] = $search_text;
-        $search_arr["search_condition"] = $search_condition;
-        $search_arr["page"] = $page;
-        $search_arr["rows"] = $rows;
-        $http_query = http_build_query($search_arr);
 
         $data = array();
-        $data["rows"] = $rows;
-        $data["page"] = $page;
+        $data["page"] = $this->request->getGet("page") ?? 1;
+
+        $search_arr = array();
+        $search_arr["rows"] = $this->request->getGet("rows") ?? 10;
+        $search_arr["search_text"] = $this->request->getGet("search_text", FILTER_SANITIZE_SPECIAL_CHARS) ?? "";
+        $search_arr["search_condition"] = $this->request->getGet("search_condition", FILTER_SANITIZE_SPECIAL_CHARS) ?? "title";
+
         $data["search_arr"] = $search_arr;
 
         $model_result = $slide_model->getSlideList($data);
@@ -44,24 +36,16 @@ class Slide extends BaseController
         $list = $model_result["list"];
         $cnt = $model_result["cnt"];
 
-        foreach($list as $no => $val) {
-            $list[$no]->list_no = $cnt-$no-(($page-1)*$rows);
-            $list[$no]->ins_date_txt = $date_model->convertTextToDate($val->ins_date, 1, 1);
-            $list[$no]->start_date_txt = $date_model->convertTextToDate($val->start_date, 1, 1);
-            $list[$no]->end_date_txt = $date_model->convertTextToDate($val->end_date, 1, 1);
-        }
-
-        $paging = $paging_model->getPaging($page, $rows, $cnt);
-        $paging_view = view("/csl/paging/paging", ["paging"=>$paging, "http_query"=>$http_query, "href_link"=>"/slide/list"]); // 페이징 뷰
+        $data["cnt"] = $cnt;
+        $paging_info = $paging_model->getPagingInfo($data);
 
         $proc_result = array();
         $proc_result["result"] = $result;
         $proc_result["message"] = $message;
         $proc_result["list"] = $list;
         $proc_result["cnt"] = $cnt;
-        $proc_result["paging"] = $paging;
-        $proc_result["paging_view"] = $paging_view;
-        $proc_result["search_arr"] = $search_arr;
+        $proc_result["paging_info"] = $paging_info;
+        $proc_result["data"] = $data;
 
         return aview("csl/slide/list", $proc_result);
     }

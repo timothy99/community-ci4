@@ -7,20 +7,22 @@ use CodeIgniter\Model;
 class PagingModel extends Model
 {
     /**
-     * [Description for getPaging]
+     * [Description for getPagingArray]
      * 페이징 생성
      *
-     * @param   int     $page
-     * @param   int     $rows
-     * @param   int     $cnt
+     * @param array $data
      *
      * @return  array
      *
      * @author  timothy99
      */
-    public function getPaging(int $page, int $rows, int $cnt): array
+    public function getPagingArray(array $data): array
     {
-        $page_arr = array();
+        $cnt = $data["cnt"];
+
+        $search_arr = $data["search_arr"];
+        $page = $data["page"];
+        $rows = $search_arr["rows"];
 
         $prev_pages = 4; // 현재 페이지($page)기준 앞에 있을 최대 페이지 수
         $next_pages = 4; // 현재 페이지($page)기준 뒤에 있을 최대 페이지 수
@@ -83,4 +85,31 @@ class PagingModel extends Model
 
         return $paging;
     }
+
+    public function getPagingView($data)
+    {
+        $uri_path = current_url(true)->getPath();
+
+        $view_file = $data["view_file"] ?? "/csl/paging/paging";
+        $http_query = http_build_query($data["search_arr"]);
+        $paging = $data["paging"];
+
+        $paging_view = view($view_file, ["paging"=>$paging, "http_query"=>$http_query, "href_link"=>$uri_path]); // 페이징 뷰
+
+        return $paging_view;
+    }
+
+    public function getPagingInfo($data)
+    {
+        $paging_array = $this->getPagingArray($data);
+        $data["paging"] = $paging_array;
+        $paging_view = $this->getPagingView($data);
+
+        $paging_info = array();
+        $paging_info["paging_array"] = $paging_array;
+        $paging_info["paging_view"] = $paging_view;
+
+        return $paging_info;
+    }
+
 }

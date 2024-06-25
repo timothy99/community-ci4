@@ -15,11 +15,11 @@ class BoardModel extends Model
         $result = true;
         $message = "목록 불러오기가 완료되었습니다.";
 
-        $rows = $data["rows"];
         $page = $data["page"];
         $board_id = $data["board_id"];
-        $search_arr = $data["search_arr"];
 
+        $search_arr = $data["search_arr"];
+        $rows = $search_arr["rows"];
         $search_condition = $search_arr["search_condition"];
         $search_text = $search_arr["search_text"];
 

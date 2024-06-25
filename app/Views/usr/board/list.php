@@ -44,7 +44,7 @@
                                                 <option value="title">제목</option>
                                                 <option value="contents">내용</option>
                                             </select>
-                                            <input type="text" id="search_text" name="search_text" class="form-control float-right ml-3" placeholder="검색어를 입력하세요" value="<?=$search_arr["search_text"] ?>">
+                                            <input type="text" id="search_text" name="search_text" class="form-control float-right ml-3" placeholder="검색어를 입력하세요" value="<?=$data["search_arr"]["search_text"] ?>">
                                             <div class="input-group-append">
                                                 <button type="button" class="btn btn-default" id="search_button" name="search_button">
                                                     <i class="fas fa-search"></i>
@@ -80,7 +80,7 @@
                                 </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer clear-fix">
-<?=$paging_view ?>
+<?=$paging_info["paging_view"] ?>
 <?php   if ($board_id != "notice") { ?>
                                     <button type="button" class="btn btn-info float-right" id="write" name="write">글쓰기</button>
 <?php   } ?>
@@ -95,9 +95,9 @@
 <script>
     $(window).on("load", function() {
         // 셀렉트 박스 선택
-        $("#search_condition").val("<?=$search_arr["search_condition"] ?>").prop("selected", true);
-        $("#search_text").val("<?=$search_arr["search_text"] ?>");
-        $("#rows").val("<?=$search_arr["rows"] ?>").prop("selected", true);
+        $("#search_condition").val("<?=$data["search_arr"]["search_condition"] ?>").prop("selected", true);
+        $("#search_text").val("<?=$data["search_arr"]["search_text"] ?>");
+        $("#rows").val("<?=$data["search_arr"]["rows"] ?>").prop("selected", true);
     });
 
     $(function() {

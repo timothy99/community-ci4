@@ -24,7 +24,7 @@ class Home extends BaseController
         $message = "정상처리";
 
         $data = array();
-        $data["rows"] = 3;
+        $data["search_arr"]["rows"] = 3;
         $data["page"] = 1;
         $data["board_id"] = "notice";
         $data["search_arr"]["search_condition"] = null;
