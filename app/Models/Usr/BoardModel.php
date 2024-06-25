@@ -29,7 +29,7 @@ class BoardModel extends Model
             $offset = 0;
         }
 
-        $db = db_connect();
+        $db = $this->db;
         $builder = $db->table("board");
         $builder->where("board_id", $board_id);
         $builder->where("del_yn", "N");
@@ -65,7 +65,7 @@ class BoardModel extends Model
         $result = true;
         $message = "정상처리";
 
-        $db = db_connect();
+        $db = $this->db;
         $builder = $db->table("board");
         $builder->where("del_yn", "N");
         $builder->where("b_idx", $b_idx);
@@ -96,27 +96,27 @@ class BoardModel extends Model
         $board_id = $data["board_id"];
         $file_idxs = $data["file_idxs"];
 
-        try {
-            $db = db_connect();
-            $db->transStart();
-            $builder = $db->table("board");
-            $builder->set("board_id", $board_id);
-            $builder->set("title", $title);
-            $builder->set("contents", $contents);
-            $builder->set("file_idxs", $file_idxs);
-            $builder->set("del_yn", "N");
-            $builder->set("ins_id", $user_id);
-            $builder->set("ins_date", $today);
-            $builder->set("upd_id", $user_id);
-            $builder->set("upd_date", $today);
-            $result = $builder->insert();
-            $insert_id = $db->insertID();
-            $db->transComplete();
-        } catch (Throwable $t) {
+        $db = $this->db;
+        $db->transStart();
+        $builder = $db->table("board");
+        $builder->set("board_id", $board_id);
+        $builder->set("title", $title);
+        $builder->set("contents", $contents);
+        $builder->set("file_idxs", $file_idxs);
+        $builder->set("del_yn", "N");
+        $builder->set("ins_id", $user_id);
+        $builder->set("ins_date", $today);
+        $builder->set("upd_id", $user_id);
+        $builder->set("upd_date", $today);
+        $result = $builder->insert();
+        $insert_id = $db->insertID();
+
+        if ($db->transStatus() === false) {
             $result = false;
             $message = "입력에 오류가 발생했습니다.";
-            logMessage($t->getMessage());
             $db->transRollback();
+        } else {
+            $db->transCommit();
         }
 
         $model_result = array();
@@ -143,25 +143,26 @@ class BoardModel extends Model
         $board_id = $data["board_id"];
         $file_idxs = $data["file_idxs"];
 
-        try {
-            $db = db_connect();
-            $db->transStart();
-            $builder = $db->table("board");
-            $builder->set("board_id", $board_id);
-            $builder->set("title", $title);
-            $builder->set("contents", $contents);
-            $builder->set("file_idxs", $file_idxs);
-            $builder->set("del_yn", "N");
-            $builder->set("upd_id", $user_id);
-            $builder->set("upd_date", $today);
-            $builder->where("b_idx", $b_idx);
-            $builder->where("ins_id", $user_id);
-            $result = $builder->update();
-            $db->transComplete();
-        } catch (Throwable $t) {
+        $db = $this->db;
+        $db->transStart();
+        $builder = $db->table("board");
+        $builder->set("board_id", $board_id);
+        $builder->set("title", $title);
+        $builder->set("contents", $contents);
+        $builder->set("file_idxs", $file_idxs);
+        $builder->set("del_yn", "N");
+        $builder->set("upd_id", $user_id);
+        $builder->set("upd_date", $today);
+        $builder->where("b_idx", $b_idx);
+        $builder->where("ins_id", $user_id);
+        $result = $builder->update();
+
+        if ($db->transStatus() === false) {
             $result = false;
             $message = "입력에 오류가 발생했습니다.";
-            logMessage($t->getMessage());
+            $db->transRollback();
+        } else {
+            $db->transCommit();
         }
 
         $model_result = array();
@@ -181,21 +182,22 @@ class BoardModel extends Model
         $result = true;
         $message = "입력이 잘 되었습니다";
 
-        try {
-            $db = db_connect();
-            $db->transStart();
-            $builder = $db->table("board");
-            $builder->set("del_yn", "Y");
-            $builder->set("upd_id", $member_id);
-            $builder->set("upd_date", $today);
-            $builder->where("b_idx", $b_idx);
-            $builder->where("ins_id", $member_id);
-            $result = $builder->update();
-            $db->transComplete();
-        } catch (Throwable $t) {
+        $db = $this->db;
+        $db->transStart();
+        $builder = $db->table("board");
+        $builder->set("del_yn", "Y");
+        $builder->set("upd_id", $member_id);
+        $builder->set("upd_date", $today);
+        $builder->where("b_idx", $b_idx);
+        $builder->where("ins_id", $member_id);
+        $result = $builder->update();
+
+        if ($db->transStatus() === false) {
             $result = false;
             $message = "입력에 오류가 발생했습니다.";
-            logMessage($t->getMessage());
+            $db->transRollback();
+        } else {
+            $db->transCommit();
         }
 
         $model_result = array();

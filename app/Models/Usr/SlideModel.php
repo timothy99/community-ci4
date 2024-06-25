@@ -14,7 +14,7 @@ class SlideModel extends Model
 
         $today = date("YmdHis");
 
-        $db = db_connect();
+        $db = $this->db;
         $builder = $db->table("slide");
         $builder->where("del_yn", "N");
         $builder->where("display_yn", "Y");

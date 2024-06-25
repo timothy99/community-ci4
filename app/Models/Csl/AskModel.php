@@ -28,7 +28,7 @@ class AskModel extends Model
             $offset = 0;
         }
 
-        $db = db_connect();
+        $db = $this->db;
         $builder = $db->table("ask");
         $builder->where("del_yn", "N");
         if ($search_text != null) {
@@ -65,19 +65,20 @@ class AskModel extends Model
 
         $a_idx = $data["a_idx"];
 
-        try {
-            $db = db_connect();
-            $db->transStart();
-            $builder = $db->table("ask");
-            $builder->set("del_yn", "Y");
-            $builder->set("upd_date", $today);
-            $builder->where("a_idx", $a_idx);
-            $result = $builder->update();
-            $db->transComplete();
-        } catch (Throwable $t) {
+        $db = $this->db;
+        $db->transStart();
+        $builder = $db->table("ask");
+        $builder->set("del_yn", "Y");
+        $builder->set("upd_date", $today);
+        $builder->where("a_idx", $a_idx);
+        $result = $builder->update();
+
+        if ($db->transStatus() === false) {
             $result = false;
             $message = "입력에 오류가 발생했습니다.";
-            logMessage($t->getMessage());
+            $db->transRollback();
+        } else {
+            $db->transCommit();
         }
 
         $model_result = array();

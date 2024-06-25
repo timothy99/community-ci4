@@ -12,26 +12,14 @@ function privacyInsert($memo)
     $today = date("YmdHis");
     $member_id = getUserSessionInfo("member_id");
 
-    try {
-        $db = Database::connect();
-        $db->transStart();
-        $builder = $db->table("privacy");
-        $builder->set("http_link", $uri);
-        $builder->set("memo", $memo);
-        $builder->set("ip_addr", $ip);
-        $builder->set("del_yn", "N");
-        $builder->set("ins_id", $member_id);
-        $builder->set("ins_date", $today);
-        $builder->set("upd_id", $member_id);
-        $builder->set("upd_date", $today);
-        $result = $builder->insert();
-        if ($result == false) { 
-            throw new Exception($db->error()["message"]);
-        }
-        $db->transComplete();
-    } catch (Exception $exception) {
-        $result = false;
-        $message = $exception->getMessage();
-        $db->transRollback();
-    }
+    $db = Database::connect();
+    $builder = $db->table("privacy");
+    $builder->set("http_link", $uri);
+    $builder->set("memo", $memo);
+    $builder->set("ip_addr", $ip);
+    $builder->set("del_yn", "N");
+    $builder->set("ins_id", $member_id);
+    $builder->set("ins_date", $today);
+    $builder->set("upd_id", $member_id);
+    $builder->set("upd_date", $today);
 }

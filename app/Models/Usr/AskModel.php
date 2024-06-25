@@ -20,22 +20,22 @@ class AskModel extends Model
         $name = $data["name"];
         $phone = $data["phone"];
 
-        try {
-            $db = db_connect();
-            $db->transStart();
-            $builder = $db->table("ask");
-            $builder->set("name", $name);
-            $builder->set("phone", $phone);
-            $builder->set("ins_date", $today);
-            $builder->set("upd_date", $today);
-            $result = $builder->insert();
-            $insert_id = $db->insertID();
-            $db->transComplete();
-        } catch (Throwable $t) {
+        $db = $this->db;
+        $db->transStart();
+        $builder = $db->table("ask");
+        $builder->set("name", $name);
+        $builder->set("phone", $phone);
+        $builder->set("ins_date", $today);
+        $builder->set("upd_date", $today);
+        $result = $builder->insert();
+        $insert_id = $db->insertID();
+
+        if ($db->transStatus() === false) {
             $result = false;
             $message = "입력에 오류가 발생했습니다.";
-            logMessage($t->getMessage());
             $db->transRollback();
+        } else {
+            $db->transCommit();
         }
 
         $model_result = array();

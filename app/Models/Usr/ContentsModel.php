@@ -11,7 +11,7 @@ class ContentsModel extends Model
         $result = true;
         $message = "목록 불러오기가 완료되었습니다.";
 
-        $db = db_connect();
+        $db = $this->db;
         $builder = $db->table("contents");
         $builder->where("del_yn", "N");
         $builder->where("c_idx", $c_idx);

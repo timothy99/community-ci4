@@ -12,7 +12,7 @@ class MenuModel extends Model
         $result = true;
         $message = "목록 불러오기가 완료되었습니다.";
 
-        $db = db_connect();
+        $db = $this->db;
         $builder = $db->table("menu_json");
         $builder->where("category", "user");
         $builder->where("del_yn", "N");

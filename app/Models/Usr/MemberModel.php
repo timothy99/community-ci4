@@ -76,7 +76,7 @@ class MemberModel extends Model
 
         $member_id = $data["member_id"];
 
-        $db = db_connect();
+        $db = $this->db;
         $builder = $db->table("member");
         $builder->select("count(*) as cnt");
         $builder->where("del_yn", "N");
@@ -119,33 +119,34 @@ class MemberModel extends Model
         $auth_group = "common";
         $member_password_enc = $security_model->getPasswordEncrypt($member_password);
 
-        try {
-            $db = db_connect();
-            $db->transStart();
-            $builder = $db->table("member");
-            $builder->set("member_id", $member_id);
-            $builder->set("member_password", $member_password_enc);
-            $builder->set("member_name", $member_name);
-            $builder->set("member_nickname", $member_nickname);
-            $builder->set("email", $email);
-            $builder->set("phone", $phone);
-            $builder->set("post_code", $post_code);
-            $builder->set("addr1", $addr1);
-            $builder->set("addr2", $addr2);
-            $builder->set("auth_group", $auth_group);
-            $builder->set("last_login_date", $today);
-            $builder->set("del_yn", "N");
-            $builder->set("ins_id", $member_id);
-            $builder->set("ins_date", $today);
-            $builder->set("upd_id", $member_id);
-            $builder->set("upd_date", $today);
-            $result = $builder->insert();
-            $insert_id = $db->insertID();
-            $db->transComplete();
-        } catch (Throwable $t) {
+        $db = $this->db;
+        $db->transStart();
+        $builder = $db->table("member");
+        $builder->set("member_id", $member_id);
+        $builder->set("member_password", $member_password_enc);
+        $builder->set("member_name", $member_name);
+        $builder->set("member_nickname", $member_nickname);
+        $builder->set("email", $email);
+        $builder->set("phone", $phone);
+        $builder->set("post_code", $post_code);
+        $builder->set("addr1", $addr1);
+        $builder->set("addr2", $addr2);
+        $builder->set("auth_group", $auth_group);
+        $builder->set("last_login_date", $today);
+        $builder->set("del_yn", "N");
+        $builder->set("ins_id", $member_id);
+        $builder->set("ins_date", $today);
+        $builder->set("upd_id", $member_id);
+        $builder->set("upd_date", $today);
+        $result = $builder->insert();
+        $insert_id = $db->insertID();
+
+        if ($db->transStatus() === false) {
             $result = false;
             $message = "입력에 오류가 발생했습니다.";
-            logMessage($t->getMessage());
+            $db->transRollback();
+        } else {
+            $db->transCommit();
         }
 
         $proc_result = array();
@@ -172,7 +173,7 @@ class MemberModel extends Model
 
         $member_password_enc = $security_model->getPasswordEncrypt($member_password);
 
-        $db = db_connect();
+        $db = $this->db;
 
         $builder = $db->table("member");
         $builder->where("del_yn", "N");
@@ -183,17 +184,19 @@ class MemberModel extends Model
 
         if ($cnt == 1) {
             $member_info = $list[0];
-            try {
-                $builder = $db->table("member");
-                $builder->set("last_login_date", $today);
-                $builder->set("last_login_ip", $ip_address);
-                $builder->where("member_id", $member_id);
-                $result = $builder->update();
-                $db->transComplete();
-            } catch (Throwable $t) {
+
+            $builder = $db->table("member");
+            $builder->set("last_login_date", $today);
+            $builder->set("last_login_ip", $ip_address);
+            $builder->where("member_id", $member_id);
+            $result = $builder->update();
+
+            if ($db->transStatus() === false) {
                 $result = false;
                 $message = "입력에 오류가 발생했습니다.";
-                logMessage($t->getMessage());
+                $db->transRollback();
+            } else {
+                $db->transCommit();
             }
         } else {
             $result = false;
@@ -217,7 +220,6 @@ class MemberModel extends Model
         $result = true;
         $message = "정상처리";
 
-        $today = date("YmdHis");
         $member_id = getUserSessionInfo("member_id");
         $auth_group = getUserSessionInfo("auth_group");
 
@@ -225,7 +227,7 @@ class MemberModel extends Model
             redirect_alert("로그인 해야합니다", "/");
         }
 
-        $db = db_connect();
+        $db = $this->db;
         $builder = $db->table("member");
         $builder->where("del_yn", "N");
         $builder->where("member_id", $member_id);
@@ -256,26 +258,27 @@ class MemberModel extends Model
         $addr1 = $data["addr1"];
         $addr2 = $data["addr2"];
 
-        try {
-            $db = db_connect();
-            $db->transStart();
-            $builder = $db->table("member");
-            $builder->set("member_name", $member_name);
-            $builder->set("member_nickname", $member_nickname);
-            $builder->set("email", $email);
-            $builder->set("phone", $phone);
-            $builder->set("post_code", $post_code);
-            $builder->set("addr1", $addr1);
-            $builder->set("addr2", $addr2);
-            $builder->set("upd_id", $member_id);
-            $builder->set("upd_date", $today);
-            $builder->where("member_id", $member_id);
-            $result = $builder->update();
-            $db->transComplete();
-        } catch (Throwable $t) {
+        $db = $this->db;
+        $db->transStart();
+        $builder = $db->table("member");
+        $builder->set("member_name", $member_name);
+        $builder->set("member_nickname", $member_nickname);
+        $builder->set("email", $email);
+        $builder->set("phone", $phone);
+        $builder->set("post_code", $post_code);
+        $builder->set("addr1", $addr1);
+        $builder->set("addr2", $addr2);
+        $builder->set("upd_id", $member_id);
+        $builder->set("upd_date", $today);
+        $builder->where("member_id", $member_id);
+        $result = $builder->update();
+
+        if ($db->transStatus() === false) {
             $result = false;
             $message = "입력에 오류가 발생했습니다.";
-            logMessage($t->getMessage());
+            $db->transRollback();
+        } else {
+            $db->transCommit();
         }
 
         $proc_result = array();
@@ -294,20 +297,21 @@ class MemberModel extends Model
         $today = date("YmdHis");
         $member_id = getUserSessionInfo("member_id");
 
-        try {
-            $db = db_connect();
-            $db->transStart();
-            $builder = $db->table("member");
-            $builder->set("del_yn", "Y");
-            $builder->set("upd_id", $member_id);
-            $builder->set("upd_date", $today);
-            $builder->where("member_id", $member_id);
-            $result = $builder->update();
-            $db->transComplete();
-        } catch (Throwable $t) {
+        $db = $this->db;
+        $db->transStart();
+        $builder = $db->table("member");
+        $builder->set("del_yn", "Y");
+        $builder->set("upd_id", $member_id);
+        $builder->set("upd_date", $today);
+        $builder->where("member_id", $member_id);
+        $result = $builder->update();
+
+        if ($db->transStatus() === false) {
             $result = false;
             $message = "입력에 오류가 발생했습니다.";
-            logMessage($t->getMessage());
+            $db->transRollback();
+        } else {
+            $db->transCommit();
         }
 
         $proc_result = array();

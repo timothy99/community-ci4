@@ -3,7 +3,6 @@
 namespace App\Models\Csl;
 
 use CodeIgniter\Model;
-use Throwable;
 use App\Models\Common\FileModel;
 use App\Models\Common\SpreadsheetModel;
 use App\Models\Common\DateModel;
@@ -30,7 +29,7 @@ class BulkModel extends Model
             $offset = 0;
         }
 
-        $db = db_connect();
+        $db = $this->db;
         $builder = $db->table("bulk");
         $builder->where("del_yn", "N");
         if ($search_text != null) {
@@ -75,44 +74,43 @@ class BulkModel extends Model
         $model_result = $spreadsheet_model->procExcelRead($file_info);
         $list = $model_result["list"];
 
-        try {
-            $db = db_connect();
-            $db->transStart();
-            $builder = $db->table("bulk");
-            $builder->set("title", $title);
-            $builder->set("bulk_file", $bulk_file);
+        $db = $this->db;
+        $db->transStart();
+        $builder = $db->table("bulk");
+        $builder->set("title", $title);
+        $builder->set("bulk_file", $bulk_file);
+        $builder->set("del_yn", "N");
+        $builder->set("ins_id", $user_id);
+        $builder->set("ins_date", $today);
+        $builder->set("upd_id", $user_id);
+        $builder->set("upd_date", $today);
+        $result = $builder->insert();
+        $insert_id = $db->insertID();
+
+        foreach ($list as $no => $val) {
+            $builder = $db->table("bulk_detail");
+            $builder->set("b_idx", $insert_id);
+            $builder->set("member_name", $val->A);
+            $builder->set("email", $val->B);
+            $builder->set("phone", $val->C);
+            $builder->set("gender", $val->D);
+            $builder->set("post_code", $val->E);
+            $builder->set("addr1", $val->F);
+            $builder->set("addr2", $val->G);
             $builder->set("del_yn", "N");
             $builder->set("ins_id", $user_id);
             $builder->set("ins_date", $today);
             $builder->set("upd_id", $user_id);
             $builder->set("upd_date", $today);
             $result = $builder->insert();
-            $insert_id = $db->insertID();
+        }
 
-            foreach ($list as $no => $val) {
-                $builder = $db->table("bulk_detail");
-                $builder->set("b_idx", $insert_id);
-                $builder->set("member_name", $val->A);
-                $builder->set("email", $val->B);
-                $builder->set("phone", $val->C);
-                $builder->set("gender", $val->D);
-                $builder->set("post_code", $val->E);
-                $builder->set("addr1", $val->F);
-                $builder->set("addr2", $val->G);
-                $builder->set("del_yn", "N");
-                $builder->set("ins_id", $user_id);
-                $builder->set("ins_date", $today);
-                $builder->set("upd_id", $user_id);
-                $builder->set("upd_date", $today);
-                $result = $builder->insert();
-            }
-
-            $db->transComplete();
-        } catch (Throwable $t) {
+        if ($db->transStatus() === false) {
             $result = false;
             $message = "입력에 오류가 발생했습니다.";
-            logMessage($t->getMessage());
             $db->transRollback();
+        } else {
+            $db->transCommit();
         }
 
         $model_result = array();
@@ -143,7 +141,7 @@ class BulkModel extends Model
             $offset = 0;
         }
 
-        $db = db_connect();
+        $db = $this->db;
         $builder = $db->table("bulk_detail");
         $builder->where("del_yn", "N");
         $builder->where("b_idx", $b_idx);
@@ -172,7 +170,7 @@ class BulkModel extends Model
         $result = true;
         $message = "목록 불러오기가 완료되었습니다.";
 
-        $db = db_connect();
+        $db = $this->db;
         $builder = $db->table("bulk_detail");
         $builder->where("del_yn", "N");
         $builder->where("bd_idx", $bd_idx);
@@ -205,26 +203,27 @@ class BulkModel extends Model
         $addr1 = $data["addr1"];
         $addr2 = $data["addr2"];
 
-        try {
-            $db = db_connect();
-            $db->transStart();
-            $builder = $db->table("bulk_detail");
-            $builder->set("member_name", $member_name);
-            $builder->set("email", $email);
-            $builder->set("phone", $phone);
-            $builder->set("gender", $gender);
-            $builder->set("post_code", $post_code);
-            $builder->set("addr1", $addr1);
-            $builder->set("addr2", $addr2);
-            $builder->set("upd_id", $user_id);
-            $builder->set("upd_date", $today);
-            $builder->where("bd_idx", $bd_idx);
-            $result = $builder->update();
-            $db->transComplete();
-        } catch (Throwable $t) {
+        $db = $this->db;
+        $db->transStart();
+        $builder = $db->table("bulk_detail");
+        $builder->set("member_name", $member_name);
+        $builder->set("email", $email);
+        $builder->set("phone", $phone);
+        $builder->set("gender", $gender);
+        $builder->set("post_code", $post_code);
+        $builder->set("addr1", $addr1);
+        $builder->set("addr2", $addr2);
+        $builder->set("upd_id", $user_id);
+        $builder->set("upd_date", $today);
+        $builder->where("bd_idx", $bd_idx);
+        $result = $builder->update();
+
+        if ($db->transStatus() === false) {
             $result = false;
             $message = "입력에 오류가 발생했습니다.";
-            logMessage($t->getMessage());
+            $db->transRollback();
+        } else {
+            $db->transCommit();
         }
 
         $model_result = array();
@@ -246,20 +245,21 @@ class BulkModel extends Model
 
         $bd_idx = $data["bd_idx"];
 
-        try {
-            $db = db_connect();
-            $db->transStart();
-            $builder = $db->table("bulk_detail");
-            $builder->set("del_yn", "Y");
-            $builder->set("upd_id", $member_id);
-            $builder->set("upd_date", $today);
-            $builder->where("bd_idx", $bd_idx);
-            $result = $builder->update();
-            $db->transComplete();
-        } catch (Throwable $t) {
+        $db = $this->db;
+        $db->transStart();
+        $builder = $db->table("bulk_detail");
+        $builder->set("del_yn", "Y");
+        $builder->set("upd_id", $member_id);
+        $builder->set("upd_date", $today);
+        $builder->where("bd_idx", $bd_idx);
+        $result = $builder->update();
+
+        if ($db->transStatus() === false) {
             $result = false;
             $message = "입력에 오류가 발생했습니다.";
-            logMessage($t->getMessage());
+            $db->transRollback();
+        } else {
+            $db->transCommit();
         }
 
         $model_result = array();
