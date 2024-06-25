@@ -39,17 +39,6 @@
                                         <option value="90">90</option>
                                         <option value="100">100</option>
                                     </select>
-                                    <select class="form-control ml-3" id="search_condition" name="search_condition">
-                                        <option value="member_name">이름</option>
-                                        <option value="email">이메일</option>
-                                        <option value="phone">전화</option>
-                                    </select>
-                                    <input type="text" id="search_text" name="search_text" class="form-control float-right ml-2" placeholder="검색">
-                                    <div class="input-group-append">
-                                    <button type="button" class="btn btn-default" id="search_button" name="search_button">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -59,18 +48,20 @@
                                 <thead class="text-center">
                                     <tr>
                                         <th>번호</th>
-                                        <th>이름</th>
-                                        <th>이메일</th>
-                                        <th>전화</th>
+<?php   if (count($list) > 0) { ?>
+<?php       foreach($list[0]->json_arr as $no => $val) { ?>
+                                        <th><?=$no ?></th>
+<?php       } ?>
+<?php   } ?>
                                     </tr>
                                 </thead>
                                 <tbody>
 <?php   foreach($list as $no => $val) { ?>
                                     <tr>
                                         <td><?=$val->list_no ?></td>
-                                        <td><a href="/csl/bulk/view/<?=$val->bd_idx ?>"><?=$val->member_name ?></a></td>
-                                        <td><?=$val->email ?></td>
-                                        <td><?=$val->phone ?></td>
+<?php       foreach($val->json_arr as $no2 => $val2) { ?>
+                                        <td><?=$val2 ?></td>
+<?php       } ?>
                                     </tr>
 <?php   } ?>
 <?php   if (count($list) == 0) { ?>

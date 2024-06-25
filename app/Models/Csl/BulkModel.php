@@ -90,13 +90,7 @@ class BulkModel extends Model
         foreach ($list as $no => $val) {
             $builder = $db->table("bulk_detail");
             $builder->set("b_idx", $insert_id);
-            $builder->set("member_name", $val->A);
-            $builder->set("email", $val->B);
-            $builder->set("phone", $val->C);
-            $builder->set("gender", $val->D);
-            $builder->set("post_code", $val->E);
-            $builder->set("addr1", $val->F);
-            $builder->set("addr2", $val->G);
+            $builder->set("data_json", json_encode($val));
             $builder->set("del_yn", "N");
             $builder->set("ins_id", $user_id);
             $builder->set("ins_date", $today);
@@ -154,6 +148,7 @@ class BulkModel extends Model
 
         foreach($list as $no => $val) {
             $list[$no]->list_no = $cnt-$no-(($page-1)*$rows);
+            $list[$no]->json_arr = json_decode($val->data_json);
         }
 
         $proc_result = array();

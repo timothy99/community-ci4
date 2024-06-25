@@ -124,7 +124,6 @@ class Bulk extends BaseController
         $list = $model_result["list"];
         $cnt = $model_result["cnt"];
 
-
         $data["cnt"] = $cnt;
         $paging_info = $paging_model->getPagingInfo($data);
 

@@ -73,11 +73,17 @@ class SpreadsheetModel extends Model
         $spreadsheet_data = $spreadsheet->getSheet(0)->toArray(null, true, true, true);
 
         $list = array();
+        $header = (object)array();
         foreach ($spreadsheet_data as $no => $val) {
-            if ($no > 1) {
+            if ($no == 1) {
+                foreach($val as $no2 => $val2) {
+                    $header->$no2 = $val2;
+                }
+            } else {
                 $info = (object)array();
                 foreach($val as $no2 => $val2) {
-                    $info->$no2 = $val2;
+                    $column_name = $header->$no2;
+                    $info->$column_name = $val2;
                 }
                 $list[] = $info;
             }
@@ -86,6 +92,7 @@ class SpreadsheetModel extends Model
         $proc_result = array();
         $proc_result["result"] = $result;
         $proc_result["message"] = $message;
+        $proc_result["header"] = $header;
         $proc_result["list"] = $list;
 
         return $proc_result;

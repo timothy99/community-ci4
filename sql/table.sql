@@ -117,17 +117,10 @@ create table mng_bulk
     upd_date varchar(14) not null comment '수정일'
 ) comment '대량입력 메타';
 
-create table mng_bulk_detail
-(
+create table mng_bulk_detail (
     bd_idx int auto_increment comment '대량작업 상세 인덱스' primary key,
     b_idx int not null comment '대량작업 인덱스',
-    member_name varchar(60) not null comment '이름',
-    email varchar(100) default null comment '이메일',
-    phone varchar(13) default null comment '휴대전화 번호',
-    gender varchar(1) default null comment '성별',
-    post_code varchar(5) default null comment '우편번호',
-    addr1 varchar(200) default null comment '주소1',
-    addr2 varchar(200) default null comment '주소2',
+    data_json varchar(8000) default null comment 'json데이터',
     del_yn enum ('Y', 'N') default 'N' not null comment '삭제 여부',
     ins_id varchar(70) not null comment '등록자',
     ins_date varchar(14) not null comment '등록일',
