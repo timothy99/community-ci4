@@ -90,7 +90,7 @@ class PagingModel extends Model
     {
         $uri_path = current_url(true)->getPath();
 
-        $view_file = $data["view_file"];
+        $view_file = $data["view_file"] ?? "/csl/paging/paging";
         $http_query = http_build_query($data["search_arr"]);
         $paging = $data["paging"];
 
