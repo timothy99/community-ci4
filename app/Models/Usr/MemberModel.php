@@ -62,6 +62,27 @@ class MemberModel extends Model
             $message = "입력된 비밀번호는 8자리 이상이어야 합니다.";
         }
 
+        if (strlen($member_id) < 6) {
+            $result = false;
+            $message = "아이디는 6자리 이상 입력해야 합니다.";
+        }
+
+        $restrict_id_arr = ["master", "guest", "adm"];
+        foreach($restrict_id_arr as $no => $val) {
+            $restrict_position = strrpos($member_id, $val) ?? 0;
+            if ($restrict_position > -1) {
+                $result = false;
+                $message = "사용이 불가한 아이디입니다. 다른 아이디를 입력해주세요.";
+            }
+        }
+
+        // 영어 소문자, 숫자, 언더바
+        $pattern_result = preg_match("/[^a-z0-9_]/", $member_id);
+        if ($pattern_result == true) {
+            $result = false;
+            $message = "아이디는 영어 소문자, 숫자만 입력이 가능합니다.";
+        }
+
         $proc_result = array();
         $proc_result["result"] = $result;
         $proc_result["message"] = $message;
@@ -87,6 +108,27 @@ class MemberModel extends Model
         if ($cnt > 0) {
             $result = false;
             $message = "아이디가 중복되었습니다. 다른 아이디를 선택해주세요.";
+        }
+
+        if (strlen($member_id) < 6) {
+            $result = false;
+            $message = "아이디는 6자리 이상 입력해야 합니다.";
+        }
+
+        $restrict_id_arr = ["master", "guest", "adm"];
+        foreach($restrict_id_arr as $no => $val) {
+            $restrict_position = strrpos($member_id, $val) ?? 0;
+            if ($restrict_position > -1) {
+                $result = false;
+                $message = "사용이 불가한 아이디입니다. 다른 아이디를 입력해주세요.";
+            }
+        }
+
+        // 영어 소문자, 숫자, 언더바
+        $pattern_result = preg_match("/[^a-z0-9_]/", $member_id);
+        if ($pattern_result == true) {
+            $result = false;
+            $message = "아이디는 영어 소문자, 숫자만 입력이 가능합니다.";
         }
 
         $proc_result = array();
