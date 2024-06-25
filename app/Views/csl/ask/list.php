@@ -84,7 +84,7 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">
-<?=$paging_view ?>
+<?=$paging_info["paging_view"] ?>
                         </div>
                     </div>
                     <!-- /.card -->
@@ -104,9 +104,9 @@
         $("#a-ask-list").addClass("active");
 
         // 셀렉트 박스 선택
-        $("#search_condition").val("<?=$search_arr["search_condition"] ?>").prop("selected", true);
-        $("#search_text").val("<?=$search_arr["search_text"] ?>");
-        $("#rows").val("<?=$search_arr["rows"] ?>").prop("selected", true);
+        $("#search_condition").val("<?=$data["search_arr"]["search_condition"] ?>").prop("selected", true);
+        $("#search_text").val("<?=$data["search_arr"]["search_text"] ?>");
+        $("#rows").val("<?=$data["search_arr"]["rows"] ?>").prop("selected", true);
     });
 
     $(function() {
