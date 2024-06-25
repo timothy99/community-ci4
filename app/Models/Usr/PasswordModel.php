@@ -17,7 +17,7 @@ class PasswordModel extends Model
         $email = $data["email"];
         $member_id = $data["member_id"];
 
-        $db = db_connect();
+        $db = $this->db;
         $builder = $db->table("member");
         $builder->where("del_yn", "N");
         $builder->where("email", $email);
@@ -43,7 +43,7 @@ class PasswordModel extends Model
         $email = $data["email"];
         $member_id = $data["member_id"];
 
-        $db = db_connect();
+        $db = $this->db;
         $builder = $db->table("member");
         $builder->where("del_yn", "N");
         $builder->where("email", $email);
@@ -72,26 +72,27 @@ class PasswordModel extends Model
         $reset_key = $security_model->getRandomString(4, 32); // 보안을 위한 랜덤문자 생성
         $expire_date = date("YmdHis", strtotime("+15 minutes"));
 
-        try {
-            $db = db_connect();
-            $db->transStart();
-            $builder = $db->table("member_reset");
-            $builder->where("email", $email);
-            $builder->where("member_id", $member_id);
-            $result = $builder->delete();
+        $db = $this->db;
+        $db->transStart();
+        $builder = $db->table("member_reset");
+        $builder->where("email", $email);
+        $builder->where("member_id", $member_id);
+        $result = $builder->delete();
 
-            $builder = $db->table("member_reset");
-            $builder->set("member_id", $member_id);
-            $builder->set("email", $email);
-            $builder->set("reset_key", $reset_key);
-            $builder->set("expire_date", $expire_date);
-            $result = $builder->insert();
-            $insert_id = $db->insertID();
-            $db->transComplete();
-        } catch (Throwable $t) {
+        $builder = $db->table("member_reset");
+        $builder->set("member_id", $member_id);
+        $builder->set("email", $email);
+        $builder->set("reset_key", $reset_key);
+        $builder->set("expire_date", $expire_date);
+        $result = $builder->insert();
+        $insert_id = $db->insertID();
+
+        if ($db->transStatus() === false) {
             $result = false;
             $message = "입력에 오류가 발생했습니다.";
-            logMessage($t->getMessage());
+            $db->transRollback();
+        } else {
+            $db->transCommit();
         }
 
         $proc_result = array();
@@ -110,7 +111,7 @@ class PasswordModel extends Model
 
         $reset_key = $data["reset_key"];
 
-        $db = db_connect();
+        $db = $this->db;
         $builder = $db->table("member_reset");
         $builder->where("reset_key", $reset_key);
         $info = $builder->get()->getRow();
@@ -138,19 +139,20 @@ class PasswordModel extends Model
         $member_password = $data["member_password"];
         $member_password_enc = $security_model->getPasswordEncrypt($member_password);
 
-        try {
-            $db = db_connect();
-            $db->transStart();
-            $builder = $db->table("member");
-            $builder->set("member_password", $member_password_enc);
-            $builder->where("email", $email);
-            $builder->where("member_id", $member_id);
-            $result = $builder->update();
-            $db->transComplete();
-        } catch (Throwable $t) {
+        $db = $this->db;
+        $db->transStart();
+        $builder = $db->table("member");
+        $builder->set("member_password", $member_password_enc);
+        $builder->where("email", $email);
+        $builder->where("member_id", $member_id);
+        $result = $builder->update();
+
+        if ($db->transStatus() === false) {
             $result = false;
             $message = "입력에 오류가 발생했습니다.";
-            logMessage($t->getMessage());
+            $db->transRollback();
+        } else {
+            $db->transCommit();
         }
 
         $proc_result = array();
@@ -172,7 +174,7 @@ class PasswordModel extends Model
         $member_password = $data["member_password"];
         $member_password_enc = $security_model->getPasswordEncrypt($member_password);
 
-        $db = db_connect();
+        $db = $this->db;
         $builder = $db->table("member");
         $builder->where("member_id", $member_id);
         $builder->where("member_password", $member_password_enc);
@@ -205,18 +207,19 @@ class PasswordModel extends Model
         $member_password = $data["member_password"];
         $member_password_enc = $security_model->getPasswordEncrypt($member_password);
 
-        try {
-            $db = db_connect();
-            $db->transStart();
-            $builder = $db->table("member");
-            $builder->set("member_password", $member_password_enc);
-            $builder->where("member_id", $member_id);
-            $result = $builder->update();
-            $db->transComplete();
-        } catch (Throwable $t) {
+        $db = $this->db;
+        $db->transStart();
+        $builder = $db->table("member");
+        $builder->set("member_password", $member_password_enc);
+        $builder->where("member_id", $member_id);
+        $result = $builder->update();
+
+        if ($db->transStatus() === false) {
             $result = false;
             $message = "입력에 오류가 발생했습니다.";
-            logMessage($t->getMessage());
+            $db->transRollback();
+        } else {
+            $db->transCommit();
         }
 
         $proc_result = array();
@@ -225,17 +228,5 @@ class PasswordModel extends Model
 
         return $proc_result;
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

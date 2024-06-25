@@ -26,13 +26,13 @@ class MemberModel extends Model
 
         if ($rows > 0) {
             // 오프셋 계산
-            $offset = ($page-1)*$rows;
+            $offset = ($page - 1) * $rows;
             if ($offset < 0) {
                 $offset = 0;
             }
         }
 
-        $db = db_connect();
+        $db = $this->db;
         $builder = $db->table("member");
         $builder->where("del_yn", "N");
         if ($search_text != null) {
@@ -48,7 +48,7 @@ class MemberModel extends Model
         $list = $builder->get()->getResult();
 
         foreach($list as $no => $val) {
-            $list[$no]->list_no = $cnt-$no-(($page-1)*$rows);
+            $list[$no]->list_no = $cnt - $no - (($page - 1) * $rows);
             $list[$no]->ins_date_txt = $date_model->convertTextToDate($val->ins_date, 1, 1);
         }
 
@@ -66,7 +66,7 @@ class MemberModel extends Model
         $result = true;
         $message = "목록 불러오기가 완료되었습니다.";
 
-        $db = db_connect();
+        $db = $this->db;
         $builder = $db->table("member");
         $builder->where("del_yn", "N");
         $builder->where("member_id", $member_id);
@@ -127,8 +127,6 @@ class MemberModel extends Model
     // 회원정보 입력
     public function procMemberUpdate($data)
     {
-        $security_model = new SecurityModel();
-
         $result = true;
         $message = "정상처리";
 
@@ -145,28 +143,29 @@ class MemberModel extends Model
         $addr2 = $data["addr2"];
         $auth_group = $data["auth_group"];
 
-        try {
-            $db = db_connect();
-            $db->transStart();
-            $builder = $db->table("member");
-            $builder->set("member_name", $member_name);
-            $builder->set("member_nickname", $member_nickname);
-            $builder->set("email", $email);
-            $builder->set("phone", $phone);
-            $builder->set("post_code", $post_code);
-            $builder->set("addr1", $addr1);
-            $builder->set("addr2", $addr2);
-            $builder->set("auth_group", $auth_group);
-            $builder->set("last_login_date", $today);
-            $builder->set("upd_id", $upd_id);
-            $builder->set("upd_date", $today);
-            $builder->where("member_id", $member_id);
-            $result = $builder->update();
-            $db->transComplete();
-        } catch (Throwable $t) {
+        $db = $this->db;
+        $db->transStart();
+        $builder = $db->table("member");
+        $builder->set("member_name", $member_name);
+        $builder->set("member_nickname", $member_nickname);
+        $builder->set("email", $email);
+        $builder->set("phone", $phone);
+        $builder->set("post_code", $post_code);
+        $builder->set("addr1", $addr1);
+        $builder->set("addr2", $addr2);
+        $builder->set("auth_group", $auth_group);
+        $builder->set("last_login_date", $today);
+        $builder->set("upd_id", $upd_id);
+        $builder->set("upd_date", $today);
+        $builder->where("member_id", $member_id);
+        $result = $builder->update();
+
+        if ($db->transStatus() === false) {
             $result = false;
             $message = "입력에 오류가 발생했습니다.";
-            logMessage($t->getMessage());
+            $db->transRollback();
+        } else {
+            $db->transCommit();
         }
 
         $proc_result = array();
@@ -179,8 +178,6 @@ class MemberModel extends Model
     // 회원정보 입력
     public function procMemberDelete($data)
     {
-        $security_model = new SecurityModel();
-
         $result = true;
         $message = "정상처리";
 
@@ -189,20 +186,21 @@ class MemberModel extends Model
 
         $member_id = $data["member_id"];
 
-        try {
-            $db = db_connect();
-            $db->transStart();
-            $builder = $db->table("member");
-            $builder->set("del_yn", "Y");
-            $builder->set("upd_id", $upd_id);
-            $builder->set("upd_date", $today);
-            $builder->where("member_id", $member_id);
-            $result = $builder->update();
-            $db->transComplete();
-        } catch (Throwable $t) {
+        $db = $this->db;
+        $db->transStart();
+        $builder = $db->table("member");
+        $builder->set("del_yn", "Y");
+        $builder->set("upd_id", $upd_id);
+        $builder->set("upd_date", $today);
+        $builder->where("member_id", $member_id);
+        $result = $builder->update();
+
+        if ($db->transStatus() === false) {
             $result = false;
             $message = "입력에 오류가 발생했습니다.";
-            logMessage($t->getMessage());
+            $db->transRollback();
+        } else {
+            $db->transCommit();
         }
 
         $proc_result = array();

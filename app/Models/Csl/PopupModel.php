@@ -23,12 +23,12 @@ class PopupModel extends Model
         $search_text = $search_arr["search_text"];
 
         // 오프셋 계산
-        $offset = ($page-1)*$rows;
+        $offset = ($page - 1) * $rows;
         if ($offset < 0) {
             $offset = 0;
         }
 
-        $db = db_connect();
+        $db = $this->db;
         $builder = $db->table("popup");
         $builder->where("del_yn", "N");
         if ($search_text != null) {
@@ -46,7 +46,7 @@ class PopupModel extends Model
             }
             $list[$no]->active_class = $active_class;
 
-            $list[$no]->list_no = $cnt-$no-(($page-1)*$rows);
+            $list[$no]->list_no = $cnt - $no - (($page - 1) * $rows);
             $list[$no]->ins_date_txt = $date_model->convertTextToDate($val->ins_date, 1, 1);
             $list[$no]->start_date_txt = $date_model->convertTextToDate($val->start_date, 1, 1);
             $list[$no]->end_date_txt = $date_model->convertTextToDate($val->end_date, 1, 1);
@@ -66,7 +66,7 @@ class PopupModel extends Model
         $result = true;
         $message = "목록 불러오기가 완료되었습니다.";
 
-        $db = db_connect();
+        $db = $this->db;
         $builder = $db->table("popup");
         $builder->where("del_yn", "N");
         $builder->where("p_idx", $p_idx);
@@ -102,34 +102,34 @@ class PopupModel extends Model
         $end_date = $data["end_date"];
         $display_yn = $data["display_yn"];
 
-        try {
-            $db = db_connect();
-            $db->transStart();
-            $builder = $db->table("popup");
-            $builder->set("title", $title);
-            $builder->set("disabled_hours", $disabled_hours);
-            $builder->set("http_link", $http_link);
-            $builder->set("position_left", $position_left);
-            $builder->set("position_top", $position_top);
-            $builder->set("popup_width", $popup_width);
-            $builder->set("popup_height", $popup_height);
-            $builder->set("popup_file", $popup_file);
-            $builder->set("start_date", $start_date);
-            $builder->set("end_date", $end_date);
-            $builder->set("display_yn", $display_yn);
-            $builder->set("del_yn", "N");
-            $builder->set("ins_id", $user_id);
-            $builder->set("ins_date", $today);
-            $builder->set("upd_id", $user_id);
-            $builder->set("upd_date", $today);
-            $result = $builder->insert();
-            $insert_id = $db->insertID();
-            $db->transComplete();
-        } catch (Throwable $t) {
+        $db = $this->db;
+        $db->transStart();
+        $builder = $db->table("popup");
+        $builder->set("title", $title);
+        $builder->set("disabled_hours", $disabled_hours);
+        $builder->set("http_link", $http_link);
+        $builder->set("position_left", $position_left);
+        $builder->set("position_top", $position_top);
+        $builder->set("popup_width", $popup_width);
+        $builder->set("popup_height", $popup_height);
+        $builder->set("popup_file", $popup_file);
+        $builder->set("start_date", $start_date);
+        $builder->set("end_date", $end_date);
+        $builder->set("display_yn", $display_yn);
+        $builder->set("del_yn", "N");
+        $builder->set("ins_id", $user_id);
+        $builder->set("ins_date", $today);
+        $builder->set("upd_id", $user_id);
+        $builder->set("upd_date", $today);
+        $result = $builder->insert();
+        $insert_id = $db->insertID();
+
+        if ($db->transStatus() === false) {
             $result = false;
             $message = "입력에 오류가 발생했습니다.";
-            logMessage($t->getMessage());
             $db->transRollback();
+        } else {
+            $db->transCommit();
         }
 
         $model_result = array();
@@ -164,30 +164,31 @@ class PopupModel extends Model
         $display_yn = $data["display_yn"];
 
 
-        try {
-            $db = db_connect();
-            $db->transStart();
-            $builder = $db->table("popup");
-            $builder->set("title", $title);
-            $builder->set("disabled_hours", $disabled_hours);
-            $builder->set("http_link", $http_link);
-            $builder->set("position_left", $position_left);
-            $builder->set("position_top", $position_top);
-            $builder->set("popup_width", $popup_width);
-            $builder->set("popup_height", $popup_height);
-            $builder->set("popup_file", $popup_file);
-            $builder->set("start_date", $start_date);
-            $builder->set("end_date", $end_date);
-            $builder->set("display_yn", $display_yn);
-            $builder->set("upd_id", $user_id);
-            $builder->set("upd_date", $today);
-            $builder->where("p_idx", $p_idx);
-            $result = $builder->update();
-            $db->transComplete();
-        } catch (Throwable $t) {
+        $db = $this->db;
+        $db->transStart();
+        $builder = $db->table("popup");
+        $builder->set("title", $title);
+        $builder->set("disabled_hours", $disabled_hours);
+        $builder->set("http_link", $http_link);
+        $builder->set("position_left", $position_left);
+        $builder->set("position_top", $position_top);
+        $builder->set("popup_width", $popup_width);
+        $builder->set("popup_height", $popup_height);
+        $builder->set("popup_file", $popup_file);
+        $builder->set("start_date", $start_date);
+        $builder->set("end_date", $end_date);
+        $builder->set("display_yn", $display_yn);
+        $builder->set("upd_id", $user_id);
+        $builder->set("upd_date", $today);
+        $builder->where("p_idx", $p_idx);
+        $result = $builder->update();
+
+        if ($db->transStatus() === false) {
             $result = false;
             $message = "입력에 오류가 발생했습니다.";
-            logMessage($t->getMessage());
+            $db->transRollback();
+        } else {
+            $db->transCommit();
         }
 
         $model_result = array();
@@ -209,20 +210,21 @@ class PopupModel extends Model
 
         $s_idx = $data["s_idx"];
 
-        try {
-            $db = db_connect();
-            $db->transStart();
-            $builder = $db->table("popup");
-            $builder->set("del_yn", "Y");
-            $builder->set("upd_id", $member_id);
-            $builder->set("upd_date", $today);
-            $builder->where("s_idx", $s_idx);
-            $result = $builder->update();
-            $db->transComplete();
-        } catch (Throwable $t) {
+        $db = $this->db;
+        $db->transStart();
+        $builder = $db->table("popup");
+        $builder->set("del_yn", "Y");
+        $builder->set("upd_id", $member_id);
+        $builder->set("upd_date", $today);
+        $builder->where("s_idx", $s_idx);
+        $result = $builder->update();
+
+        if ($db->transStatus() === false) {
             $result = false;
             $message = "입력에 오류가 발생했습니다.";
-            logMessage($t->getMessage());
+            $db->transRollback();
+        } else {
+            $db->transCommit();
         }
 
         $model_result = array();

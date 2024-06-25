@@ -31,7 +31,7 @@ class PrivacyModel extends Model
             }
         }
 
-        $db = db_connect();
+        $db = $this->db;
         $builder = $db->table("privacy");
         $builder->where("del_yn", "N");
         if ($search_text != null) {
@@ -64,7 +64,7 @@ class PrivacyModel extends Model
         $result = true;
         $message = "목록 불러오기가 완료되었습니다.";
 
-        $db = db_connect();
+        $db = $this->db;
         $builder = $db->table("member");
         $builder->where("del_yn", "N");
         $builder->where("member_id", $member_id);
@@ -99,36 +99,35 @@ class PrivacyModel extends Model
         $addr2 = $data["addr2"];
         $auth_group = $data["auth_group"];
 
-        try {
-            $db = db_connect();
-            $db->transStart();
-            $builder = $db->table("member");
-            $builder->set("member_name", $member_name);
-            $builder->set("member_nickname", $member_nickname);
-            $builder->set("email", $email);
-            $builder->set("phone", $phone);
-            $builder->set("post_code", $post_code);
-            $builder->set("addr1", $addr1);
-            $builder->set("addr2", $addr2);
-            $builder->set("auth_group", $auth_group);
-            $builder->set("last_login_date", $today);
-            $builder->set("upd_id", $upd_id);
-            $builder->set("upd_date", $today);
-            $builder->where("member_id", $member_id);
-            $result = $builder->update();
-            if ($result == false) { 
-                throw new Exception($db->error($db->error()["message"]));
-            }
-            $db->transComplete();
-        } catch (Exception $exception) {
+        $db = $this->db;
+        $db->transStart();
+        $builder = $db->table("member");
+        $builder->set("member_name", $member_name);
+        $builder->set("member_nickname", $member_nickname);
+        $builder->set("email", $email);
+        $builder->set("phone", $phone);
+        $builder->set("post_code", $post_code);
+        $builder->set("addr1", $addr1);
+        $builder->set("addr2", $addr2);
+        $builder->set("auth_group", $auth_group);
+        $builder->set("last_login_date", $today);
+        $builder->set("upd_id", $upd_id);
+        $builder->set("upd_date", $today);
+        $builder->where("member_id", $member_id);
+        $result = $builder->update();
+
+        if ($db->transStatus() === false) {
             $result = false;
-            $message = $exception->getMessage();
+            $message = "입력에 오류가 발생했습니다.";
             $db->transRollback();
+        } else {
+            $db->transCommit();
         }
 
         $proc_result = array();
         $proc_result["result"] = $result;
         $proc_result["message"] = $message;
+
 
         return $proc_result;
     }
@@ -146,23 +145,21 @@ class PrivacyModel extends Model
 
         $member_id = $data["member_id"];
 
-        try {
-            $db = db_connect();
-            $db->transStart();
-            $builder = $db->table("member");
-            $builder->set("del_yn", "Y");
-            $builder->set("upd_id", $upd_id);
-            $builder->set("upd_date", $today);
-            $builder->where("member_id", $member_id);
-            $result = $builder->update();
-            if ($result == false) { 
-                throw new Exception($db->error()["message"]);
-            }
-            $db->transComplete();
-        } catch (Exception $exception) {
+        $db = $this->db;
+        $db->transStart();
+        $builder = $db->table("member");
+        $builder->set("del_yn", "Y");
+        $builder->set("upd_id", $upd_id);
+        $builder->set("upd_date", $today);
+        $builder->where("member_id", $member_id);
+        $result = $builder->update();
+
+        if ($db->transStatus() === false) {
             $result = false;
-            $message = $exception->getMessage();
+            $message = "입력에 오류가 발생했습니다.";
             $db->transRollback();
+        } else {
+            $db->transCommit();
         }
 
         $proc_result = array();

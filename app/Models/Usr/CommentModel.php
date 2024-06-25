@@ -15,7 +15,7 @@ class CommentModel extends Model
         $result = true;
         $message = "목록 불러오기가 완료되었습니다.";
 
-        $db = db_connect();
+        $db = $this->db;
         $builder = $db->table("board_comment");
         $builder->where("del_yn", "N");
         $builder->where("b_idx", $b_idx);
@@ -48,25 +48,25 @@ class CommentModel extends Model
         $b_idx = $data["b_idx"];
         $comment = $data["comment"];
 
-        try {
-            $db = db_connect();
-            $db->transStart();
-            $builder = $db->table("board_comment");
-            $builder->set("b_idx", $b_idx);
-            $builder->set("comment", $comment);
-            $builder->set("del_yn", "N");
-            $builder->set("ins_id", $user_id);
-            $builder->set("ins_date", $today);
-            $builder->set("upd_id", $user_id);
-            $builder->set("upd_date", $today);
-            $result = $builder->insert();
-            $insert_id = $db->insertID();
-            $db->transComplete();
-        } catch (Throwable $t) {
+        $db = $this->db;
+        $db->transStart();
+        $builder = $db->table("board_comment");
+        $builder->set("b_idx", $b_idx);
+        $builder->set("comment", $comment);
+        $builder->set("del_yn", "N");
+        $builder->set("ins_id", $user_id);
+        $builder->set("ins_date", $today);
+        $builder->set("upd_id", $user_id);
+        $builder->set("upd_date", $today);
+        $result = $builder->insert();
+        $insert_id = $db->insertID();
+
+        if ($db->transStatus() === false) {
             $result = false;
             $message = "입력에 오류가 발생했습니다.";
-            logMessage($t->getMessage());
             $db->transRollback();
+        } else {
+            $db->transCommit();
         }
 
         $model_result = array();
@@ -87,20 +87,21 @@ class CommentModel extends Model
         $result = true;
         $message = "입력이 잘 되었습니다";
 
-        try {
-            $db = db_connect();
-            $db->transStart();
-            $builder = $db->table("board_comment");
-            $builder->set("del_yn", "Y");
-            $builder->set("upd_id", $member_id);
-            $builder->set("upd_date", $today);
-            $builder->where("bc_idx", $bc_idx);
-            $result = $builder->update();
-            $db->transComplete();
-        } catch (Throwable $t) {
+        $db = $this->db;
+        $db->transStart();
+        $builder = $db->table("board_comment");
+        $builder->set("del_yn", "Y");
+        $builder->set("upd_id", $member_id);
+        $builder->set("upd_date", $today);
+        $builder->where("bc_idx", $bc_idx);
+        $result = $builder->update();
+
+        if ($db->transStatus() === false) {
             $result = false;
             $message = "입력에 오류가 발생했습니다.";
-            logMessage($t->getMessage());
+            $db->transRollback();
+        } else {
+            $db->transCommit();
         }
 
         $model_result = array();
@@ -115,7 +116,7 @@ class CommentModel extends Model
         $result = true;
         $message = "목록 불러오기가 완료되었습니다.";
 
-        $db = db_connect();
+        $db = $this->db;
         $builder = $db->table("board_comment");
         $builder->where("del_yn", "N");
         $builder->where("bc_idx", $bc_idx);
@@ -142,21 +143,22 @@ class CommentModel extends Model
         $bc_idx = $data["bc_idx"];
         $comment = $data["comment"];
 
-        try {
-            $db = db_connect();
-            $db->transStart();
-            $builder = $db->table("board_comment");
-            $builder->set("comment", $comment);
-            $builder->set("upd_id", $user_id);
-            $builder->set("upd_date", $today);
-            $builder->where("bc_idx", $bc_idx);
-            $result = $builder->update();
-            $db->transComplete();
-        } catch (Throwable $t) {
+        $db = $this->db;
+        $db->transStart();
+        $builder = $db->table("board_comment");
+        $builder->set("comment", $comment);
+        $builder->set("upd_id", $user_id);
+        $builder->set("upd_date", $today);
+        $builder->where("bc_idx", $bc_idx);
+        $result = $builder->update();
+        $db->transComplete();
+
+        if ($db->transStatus() === false) {
             $result = false;
             $message = "입력에 오류가 발생했습니다.";
-            logMessage($t->getMessage());
             $db->transRollback();
+        } else {
+            $db->transCommit();
         }
 
         $model_result = array();
@@ -207,7 +209,7 @@ class CommentModel extends Model
         $file_idxs = $data["file_idxs"];
 
         try {
-            $db = db_connect();
+            $db = $this->db;
             $db->transStart();
             $builder = $db->table("board");
             $builder->set("board_id", $board_id);

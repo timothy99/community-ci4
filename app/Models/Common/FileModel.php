@@ -95,31 +95,32 @@ class FileModel extends Model
         $result = true;
         $message = "입력이 잘 되었습니다";
 
-        try {
-            $db = db_connect();
-            $db->transStart();
-            $builder = $db->table("file");
-            $builder->set("file_id", $file_id);
-            $builder->set("file_name_org", $file_name_org);
-            $builder->set("file_directory", $file_directory);
-            $builder->set("file_name_uploaded", $file_name_uploaded);
-            $builder->set("file_size", $file_size);
-            $builder->set("file_ext", $file_ext);
-            $builder->set("image_width", $image_width);
-            $builder->set("image_height", $image_height);
-            $builder->set("mime_type", $mime_type);
-            $builder->set("category", $category);
-            $builder->set("del_yn", "N");
-            $builder->set("ins_id", $member_id);
-            $builder->set("ins_date", $today);
-            $builder->set("upd_id", $member_id);
-            $builder->set("upd_date", $today);
-            $result = $builder->insert();
-            $db->transComplete();
-        } catch (Throwable $t) {
+        $db = $this->db;
+        $db->transStart();
+        $builder = $db->table("file");
+        $builder->set("file_id", $file_id);
+        $builder->set("file_name_org", $file_name_org);
+        $builder->set("file_directory", $file_directory);
+        $builder->set("file_name_uploaded", $file_name_uploaded);
+        $builder->set("file_size", $file_size);
+        $builder->set("file_ext", $file_ext);
+        $builder->set("image_width", $image_width);
+        $builder->set("image_height", $image_height);
+        $builder->set("mime_type", $mime_type);
+        $builder->set("category", $category);
+        $builder->set("del_yn", "N");
+        $builder->set("ins_id", $member_id);
+        $builder->set("ins_date", $today);
+        $builder->set("upd_id", $member_id);
+        $builder->set("upd_date", $today);
+        $result = $builder->insert();
+
+        if ($db->transStatus() === false) {
             $result = false;
             $message = "입력에 오류가 발생했습니다.";
-            logMessage($t->getMessage());
+            $db->transRollback();
+        } else {
+            $db->transCommit();
         }
 
         $model_result = array();
@@ -191,7 +192,7 @@ class FileModel extends Model
     public function getFileInfo($file_id)
     {
         $file_id = (string)$file_id;
-        $db = db_connect();
+        $db = $this->db;
         $builder = $db->table("file");
         $builder->where("file_id", $file_id);
         $builder->where("del_yn", "N");

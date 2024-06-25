@@ -28,7 +28,7 @@ class ShortlinkModel extends Model
             $offset = 0;
         }
 
-        $db = db_connect();
+        $db = $this->db;
         $builder = $db->table("shortlink");
         $builder->where("del_yn", "N");
         if ($search_text != null) {
@@ -58,7 +58,7 @@ class ShortlinkModel extends Model
         $result = true;
         $message = "목록 불러오기가 완료되었습니다.";
 
-        $db = db_connect();
+        $db = $this->db;
         $builder = $db->table("shortlink");
         $builder->select("*");
         $builder->where("del_yn", "N");
@@ -86,25 +86,25 @@ class ShortlinkModel extends Model
         $title = $data["title"];
         $http_link = $data["http_link"];
 
-        try {
-            $db = db_connect();
-            $db->transStart();
-            $builder = $db->table("shortlink");
-            $builder->set("title", $title);
-            $builder->set("http_link", $http_link);
-            $builder->set("del_yn", "N");
-            $builder->set("ins_id", $user_id);
-            $builder->set("ins_date", $today);
-            $builder->set("upd_id", $user_id);
-            $builder->set("upd_date", $today);
-            $result = $builder->insert();
-            $insert_id = $db->insertID();
-            $db->transComplete();
-        } catch (Throwable $t) {
+        $db = $this->db;
+        $db->transStart();
+        $builder = $db->table("shortlink");
+        $builder->set("title", $title);
+        $builder->set("http_link", $http_link);
+        $builder->set("del_yn", "N");
+        $builder->set("ins_id", $user_id);
+        $builder->set("ins_date", $today);
+        $builder->set("upd_id", $user_id);
+        $builder->set("upd_date", $today);
+        $result = $builder->insert();
+        $insert_id = $db->insertID();
+
+        if ($db->transStatus() === false) {
             $result = false;
             $message = "입력에 오류가 발생했습니다.";
-            logMessage($t->getMessage());
             $db->transRollback();
+        } else {
+            $db->transCommit();
         }
 
         $model_result = array();
@@ -129,21 +129,22 @@ class ShortlinkModel extends Model
         $title = $data["title"];
         $http_link = $data["http_link"];
 
-        try {
-            $db = db_connect();
-            $db->transStart();
-            $builder = $db->table("shortlink");
-            $builder->set("title", $title);
-            $builder->set("http_link", $http_link);
-            $builder->set("upd_id", $user_id);
-            $builder->set("upd_date", $today);
-            $builder->where("sl_idx", $sl_idx);
-            $result = $builder->update();
-            $db->transComplete();
-        } catch (Throwable $t) {
+        $db = $this->db;
+        $db->transStart();
+        $builder = $db->table("shortlink");
+        $builder->set("title", $title);
+        $builder->set("http_link", $http_link);
+        $builder->set("upd_id", $user_id);
+        $builder->set("upd_date", $today);
+        $builder->where("sl_idx", $sl_idx);
+        $result = $builder->update();
+
+        if ($db->transStatus() === false) {
             $result = false;
             $message = "입력에 오류가 발생했습니다.";
-            logMessage($t->getMessage());
+            $db->transRollback();
+        } else {
+            $db->transCommit();
         }
 
         $model_result = array();
@@ -165,20 +166,21 @@ class ShortlinkModel extends Model
 
         $sl_idx = $data["sl_idx"];
 
-        try {
-            $db = db_connect();
-            $db->transStart();
-            $builder = $db->table("shortlink");
-            $builder->set("del_yn", "Y");
-            $builder->set("upd_id", $member_id);
-            $builder->set("upd_date", $today);
-            $builder->where("sl_idx", $sl_idx);
-            $result = $builder->update();
-            $db->transComplete();
-        } catch (Throwable $t) {
+        $db = $this->db;
+        $db->transStart();
+        $builder = $db->table("shortlink");
+        $builder->set("del_yn", "Y");
+        $builder->set("upd_id", $member_id);
+        $builder->set("upd_date", $today);
+        $builder->where("sl_idx", $sl_idx);
+        $result = $builder->update();
+
+        if ($db->transStatus() === false) {
             $result = false;
             $message = "입력에 오류가 발생했습니다.";
-            logMessage($t->getMessage());
+            $db->transRollback();
+        } else {
+            $db->transCommit();
         }
 
         $model_result = array();

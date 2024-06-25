@@ -15,7 +15,7 @@ class MenuModel extends Model
         $message = "목록 불러오기가 완료되었습니다.";
 
         // upper_idx 기준으로 상위 데이터를 찾아본다.
-        $db = db_connect();
+        $db = $this->db;
         $builder = $db->table("menu");
         $builder->where("del_yn", "N");
         $builder->where("upper_idx", 0);
@@ -112,40 +112,39 @@ class MenuModel extends Model
             $idx2 = $info->idx2;
             $idx3 = $info->idx3;
             $menu_position = $info->menu_position;
-            $new_menu_position = $menu_position+1;
+            $new_menu_position = $menu_position + 1;
         }
 
-        try {
-            $db = db_connect();
-            $db->transStart();
-            $builder = $db->table("menu");
-            $builder->set("upper_idx", $upper_idx);
-            $builder->set("idx1", $idx1);
-            $builder->set("idx2", $idx2);
-            $builder->set("idx3", $idx3);
-            $builder->set("menu_position", $new_menu_position);
-            $builder->set("menu_name", $menu_name);
-            $builder->set("http_link", $http_link);
-            $builder->set("order_no", $order_no);
-            $builder->set("del_yn", "N");
-            $builder->set("ins_id", $user_id);
-            $builder->set("ins_date", $today);
-            $builder->set("upd_id", $user_id);
-            $builder->set("upd_date", $today);
-            $result = $builder->insert();
-            $insert_id = $db->insertID();
+        $db = $this->db;
+        $db->transStart();
+        $builder = $db->table("menu");
+        $builder->set("upper_idx", $upper_idx);
+        $builder->set("idx1", $idx1);
+        $builder->set("idx2", $idx2);
+        $builder->set("idx3", $idx3);
+        $builder->set("menu_position", $new_menu_position);
+        $builder->set("menu_name", $menu_name);
+        $builder->set("http_link", $http_link);
+        $builder->set("order_no", $order_no);
+        $builder->set("del_yn", "N");
+        $builder->set("ins_id", $user_id);
+        $builder->set("ins_date", $today);
+        $builder->set("upd_id", $user_id);
+        $builder->set("upd_date", $today);
+        $result = $builder->insert();
+        $insert_id = $db->insertID();
 
-            $builder = $db->table("menu");
-            $builder->set("idx".$new_menu_position, $insert_id);
-            $builder->where("m_idx", $insert_id);
-            $result = $builder->update();
+        $builder = $db->table("menu");
+        $builder->set("idx".$new_menu_position, $insert_id);
+        $builder->where("m_idx", $insert_id);
+        $result = $builder->update();
 
-            $db->transComplete();
-        } catch (Throwable $t) {
+        if ($db->transStatus() === false) {
             $result = false;
             $message = "입력에 오류가 발생했습니다.";
-            logMessage($t->getMessage());
             $db->transRollback();
+        } else {
+            $db->transCommit();
         }
 
         $model_result = array();
@@ -165,7 +164,7 @@ class MenuModel extends Model
         $result = true;
         $message = "목록 불러오기가 완료되었습니다.";
 
-        $db = db_connect();
+        $db = $this->db;
         $builder = $db->table("menu");
         $builder->where("del_yn", "N");
         $builder->where("m_idx", $m_idx);
@@ -198,26 +197,25 @@ class MenuModel extends Model
         $http_link = $data["http_link"];
         $order_no = $data["order_no"];
 
-        try {
-            $db = db_connect();
-            $db->transStart();
-            $builder = $db->table("menu");
-            $builder->set("menu_name", $menu_name);
-            $builder->set("http_link", $http_link);
-            $builder->set("order_no", $order_no);
-            $builder->set("ins_id", $user_id);
-            $builder->set("ins_date", $today);
-            $builder->set("upd_id", $user_id);
-            $builder->set("upd_date", $today);
-            $builder->where("m_idx", $m_idx);
-            $result = $builder->update();
+        $db = $this->db;
+        $db->transStart();
+        $builder = $db->table("menu");
+        $builder->set("menu_name", $menu_name);
+        $builder->set("http_link", $http_link);
+        $builder->set("order_no", $order_no);
+        $builder->set("ins_id", $user_id);
+        $builder->set("ins_date", $today);
+        $builder->set("upd_id", $user_id);
+        $builder->set("upd_date", $today);
+        $builder->where("m_idx", $m_idx);
+        $result = $builder->update();
 
-            $db->transComplete();
-        } catch (Throwable $t) {
+        if ($db->transStatus() === false) {
             $result = false;
             $message = "입력에 오류가 발생했습니다.";
-            logMessage($t->getMessage());
             $db->transRollback();
+        } else {
+            $db->transCommit();
         }
 
         $model_result = array();
@@ -238,24 +236,23 @@ class MenuModel extends Model
 
         $m_idx = $data["m_idx"];
 
-        try {
-            $db = db_connect();
-            $db->transStart();
-            $builder = $db->table("menu");
-            $builder->set("del_yn", "Y");
-            $builder->set("upd_id", $user_id);
-            $builder->set("upd_date", $today);
-            $builder->orWhere("idx1", $m_idx);
-            $builder->orWhere("idx2", $m_idx);
-            $builder->orWhere("idx3", $m_idx);
-            $result = $builder->update();
+        $db = $this->db;
+        $db->transStart();
+        $builder = $db->table("menu");
+        $builder->set("del_yn", "Y");
+        $builder->set("upd_id", $user_id);
+        $builder->set("upd_date", $today);
+        $builder->orWhere("idx1", $m_idx);
+        $builder->orWhere("idx2", $m_idx);
+        $builder->orWhere("idx3", $m_idx);
+        $result = $builder->update();
 
-            $db->transComplete();
-        } catch (Throwable $t) {
+        if ($db->transStatus() === false) {
             $result = false;
             $message = "입력에 오류가 발생했습니다.";
-            logMessage($t->getMessage());
             $db->transRollback();
+        } else {
+            $db->transCommit();
         }
 
         $model_result = array();
@@ -270,11 +267,11 @@ class MenuModel extends Model
      *
      * 생성된 메뉴를 json으로 정리한다.
      * 향후 사용자, 관리자등 권한이 많아질 경우를 대비해 data는 사용하지 않더라도 변수는 있음
-     * 
+     *
      * @param array $data
-     * 
+     *
      * @return $proc_result array
-     * 
+     *
      * @author timothy99
      */
     public function procMenuJsonInsert($data)
@@ -291,42 +288,41 @@ class MenuModel extends Model
         $list = $model_result["list"];
         $menu_json = json_encode($list);
 
-        try {
-            $db = db_connect();
-            $db->transStart();
+        $db = $this->db;
+        $db->transStart();
 
+        $builder = $db->table("menu_json");
+        $builder->where("category", "user");
+        $builder->where("del_yn", "N");
+        $list = $builder->get()->getResult();
+        $cnt = count($list);
+        if ($cnt == 0) {
             $builder = $db->table("menu_json");
+            $builder->set("menu_json", $menu_json);
+            $builder->set("category", "user");
+            $builder->set("del_yn", "N");
+            $builder->set("ins_id", $user_id);
+            $builder->set("ins_date", $today);
+            $builder->set("upd_id", $user_id);
+            $builder->set("upd_date", $today);
             $builder->where("category", "user");
-            $builder->where("del_yn", "N");
-            $list = $builder->get()->getResult();
-            $cnt = count($list);
-            if ($cnt == 0) {
-                $builder = $db->table("menu_json");
-                $builder->set("menu_json", $menu_json);
-                $builder->set("category", "user");
-                $builder->set("del_yn", "N");
-                $builder->set("ins_id", $user_id);
-                $builder->set("ins_date", $today);
-                $builder->set("upd_id", $user_id);
-                $builder->set("upd_date", $today);
-                $builder->where("category", "user");
-                $result = $builder->insert();
-            } else {
-                $builder = $db->table("menu_json");
-                $builder->set("menu_json", $menu_json);
-                $builder->set("category", "user");
-                $builder->set("upd_id", $user_id);
-                $builder->set("upd_date", $today);
-                $builder->where("category", "user");
-                $result = $builder->update();
-            }
+            $result = $builder->insert();
+        } else {
+            $builder = $db->table("menu_json");
+            $builder->set("menu_json", $menu_json);
+            $builder->set("category", "user");
+            $builder->set("upd_id", $user_id);
+            $builder->set("upd_date", $today);
+            $builder->where("category", "user");
+            $result = $builder->update();
+        }
 
-            $db->transComplete();
-        } catch (Throwable $t) {
+        if ($db->transStatus() === false) {
             $result = false;
             $message = "입력에 오류가 발생했습니다.";
-            logMessage($t->getMessage());
             $db->transRollback();
+        } else {
+            $db->transCommit();
         }
 
         $model_result = array();
