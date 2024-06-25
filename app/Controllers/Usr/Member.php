@@ -10,7 +10,7 @@ class Member extends BaseController
 {
     public function index()
     {
-        return redirect()->to("/member/myinfo");
+        return redirect()->to("/");
     }
 
     public function view()
@@ -35,7 +35,7 @@ class Member extends BaseController
             return redirect()->to("/");
         }
 
-        return view("usr/member/login");
+        return mview("usr/member/login");
     }
 
     public function signin()
@@ -115,7 +115,7 @@ class Member extends BaseController
         $data = array();
         $data["uri"] = $this->request->getUri()->getPath();
 
-        return view("usr/member/join", $data);
+        return mview("usr/member/join", $data);
     }
 
     public function duplicate()

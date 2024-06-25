@@ -17,7 +17,7 @@ class Password extends BaseController
     // 아이디 찾기
     public function find()
     {
-        return uview("usr/password/find");
+        return mview("usr/password/find");
     }
 
     // 아이디에 대한 이메일 보내기
@@ -65,7 +65,7 @@ class Password extends BaseController
     // 암호찾기
     public function forgot()
     {
-        return uview("usr/password/forgot");
+        return mview("usr/password/forgot");
     }
 
     // 암호 초기화 메일 보내기
@@ -139,7 +139,7 @@ class Password extends BaseController
             redirect_alert("유효기간이 만료되었습니다. 다시 요청해주세요.", "/");
         }
 
-        return uview("usr/password/reset", $data);
+        return mview("usr/password/reset", $data);
     }
 
     public function update()

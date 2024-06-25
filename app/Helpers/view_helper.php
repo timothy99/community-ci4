@@ -35,3 +35,15 @@ function aview($view_file, $proc_result = array())
 
     return $view_result;
 }
+
+// 회원가입용 뷰
+function mview($view_file, $proc_result = array())
+{
+    $view_result = null;
+
+    $view_result .= view("/usr/include/member/header", $proc_result);
+    $view_result .= view($view_file, $proc_result);
+    $view_result .= view("/usr/include/member/footer", $proc_result);
+
+    return $view_result;
+}
