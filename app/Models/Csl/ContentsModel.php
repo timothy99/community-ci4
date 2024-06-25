@@ -22,12 +22,6 @@ class ContentsModel extends Model
         $search_condition = $search_arr["search_condition"];
         $search_text = $search_arr["search_text"];
 
-        // 오프셋 계산
-        $offset = ($page - 1) * $rows;
-        if ($offset < 0) {
-            $offset = 0;
-        }
-
         $db = $this->db;
         $builder = $db->table("contents");
         $builder->where("del_yn", "N");
@@ -35,7 +29,7 @@ class ContentsModel extends Model
             $builder->like($search_condition, $search_text);
         }
         $builder->orderBy("c_idx", "desc");
-        $builder->limit($rows, $offset);
+        $builder->limit($rows, getOffset($page, $rows));
         $cnt = $builder->countAllResults(false);
         $list = $builder->get()->getResult();
         foreach ($list as $no => $val) {
