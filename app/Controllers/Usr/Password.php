@@ -210,9 +210,7 @@ class Password extends BaseController
     // 암호변경을 위한 암호 확인 화면
     public function confirm()
     {
-        $member_id = getUserSessionInfo("member_id");
-
-        return uview("usr/password/confirm");
+        return mview("usr/password/confirm");
     }
 
     // 암호가 맞는지 확인
@@ -245,7 +243,7 @@ class Password extends BaseController
     // 암호변경을 위한 암호 확인 화면
     public function modify()
     {
-        return uview("usr/password/modify");
+        return mview("usr/password/modify");
     }
 
     // 암호를 알고 있는 상태에서의 암호 변경

@@ -1,8 +1,8 @@
 <form id="frm" name="frm" onsubmit="return false">
-    <div class="container">
+    <div class="login-box">
         <!-- Outer Row -->
         <div class="row justify-content-center">
-            <div class="col-xl-6 col-lg-12 col-md-9">
+            <div class="col-xl-12 col-lg-12 col-md-12">
                 <div class="card o-hidden border-0 shadow-lg my-5">
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
