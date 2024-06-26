@@ -16,6 +16,7 @@
     <!-- User js-->
     <script src="/resource/community/js/community.js?ver=<?=env("app.jsVer") ?>"></script>
     <script src="/resource/community/js/postcode.js?ver=<?=env("app.jsVer") ?>"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
     <!-- InputMask -->
     <script src="/resource/vendor/moment/moment.min.js?ver=<?=env("app.jsVer") ?>"></script>
