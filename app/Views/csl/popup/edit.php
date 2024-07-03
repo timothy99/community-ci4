@@ -77,10 +77,10 @@
                                 <div class="form-group row">
                                     <label for="display_date" class="col-sm-2 col-form-label">게시기간</label>
                                     <div class="col-sm-5">
-                                        <input type="text" class="form-control" id="start_date" name="start_date" value="<?=$info->start_date_txt ?>" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd HH:MM" inputmode="numeric">
+                                        <input type="text" class="form-control" id="start_date" name="start_date" value="<?=$info->start_date_txt ?>">
                                     </div>
                                     <div class="col-sm-5 d-flex">
-                                        ~ <input type="text" class="form-control ml-3" id="end_date" name="end_date" value="<?=$info->end_date_txt ?>" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy-mm-dd HH:MM" inputmode="numeric">
+                                        ~ <input type="text" class="form-control ml-3" id="end_date" name="end_date" value="<?=$info->end_date_txt ?>">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -137,8 +137,8 @@
         $("#a-popup-list").addClass("active");
 
         $("#display_yn").val("<?=$info->display_yn ?>").prop("selected", true);
-        $("#start_date").inputmask("yyyy-mm-dd HH:MM");
-        $("#end_date").inputmask("yyyy-mm-dd HH:MM");
+        $("#start_date").inputmask("datetime", {inputFormat:"yyyy-mm-dd"});
+        $("#end_date").inputmask("datetime", {inputFormat:"yyyy-mm-dd"});
     });
 
     $(function() {
