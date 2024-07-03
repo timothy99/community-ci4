@@ -1,6 +1,3 @@
-<script src="/resource/community/js/postcode.js?ver=<?JS_VER ?>"></script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
 <form class="form-horizontal" id="frm" name="frm">
     <input type="hidden" id="m_idx" name="m_idx" value="<?=$info->m_idx ?>">
     <div class="content-wrapper">
