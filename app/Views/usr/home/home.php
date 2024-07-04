@@ -73,7 +73,7 @@
                                         <thead class="text-center">
                                             <tr>
                                                 <th>제목</th>
-                                                <th>날짜</th>
+                                                <th>입력일</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -106,7 +106,7 @@
                                         <thead class="text-center">
                                             <tr>
                                                 <th>제목</th>
-                                                <th>날짜</th>
+                                                <th>입력일</th>
                                             </tr>
                                         </thead>
                                         <tbody>

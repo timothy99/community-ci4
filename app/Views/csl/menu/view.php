@@ -43,9 +43,9 @@
                                         <a href="/csl/file/download/<?=$val->file_id ?>"><?=$val->file_name_org ?></a><br>
 <?php   } ?>
                                     </dd>
-                                    <dt class="col-sm-2">등록자</dt>
+                                    <dt class="col-sm-2">입력자</dt>
                                     <dd class="col-sm-10"><?=$info->ins_id ?></dd>
-                                    <dt class="col-sm-2">등록일</dt>
+                                    <dt class="col-sm-2">입력일</dt>
                                     <dd class="col-sm-10"><?=$info->ins_date_txt ?></dd>
                                 </dl>
                             </div>

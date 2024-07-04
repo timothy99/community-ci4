@@ -46,9 +46,9 @@
                                     <dd class="col-sm-10"><?=number_format($info->file_upload_size_limit) ?>MB</dd>
                                     <dt class="col-sm-2">첨부 최대 용량</dt>
                                     <dd class="col-sm-10"><?=number_format($info->file_upload_size_total) ?>MB</dd>
-                                    <dt class="col-sm-2">등록자</dt>
+                                    <dt class="col-sm-2">입력자</dt>
                                     <dd class="col-sm-10"><?=$info->ins_id ?></dd>
-                                    <dt class="col-sm-2">등록일</dt>
+                                    <dt class="col-sm-2">입력일</dt>
                                     <dd class="col-sm-10"><?=$info->ins_date_txt ?></dd>
                                     <dt class="col-sm-2">수정자</dt>
                                     <dd class="col-sm-10"><?=$info->upd_id ?></dd>

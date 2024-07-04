@@ -58,8 +58,8 @@
                                     <tr>
                                         <th>번호</th>
                                         <th>제목</th>
-                                        <th>등록자</th>
-                                        <th>날짜</th>
+                                        <th>입력자</th>
+                                        <th>입력일</th>
                                     </tr>
                                 </thead>
                                 <tbody>

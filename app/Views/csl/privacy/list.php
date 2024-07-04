@@ -57,7 +57,7 @@
                                         <th>링크</th>
                                         <th>메모</th>
                                         <th>작업자</th>
-                                        <th>등록일</th>
+                                        <th>입력일</th>
                                     </tr>
                                 </thead>
                                 <tbody>

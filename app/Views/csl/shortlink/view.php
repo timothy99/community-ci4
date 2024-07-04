@@ -42,11 +42,11 @@
                                             <td><?=env("app.baseURL") ?>/s/<?=$info->sl_idx ?></td>
                                         </tr>
                                         <tr>
-                                            <th>등록자</th>
+                                            <th>입력자</th>
                                             <td><?=$info->ins_id ?></td>
                                         </tr>
                                         <tr>
-                                            <th>등록일</th>
+                                            <th>입력일</th>
                                             <td><?=$info->ins_date_txt ?></td>
                                         </tr>
                                     </tbody>

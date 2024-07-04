@@ -60,7 +60,7 @@
                                     <tr>
                                         <th>번호</th>
                                         <th>제목</th>
-                                        <th>등록자</th>
+                                        <th>입력자</th>
 <?php   if ($config->reg_date_yn == "Y") { ?>
                                         <th>등록일</th>
 <?php   } ?>

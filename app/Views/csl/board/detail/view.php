@@ -36,14 +36,14 @@
                                     <dd class="col-sm-10"><?=$info->category ?></dd>
 <?php   } ?>
 <?php   if ($config->reg_date_yn == "Y") { ?>
-                                    <dt class="col-sm-2">입력일</dt>
+                                    <dt class="col-sm-2">등록일</dt>
                                     <dd class="col-sm-10"><?=$info->reg_date_txt ?></dd>
 <?php   } ?>
                                     <dt class="col-sm-2">내용</dt>
                                     <dd class="col-sm-10"><?=$info->contents ?></dd>
-                                    <dt class="col-sm-2">등록자</dt>
+                                    <dt class="col-sm-2">입력자</dt>
                                     <dd class="col-sm-10"><?=$info->ins_id ?></dd>
-                                    <dt class="col-sm-2">등록일</dt>
+                                    <dt class="col-sm-2">입력일</dt>
                                     <dd class="col-sm-10"><?=$info->ins_date_txt ?></dd>
                                     <dt class="col-sm-2">첨부파일</dt>
                                     <dd class="col-sm-10">
