@@ -3,8 +3,6 @@
 namespace App\Models\Csl;
 
 use CodeIgniter\Model;
-use Throwable;
-use Exception;
 use App\Models\Common\DateModel;
 
 class BoardModel extends Model
@@ -18,6 +16,8 @@ class BoardModel extends Model
 
         $page = $data["page"];
         $board_id = $data["board_id"];
+        $notice_yn = $data["notice_yn"];
+        $reg_date_yn = $data["reg_date_yn"];
 
         $search_arr = $data["search_arr"];
         $rows = $search_arr["rows"];
@@ -31,7 +31,14 @@ class BoardModel extends Model
             $builder->like($search_condition, $search_text);
         }
         $builder->where("board_id", $board_id);
-        $builder->orderBy("b_idx", "desc");
+        $builder->where("notice_yn", $notice_yn);
+
+        if ($reg_date_yn == "Y") {
+            $builder->orderBy("reg_date", "desc");
+        } else {
+            $builder->orderBy("b_idx", "desc");
+        }
+
         $builder->limit($rows, getOffset($page, $rows));
         $cnt = $builder->countAllResults(false);
         $list = $builder->get()->getResult();
@@ -39,6 +46,7 @@ class BoardModel extends Model
         foreach($list as $no => $val) {
             $list[$no]->list_no = $cnt-$no-(($page-1)*$rows);
             $list[$no]->ins_date_txt = $date_model->convertTextToDate($val->ins_date, 1, 1);
+            $list[$no]->reg_date_txt = $date_model->convertTextToDate($val->reg_date, 1, 1);
         }
 
         $proc_result = array();
@@ -50,16 +58,44 @@ class BoardModel extends Model
         return $proc_result;
     }
 
-    public function getBoardInfo($b_idx)
+    public function getConfigInfo($data)
     {
         $result = true;
         $message = "목록 불러오기가 완료되었습니다.";
+
+        $board_id = $data["board_id"];
+
+        $db = $this->db;
+        $builder = $db->table("board_config");
+        $builder->where("del_yn", "N");
+        $builder->where("board_id", $board_id);
+        $info = $builder->get()->getRow();
+
+        $proc_result = array();
+        $proc_result["result"] = $result;
+        $proc_result["message"] = $message;
+        $proc_result["info"] = $info;
+
+        return $proc_result;
+    }
+
+    public function getBoardInfo($data)
+    {
+        $date_model = new DateModel();
+
+        $result = true;
+        $message = "목록 불러오기가 완료되었습니다.";
+
+        $b_idx = $data["b_idx"];
 
         $db = $this->db;
         $builder = $db->table("board");
         $builder->where("del_yn", "N");
         $builder->where("b_idx", $b_idx);
         $info = $builder->get()->getRow();
+
+        $info->ins_date_txt = $date_model->convertTextToDate($info->ins_date, 1, 1);
+        $info->reg_date_txt = $date_model->convertTextToDate($info->reg_date, 1, 1);
 
         $proc_result = array();
         $proc_result["result"] = $result;
@@ -72,6 +108,8 @@ class BoardModel extends Model
     // 게시판 입력
     public function procBoardInsert($data)
     {
+        $date_model = new DateModel();
+
         // 게시판 입력과 관련된 기본 정보
         $user_id = getUserSessionInfo("member_id");
         $today = date("YmdHis");
@@ -83,7 +121,18 @@ class BoardModel extends Model
         $title = $data["title"];
         $contents = $data["contents"];
         $board_id = $data["board_id"];
-        $file_idxs = $data["file_idxs"];
+        $file_list = $data["file_list"];
+        $category = $data["category"];
+        $notice_yn = $data["notice_yn"];
+        $reg_date = $data["reg_date"];
+
+        if (count($file_list) > 0) {
+            $file_idxs = implode("|", $file_list);
+        } else {
+            $file_idxs = null;
+        }
+
+        $reg_date = $date_model->convertTextToDate($reg_date, 2, 3);
 
         $db = $this->db;
         $db->transStart();
@@ -92,6 +141,9 @@ class BoardModel extends Model
         $builder->set("title", $title);
         $builder->set("contents", $contents);
         $builder->set("file_idxs", $file_idxs);
+        $builder->set("category", $category);
+        $builder->set("notice_yn", $notice_yn);
+        $builder->set("reg_date", $reg_date);
         $builder->set("del_yn", "N");
         $builder->set("ins_id", $user_id);
         $builder->set("ins_date", $today);
@@ -119,6 +171,8 @@ class BoardModel extends Model
     // 게시판 입력
     public function procBoardUpdate($data)
     {
+        $date_model = new DateModel();
+
         // 게시판 입력과 관련된 기본 정보
         $user_id = getUserSessionInfo("member_id");
         $today = date("YmdHis");
@@ -130,7 +184,18 @@ class BoardModel extends Model
         $contents = $data["contents"];
         $b_idx = $data["b_idx"];
         $board_id = $data["board_id"];
-        $file_idxs = $data["file_idxs"];
+        $file_list = $data["file_list"];
+        $category = $data["category"];
+        $notice_yn = $data["notice_yn"];
+        $reg_date = $data["reg_date"];
+
+        if (count($file_list) > 0) {
+            $file_idxs = implode("|", $file_list);
+        } else {
+            $file_idxs = null;
+        }
+
+        $reg_date = $date_model->convertTextToDate($reg_date, 2, 3);
 
         $db = $this->db;
         $db->transStart();
@@ -139,6 +204,9 @@ class BoardModel extends Model
         $builder->set("title", $title);
         $builder->set("contents", $contents);
         $builder->set("file_idxs", $file_idxs);
+        $builder->set("category", $category);
+        $builder->set("notice_yn", $notice_yn);
+        $builder->set("reg_date", $reg_date);
         $builder->set("del_yn", "N");
         $builder->set("upd_id", $user_id);
         $builder->set("upd_date", $today);
@@ -161,7 +229,7 @@ class BoardModel extends Model
     }
 
     // 게시판 삭제
-    public function procBoardDelete($b_idx)
+    public function procBoardDelete($data)
     {
         // 게시판 입력과 관련된 기본 정보
         $member_id = getUserSessionInfo("member_id");
@@ -170,9 +238,18 @@ class BoardModel extends Model
         $result = true;
         $message = "입력이 잘 되었습니다";
 
+        $b_idx = $data["b_idx"];
+
         $db = $this->db;
         $db->transStart();
         $builder = $db->table("board");
+        $builder->set("del_yn", "Y");
+        $builder->set("upd_id", $member_id);
+        $builder->set("upd_date", $today);
+        $builder->where("b_idx", $b_idx);
+        $result = $builder->update();
+
+        $builder = $db->table("board_comment");
         $builder->set("del_yn", "Y");
         $builder->set("upd_id", $member_id);
         $builder->set("upd_date", $today);

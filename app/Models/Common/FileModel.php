@@ -4,6 +4,7 @@ namespace App\Models\Common;
 
 use CodeIgniter\Model;
 use App\Models\Common\SecurityModel;
+use App\Models\Csl\BoardModel;
 use stdClass;
 use Throwable;
 
@@ -265,7 +266,6 @@ class FileModel extends Model
             $data["file_id"] = $file_info["file_id"];
             $file_path = $file_info["file_directory"]."/".$file_info["file_name_uploaded"];
             $data["file_path"] = $file_path;
-            
 
             // 이미지인 경우 리사이징 처리
             if ($category == "image") {
@@ -291,7 +291,68 @@ class FileModel extends Model
         $proc_result["message"] = $message;
         $proc_result["file_id"] = $file_id;
         $proc_result["file_name_org"] = $file_name_org;
+        $proc_result["category"] = $category;
         $proc_result["input_file_id"] = $data["input_file_id"];
+
+        return $proc_result;
+    }
+
+    public function getUploadInfo($data)
+    {
+        $board_model = new BoardModel();
+
+        $result = true;
+        $message = "파일 수량 점검이 완료되었습니다.";
+
+        $user_file = $data["user_file"];
+        $file_list = $data["file_list"] ?? array();
+
+        $upload_size = $user_file->getSize();
+
+        $model_result = $board_model->getConfigInfo($data);
+        $config = $model_result["info"];
+
+        // 전체 업로드 제한 용량 체크
+        $file_upload_size_total = $config->file_upload_size_total;
+        if (count($file_list) == 0) {
+            $result = true;
+            $message = "";
+        } else {
+            $db = $this->db;
+            $builder = $db->table("file");
+            $builder->select("sum(file_size) as sum_file_size");
+            $builder->where("del_yn", "N");
+            $builder->whereIn("file_id", $file_list);
+            $info = $builder->get()->getRow();
+
+            $sum_file_size = $info->sum_file_size;
+            $total_file_size = $sum_file_size+$upload_size;
+            $check_file_size = $this->checkFileSize($total_file_size, $file_upload_size_total);
+            if($check_file_size == false) {
+                $result = false;
+                $message = "총 파일은 ".$file_upload_size_total."MB 보다 더 올릴 수 없습니다";
+            }
+        }
+
+        // 개별 파일의 크기 확인
+        $limit_size = $config->file_upload_size_limit;
+        $check_file_size = $this->checkFileSize($upload_size, $limit_size);
+        if($check_file_size == false) {
+            $result = false;
+            $message = "파일이 ".$limit_size."MB 보다 큽니다";
+        }
+
+        // 파일 갯수 체크
+        $file_cnt = $config->file_cnt;
+        $upload_cnt = count($file_list)+1;
+        if ($upload_cnt > $file_cnt) {
+            $result = false;
+            $message = "파일은 ".$file_cnt."개 보다 많이 올릴 수 없습니다.";
+        }
+
+        $proc_result = array();
+        $proc_result["result"] = $result;
+        $proc_result["message"] = $message;
 
         return $proc_result;
     }

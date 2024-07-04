@@ -5,7 +5,7 @@ create table mng_session (
     data mediumblob not null,
     key ci_sessions_timestamp (timestamp),
     key id_idx (id)
-) engine=InnoDB default charset=utf8 comment='CodeIgniter를 위한 db session용 테이블';
+) comment='CodeIgniter를 위한 db session용 테이블';
 
 create table mng_admin (
     a_idx int not null auto_increment comment '관리자 번호',
@@ -18,7 +18,7 @@ create table mng_admin (
     upd_date varchar(14) not null comment '수정일',
     primary key (a_idx),
     unique key member_idx (m_idx)
-) engine=InnoDB default charset=utf8 comment='관리자 권한 부여';
+) comment='관리자 권한 부여';
 
 create table mng_board (
     b_idx int not null auto_increment comment '게시물 번호',
@@ -31,6 +31,8 @@ create table mng_board (
     comment_cnt int not null default 0 comment '댓글 등록수',
     heart_cnt int not null default 0 comment '공감수',
     hit_cnt int not null default 0 comment '조회수',
+    reg_date varchar(14) null comment '등록일-정렬을 위해 사용자가 입력한 날짜',
+    notice_yn enum('Y', 'N') not null default 'N' comment '공지 여부',
     del_yn enum('Y', 'N') not null default 'N' comment '삭제 여부',
     ins_id varchar(70) not null comment '등록자',
     ins_date varchar(14) not null comment '등록일',
@@ -38,7 +40,10 @@ create table mng_board (
     upd_date varchar(14) not null comment '수정일',
     primary key (b_idx),
     key board_id (board_id)
-) engine=InnoDB default charset=utf8 comment='게시판';
+) comment='게시판';
+
+-- alter table mng_board add reg_date varchar(14) null comment '등록일-정렬을 위해 사용자가 입력한 날짜' after hit_cnt;
+-- alter table mng_board add notice_yn enum('Y', 'N') not null default 'N' comment '공지 여부' after reg_date;
 
 create table mng_board_comment (
     bc_idx int not null auto_increment comment '인덱스',
@@ -50,7 +55,27 @@ create table mng_board_comment (
     upd_id varchar(70) default null comment '수정자 [mng_member.m_idx]',
     upd_date varchar(14) not null comment '수정일',
     primary key (bc_idx)
-) engine=InnoDB default charset=utf8 comment='게시판 댓글';
+) comment='게시판 댓글';
+
+-- drop table mng_board_config;
+create table mng_board_config (
+    bc_idx int not null auto_increment comment '인덱스',
+    board_id varchar(20) default null comment '게시판 아이디',
+    category varchar(300) default null comment '카테고리',
+    title varchar(1000) not null comment '제목',
+    base_rows int not null comment '화면에 기본으로 보여줄 줄 수',
+    reg_date_yn varchar(1) null comment '등록일 수정 기능 사용 여부',
+    file_cnt int not null comment '최대 첨부파일 업로드 수',
+    file_upload_size_limit int null comment '최대 파일 업로드 용량 제한(서버 설정에 영향을 받는다.)',
+    file_upload_size_total int null comment '총 파일 업로드 용량 제한(서버 설정에 영향을 받는다.)',
+    del_yn enum('Y', 'N') not null default 'N' comment '삭제 여부',
+    ins_id varchar(70) not null comment '등록자',
+    ins_date varchar(14) not null comment '등록일',
+    upd_id varchar(70) not null comment '수정자',
+    upd_date varchar(14) not null comment '수정일',
+    primary key (bc_idx),
+    key board_id (board_id)
+) comment='게시판 설정 관리';
 
 create table mng_file (
     f_idx int not null auto_increment comment '연번',
@@ -71,7 +96,7 @@ create table mng_file (
     upd_date varchar(14) not null comment '수정일',
     primary key (f_idx),
     unique key file_id (file_id)
-) engine=InnoDB default charset=utf8 comment='파일 정보';
+) comment='파일 정보';
 
 /*
     alter table mng_file add file_ext varchar(10) default null comment '파일확장자' after file_size;
@@ -103,7 +128,7 @@ create table mng_member (
     upd_date varchar(14) not null comment '수정일',
     primary key (m_idx),
     unique key mem_usr_id (member_id)
-) engine=InnoDB default charset=utf8 comment='회원정보';
+) comment='회원정보';
 
 create table mng_bulk
 (
@@ -158,7 +183,7 @@ create table mng_menu (
     upd_date varchar(14) not null comment '수정일',
     primary key (m_idx),
     key idx1 (idx1, idx2, idx3)
-) engine=InnoDB default charset=utf8 comment='메뉴';
+) comment='메뉴';
 
 create table mng_menu_json (
     mj_idx int not null auto_increment comment '인덱스',
@@ -170,7 +195,7 @@ create table mng_menu_json (
     upd_id varchar(70) default null comment '수정자',
     upd_date varchar(14) not null comment '수정일',
     primary key (mj_idx)
-) engine=InnoDB default charset=utf8 comment='json 형태의 메뉴 저장내용';
+) comment='json 형태의 메뉴 저장내용';
 
 create table mng_member_reset (
     mr_idx int not null auto_increment comment '인덱스',
@@ -180,7 +205,7 @@ create table mng_member_reset (
     expire_date varchar(14) not null comment '암호화 변경 만료 시간(현재 시간으로부터 15분)',
     primary key (mr_idx),
     key mng_member_reset_reset_key (reset_key)
-) engine=InnoDB default charset=utf8 comment='암호를 초기화 하기 위한 정보';
+) comment='암호를 초기화 하기 위한 정보';
 
 create table mng_slide (
     s_idx int auto_increment comment '슬라이드 인덱스' primary key,
@@ -238,7 +263,7 @@ create table mng_shortlink (
     upd_id varchar(70) not null comment '수정자',
     upd_date varchar(14) not null comment '수정일',
     primary key (sl_idx)
-) engine=InnoDB default charset=utf8 comment='단축url';
+) comment='단축url';
 
 create table mng_privacy (
     p_idx int auto_increment comment '인덱스' primary key,

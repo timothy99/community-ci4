@@ -4,12 +4,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>게시판</h1>
+                    <h1><?=$config->title ?></h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="/">홈</a></li>
                         <li class="breadcrumb-item active">게시판</li>
+                        <li class="breadcrumb-item active"><?=$config->title ?></li>
                     </ol>
                 </div>
             </div>
@@ -28,6 +29,16 @@
                         <div class="card-body">
                             <div class="col-12">
                                 <dl class="row">
+                                    <dt class="col-sm-2">공지여부</dt>
+                                    <dd class="col-sm-10"><?=$info->notice_yn ?></dd>
+<?php   if ($config->category_yn == "Y") { ?>
+                                    <dt class="col-sm-2">분류</dt>
+                                    <dd class="col-sm-10"><?=$info->category ?></dd>
+<?php   } ?>
+<?php   if ($config->reg_date_yn == "Y") { ?>
+                                    <dt class="col-sm-2">입력일</dt>
+                                    <dd class="col-sm-10"><?=$info->reg_date_txt ?></dd>
+<?php   } ?>
                                     <dt class="col-sm-2">내용</dt>
                                     <dd class="col-sm-10"><?=$info->contents ?></dd>
                                     <dt class="col-sm-2">등록자</dt>
@@ -108,9 +119,9 @@
 <script>
     $(window).on("load", function() {
         // 메뉴강조
-        $("#li-board-notice-list").addClass("menu-open");
-        $("#upper-board-notice-list").addClass("active");
-        $("#a-board-<?=$board_id ?>-list").addClass("active");
+        $("#li-board-config-list").addClass("menu-open");
+        $("#upper-board-config-list").addClass("active");
+        $("#a-board-manage-list").addClass("active");
     });
 
     $(function() {

@@ -4,12 +4,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>게시판</h1>
+                    <h1>게시판 관리</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="/">홈</a></li>
-                        <li class="breadcrumb-item active">게시판</li>
+                        <li class="breadcrumb-item active">게시판 관리</li>
                     </ol>
                 </div>
             </div>
@@ -41,7 +41,6 @@
                                     </select>
                                     <select class="form-control ml-3" id="search_condition" name="search_condition">
                                         <option value="title">제목</option>
-                                        <option value="contents">내용</option>
                                     </select>
                                     <input type="text" id="search_text" name="search_text" class="form-control float-right ml-2" placeholder="검색">
                                     <div class="input-group-append">
@@ -59,6 +58,7 @@
                                     <tr>
                                         <th>번호</th>
                                         <th>제목</th>
+                                        <th>게시판 아이디</th>
                                         <th>등록자</th>
                                         <th>날짜</th>
                                     </tr>
@@ -67,14 +67,15 @@
 <?php   foreach($list as $no => $val) { ?>
                                     <tr>
                                         <td><?=$val->list_no ?></td>
-                                        <td><a href="/csl/board/<?=$board_id ?>/view/<?=$val->b_idx ?>"><?=$val->title ?></a></td>
+                                        <td><?=$val->board_id ?></td>
+                                        <td><a href="/csl/board/<?=$val->board_id ?>/list"><?=$val->title ?></a></td>
                                         <td><?=$val->ins_id ?></td>
                                         <td><?=$val->ins_date_txt ?></td>
                                     </tr>
 <?php   } ?>
 <?php   if (count($list) == 0) { ?>
                                     <tr>
-                                        <td colspan="6" class="text-center">데이터가 없습니다.</td>
+                                        <td colspan="5" class="text-center">데이터가 없습니다.</td>
                                     </tr>
 <?php   } ?>
                                 </tbody>
@@ -83,7 +84,6 @@
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">
 <?=$paging_info["paging_view"] ?>
-                            <button type="button" class="btn btn-info float-right" id="write" name="write">글쓰기</button>
                         </div>
                     </div>
                     <!-- /.card -->
@@ -98,9 +98,9 @@
 <script>
     $(window).on("load", function() {
         // 메뉴강조
-        $("#li-board-notice-list").addClass("menu-open");
-        $("#upper-board-notice-list").addClass("active");
-        $("#a-board-<?=$board_id ?>-list").addClass("active");
+        $("#li-board-config-list").addClass("menu-open");
+        $("#upper-board-config-list").addClass("active");
+        $("#a-board-manage-list").addClass("active");
 
         // 셀렉트 박스 선택
         $("#search_condition").val("<?=$data["search_arr"]["search_condition"] ?>").prop("selected", true);
@@ -118,16 +118,12 @@
         $("#search_button").click(function(e) {
             search();
         });
-
-        $("#write").click(function(e) {
-            location.href = "/csl/board/<?=$board_id ?>/write";
-        });
     });
 
     function search() {
         var search_text = $("#search_text").val();
         var search_condition = $("#search_condition").val();
         var rows = $("#rows").val();
-        location.href = "/csl/board/<?=$board_id ?>/list?page=1&search_text="+search_text+"&search_condition="+search_condition+"&rows="+rows;
+        location.href = "/csl/board/manage/list?page=1&search_text="+search_text+"&search_condition="+search_condition+"&rows="+rows;
     }
 </script>

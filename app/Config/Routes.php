@@ -77,12 +77,21 @@ $routes->post("/csl/member/update", "Csl\Member::update");
 $routes->post("/csl/member/delete/(:alphanum)", "Csl\Member::delete");
 $routes->get("/csl/member/excel", "Csl\Member::excel");
 
-$routes->get("/csl/board/(:alpha)/list", "Csl\Board::list");
-$routes->get("/csl/board/(:alpha)/write", "Csl\Board::write");
-$routes->get("/csl/board/(:alpha)/edit/(:num)", "Csl\Board::edit");
-$routes->post("/csl/board/(:alpha)/update", "Csl\Board::update");
-$routes->get("/csl/board/(:alpha)/view/(:num)", "Csl\Board::view");
-$routes->post("/csl/board/(:alpha)/delete/(:num)", "Csl\Board::delete");
+$routes->get("/csl/board/config/list", "Csl\BoardConfig::list");
+$routes->get("/csl/board/config/write", "Csl\BoardConfig::write");
+$routes->get("/csl/board/config/edit/(:num)", "Csl\BoardConfig::edit");
+$routes->post("/csl/board/config/update", "Csl\BoardConfig::update");
+$routes->get("/csl/board/config/view/(:num)", "Csl\BoardConfig::view");
+$routes->post("/csl/board/config/delete/(:num)", "Csl\BoardConfig::delete");
+
+$routes->get("/csl/board/manage/list", "Csl\BoardManage::list");
+
+$routes->get("/csl/board/(:any)/list", "Csl\Board::list");
+$routes->get("/csl/board/(:any)/write", "Csl\Board::write");
+$routes->get("/csl/board/(:any)/edit/(:num)", "Csl\Board::edit");
+$routes->post("/csl/board/(:any)/update", "Csl\Board::update");
+$routes->get("/csl/board/(:any)/view/(:num)", "Csl\Board::view");
+$routes->post("/csl/board/(:any)/delete/(:num)", "Csl\Board::delete");
 
 $routes->post("/csl/file/upload", "Csl\File::upload");
 $routes->post("/csl/file/list", "Csl\File::list");
