@@ -30,12 +30,14 @@ class Board extends BaseController
         $search_arr["rows"] = $this->request->getGet("rows") ?? 10;
         $search_arr["search_text"] = $this->request->getGet("search_text", FILTER_SANITIZE_SPECIAL_CHARS) ?? "";
         $search_arr["search_condition"] = $this->request->getGet("search_condition", FILTER_SANITIZE_SPECIAL_CHARS) ?? "title";
+        $search_arr["category"] = $this->request->getGet("category", FILTER_SANITIZE_SPECIAL_CHARS) ?? "";
 
         $data["search_arr"] = $search_arr;
         $data["board_id"] = $board_id;
 
         $model_result = $board_model->getConfigInfo($data);
         $config = $model_result["info"];
+        $config->category_arr = explode("||", $config->category);
 
         $data["notice_yn"] = "N";
         $data["reg_date_yn"] = $config->reg_date_yn;
@@ -45,7 +47,10 @@ class Board extends BaseController
         $list = $model_result["list"];
         $cnt = $model_result["cnt"];
 
+        // 공지사항에는 분류 항목을 제외한다.
         $data["notice_yn"] = "Y";
+        $search_arr["category"] = null;
+        $data["search_arr"] = $search_arr;
         $model_result = $board_model->getBoardList($data);
         $notice_list = $model_result["list"];
 

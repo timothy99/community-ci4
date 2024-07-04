@@ -40,6 +40,15 @@
                                         <option value="90">90</option>
                                         <option value="100">100</option>
                                     </select>
+<?php   if ($config->category_yn == "Y") { ?>
+                                    <select class="form-control ml-3" id="category" name="category" onchange="search()">
+                                        <option value="">분류</option>
+<?php       foreach ($config->category_arr as $no => $val) { ?>
+                                        <option value="<?=$val ?>"><?=$val ?></option>
+<?php       } ?>
+
+                                    </select>
+<?php   } ?>
                                     <select class="form-control ml-3" id="search_condition" name="search_condition">
                                         <option value="title">제목</option>
                                         <option value="contents">내용</option>
@@ -59,6 +68,9 @@
                                 <thead class="text-center">
                                     <tr>
                                         <th>번호</th>
+<?php   if ($config->category_yn == "Y") { ?>
+                                        <th>분류</th>
+<?php   } ?>
                                         <th>제목</th>
                                         <th>입력자</th>
 <?php   if ($config->reg_date_yn == "Y") { ?>
@@ -71,6 +83,9 @@
 <?php   foreach($notice_list as $no => $val) { ?>
                                     <tr>
                                         <td>공지</td>
+<?php   if ($config->category_yn == "Y") { ?>
+                                        <td><?=$val->category ?></td>
+<?php   } ?>
                                         <td><a href="/csl/board/<?=$data["board_id"] ?>/view/<?=$val->b_idx ?>"><?=$val->title ?></a></td>
                                         <td><?=$val->ins_id ?></td>
 <?php   if ($config->reg_date_yn == "Y") { ?>
@@ -83,6 +98,9 @@
 <?php   foreach($list as $no => $val) { ?>
                                     <tr>
                                         <td><?=$val->list_no ?></td>
+<?php   if ($config->category_yn == "Y") { ?>
+                                        <td><?=$val->category ?></td>
+<?php   } ?>
                                         <td><a href="/csl/board/<?=$data["board_id"] ?>/view/<?=$val->b_idx ?>"><?=$val->title ?></a></td>
                                         <td><?=$val->ins_id ?></td>
 <?php   if ($config->reg_date_yn == "Y") { ?>
@@ -146,7 +164,8 @@
     function search() {
         var search_text = $("#search_text").val();
         var search_condition = $("#search_condition").val();
+        var category = $("#category").val();
         var rows = $("#rows").val();
-        location.href = "/csl/board/<?=$data["board_id"] ?>/list?page=1&search_text="+search_text+"&search_condition="+search_condition+"&rows="+rows;
+        location.href = "/csl/board/<?=$data["board_id"] ?>/list?page=1&search_text="+search_text+"&search_condition="+search_condition+"&rows="+rows+"&category="+category;
     }
 </script>

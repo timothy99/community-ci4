@@ -23,12 +23,16 @@ class BoardModel extends Model
         $rows = $search_arr["rows"];
         $search_condition = $search_arr["search_condition"];
         $search_text = $search_arr["search_text"];
+        $category = $search_arr["category"];
 
         $db = $this->db;
         $builder = $db->table("board");
         $builder->where("del_yn", "N");
         if ($search_text != null) {
             $builder->like($search_condition, $search_text);
+        }
+        if ($category != null) {
+            $builder->where("category", $category);
         }
         $builder->where("board_id", $board_id);
         $builder->where("notice_yn", $notice_yn);
