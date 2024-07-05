@@ -61,7 +61,7 @@
                                         </div>
                                     </div>
                                 </div>
-<?php   if ($config->reg_date_yn == "Y") { ?>
+<?php   if ($config->category_yn== "Y") { ?>
                                 <div class="form-group row">
                                     <label for="reg_date" class="col-sm-2 col-form-label">분류</label>
                                     <div class="col-sm-10">
@@ -75,9 +75,9 @@
                                 </div>
 <?php   } ?>
 
-<?php   if ($config->category_yn == "Y") { ?>
+<?php   if ($config->reg_date_yn  == "Y") { ?>
                                 <div class="form-group row">
-                                    <label for="reg_date" class="col-sm-2 col-form-label">입력일</label>
+                                    <label for="reg_date" class="col-sm-2 col-form-label">등록일</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="reg_date" name="reg_date" value="<?=$info->reg_date ?>">
                                     </div>

@@ -319,10 +319,10 @@ class BoardConfigModel extends Model
         // 게시물 댓글 삭제 서브쿼리 사용
         $sub_query = $db->table("board a");
         $sub_query->select("b.bc_idx");
-        $sub_query->join("mng_board_comment b", "a.b_idx = b.b_idx");
+        $sub_query->join("board_comment b", "a.b_idx = b.b_idx");
         $sub_query->where("a.board_id", $board_id);
 
-        $builder = $db->table("mng_board_comment c");
+        $builder = $db->table("board_comment c");
         $builder->set("del_yn", "Y");
         $builder->set("upd_id", $member_id);
         $builder->set("upd_date", $today);

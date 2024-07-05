@@ -62,6 +62,7 @@ create table mng_board_config (
     bc_idx int not null auto_increment comment '인덱스',
     board_id varchar(20) default null comment '게시판 아이디',
     category varchar(300) default null comment '카테고리',
+    category_yn varchar(1) null comment '카테고리 사용여부',
     title varchar(1000) not null comment '제목',
     base_rows int not null comment '화면에 기본으로 보여줄 줄 수',
     reg_date_yn varchar(1) null comment '입력일 수정 기능 사용 여부',
