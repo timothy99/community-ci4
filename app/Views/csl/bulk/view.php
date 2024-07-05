@@ -27,7 +27,7 @@
                         </div><!-- /.card-header -->
                         <div class="card-body">
                             <div class="col-12">
-                                <table class="table table-hover table-bordered table-sm">
+                                <table class="table table-bordered table-responsive d-md-table text-nowrap table-hover">
                                     <tbody>
                                         <tr>
                                             <th>이름</th>

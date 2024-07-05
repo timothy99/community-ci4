@@ -52,12 +52,14 @@ class BoardModel extends Model
         return $proc_result;
     }
 
-    public function getBoardInfo($b_idx)
+    public function getBoardInfo($data)
     {
         $date_model = new DateModel();
 
         $result = true;
         $message = "정상처리";
+
+        $b_idx = $data["b_idx"];
 
         $db = $this->db;
         $builder = $db->table("board");

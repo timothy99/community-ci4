@@ -69,7 +69,7 @@
                                     <h3 class="card-title m-0">최신 공지사항</h3>
                                 </div>
                                 <div class="card-body">
-                                    <table class="table table-bordered">
+                                    <table class="table table-bordered table-responsive d-md-table text-nowrap table-hover">
                                         <thead class="text-center">
                                             <tr>
                                                 <th>제목</th>
@@ -102,7 +102,7 @@
                                     <h3 class="card-title m-0">최신 자유게시판</h3>
                                 </div>
                                 <div class="card-body">
-                                    <table class="table table-bordered">
+                                    <table class="table table-bordered table-responsive d-md-table text-nowrap table-hover">
                                         <thead class="text-center">
                                             <tr>
                                                 <th>제목</th>

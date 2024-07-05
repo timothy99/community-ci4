@@ -63,10 +63,14 @@ class Board extends BaseController
         $board_id = $this->request->getUri()->getSegment(2);
         $b_idx = $this->request->getUri()->getSegment(4); // segments 확인
 
+        $data = array();
+        $data["board_id"] = $board_id;
+        $data["b_idx"] = $b_idx;
+
         $result = true;
         $message = "정상";
 
-        $model_result = $board_model->getBoardInfo($b_idx);
+        $model_result = $board_model->getBoardInfo($data);
         $result = $model_result["result"];
         $message = $model_result["message"];
         $info = $model_result["info"];
@@ -81,7 +85,7 @@ class Board extends BaseController
         }
 
         // 댓글목록
-        $model_result = $comment_model->getCommentList($b_idx);
+        $model_result = $comment_model->getCommentList($data);
         $comment_list = $model_result["list"];
 
         $proc_result = array();
@@ -207,10 +211,14 @@ class Board extends BaseController
         $board_id = $this->request->getUri()->getSegment(2);
         $b_idx = $this->request->getUri()->getSegment(4);
 
+        $data = array();
+        $data["board_id"] = $board_id;
+        $data["b_idx"] = $b_idx;
+
         $result = true;
         $message = "정상";
 
-        $model_result = $board_model->getBoardInfo($b_idx);
+        $model_result = $board_model->getBoardInfo($data);
         $info = $model_result["info"];
         $file_arr = strlen($info->file_idxs) > 0 ? explode("|", $info->file_idxs) : array();
         $file_list = array();
