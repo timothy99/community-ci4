@@ -22,6 +22,16 @@ class Board extends BaseController
         $paging_model = new PagingModel();
 
         $board_id = $this->request->getUri()->getSegment(3); // segments 확인
+        $category = $this->request->getGet("category", FILTER_SANITIZE_SPECIAL_CHARS) ?? "";
+
+        $search_open = $this->request->getGet("search_open", FILTER_SANITIZE_SPECIAL_CHARS) ?? "Y";
+        if ($search_open == "Y") {
+            $collapsed_card = "";
+            $display_type = "block";
+        } else {
+            $collapsed_card = "collapsed-card";
+            $display_type = "none";
+        }
 
         $data = array();
         $data["page"] = $this->request->getGet("page") ?? 1;
@@ -30,7 +40,10 @@ class Board extends BaseController
         $search_arr["rows"] = $this->request->getGet("rows") ?? 10;
         $search_arr["search_text"] = $this->request->getGet("search_text", FILTER_SANITIZE_SPECIAL_CHARS) ?? "";
         $search_arr["search_condition"] = $this->request->getGet("search_condition", FILTER_SANITIZE_SPECIAL_CHARS) ?? "title";
-        $search_arr["category"] = $this->request->getGet("category", FILTER_SANITIZE_SPECIAL_CHARS) ?? "";
+        $search_arr["category"] = $category;
+        $search_arr["search_open"] = $search_open;
+        $search_arr["collapsed_card"] = $collapsed_card;
+        $search_arr["display_type"] = $display_type;
 
         $data["search_arr"] = $search_arr;
         $data["board_id"] = $board_id;
@@ -56,6 +69,9 @@ class Board extends BaseController
 
         $data["cnt"] = $cnt;
         $paging_info = $paging_model->getPagingInfo($data);
+
+        $search_arr["category"] = $category; // category 복구
+        $data["search_arr"] = $search_arr;
 
         $proc_result = array();
         $proc_result["result"] = $result;

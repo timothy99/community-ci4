@@ -1,3 +1,6 @@
+<input type="hidden" id="search_open" name="search_open" value="<?=$data["search_arr"]["search_open"] ?>">
+<input type="hidden" id="category" name="category" value="<?=$data["search_arr"]["category"] ?>">
+
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -22,6 +25,50 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
+                    <div class="card card-success shadow-sm <?=$data["search_arr"]["collapsed_card"] ?>">
+                        <div class="card-header">
+                            <h3 class="card-title">검색</h3>
+                            <div class="card-tools">
+                                <div class="input-group input-group-sm">
+                                    <button type="button" class="btn btn-primary btn-sm ml-3" data-card-widget="collapse" onclick="change_collapse()">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body" style="display:<?=$data["search_arr"]["display_type"] ?>;">
+                            <div class="d-flex mb-3">
+                                <div class="col-md-6">
+                                    <select class="form-control" id="search_condition" name="search_condition">
+                                        <option value="title">제목</option>
+                                        <option value="contents">내용</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 ml-2">
+                                    <input type="text" id="search_text" name="search_text" class="form-control" value="<?=$data["search_arr"]["search_text"] ?>" placeholder="검색어를 입력하세요">
+                                </div>
+                            </div>
+                            <div class="d-flex">
+<?php   if ($config->category_yn == "Y") { ?>
+                                <div class="col-md-12 input-group input-group-sm">
+                                    분류 : 
+<?php       foreach ($config->category_arr as $no => $val) { ?>
+                                    <button type="button" class="btn btn-outline-primary btn-sm ml-3" onclick="search_category('<?=$val ?>')" value="<?=$val ?>"><?=$val ?></button>
+<?php       } ?>
+                                </div>
+<?php   } ?>
+                            </div>
+                            <div class="d-flex mt-3 justify-content-end">
+                                <a href="/csl/board/<?=$data["board_id"] ?>/list" class="btn btn-secondary">초기화</a>
+                                <button type="button" class="btn btn-info ml-3" id="search_button" name="search_button">검색</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
                     <div class="card card-primary">
                         <div class="card-header">
                             <h3 class="card-title">총 <?=number_format($data["cnt"]) ?> 건</h3>
@@ -40,25 +87,6 @@
                                         <option value="90">90</option>
                                         <option value="100">100</option>
                                     </select>
-<?php   if ($config->category_yn == "Y") { ?>
-                                    <select class="form-control ml-3" id="category" name="category" onchange="search()">
-                                        <option value="">분류</option>
-<?php       foreach ($config->category_arr as $no => $val) { ?>
-                                        <option value="<?=$val ?>"><?=$val ?></option>
-<?php       } ?>
-
-                                    </select>
-<?php   } ?>
-                                    <select class="form-control ml-3" id="search_condition" name="search_condition">
-                                        <option value="title">제목</option>
-                                        <option value="contents">내용</option>
-                                    </select>
-                                    <input type="text" id="search_text" name="search_text" class="form-control float-right ml-2" placeholder="검색">
-                                    <div class="input-group-append">
-                                        <button type="button" class="btn btn-default" id="search_button" name="search_button">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -143,6 +171,8 @@
         $("#search_condition").val("<?=$data["search_arr"]["search_condition"] ?>").prop("selected", true);
         $("#search_text").val("<?=$data["search_arr"]["search_text"] ?>");
         $("#rows").val("<?=$data["search_arr"]["rows"] ?>").prop("selected", true);
+        $("button[value='<?=$data["search_arr"]["category"] ?>']").removeClass("btn-outline-primary");
+        $("button[value='<?=$data["search_arr"]["category"] ?>']").addClass("btn-primary");
     });
 
     $(function() {
@@ -166,6 +196,21 @@
         var search_condition = $("#search_condition").val();
         var category = $("#category").val();
         var rows = $("#rows").val();
-        location.href = "/csl/board/<?=$data["board_id"] ?>/list?page=1&search_text="+search_text+"&search_condition="+search_condition+"&rows="+rows+"&category="+category;
+        var search_open = $("#search_open").val();
+        location.href = "/csl/board/<?=$data["board_id"] ?>/list?page=1&search_text="+search_text+"&search_condition="+search_condition+"&rows="+rows+"&category="+category+"&search_open="+search_open;
+    }
+
+    function change_collapse() {
+        var search_open = $("#search_open").val();
+        if (search_open == "Y") {
+            $("#search_open").val("N");
+        } else {
+            $("#search_open").val("Y");
+        }
+    }
+
+    function search_category(category) {
+        $("#category").val(category);
+        search();
     }
 </script>
