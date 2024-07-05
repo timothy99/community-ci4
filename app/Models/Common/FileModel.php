@@ -314,7 +314,7 @@ class FileModel extends Model
 
         // 전체 업로드 제한 용량 체크
         $file_upload_size_total = $config->file_upload_size_total;
-        if (count($file_list) == 0) {
+        if (count($file_list) == 0 || $file_upload_size_total == 0) {
             $result = true;
             $message = "";
         } else {
@@ -337,7 +337,7 @@ class FileModel extends Model
         // 개별 파일의 크기 확인
         $limit_size = $config->file_upload_size_limit;
         $check_file_size = $this->checkFileSize($upload_size, $limit_size);
-        if($check_file_size == false) {
+        if($check_file_size == false && $limit_size > 0) {
             $result = false;
             $message = "파일이 ".$limit_size."MB 보다 큽니다";
         }
@@ -345,7 +345,7 @@ class FileModel extends Model
         // 파일 갯수 체크
         $file_cnt = $config->file_cnt;
         $upload_cnt = count($file_list)+1;
-        if ($upload_cnt > $file_cnt) {
+        if ($upload_cnt > $file_cnt && $file_cnt > 0) {
             $result = false;
             $message = "파일은 ".$file_cnt."개 보다 많이 올릴 수 없습니다.";
         }
