@@ -26,7 +26,7 @@
                             <h3 class="card-title">회원정보 보기</h3>
                         </div><!-- /.card-header -->
                         <div class="card-body">
-                            <table class="table table-bordered table-hover table-striped">
+                            <table class="table table-bordered table-responsive d-md-table text-nowrap table-hover">
                                 <tbody>
                                     <tr>
                                         <th>아이디</th>
