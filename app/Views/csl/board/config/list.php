@@ -4,12 +4,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>레이어 팝업</h1>
+                    <h1>게시판 설정</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="/">홈</a></li>
-                        <li class="breadcrumb-item active">레이어 팝업</li>
+                        <li class="breadcrumb-item active">게시판 설정</li>
                     </ol>
                 </div>
             </div>
@@ -41,13 +41,12 @@
                                     </select>
                                     <select class="form-control ml-3" id="search_condition" name="search_condition">
                                         <option value="title">제목</option>
-                                        <option value="contents">내용</option>
                                     </select>
                                     <input type="text" id="search_text" name="search_text" class="form-control float-right ml-2" placeholder="검색">
                                     <div class="input-group-append">
-                                    <button type="button" class="btn btn-default" id="search_button" name="search_button">
-                                        <i class="fas fa-search"></i>
-                                    </button>
+                                        <button type="button" class="btn btn-default" id="search_button" name="search_button">
+                                            <i class="fas fa-search"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -59,8 +58,7 @@
                                     <tr>
                                         <th>번호</th>
                                         <th>제목</th>
-                                        <th>게시기간</th>
-                                        <th>노출여부</th>
+                                        <th>게시판 아이디</th>
                                         <th>입력자</th>
                                         <th>입력일</th>
                                     </tr>
@@ -69,16 +67,15 @@
 <?php   foreach($list as $no => $val) { ?>
                                     <tr>
                                         <td><?=$val->list_no ?></td>
-                                        <td><a href="/csl/popup/view/<?=$val->p_idx ?>"><?=$val->title ?></a></td>
-                                        <td><?=$val->start_date_txt ?> ~ <?=$val->end_date_txt ?></td>
-                                        <td><?=$val->display_yn ?></td>
+                                        <td><?=$val->board_id ?></td>
+                                        <td><a href="/csl/board/config/view/<?=$val->bc_idx ?>"><?=$val->title ?></a></td>
                                         <td><?=$val->ins_id ?></td>
                                         <td><?=$val->ins_date_txt ?></td>
                                     </tr>
 <?php   } ?>
 <?php   if (count($list) == 0) { ?>
                                     <tr>
-                                        <td colspan="6" class="text-center">데이터가 없습니다.</td>
+                                        <td colspan="5" class="text-center">데이터가 없습니다.</td>
                                     </tr>
 <?php   } ?>
                                 </tbody>
@@ -87,7 +84,7 @@
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">
 <?=$paging_info["paging_view"] ?>
-                            <button type="button" class="btn btn-info float-right" id="write" name="write">글쓰기</button>
+                            <button type="button" class="btn btn-info float-right" id="write" name="write">추가</button>
                         </div>
                     </div>
                     <!-- /.card -->
@@ -102,9 +99,9 @@
 <script>
     $(window).on("load", function() {
         // 메뉴강조
-        $("#li-popup-list").addClass("menu-open");
-        $("#upper-popup-list").addClass("active");
-        $("#a-popup-list").addClass("active");
+        $("#li-board-config-list").addClass("menu-open");
+        $("#upper-board-config-list").addClass("active");
+        $("#a-board-config-list").addClass("active");
 
         // 셀렉트 박스 선택
         $("#search_condition").val("<?=$data["search_arr"]["search_condition"] ?>").prop("selected", true);
@@ -124,7 +121,7 @@
         });
 
         $("#write").click(function(e) {
-            location.href = "/csl/popup/write";
+            location.href = "/csl/board/config/write";
         });
     });
 
@@ -132,6 +129,6 @@
         var search_text = $("#search_text").val();
         var search_condition = $("#search_condition").val();
         var rows = $("#rows").val();
-        location.href = "/csl/popup/list?page=1&search_text="+search_text+"&search_condition="+search_condition+"&rows="+rows;
+        location.href = "/csl/board/config/list?page=1&search_text="+search_text+"&search_condition="+search_condition+"&rows="+rows;
     }
 </script>

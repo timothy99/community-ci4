@@ -8,12 +8,14 @@ use App\Models\Common\DateModel;
 
 class CommentModel extends Model
 {
-    public function getCommentList($b_idx)
+    public function getCommentList($data)
     {
         $date_model = new DateModel();
 
         $result = true;
         $message = "목록 불러오기가 완료되었습니다.";
+
+        $b_idx = $data["b_idx"];
 
         $db = $this->db;
         $builder = $db->table("board_comment");

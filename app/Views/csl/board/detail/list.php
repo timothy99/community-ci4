@@ -4,12 +4,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>게시판</h1>
+                    <h1><?=$config->title ?></h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="/">홈</a></li>
                         <li class="breadcrumb-item active">게시판</li>
+                        <li class="breadcrumb-item active"><?=$config->title ?></li>
                     </ol>
                 </div>
             </div>
@@ -23,7 +24,7 @@
                 <div class="col-md-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">총 <?=number_format($cnt) ?> 건</h3>
+                            <h3 class="card-title">총 <?=number_format($data["cnt"]) ?> 건</h3>
                             <div class="card-tools">
                                 <div class="input-group input-group-sm">
                                     목록수
@@ -39,6 +40,15 @@
                                         <option value="90">90</option>
                                         <option value="100">100</option>
                                     </select>
+<?php   if ($config->category_yn == "Y") { ?>
+                                    <select class="form-control ml-3" id="category" name="category" onchange="search()">
+                                        <option value="">분류</option>
+<?php       foreach ($config->category_arr as $no => $val) { ?>
+                                        <option value="<?=$val ?>"><?=$val ?></option>
+<?php       } ?>
+
+                                    </select>
+<?php   } ?>
                                     <select class="form-control ml-3" id="search_condition" name="search_condition">
                                         <option value="title">제목</option>
                                         <option value="contents">내용</option>
@@ -58,17 +68,44 @@
                                 <thead class="text-center">
                                     <tr>
                                         <th>번호</th>
+<?php   if ($config->category_yn == "Y") { ?>
+                                        <th>분류</th>
+<?php   } ?>
                                         <th>제목</th>
-                                        <th>등록자</th>
-                                        <th>날짜</th>
+                                        <th>입력자</th>
+<?php   if ($config->reg_date_yn == "Y") { ?>
+                                        <th>등록일</th>
+<?php   } ?>
+                                        <th>입력일</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+<?php   foreach($notice_list as $no => $val) { ?>
+                                    <tr>
+                                        <td>공지</td>
+<?php   if ($config->category_yn == "Y") { ?>
+                                        <td><?=$val->category ?></td>
+<?php   } ?>
+                                        <td><a href="/csl/board/<?=$data["board_id"] ?>/view/<?=$val->b_idx ?>"><?=$val->title ?></a></td>
+                                        <td><?=$val->ins_id ?></td>
+<?php   if ($config->reg_date_yn == "Y") { ?>
+                                        <td><?=$val->reg_date_txt ?></td>
+<?php   } ?>
+                                        <td><?=$val->ins_date_txt ?></td>
+                                    </tr>
+<?php   } ?>
+
 <?php   foreach($list as $no => $val) { ?>
                                     <tr>
                                         <td><?=$val->list_no ?></td>
-                                        <td><a href="/csl/board/<?=$board_id ?>/view/<?=$val->b_idx ?>"><?=$val->title ?></a></td>
+<?php   if ($config->category_yn == "Y") { ?>
+                                        <td><?=$val->category ?></td>
+<?php   } ?>
+                                        <td><a href="/csl/board/<?=$data["board_id"] ?>/view/<?=$val->b_idx ?>"><?=$val->title ?></a></td>
                                         <td><?=$val->ins_id ?></td>
+<?php   if ($config->reg_date_yn == "Y") { ?>
+                                        <td><?=$val->reg_date_txt ?></td>
+<?php   } ?>
                                         <td><?=$val->ins_date_txt ?></td>
                                     </tr>
 <?php   } ?>
@@ -98,9 +135,9 @@
 <script>
     $(window).on("load", function() {
         // 메뉴강조
-        $("#li-board-notice-list").addClass("menu-open");
-        $("#upper-board-notice-list").addClass("active");
-        $("#a-board-<?=$board_id ?>-list").addClass("active");
+        $("#li-board-config-list").addClass("menu-open");
+        $("#upper-board-config-list").addClass("active");
+        $("#a-board-manage-list").addClass("active");
 
         // 셀렉트 박스 선택
         $("#search_condition").val("<?=$data["search_arr"]["search_condition"] ?>").prop("selected", true);
@@ -120,14 +157,15 @@
         });
 
         $("#write").click(function(e) {
-            location.href = "/csl/board/<?=$board_id ?>/write";
+            location.href = "/csl/board/<?=$data["board_id"] ?>/write";
         });
     });
 
     function search() {
         var search_text = $("#search_text").val();
         var search_condition = $("#search_condition").val();
+        var category = $("#category").val();
         var rows = $("#rows").val();
-        location.href = "/csl/board/<?=$board_id ?>/list?page=1&search_text="+search_text+"&search_condition="+search_condition+"&rows="+rows;
+        location.href = "/csl/board/<?=$data["board_id"] ?>/list?page=1&search_text="+search_text+"&search_condition="+search_condition+"&rows="+rows+"&category="+category;
     }
 </script>

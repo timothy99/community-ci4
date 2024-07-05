@@ -30,15 +30,29 @@ class Board extends BaseController
         $search_arr["rows"] = $this->request->getGet("rows") ?? 10;
         $search_arr["search_text"] = $this->request->getGet("search_text", FILTER_SANITIZE_SPECIAL_CHARS) ?? "";
         $search_arr["search_condition"] = $this->request->getGet("search_condition", FILTER_SANITIZE_SPECIAL_CHARS) ?? "title";
+        $search_arr["category"] = $this->request->getGet("category", FILTER_SANITIZE_SPECIAL_CHARS) ?? "";
 
         $data["search_arr"] = $search_arr;
         $data["board_id"] = $board_id;
 
+        $model_result = $board_model->getConfigInfo($data);
+        $config = $model_result["info"];
+        $config->category_arr = explode("||", $config->category);
+
+        $data["notice_yn"] = "N";
+        $data["reg_date_yn"] = $config->reg_date_yn;
         $model_result = $board_model->getBoardList($data);
         $result = $model_result["result"];
         $message = $model_result["message"];
         $list = $model_result["list"];
         $cnt = $model_result["cnt"];
+
+        // 공지사항에는 분류 항목을 제외한다.
+        $data["notice_yn"] = "Y";
+        $search_arr["category"] = null;
+        $data["search_arr"] = $search_arr;
+        $model_result = $board_model->getBoardList($data);
+        $notice_list = $model_result["list"];
 
         $data["cnt"] = $cnt;
         $paging_info = $paging_model->getPagingInfo($data);
@@ -47,32 +61,46 @@ class Board extends BaseController
         $proc_result["result"] = $result;
         $proc_result["message"] = $message;
         $proc_result["list"] = $list;
-        $proc_result["cnt"] = $cnt;
+        $proc_result["notice_list"] = $notice_list;
         $proc_result["paging_info"] = $paging_info;
         $proc_result["data"] = $data;
-        $proc_result["board_id"] = $board_id;
+        $proc_result["config"] = $config;
 
-        return aview("csl/board/list", $proc_result);
+        return aview("csl/board/detail/list", $proc_result);
     }
 
     public function write()
     {
-        $segments = $this->request->getUri()->getSegments(); // segments 확인
-        $board_id = $segments[2];
+        $board_model = new BoardModel();
 
         $result = true;
         $message = "정상";
+
+        $board_id = $this->request->getUri()->getSegment(3, 0);
+
+        $data = array();
+        $data["board_id"] = $board_id;
+
+        $model_result = $board_model->getConfigInfo($data);
+        $config = $model_result["info"];
+        $config->category_arr = explode("||", $config->category);
 
         $b_idx = 0;
         $title = "";
         $contents = "&nbsp;";
         $contents_code = "&nbsp;";
+        $reg_date = date("Y-m-d H:i:s");
+        $category = "";
+        $notice_yn = "N";
 
         $info = (object)array();
         $info->b_idx = $b_idx;
         $info->title = $title;
+        $info->reg_date = $reg_date;
         $info->contents = $contents;
         $info->contents_code = $contents_code;
+        $info->category = $category;
+        $info->notice_yn = $notice_yn;
 
         $proc_result = array();
         $proc_result["result"] = $result;
@@ -80,9 +108,10 @@ class Board extends BaseController
         $proc_result["board_id"] = $board_id;
         $proc_result["b_idx"] = $b_idx;
         $proc_result["info"] = $info;
+        $proc_result["config"] = $config;
         $proc_result["file_list"] = array();
 
-        return aview("csl/board/edit", $proc_result);
+        return aview("csl/board/detail/edit", $proc_result);
     }
 
     public function update()
@@ -98,13 +127,10 @@ class Board extends BaseController
         $summer_code = (string)$this->request->getPost("summer_code");
         $summer_code = str_replace("<p><br></p><p>", "", $summer_code);
         $summer_code = str_replace("\r\n", "", $summer_code);
-
+        $category = $this->request->getPost("category", FILTER_SANITIZE_SPECIAL_CHARS);
+        $notice_yn = $this->request->getPost("notice_yn", FILTER_SANITIZE_SPECIAL_CHARS) ?? "N";
+        $reg_date = $this->request->getPost("reg_date", FILTER_SANITIZE_SPECIAL_CHARS) ?? date("Y-m-d H:i:s");
         $file_list = $this->request->getPost("file_list") ?? array();
-        if (count($file_list) > 0) {
-            $file_idxs = implode("|", $file_list);
-        } else {
-            $file_idxs = null;
-        }
 
         if ($title == null) {
             $result = false;
@@ -116,7 +142,10 @@ class Board extends BaseController
         $data["b_idx"] = $b_idx;
         $data["contents"] = $summer_code;
         $data["title"] = $title;
-        $data["file_idxs"] = $file_idxs;
+        $data["file_list"] = $file_list;
+        $data["category"] = $category;
+        $data["notice_yn"] = $notice_yn;
+        $data["reg_date"] = $reg_date;
 
         if ($result == true) {
             if ($b_idx == 0) {
@@ -142,23 +171,26 @@ class Board extends BaseController
     public function view()
     {
         $board_model = new BoardModel();
-        $date_model = new DateModel();
         $file_model = new FileModel();
         $comment_model = new CommentModel();
 
-        $segments = $this->request->getUri()->getSegments(); // segments 확인
-        $board_id = $segments[2];
-        $b_idx = $segments[4];
+        $board_id = $this->request->getUri()->getSegment(3, 0);
+        $b_idx = $this->request->getUri()->getSegment(5, 0);
 
         $result = true;
         $message = "정상";
 
-        $model_result = $board_model->getBoardInfo($b_idx);
+        $data = array();
+        $data["board_id"] = $board_id;
+        $data["b_idx"] = $b_idx;
+
+        $model_result = $board_model->getConfigInfo($data);
+        $config = $model_result["info"];
+
+        $model_result = $board_model->getBoardInfo($data);
         $result = $model_result["result"];
         $message = $model_result["message"];
         $info = $model_result["info"];
-
-        $info->ins_date_txt = $date_model->convertTextToDate($info->ins_date, 1, 1);
 
         $file_arr = strlen($info->file_idxs) > 0 ? explode("|", $info->file_idxs) : array();
         $file_list = array();
@@ -170,7 +202,7 @@ class Board extends BaseController
         }
 
         // 댓글목록
-        $model_result = $comment_model->getCommentList($b_idx);
+        $model_result = $comment_model->getCommentList($data);
         $comment_list = $model_result["list"];
 
         $proc_result = array();
@@ -180,8 +212,9 @@ class Board extends BaseController
         $proc_result["info"] = $info;
         $proc_result["file_list"] = $file_list;
         $proc_result["comment_list"] = $comment_list;
+        $proc_result["config"] = $config;
 
-        return aview("csl/board/view", $proc_result);
+        return aview("csl/board/detail/view", $proc_result);
     }
 
     public function delete()
@@ -191,11 +224,14 @@ class Board extends BaseController
 
         $board_model = new BoardModel();
 
-        $segments = $this->request->getUri()->getSegments(); // segments 확인
-        $b_idx = $segments[4];
-        $board_id = $segments[2];
+        $board_id = $this->request->getUri()->getSegment(3, 0);
+        $b_idx = $this->request->getUri()->getSegment(5, 0);
 
-        $model_result = $board_model->procBoardDelete($b_idx);
+        $data = array();
+        $data["board_id"] = $board_id;
+        $data["b_idx"] = $b_idx;
+
+        $model_result = $board_model->procBoardDelete($data);
 
         $proc_result = array();
         $proc_result["result"] = $result;
@@ -211,14 +247,21 @@ class Board extends BaseController
         $board_model = new BoardModel();
         $file_model = new FileModel();
 
-        $segments = $this->request->getUri()->getSegments(); // segments 확인
-        $board_id = $segments[2];
-        $b_idx = $segments[4];
+        $board_id = $this->request->getUri()->getSegment(3, 0);
+        $b_idx = $this->request->getUri()->getSegment(5, 0);
 
         $result = true;
         $message = "정상";
 
-        $model_result = $board_model->getBoardInfo($b_idx);
+        $data = array();
+        $data["board_id"] = $board_id;
+        $data["b_idx"] = $b_idx;
+
+        $model_result = $board_model->getConfigInfo($data);
+        $config = $model_result["info"];
+        $config->category_arr = explode("||", $config->category);
+
+        $model_result = $board_model->getBoardInfo($data);
         $info = $model_result["info"];
         $file_arr = strlen($info->file_idxs) > 0 ? explode("|", $info->file_idxs) : array();
         $file_list = array();
@@ -236,8 +279,9 @@ class Board extends BaseController
         $proc_result["b_idx"] = $b_idx;
         $proc_result["info"] = $info;
         $proc_result["file_list"] = $file_list;
+        $proc_result["config"] = $config;
 
-        return aview("csl/board/edit", $proc_result);
+        return aview("csl/board/detail/edit", $proc_result);
     }
 
 }

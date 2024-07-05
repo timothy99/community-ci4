@@ -60,7 +60,7 @@
                                         <th>번호</th>
                                         <th>이름</th>
                                         <th>전화</th>
-                                        <th>등록일</th>
+                                        <th>입력일</th>
                                         <th>작업</th>
                                     </tr>
                                 </thead>

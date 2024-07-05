@@ -59,7 +59,7 @@
                                             <tr>
                                                 <th>#</th>
                                                 <th>제목</th>
-                                                <th>등록일</th>
+                                                <th>입력일</th>
                                             </tr>
                                         </thead>
                                         <tbody>

@@ -5,20 +5,20 @@ create table mng_session (
     data mediumblob not null,
     key ci_sessions_timestamp (timestamp),
     key id_idx (id)
-) engine=InnoDB default charset=utf8 comment='CodeIgniter를 위한 db session용 테이블';
+) comment='CodeIgniter를 위한 db session용 테이블';
 
 create table mng_admin (
     a_idx int not null auto_increment comment '관리자 번호',
     m_idx int not null comment '회원 번호 [mng_member.m_idx]',
     start_date varchar(14) not null comment '관리자 권한 부여일',
     end_date varchar(14) not null default '99991231235959' comment '관리자 권한 삭제일',
-    ins_id varchar(70) not null comment '등록자',
-    ins_date varchar(14) not null comment '등록일',
+    ins_id varchar(70) not null comment '입력자',
+    ins_date varchar(14) not null comment '입력일',
     upd_id varchar(70) not null comment '수정자',
     upd_date varchar(14) not null comment '수정일',
     primary key (a_idx),
     unique key member_idx (m_idx)
-) engine=InnoDB default charset=utf8 comment='관리자 권한 부여';
+) comment='관리자 권한 부여';
 
 create table mng_board (
     b_idx int not null auto_increment comment '게시물 번호',
@@ -31,26 +31,51 @@ create table mng_board (
     comment_cnt int not null default 0 comment '댓글 등록수',
     heart_cnt int not null default 0 comment '공감수',
     hit_cnt int not null default 0 comment '조회수',
+    reg_date varchar(14) null comment '등록일-정렬을 위해 사용자가 입력한 날짜',
+    notice_yn enum('Y', 'N') not null default 'N' comment '공지 여부',
     del_yn enum('Y', 'N') not null default 'N' comment '삭제 여부',
-    ins_id varchar(70) not null comment '등록자',
-    ins_date varchar(14) not null comment '등록일',
+    ins_id varchar(70) not null comment '입력자',
+    ins_date varchar(14) not null comment '입력일',
     upd_id varchar(70) not null comment '수정자',
     upd_date varchar(14) not null comment '수정일',
     primary key (b_idx),
     key board_id (board_id)
-) engine=InnoDB default charset=utf8 comment='게시판';
+) comment='게시판';
+
+-- alter table mng_board add reg_date varchar(14) null comment '입력일-정렬을 위해 사용자가 입력한 날짜' after hit_cnt;
+-- alter table mng_board add notice_yn enum('Y', 'N') not null default 'N' comment '공지 여부' after reg_date;
 
 create table mng_board_comment (
     bc_idx int not null auto_increment comment '인덱스',
     b_idx int not null comment '게시물 번호 [mng_board.b_idx]',
     comment varchar(4000) not null comment '댓글',
     del_yn enum('Y', 'N') not null comment '삭제 여부',
-    ins_id varchar(70) default null comment '등록자 [mng_member.m_idx]',
-    ins_date varchar(14) not null comment '등록일',
+    ins_id varchar(70) default null comment '입력자 [mng_member.m_idx]',
+    ins_date varchar(14) not null comment '입력일',
     upd_id varchar(70) default null comment '수정자 [mng_member.m_idx]',
     upd_date varchar(14) not null comment '수정일',
     primary key (bc_idx)
-) engine=InnoDB default charset=utf8 comment='게시판 댓글';
+) comment='게시판 댓글';
+
+-- drop table mng_board_config;
+create table mng_board_config (
+    bc_idx int not null auto_increment comment '인덱스',
+    board_id varchar(20) default null comment '게시판 아이디',
+    category varchar(300) default null comment '카테고리',
+    title varchar(1000) not null comment '제목',
+    base_rows int not null comment '화면에 기본으로 보여줄 줄 수',
+    reg_date_yn varchar(1) null comment '입력일 수정 기능 사용 여부',
+    file_cnt int not null comment '최대 첨부파일 업로드 수',
+    file_upload_size_limit int null comment '최대 파일 업로드 용량 제한(서버 설정에 영향을 받는다.)',
+    file_upload_size_total int null comment '총 파일 업로드 용량 제한(서버 설정에 영향을 받는다.)',
+    del_yn enum('Y', 'N') not null default 'N' comment '삭제 여부',
+    ins_id varchar(70) not null comment '입력자',
+    ins_date varchar(14) not null comment '입력일',
+    upd_id varchar(70) not null comment '수정자',
+    upd_date varchar(14) not null comment '수정일',
+    primary key (bc_idx),
+    key board_id (board_id)
+) comment='게시판 설정 관리';
 
 create table mng_file (
     f_idx int not null auto_increment comment '연번',
@@ -65,13 +90,13 @@ create table mng_file (
     mime_type varchar(200) not null comment '파일 mime type',
     category varchar(100) not null comment '사용자가 지정한 파일 형식',
     del_yn enum('Y', 'N') not null comment '삭제 여부',
-    ins_id varchar(70) not null comment '등록자 [mng_member.m_idx]',
-    ins_date varchar(14) not null comment '등록일',
+    ins_id varchar(70) not null comment '입력자 [mng_member.m_idx]',
+    ins_date varchar(14) not null comment '입력일',
     upd_id varchar(70) not null comment '수정자 [mng_member.m_idx]',
     upd_date varchar(14) not null comment '수정일',
     primary key (f_idx),
     unique key file_id (file_id)
-) engine=InnoDB default charset=utf8 comment='파일 정보';
+) comment='파일 정보';
 
 /*
     alter table mng_file add file_ext varchar(10) default null comment '파일확장자' after file_size;
@@ -97,13 +122,13 @@ create table mng_member (
     last_login_date varchar(14) not null comment '최종 로그인 시간',
     last_login_ip varchar(15) default null comment '마지막 로그인 ip',
     del_yn enum('Y', 'N') not null comment '삭제 여부',
-    ins_id varchar(70) default null comment '등록자 [mng_member.m_idx]',
-    ins_date varchar(14) not null comment '등록일',
+    ins_id varchar(70) default null comment '입력자 [mng_member.m_idx]',
+    ins_date varchar(14) not null comment '입력일',
     upd_id varchar(70) default null comment '수정자 [mng_member.m_idx]',
     upd_date varchar(14) not null comment '수정일',
     primary key (m_idx),
     unique key mem_usr_id (member_id)
-) engine=InnoDB default charset=utf8 comment='회원정보';
+) comment='회원정보';
 
 create table mng_bulk
 (
@@ -111,8 +136,8 @@ create table mng_bulk
     title varchar(1000) not null comment '제목',
     bulk_file varchar(32) null comment '대량작업 파일',
     del_yn enum ('Y', 'N') default 'N' not null comment '삭제 여부',
-    ins_id varchar(70) not null comment '등록자',
-    ins_date varchar(14) not null comment '등록일',
+    ins_id varchar(70) not null comment '입력자',
+    ins_date varchar(14) not null comment '입력일',
     upd_id varchar(70) not null comment '수정자',
     upd_date varchar(14) not null comment '수정일'
 ) comment '대량입력 메타';
@@ -122,8 +147,8 @@ create table mng_bulk_detail (
     b_idx int not null comment '대량작업 인덱스',
     data_json varchar(8000) default null comment 'json데이터',
     del_yn enum ('Y', 'N') default 'N' not null comment '삭제 여부',
-    ins_id varchar(70) not null comment '등록자',
-    ins_date varchar(14) not null comment '등록일',
+    ins_id varchar(70) not null comment '입력자',
+    ins_date varchar(14) not null comment '입력일',
     upd_id varchar(70) not null comment '수정자',
     upd_date varchar(14) not null comment '수정일'
 ) comment '대량입력 상세정보';
@@ -135,8 +160,8 @@ create table mng_contents (
     title varchar(1000) not null comment '제목 - 구분용이며 페이지 기능에서는 사용하지 않음',
     contents varchar(4000) not null comment '내용',
     del_yn enum ('Y', 'N') default 'N' not null comment '삭제 여부',
-    ins_id varchar(70) not null comment '등록자',
-    ins_date varchar(14) not null comment '등록일',
+    ins_id varchar(70) not null comment '입력자',
+    ins_date varchar(14) not null comment '입력일',
     upd_id varchar(70) not null comment '수정자',
     upd_date varchar(14) not null comment '수정일'
 ) comment '콘텐츠';
@@ -152,25 +177,25 @@ create table mng_menu (
     menu_name varchar(500) null comment '메뉴명',
     http_link varchar(500) null comment '외부 링크',
     del_yn enum('Y', 'N') not null comment '삭제 여부',
-    ins_id varchar(70) default null comment '등록자',
-    ins_date varchar(14) not null comment '등록일',
+    ins_id varchar(70) default null comment '입력자',
+    ins_date varchar(14) not null comment '입력일',
     upd_id varchar(70) default null comment '수정자',
     upd_date varchar(14) not null comment '수정일',
     primary key (m_idx),
     key idx1 (idx1, idx2, idx3)
-) engine=InnoDB default charset=utf8 comment='메뉴';
+) comment='메뉴';
 
 create table mng_menu_json (
     mj_idx int not null auto_increment comment '인덱스',
     category varchar(500) null comment '분류',
     menu_json text null comment 'json형태의 메뉴 정보',
     del_yn enum('Y', 'N') not null comment '삭제 여부',
-    ins_id varchar(70) default null comment '등록자',
-    ins_date varchar(14) not null comment '등록일',
+    ins_id varchar(70) default null comment '입력자',
+    ins_date varchar(14) not null comment '입력일',
     upd_id varchar(70) default null comment '수정자',
     upd_date varchar(14) not null comment '수정일',
     primary key (mj_idx)
-) engine=InnoDB default charset=utf8 comment='json 형태의 메뉴 저장내용';
+) comment='json 형태의 메뉴 저장내용';
 
 create table mng_member_reset (
     mr_idx int not null auto_increment comment '인덱스',
@@ -180,7 +205,7 @@ create table mng_member_reset (
     expire_date varchar(14) not null comment '암호화 변경 만료 시간(현재 시간으로부터 15분)',
     primary key (mr_idx),
     key mng_member_reset_reset_key (reset_key)
-) engine=InnoDB default charset=utf8 comment='암호를 초기화 하기 위한 정보';
+) comment='암호를 초기화 하기 위한 정보';
 
 create table mng_slide (
     s_idx int auto_increment comment '슬라이드 인덱스' primary key,
@@ -193,8 +218,8 @@ create table mng_slide (
     end_date varchar(14) default '99991231235959' not null comment '게시 종료시간',
     display_yn enum ('Y', 'N') default 'Y' not null comment '노출 여부',
     del_yn enum ('Y', 'N') default 'N' not null comment '삭제 여부',
-    ins_id varchar(70) not null comment '등록자',
-    ins_date varchar(14) not null comment '등록일',
+    ins_id varchar(70) not null comment '입력자',
+    ins_date varchar(14) not null comment '입력일',
     upd_id varchar(70) not null comment '수정자',
     upd_date varchar(14) not null comment '수정일'
 ) comment '슬라이드';
@@ -213,8 +238,8 @@ create table mng_popup (
     end_date varchar(14) default '99991231235959' not null comment '게시 종료시간',
     display_yn enum ('Y', 'N') default 'Y' not null comment '노출 여부',
     del_yn enum ('Y', 'N') default 'N' not null comment '삭제 여부',
-    ins_id varchar(70) not null comment '등록자',
-    ins_date varchar(14) not null comment '등록일',
+    ins_id varchar(70) not null comment '입력자',
+    ins_date varchar(14) not null comment '입력일',
     upd_id varchar(70) not null comment '수정자',
     upd_date varchar(14) not null comment '수정일'
 ) comment '레이어 팝업';
@@ -224,7 +249,7 @@ create table mng_ask (
     name varchar(200) not null comment '이름',
     phone varchar(32) not null comment '전화',
     del_yn enum ('Y', 'N') default 'N' not null comment '삭제 여부',
-    ins_date varchar(14) not null comment '등록일',
+    ins_date varchar(14) not null comment '입력일',
     upd_date varchar(14) not null comment '수정일'
 ) comment '단순문의';
 
@@ -233,12 +258,12 @@ create table mng_shortlink (
     title varchar(1000) not null comment '제목',
     http_link varchar(1000) not null comment '이동할 링크',
     del_yn enum('Y', 'N') not null default 'N' comment '삭제 여부',
-    ins_id varchar(70) not null comment '등록자',
-    ins_date varchar(14) not null comment '등록일',
+    ins_id varchar(70) not null comment '입력자',
+    ins_date varchar(14) not null comment '입력일',
     upd_id varchar(70) not null comment '수정자',
     upd_date varchar(14) not null comment '수정일',
     primary key (sl_idx)
-) engine=InnoDB default charset=utf8 comment='단축url';
+) comment='단축url';
 
 create table mng_privacy (
     p_idx int auto_increment comment '인덱스' primary key,
@@ -246,8 +271,8 @@ create table mng_privacy (
     memo varchar(2000) not null comment '상담메모',
     ip_addr varchar(15) not null comment 'IP주소',
     del_yn enum ('Y', 'N') default 'N' not null comment '삭제 여부',
-    ins_id varchar(70) not null comment '등록자',
-    ins_date varchar(14) not null comment '등록일',
+    ins_id varchar(70) not null comment '입력자',
+    ins_date varchar(14) not null comment '입력일',
     upd_id varchar(70) not null comment '수정자',
     upd_date varchar(14) not null comment '수정일'
 ) comment '개인정보 처리시스템';

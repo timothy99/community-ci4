@@ -54,22 +54,22 @@
                             <p>콘텐츠</p>
                         </a>
                     </li>
-                    <li class="nav-item" id="li-board-notice-list">
-                        <a href="/csl/board/notice/list" class="nav-link" id="upper-board-notice-list">
+                    <li class="nav-item" id="li-board-config-list">
+                        <a href="/csl/board/config/list" class="nav-link" id="upper-board-config-list">
                             <p>
-                                게시판
+                                게시판 설정
                                 <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/csl/board/notice/list" class="nav-link" id="a-board-notice-list">
-                                    <p>ㄴ공지사항</p>
+                                <a href="/csl/board/config/list" class="nav-link" id="a-board-config-list">
+                                    <p>게시판 설정</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/csl/board/free/list" class="nav-link" id="a-board-free-list">
-                                    <p>ㄴ자유게시판</p>
+                                <a href="/csl/board/manage/list" class="nav-link" id="a-board-manage-list">
+                                    <p>게시물 관리</p>
                                 </a>
                             </li>
                         </ul>

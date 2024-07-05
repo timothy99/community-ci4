@@ -22,15 +22,30 @@ class File extends BaseController
         $message = "파일 업로드를 시작합니다.";
         $input_file_id = (string)$this->request->getPost("file_id");
         $quality = 80; // 이미지 저장시 퀄리티 quality를 지정하지 않아도 80으로 되어 있다.
-        $limit_size = 10; // 0메가 바이트 업로드 제한 사이즈 메가바이트 단위로 입력
         $resize_width = 2000; // 이미지일 경우 지정한 해상도보다 높은 경우 줄인다.
         $resize_height = 0; // 이미지 해상도를 0으로 지정한 경우 리사이징을 하지 않는다. width도 마찬가지
+        $limit_size = 10; // 0메가 바이트 업로드 제한 사이즈 메가바이트 단위로 입력
 
         $user_file = $this->request->getFile($input_file_id); // 올린 파일 정보 갖고 오기
         if ($user_file == null) {
             $result = false;
             $proc_result["result"] = false;
             $proc_result["message"] = "업로드가 실패하였습니다.";
+        }
+
+        $board_id = $this->request->getPost("board_id");
+
+        // 파일이 정상적이고 게시판에서 올리는 파일이면 게시판의 정보를 확인해 크기나 갯수가 제한이면 거른다.
+        if ($result == true && $board_id != null) {
+            $data = array();
+            $data["file_list"] = $this->request->getPost("file_list");
+            $data["file_id"] = $this->request->getPost("file_id");
+            $data["board_id"] = $board_id;
+            $data["user_file"] = $user_file;
+
+            $model_result = $file_model->getUploadInfo($data);
+            $result = $model_result["result"];
+            $message = $model_result["message"];
         }
 
         $data = array();
@@ -43,7 +58,11 @@ class File extends BaseController
         $data["resize_width"] = $resize_width;
         $data["resize_height"] = $resize_height;
 
-        if ($result == true) {
+        if ($result == false) {
+            $proc_result = array();
+            $proc_result["result"] = $result;
+            $proc_result["message"] = $message;
+        } else {
             $is_valid = $user_file->isValid(); // 파일이 정상인지 확인
             if($is_valid == false) { // 올린 파일이 잘못된 경우
                 throw new \RuntimeException($user_file->getErrorString()."(".$user_file->getError().")"); // 에러를 던진다

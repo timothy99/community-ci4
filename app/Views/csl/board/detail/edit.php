@@ -17,12 +17,13 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>게시판</h1>
+                        <h1><?=$config->title ?></h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="/">홈</a></li>
                             <li class="breadcrumb-item active">게시판</li>
+                            <li class="breadcrumb-item active"><?=$config->title ?></li>
                         </ol>
                     </div>
                 </div>
@@ -45,9 +46,44 @@
                                 <div class="form-group row">
                                     <label for="title" class="col-sm-2 col-form-label">제목</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력하세요">
+                                        <input type="text" class="form-control" id="title" name="title" value="<?=$info->title ?>" placeholder="제목을 입력하세요">
                                     </div>
                                 </div>
+
+                                <div class="form-group row">
+                                    <div class="col-sm-2">
+                                        <label for="title" class="col-form-label">공지</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <div class="form-check pt-2">
+                                            <input class="form-check-input" type="checkbox" id="notice_yn" name="notice_yn" value="Y">
+                                            <label class="form-check-label">상단에 등록</label>
+                                        </div>
+                                    </div>
+                                </div>
+<?php   if ($config->reg_date_yn == "Y") { ?>
+                                <div class="form-group row">
+                                    <label for="reg_date" class="col-sm-2 col-form-label">분류</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control" id="category" name="category">
+                                            <option value="">선택하세요</option>
+<?php       foreach ($config->category_arr as $no => $val) { ?>
+                                            <option value="<?=$val ?>"><?=$val ?></option>
+<?php       } ?>
+                                        </select>
+                                    </div>
+                                </div>
+<?php   } ?>
+
+<?php   if ($config->category_yn == "Y") { ?>
+                                <div class="form-group row">
+                                    <label for="reg_date" class="col-sm-2 col-form-label">입력일</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="reg_date" name="reg_date" value="<?=$info->reg_date ?>">
+                                    </div>
+                                </div>
+<?php   } ?>
+
                                 <div class="form-group row">
                                     <label for="contents" class="col-sm-2 col-form-label">내용</label>
                                     <div class="col-sm-10">
@@ -97,14 +133,17 @@
 <script>
     $(window).on("load", function() {
         // 메뉴강조
-        $("#li-board-notice-list").addClass("menu-open");
-        $("#upper-board-notice-list").addClass("active");
-        $("#a-board-<?=$board_id ?>-list").addClass("active");
+        $("#li-board-config-list").addClass("menu-open");
+        $("#upper-board-config-list").addClass("active");
+        $("#a-board-manage-list").addClass("active");
 
-        $("#title").val("<?=$info->title ?>"); // 내용채우기
         $("#contents").summernote(summernote_settings); // 썸머노트 초기화
         var contents_code = $("#contents_code").val();
         $("#contents").summernote("pasteHTML",  decodeUnicode(contents_code)); // 내용 넣기
+
+        $("#reg_date").inputmask("datetime", {inputFormat:"yyyy-mm-dd HH:MM:ss"});
+        $("#category").val("<?=$info->category ?>").prop("selected", true);
+        $("#notice_yn:checkbox[value='<?=$info->notice_yn ?>']").prop('checked', true);
     });
 
     $(function() {

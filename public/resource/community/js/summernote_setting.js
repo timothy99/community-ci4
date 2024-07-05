@@ -21,7 +21,7 @@ function uploadSummernoteFile(file) {
     $.ajax({
         data : formData,
         type : "POST",
-        url : "/csl/file/upload",
+        url : "/file/upload",
         dataType: "json",
         processData : false,
         contentType : false,
@@ -35,11 +35,10 @@ function uploadSummernoteFile(file) {
                 var file_id = proc_result.file_id;
                 var file_name_org = proc_result.file_name_org;
                 if (category == "image") {
-                    var file_html = "<img src='/csl/file/view/"+file_id+"' class='img-fluid'>";
+                    var file_html = "<img src='/file/view/"+file_id+"' class='img-fluid'>";
                 } else {
-                    var file_html = "<a href='/csl/file/download/"+file_id+"'>"+file_name_org+"</a>";
+                    var file_html = "<a href='/file/download/"+file_id+"'>"+file_name_org+"</a>";
                 }
-
                 $("#contents").summernote("pasteHTML", file_html);
             }
         }
