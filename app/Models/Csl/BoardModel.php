@@ -4,12 +4,14 @@ namespace App\Models\Csl;
 
 use CodeIgniter\Model;
 use App\Models\Common\DateModel;
+use App\Models\Csl\MemberModel;
 
 class BoardModel extends Model
 {
     public function getBoardList($data)
     {
         $date_model = new DateModel();
+        $member_model = new MemberModel();
 
         $result = true;
         $message = "목록 불러오기가 완료되었습니다.";
@@ -51,6 +53,7 @@ class BoardModel extends Model
             $list[$no]->list_no = $cnt-$no-(($page-1)*$rows);
             $list[$no]->ins_date_txt = $date_model->convertTextToDate($val->ins_date, 1, 1);
             $list[$no]->reg_date_txt = $date_model->convertTextToDate($val->reg_date, 1, 1);
+            $list[$no]->member_info = $member_model->getMemberInfo($val->ins_id)["info"];
         }
 
         $proc_result = array();
@@ -86,6 +89,7 @@ class BoardModel extends Model
     public function getBoardInfo($data)
     {
         $date_model = new DateModel();
+        $member_model = new MemberModel();
 
         $result = true;
         $message = "목록 불러오기가 완료되었습니다.";
@@ -100,6 +104,7 @@ class BoardModel extends Model
 
         $info->ins_date_txt = $date_model->convertTextToDate($info->ins_date, 1, 1);
         $info->reg_date_txt = $date_model->convertTextToDate($info->reg_date, 1, 1);
+        $info->member_info = $member_model->getMemberInfo($info->ins_id)["info"];
 
         $proc_result = array();
         $proc_result["result"] = $result;
