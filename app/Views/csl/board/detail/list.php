@@ -92,7 +92,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered table-responsive d-md-table text-nowrap">
                                 <thead class="text-center">
                                     <tr>
                                         <th>번호</th>
@@ -111,14 +111,14 @@
 <?php   foreach($notice_list as $no => $val) { ?>
                                     <tr>
                                         <td>공지</td>
-<?php   if ($config->category_yn == "Y") { ?>
+<?php       if ($config->category_yn == "Y") { ?>
                                         <td><?=$val->category ?></td>
-<?php   } ?>
+<?php       } ?>
                                         <td><a href="/csl/board/<?=$data["board_id"] ?>/view/<?=$val->b_idx ?>"><?=$val->title ?></a></td>
-                                        <td><?=$val->ins_id ?></td>
-<?php   if ($config->reg_date_yn == "Y") { ?>
+                                        <td><?=$val->member_info->member_nickname ?></td>
+<?php       if ($config->reg_date_yn == "Y") { ?>
                                         <td><?=$val->reg_date_txt ?></td>
-<?php   } ?>
+<?php       } ?>
                                         <td><?=$val->ins_date_txt ?></td>
                                     </tr>
 <?php   } ?>
@@ -126,14 +126,14 @@
 <?php   foreach($list as $no => $val) { ?>
                                     <tr>
                                         <td><?=$val->list_no ?></td>
-<?php   if ($config->category_yn == "Y") { ?>
+<?php       if ($config->category_yn == "Y") { ?>
                                         <td><?=$val->category ?></td>
-<?php   } ?>
+<?php       } ?>
                                         <td><a href="/csl/board/<?=$data["board_id"] ?>/view/<?=$val->b_idx ?>"><?=$val->title ?></a></td>
-                                        <td><?=$val->ins_id ?></td>
-<?php   if ($config->reg_date_yn == "Y") { ?>
+                                        <td><?=$val->member_info->member_nickname ?></td>
+<?php       if ($config->reg_date_yn == "Y") { ?>
                                         <td><?=$val->reg_date_txt ?></td>
-<?php   } ?>
+<?php       } ?>
                                         <td><?=$val->ins_date_txt ?></td>
                                     </tr>
 <?php   } ?>

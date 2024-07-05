@@ -42,7 +42,7 @@
                                     <dt class="col-sm-2">내용</dt>
                                     <dd class="col-sm-10"><?=$info->contents ?></dd>
                                     <dt class="col-sm-2">입력자</dt>
-                                    <dd class="col-sm-10"><?=$info->ins_id ?></dd>
+                                    <dd class="col-sm-10"><?=$info->member_info->member_nickname ?>[<?=$info->ins_id ?>]</dd>
                                     <dt class="col-sm-2">입력일</dt>
                                     <dd class="col-sm-10"><?=$info->ins_date_txt ?></dd>
                                     <dt class="col-sm-2">첨부파일</dt>
