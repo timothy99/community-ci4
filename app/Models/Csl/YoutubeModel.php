@@ -72,6 +72,9 @@ class YoutubeModel extends Model
 
     public function getVideoList($data)
     {
+        $result = true;
+        $message = "성공";
+
         $max_result = 5;
         $order = "date";
         $part = "snippet";
@@ -84,7 +87,6 @@ class YoutubeModel extends Model
         } else {
             $url = "https://www.googleapis.com/youtube/v3/playlistItems?order=".$order."&part=".$part."&playlistId=".$play_id."&maxResults=".$max_result."&key=".$key;
         }
-        logMessage($url);
 
         $data = array();
         $data["url"] = $url;
@@ -94,40 +96,27 @@ class YoutubeModel extends Model
         $result = $helper_result["result"];
         $message = $helper_result["message"];
         $json_list = json_decode($helper_result["response"]);
+
+        $result = isset($json_list->error->code) ? false : true;
+        $message = "설정이 올바르지 않습니다.";
+
         $list = array();
-
-        if ($category == "channel") {
+        if ($result == true) {
             foreach($json_list->items as $no => $val) {
-                $video_id = $val->id->videoId;
+                if ($category == "channel") {
+                    $video_id = $val->id->videoId;
+                    $publish_time = $val->snippet->publishTime;
+                } else {
+                    $video_id = $val->snippet->resourceId->videoId;
+                    $publish_time = $val->snippet->publishedAt;
+                }
+
                 $title = $val->snippet->title;
                 $description = $val->snippet->description;
                 $thumbnail_default = $val->snippet->thumbnails->default->url;
                 $thumbnail_medium = $val->snippet->thumbnails->medium->url;
                 $thumbnail_high = $val->snippet->thumbnails->high->url;
                 $channel_title = $val->snippet->channelTitle;
-                $publish_time = $val->snippet->publishTime;
-
-                $info = (object)array();
-                $info->video_id = $video_id;
-                $info->title = $title;
-                $info->description = $description;
-                $info->thumbnail_default = $thumbnail_default;
-                $info->thumbnail_medium = $thumbnail_medium;
-                $info->thumbnail_high = $thumbnail_high;
-                $info->channel_title = $channel_title;
-                $info->publish_time = $publish_time;
-                $list[]  = $info;
-            }
-        } else {
-            foreach($json_list->items as $no => $val) {
-                $video_id = $val->snippet->resourceId->videoId;
-                $title = $val->snippet->title;
-                $description = $val->snippet->description;
-                $thumbnail_default = $val->snippet->thumbnails->default->url;
-                $thumbnail_medium = $val->snippet->thumbnails->medium->url;
-                $thumbnail_high = $val->snippet->thumbnails->high->url;
-                $channel_title = $val->snippet->channelTitle;
-                $publish_time = $val->snippet->publishedAt;
 
                 $info = (object)array();
                 $info->video_id = $video_id;
@@ -195,7 +184,7 @@ class YoutubeModel extends Model
     }
 
     // 게시판 입력
-    public function procSlideUpdate($data)
+    public function procPlaylistUpdate($data)
     {
         // 게시판 입력과 관련된 기본 정보
         $user_id = getUserSessionInfo("member_id");
@@ -204,30 +193,20 @@ class YoutubeModel extends Model
         $result = true;
         $message = "입력이 잘 되었습니다";
 
-        $s_idx = $data["s_idx"];
+        $y_idx = $data["y_idx"];
         $title = $data["title"];
-        $contents = $data["contents"];
-        $slide_file = $data["slide_file"];
-        $order_no = $data["order_no"];
-        $http_link = $data["http_link"];
-        $start_date = $data["start_date"];
-        $end_date = $data["end_date"];
-        $display_yn = $data["display_yn"];
+        $category = $data["category"];
+        $play_id = $data["play_id"];
 
         $db = $this->db;
         $db->transStart();
-        $builder = $db->table("slide");
+        $builder = $db->table("youtube");
         $builder->set("title", $title);
-        $builder->set("contents", $contents);
-        $builder->set("slide_file", $slide_file);
-        $builder->set("order_no", $order_no);
-        $builder->set("http_link", $http_link);
-        $builder->set("start_date", $start_date);
-        $builder->set("end_date", $end_date);
-        $builder->set("display_yn", $display_yn);
+        $builder->set("category", $category);
+        $builder->set("play_id", $play_id);
         $builder->set("upd_id", $user_id);
         $builder->set("upd_date", $today);
-        $builder->where("s_idx", $s_idx);
+        $builder->where("y_idx", $y_idx);
         $result = $builder->update();
 
         if ($db->transStatus() === false) {
@@ -246,7 +225,7 @@ class YoutubeModel extends Model
     }
 
     // 게시판 삭제
-    public function procSlideDelete($data)
+    public function procPlaylistDelete($data)
     {
         // 게시판 입력과 관련된 기본 정보
         $member_id = getUserSessionInfo("member_id");
@@ -255,15 +234,15 @@ class YoutubeModel extends Model
         $result = true;
         $message = "입력이 잘 되었습니다";
 
-        $s_idx = $data["s_idx"];
+        $y_idx = $data["y_idx"];
 
         $db = $this->db;
         $db->transStart();
-        $builder = $db->table("slide");
+        $builder = $db->table("youtube");
         $builder->set("del_yn", "Y");
         $builder->set("upd_id", $member_id);
         $builder->set("upd_date", $today);
-        $builder->where("s_idx", $s_idx);
+        $builder->where("y_idx", $y_idx);
         $result = $builder->update();
 
         if ($db->transStatus() === false) {
@@ -279,6 +258,58 @@ class YoutubeModel extends Model
         $model_result["message"] = $message;
 
         return $model_result;
+    }
+
+    public function getSearchList($data)
+    {
+        $search_text = $data["search_text"];
+
+        $key = env("youtube.api.key");
+
+        $url = "https://www.googleapis.com/youtube/v3/search?key=".$key."&part=snippet&q=".$search_text."&maxResults=10";
+
+        $data = array();
+        $data["url"] = $url;
+
+        $helper_result = getCurlGet($data);
+
+        $result = $helper_result["result"];
+        $message = $helper_result["message"];
+        $json_list = json_decode($helper_result["response"]);
+
+        $list = array();
+        foreach($json_list->items as $no => $val) {
+            if ($val->id->kind == "youtube#video") {
+                $video_id = $val->id->videoId;
+                $title = $val->snippet->title;
+                $description = $val->snippet->description;
+                $thumbnail_default = $val->snippet->thumbnails->default->url;
+                $thumbnail_medium = $val->snippet->thumbnails->medium->url;
+                $thumbnail_high = $val->snippet->thumbnails->high->url;
+                $channel_title = $val->snippet->channelTitle;
+                $channel_id = $val->snippet->channelId;
+                $publish_time = $val->snippet->publishTime;
+
+                $info = (object)array();
+                $info->video_id = $video_id;
+                $info->title = $title;
+                $info->description = $description;
+                $info->thumbnail_default = $thumbnail_default;
+                $info->thumbnail_medium = $thumbnail_medium;
+                $info->thumbnail_high = $thumbnail_high;
+                $info->channel_title = $channel_title;
+                $info->channel_id = $channel_id;
+                $info->publish_time = $publish_time;
+                $list[]  = $info;
+            }
+        }
+
+        $proc_result = array();
+        $proc_result["result"] = $result;
+        $proc_result["message"] = $message;
+        $proc_result["list"] = $list;
+
+        return $proc_result;
     }
 
 }

@@ -3,10 +3,8 @@
 namespace App\Controllers\Csl;
 
 use App\Controllers\BaseController;
-use App\Models\Common\DateModel;
 use App\Models\Csl\YoutubeModel;
 use App\Models\Common\PagingModel;
-use App\Models\Common\FileModel;
 
 class Youtube extends BaseController
 {
@@ -129,6 +127,7 @@ class Youtube extends BaseController
         $info = $model_result["info"];
 
         $model_result = $youtube_model->getVideoList($info);
+        $result = $model_result["result"];
         $list = $model_result["list"];
 
         $proc_result = array();
@@ -145,49 +144,72 @@ class Youtube extends BaseController
         $result = true;
         $message = "정상처리 되었습니다.";
 
-        $slide_model = new SlideModel();
+        $youtube_model = new YoutubeModel();
 
-        $s_idx = $this->request->getUri()->getSegment(4);
+        $y_idx = $this->request->getUri()->getSegment(4);
 
         $data = array();
-        $data["s_idx"] = $s_idx;
+        $data["y_idx"] = $y_idx;
 
-        $model_result = $slide_model->procSlideDelete($data);
+        $model_result = $youtube_model->procPlaylistDelete($data);
 
         $proc_result = array();
         $proc_result["result"] = $result;
         $proc_result["message"] = $message;
-        $proc_result["return_url"] = "/csl/slide/list";
+        $proc_result["return_url"] = "/csl/youtube/list";
 
         return json_encode($proc_result);
     }
 
     public function edit()
     {
-        $slide_model = new SlideModel();
-        $file_model = new FileModel();
-        $date_model = new DateModel();
+        $youtube_model = new YoutubeModel();
 
-        $s_idx = $this->request->getUri()->getSegment(4);
+        $y_idx = $this->request->getUri()->getSegment(4);
 
         $result = true;
         $message = "정상";
 
-        $model_result = $slide_model->getSlideInfo($s_idx);
-        $info = $model_result["info"];
+        $data = array();
+        $data["y_idx"] = $y_idx;
 
-        $info->slide_file_info = $file_model->getFileInfo($info->slide_file);
-        $info->ins_date_txt = $date_model->convertTextToDate($info->ins_date, 1, 1);
-        $info->start_date_txt = $date_model->convertTextToDate($info->start_date, 1, 10);
-        $info->end_date_txt = $date_model->convertTextToDate($info->end_date, 1, 10);
-        $info->contents = nl2br_rn($info->contents);
+        $model_result = $youtube_model->getPlaylistInfo($data);
+        $info = $model_result["info"];
 
         $proc_result = array();
         $proc_result["result"] = $result;
         $proc_result["message"] = $message;
         $proc_result["info"] = $info;
 
-        return aview("csl/slide/edit", $proc_result);
+        return aview("csl/youtube/edit", $proc_result);
+    }
+
+    public function search()
+    {
+        $youtube_model = new YoutubeModel();
+
+        $result = true;
+        $message = "데이터가 없습니다.";
+        $list = array();
+
+        $search_text = $this->request->getGet("search_text");
+
+        $data = array();
+        $data["search_text"] = $search_text;
+        if ($search_text != null) {
+            $model_result = $youtube_model->getSearchList($data);
+            $result = $model_result["result"];
+            $message = $model_result["message"];
+            $list = $model_result["list"];
+        }
+
+        $proc_result = array();
+        $proc_result["result"] = $result;
+        $proc_result["message"] = $message;
+        $proc_result["list"] = $list;
+        $proc_result["data"] = $data;
+
+        return aview("csl/youtube/search", $proc_result);
     }
 
 }
