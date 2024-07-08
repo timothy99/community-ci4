@@ -3,8 +3,8 @@
 namespace App\Models\Csl;
 
 use CodeIgniter\Model;
-use Throwable;
 use App\Models\Common\DateModel;
+use App\Models\Common\FileModel;
 
 class PopupModel extends Model
 {
@@ -57,6 +57,9 @@ class PopupModel extends Model
 
     public function getPopupInfo($p_idx)
     {
+        $date_model = new DateModel();
+        $file_model = new FileModel();
+
         $result = true;
         $message = "목록 불러오기가 완료되었습니다.";
 
@@ -66,6 +69,12 @@ class PopupModel extends Model
         $builder->where("p_idx", $p_idx);
         $info = $builder->get()->getRow();
 
+        $info->popup_file_info = $file_model->getFileInfo($info->popup_file);
+        $info->ins_date_txt = $date_model->convertTextToDate($info->ins_date, 1, 1);
+        $info->start_date_txt = $date_model->convertTextToDate($info->start_date, 1, 10);
+        $info->end_date_txt = $date_model->convertTextToDate($info->end_date, 1, 10);
+
+        logMessage($info); // 2000-01-01 00:00:00
         $proc_result = array();
         $proc_result["result"] = $result;
         $proc_result["message"] = $message;

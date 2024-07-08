@@ -137,8 +137,8 @@
         $("#a-popup-list").addClass("active");
 
         $("#display_yn").val("<?=$info->display_yn ?>").prop("selected", true);
-        $("#start_date").inputmask("datetime", {inputFormat:"yyyy-mm-dd"});
-        $("#end_date").inputmask("datetime", {inputFormat:"yyyy-mm-dd"});
+        $("#start_date").inputmask("datetime", {inputFormat:"yyyy-mm-dd HH:MM"});
+        $("#end_date").inputmask("datetime", {inputFormat:"yyyy-mm-dd HH:MM"});
     });
 
     $(function() {

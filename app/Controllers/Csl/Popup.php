@@ -154,8 +154,6 @@ class Popup extends BaseController
     public function view()
     {
         $popup_model = new PopupModel();
-        $date_model = new DateModel();
-        $file_model = new FileModel();
 
         $p_idx = $this->request->getUri()->getSegment(4);
 
@@ -166,11 +164,6 @@ class Popup extends BaseController
         $result = $model_result["result"];
         $message = $model_result["message"];
         $info = $model_result["info"];
-
-        $info->popup_file_info = $file_model->getFileInfo($info->popup_file);
-        $info->ins_date_txt = $date_model->convertTextToDate($info->ins_date, 1, 1);
-        $info->start_date_txt = $date_model->convertTextToDate($info->start_date, 1, 1);
-        $info->end_date_txt = $date_model->convertTextToDate($info->end_date, 1, 1);
 
         $proc_result = array();
         $proc_result["result"] = $result;
