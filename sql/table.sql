@@ -278,6 +278,21 @@ create table mng_privacy (
     upd_date varchar(14) not null comment '수정일'
 ) comment '개인정보 처리시스템';
 
-create index mng_privacy_ins_id_idx on mng_privacy (ins_id);
-create index mng_privacy_upd_id_idx on mng_privacy (upd_id);
+create index tbl_privacy_ins_id_idx on mng_privacy (ins_id);
+create index tbl_privacy_upd_id_idx on mng_privacy (upd_id);
 
+-- drop table mng_youtube;
+create table mng_youtube (
+    y_idx int not null auto_increment comment '인덱스',
+    title varchar(200) not null comment '제목',
+    category varchar(30) not null comment '채널형인지 재생목록형인지',
+    play_id varchar(500) not null comment '채널 또는 재생목록의 아이디',
+    del_yn enum('Y', 'N') not null default 'N' comment '삭제 여부',
+    ins_id varchar(70) not null comment '입력자',
+    ins_date varchar(14) not null comment '입력일',
+    upd_id varchar(70) not null comment '수정자',
+    upd_date varchar(14) not null comment '수정일',
+    primary key (y_idx)
+) comment='유튜브 재생 목록';
+
+create index mng_youtube_play_id on mng_youtube (play_id);

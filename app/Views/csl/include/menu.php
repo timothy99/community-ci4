@@ -54,6 +54,26 @@
                             <p>콘텐츠</p>
                         </a>
                     </li>
+                    <li class="nav-item" id="li-youtube-list">
+                        <a href="/csl/youtube/list" class="nav-link" id="upper-youtube-list">
+                            <p>
+                                유튜브
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/csl/youtube/list" class="nav-link" id="a-youtube-list">
+                                    <p>설정 목록</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/csl/youtube/search" class="nav-link" id="a-youtube-search">
+                                    <p>채널 검색</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="nav-item" id="li-board-config-list">
                         <a href="/csl/board/config/list" class="nav-link" id="upper-board-config-list">
                             <p>
