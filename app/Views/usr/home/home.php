@@ -157,6 +157,26 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <div class="card card-primary card-outline">
+                                <div class="card-header">
+                                    <h3 class="card-title m-0">너튜브</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+<?php   foreach ($video_list as $no => $val) { ?>
+                                        <div class="col-md-3 d-flex justify-content-center">
+                                            <object type="text/html" data="//www.youtube.com/embed/<?=$val->video_id ?>" style="width:90%"></object>
+                                        </div>
+<?php   } ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div><!-- /.row -->
 
 

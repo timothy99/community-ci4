@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\Usr\SlideModel;
 use App\Models\Usr\BoardModel;
 use App\Models\Usr\PopupModel;
+use App\Models\Usr\YoutubeModel;
 
 class Home extends BaseController
 {
@@ -19,6 +20,7 @@ class Home extends BaseController
         $board_model = new BoardModel();
         $slide_model = new SlideModel();
         $popup_model = new PopupModel();
+        $youtube_model = new YoutubeModel();
 
         $result = true;
         $message = "정상처리";
@@ -43,6 +45,10 @@ class Home extends BaseController
         $model_result = $popup_model->getPopupList($data);
         $popup_list = $model_result["list"];
 
+        $data["y_idx"] = 1; // 유튜브 설정목록에 넣어둔 인덱스. 지금은 고정값으로 처리
+        $model_result = $youtube_model->getVideoList($data);
+        $video_list = $model_result["list"];
+
         $proc_result = array();
         $proc_result["result"] = $result;
         $proc_result["message"] = $message;
@@ -50,6 +56,7 @@ class Home extends BaseController
         $proc_result["free_list"] = $free_list;
         $proc_result["slide_list"] = $slide_list;
         $proc_result["popup_list"] = $popup_list;
+        $proc_result["video_list"] = $video_list;
 
         return uview("usr/home/home", $proc_result);
     }
