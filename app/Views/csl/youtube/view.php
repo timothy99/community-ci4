@@ -28,7 +28,7 @@
                         </div><!-- /.card-header -->
                         <div class="card-body">
                             <div class="col-12">
-                                <table class="table table-bordered table-responsive-md text-nowrap table-hover">
+                                <table class="table table-bordered table-responsive text-nowrap table-hover">
                                     <tbody>
                                         <tr>
                                             <th>제목</th>
@@ -48,7 +48,7 @@
                                         </tr>
                                         <tr>
                                             <th>입력일</th>
-                                            <td style="width:100%"><?=$info->ins_date_txt ?></td>
+                                            <td><?=$info->ins_date_txt ?></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -73,7 +73,7 @@
                         </div><!-- /.card-header -->
                         <div class="card-body">
                             <div class="col-12">
-                                <table class="table table-bordered table-responsive-md text-nowrap table-hover">
+                                <table class="table table-bordered table-responsive text-nowrap table-hover">
                                     <thead class="text-center">
                                         <tr>
                                             <th>영상</th>

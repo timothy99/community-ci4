@@ -31,3 +31,5 @@
 .hd_pops_footer button {padding: 10px;border:0;color:#fff}
 .hd_pops_footer .hd_pops_reject{background:#000;text-align:left}
 .hd_pops_footer .hd_pops_close{background:#393939;position:absolute;top:0;right:0}
+
+td:nth-last-child(1) { width:100%; }
