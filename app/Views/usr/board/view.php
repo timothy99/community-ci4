@@ -63,7 +63,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="col-12">
-                                        <table class="table table-bordered table-responsive d-md-table text-nowrap table-hover">
+                                        <table class="table table-bordered table-responsive-md text-nowrap table-hover">
                                             <tbody>
 <?php       foreach($comment_list as $no => $val) { ?>
                                                 <form id="frm_<?=$val->bc_idx ?>" name="frm_<?=$val->bc_idx ?>"></form>

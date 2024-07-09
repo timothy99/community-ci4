@@ -53,7 +53,7 @@
                         </div><!-- /.card-header -->
                         <div class="card-body">
                             <div class="col-12">
-                                <table class="table table-bordered table-responsive text-nowrap table-hover">
+                                <table class="table table-bordered table-responsive-md text-nowrap table-hover">
                                     <thead class="text-center">
                                         <tr>
                                             <th>영상</th>
