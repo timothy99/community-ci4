@@ -37,7 +37,7 @@
             <div class="content">
                 <div class="container">
                     <div class="row mt-3">
-                        <div class="col-12">
+                        <div class="col-md-6">
                             <div id="carouselExampleCaptions" class="carousel slide carousel-fade" data-ride="carousel">
                                 <div class="carousel-inner">
 <?php   foreach ($slide_list as $no => $val) { ?>
@@ -60,16 +60,49 @@
                                 </button>
                             </div>
                         </div>
+
+                        <div class="col-md-6">
+                            <div class="card card-primary card-outline">
+                                <div class="card-header">
+                                    <h3 class="card-title m-0">간편문의</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group row">
+                                        <label for="title" class="col-sm-2 col-form-label">이름</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="name" name="name" placeholder="이름을 입력하세요">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="contents" class="col-sm-2 col-form-label">연락처</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="phone" name="phone">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="offset-sm-2 col-sm-10">
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" id="agree_yn" name="agree_yn" value="Y">
+                                                <label class="form-check-label" for="agree_yn">약관동의</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row d-flex justify-content-end">
+                                        <button type="button" class="btn btn-info mt-3 mb-2 mr-5 col-sm-2" id="save" name="save" onclick="ask_write()">등록</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="row mt-3">
-                        <div class="col-12">
+                        <div class="col-md-6">
                             <div class="card card-primary card-outline">
                                 <div class="card-header">
                                     <h3 class="card-title m-0">최신 공지사항</h3>
                                 </div>
                                 <div class="card-body">
-                                    <table class="table table-bordered table-responsive d-md-table text-nowrap table-hover">
+                                    <table class="table table-bordered table-responsive text-nowrap table-hover">
                                         <thead class="text-center">
                                             <tr>
                                                 <th>제목</th>
@@ -93,16 +126,14 @@
                                 </div>
                             </div>
                         </div>
-                    </div><!-- /.row -->
 
-                    <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-md-6">
                             <div class="card card-primary card-outline">
                                 <div class="card-header">
                                     <h3 class="card-title m-0">최신 자유게시판</h3>
                                 </div>
                                 <div class="card-body">
-                                    <table class="table table-bordered table-responsive d-md-table text-nowrap table-hover">
+                                    <table class="table table-bordered table-responsive text-nowrap table-hover">
                                         <thead class="text-center">
                                             <tr>
                                                 <th>제목</th>
@@ -126,41 +157,26 @@
                                 </div>
                             </div>
                         </div>
-                    </div><!-- /.row -->
+                    </div>
 
-                    <div class="row">
-                        <div class="col-lg-12">
+                    <div class="row mt-3">
+                        <div class="col-md-12">
                             <div class="card card-primary card-outline">
                                 <div class="card-header">
-                                    <h3 class="card-title m-0">간편문의</h3>
+                                    <h3 class="card-title m-0">너튜브</h3>
                                 </div>
                                 <div class="card-body">
-                                    <div class="form-group row">
-                                        <label for="title" class="col-sm-2 col-form-label">이름</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="name" name="name" placeholder="이름을 입력하세요">
+                                    <div class="row">
+<?php   foreach ($video_list as $no => $val) { ?>
+                                        <div class="col-md-3 d-flex justify-content-center">
+                                            <object type="text/html" data="//www.youtube.com/embed/<?=$val->video_id ?>" style="width:90%"></object>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="contents" class="col-sm-2 col-form-label">연락처</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="phone" name="phone"></div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="offset-sm-2 col-sm-10">
-                                            <div class="form-check">
-                                                <input type="checkbox" class="form-check-input" id="agree_yn" name="agree_yn" value="Y">
-                                                <label class="form-check-label" for="agree_yn">약관동의</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row d-flex justify-content-end">
-                                        <button type="button" class="btn btn-info mt-3 mb-2 mr-5 col-sm-2" id="save" name="save" onclick="ask_write()">등록</button>
+<?php   } ?>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
             </div><!-- /.content -->

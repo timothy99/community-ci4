@@ -56,7 +56,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table class="table table-bordered table-responsive d-md-table text-nowrap table-hover">
+                            <table class="table table-bordered table-responsive text-nowrap table-hover">
                                 <thead class="text-center">
                                     <tr>
                                         <th>번호</th>

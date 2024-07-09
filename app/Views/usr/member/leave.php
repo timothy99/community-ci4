@@ -28,7 +28,7 @@
                                 <h3 class="card-title m-0">회원정보</h3>
                             </div>
                             <div class="card-body">
-                                <table class="table table-bordered table-responsive d-md-table text-nowrap table-hover">
+                                <table class="table table-bordered table-responsive text-nowrap table-hover">
                                     <tbody>
                                         <tr>
                                             <th>아이디</th>

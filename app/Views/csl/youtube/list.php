@@ -4,12 +4,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>벌크</h1>
+                    <h1>유튜브</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="/">홈</a></li>
-                        <li class="breadcrumb-item active">벌크</li>
+                        <li class="breadcrumb-item active">유튜브</li>
+                        <li class="breadcrumb-item active">설정 목록</li>
                     </ol>
                 </div>
             </div>
@@ -39,34 +40,45 @@
                                         <option value="90">90</option>
                                         <option value="100">100</option>
                                     </select>
+                                    <select class="form-control ml-3" id="search_condition" name="search_condition">
+                                        <option value="title">제목</option>
+                                    </select>
+                                    <input type="text" id="search_text" name="search_text" class="form-control float-right ml-2" placeholder="검색">
+                                    <div class="input-group-append">
+                                    <button type="button" class="btn btn-default" id="search_button" name="search_button">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table class="table table-bordered table-responsive table-responsive text-nowrap table-hover">
+                            <table class="table table-bordered table-responsive text-nowrap table-hover">
                                 <thead class="text-center">
                                     <tr>
                                         <th>번호</th>
-<?php   if (count($list) > 0) { ?>
-<?php       foreach($list[0]->json_arr as $no => $val) { ?>
-                                        <th><?=$no ?></th>
-<?php       } ?>
-<?php   } ?>
+                                        <th>분류</th>
+                                        <th>제목</th>
+                                        <th>재생 아이디</th>
+                                        <th>입력자</th>
+                                        <th>입력일</th>
                                     </tr>
                                 </thead>
                                 <tbody>
 <?php   foreach($list as $no => $val) { ?>
                                     <tr>
                                         <td><?=$val->list_no ?></td>
-<?php       foreach($val->json_arr as $no2 => $val2) { ?>
-                                        <td><?=$val2 ?></td>
-<?php       } ?>
+                                        <td><?=$val->category ?></td>
+                                        <td><a href="/csl/youtube/view/<?=$val->y_idx ?>"><?=$val->title ?></a></td>
+                                        <td><?=$val->play_id ?></td>
+                                        <td><?=$val->ins_id ?></td>
+                                        <td><?=$val->ins_date_txt ?></td>
                                     </tr>
 <?php   } ?>
 <?php   if (count($list) == 0) { ?>
                                     <tr>
-                                        <td colspan="3" class="text-center">데이터가 없습니다.</td>
+                                        <td colspan="6" class="text-center">데이터가 없습니다.</td>
                                     </tr>
 <?php   } ?>
                                 </tbody>
@@ -75,7 +87,7 @@
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">
 <?=$paging_info["paging_view"] ?>
-                            <button type="button" class="btn btn-info float-right" id="list" name="list">목록</button>
+                            <button type="button" class="btn btn-info float-right" id="write" name="write">글쓰기</button>
                         </div>
                     </div>
                     <!-- /.card -->
@@ -90,9 +102,9 @@
 <script>
     $(window).on("load", function() {
         // 메뉴강조
-        $("#li-bulk-list").addClass("menu-open");
-        $("#upper-bulk-list").addClass("active");
-        $("#a-bulk-list").addClass("active");
+        $("#li-youtube-list").addClass("menu-open");
+        $("#upper-youtube-list").addClass("active");
+        $("#a-youtube-list").addClass("active");
 
         // 셀렉트 박스 선택
         $("#search_condition").val("<?=$data["search_arr"]["search_condition"] ?>").prop("selected", true);
@@ -111,8 +123,8 @@
             search();
         });
 
-        $("#list").click(function(e) {
-            location.href = "/csl/bulk/list";
+        $("#write").click(function(e) {
+            location.href = "/csl/youtube/write";
         });
     });
 
@@ -120,6 +132,6 @@
         var search_text = $("#search_text").val();
         var search_condition = $("#search_condition").val();
         var rows = $("#rows").val();
-        location.href = "/csl/bulk/detail/<?=$data["b_idx"] ?>?page=1&search_text="+search_text+"&search_condition="+search_condition+"&rows="+rows;
+        location.href = "/csl/youtube/list?page=1&search_text="+search_text+"&search_condition="+search_condition+"&rows="+rows;
     }
 </script>
