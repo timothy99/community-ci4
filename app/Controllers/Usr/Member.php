@@ -3,7 +3,7 @@
 namespace App\Controllers\Usr;
 
 use App\Controllers\BaseController;
-use App\Models\Common\DateModel;
+
 use App\Models\Usr\MemberModel;
 
 class Member extends BaseController
@@ -16,15 +16,22 @@ class Member extends BaseController
     public function view()
     {
         $member_model = new MemberModel();
-        $date_model = new DateModel();
 
         $model_result = $member_model->getMemberInfo();
         $info = $model_result["info"];
-        $info->last_login_date_txt = $date_model->convertTextToDate($info->last_login_date, 1, 1);
-        $info->ins_date_txt = $date_model->convertTextToDate($info->ins_date, 1, 1);
-        $model_result["info"] = $info;
 
-        return uview("usr/member/view", $model_result);
+        $title_info = (object)array();
+        $title_info->title = "회원정보";
+        $title_info->head_title = " 회원정보 &gt; 보기 &gt; ".$info->member_id;
+        $title_info->bread_crumb = "홈 &gt; 회원정보 &gt; 보기";
+
+        $proc_result = array();
+        $proc_result["result"] = $model_result["result"];
+        $proc_result["message"] = $model_result["message"];
+        $proc_result["info"] = $model_result["info"];
+        $proc_result["title_info"] = $title_info;
+
+        return mview("usr/member/view", $proc_result);
     }
 
     public function login()
@@ -199,8 +206,20 @@ class Member extends BaseController
         $member_model = new MemberModel();
 
         $model_result = $member_model->getMemberInfo();
+        $info = $model_result["info"];
 
-        return uview("usr/member/edit", $model_result);
+        $title_info = (object)array();
+        $title_info->title = "회원정보";
+        $title_info->head_title = " 회원정보 &gt; 수정 &gt; ".$info->member_id;
+        $title_info->bread_crumb = "홈 &gt; 회원정보 &gt; 수정";
+
+        $proc_result = array();
+        $proc_result["result"] = $model_result["result"];
+        $proc_result["message"] = $model_result["message"];
+        $proc_result["info"] = $model_result["info"];
+        $proc_result["title_info"] = $title_info;
+
+        return mview("usr/member/edit", $proc_result);
     }
 
     public function update()
@@ -245,7 +264,20 @@ class Member extends BaseController
 
         $model_result = $member_model->getMemberInfo();
 
-        return uview("usr/member/leave", $model_result);
+        $info = $model_result["info"];
+
+        $title_info = (object)array();
+        $title_info->title = "회원정보";
+        $title_info->head_title = "회원정보 &gt; 탈퇴 &gt; ".$info->member_id;
+        $title_info->bread_crumb = "홈 &gt; 회원정보 &gt; 탈퇴";
+
+        $proc_result = array();
+        $proc_result["result"] = $model_result["result"];
+        $proc_result["message"] = $model_result["message"];
+        $proc_result["info"] = $model_result["info"];
+        $proc_result["title_info"] = $title_info;
+
+        return uview("usr/member/leave", $proc_result);
     }
 
     public function delete()

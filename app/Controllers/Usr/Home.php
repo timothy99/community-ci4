@@ -51,7 +51,7 @@ class Home extends BaseController
 
         $title_info = (object)array();
         $title_info->title = "대시보드";
-        $title_info->head_title = "홈 &gt; 대시보드";
+        $title_info->head_title = " 대시보드";
         $title_info->bread_crumb = "홈 &gt; 대시보드";
 
         $proc_result = array();

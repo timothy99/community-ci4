@@ -49,7 +49,7 @@ class Board extends BaseController
 
         $title_info = (object)array();
         $title_info->title = $title;
-        $title_info->head_title = "홈 &gt; 게시판 &gt; ".$title."  &gt; 목록";
+        $title_info->head_title = " 게시판 &gt; ".$title."  &gt; 목록";
         $title_info->bread_crumb = "홈 &gt; 게시판 &gt; ".$title."  &gt; 목록";
 
         $proc_result = array();
@@ -105,7 +105,7 @@ class Board extends BaseController
 
         $title_info = (object)array();
         $title_info->title = $title;
-        $title_info->head_title = "홈 &gt; 게시판 &gt; ".$title."  &gt; ".$info->title."  &gt; 보기";
+        $title_info->head_title = " 게시판 &gt; ".$title."  &gt; ".$info->title."  &gt; 보기";
         $title_info->bread_crumb = "홈 &gt; 게시판 &gt; ".$title."  &gt; 보기";
 
         $proc_result = array();
@@ -147,7 +147,7 @@ class Board extends BaseController
 
         $title_info = (object)array();
         $title_info->title = $title;
-        $title_info->head_title = "홈 &gt; 게시판 &gt; ".$title."  &gt; 쓰기";
+        $title_info->head_title = " 게시판 &gt; ".$title."  &gt; 쓰기";
         $title_info->bread_crumb = "홈 &gt; 게시판 &gt; ".$title."  &gt; 쓰기";
 
         $proc_result = array();
@@ -269,7 +269,7 @@ class Board extends BaseController
 
         $title_info = (object)array();
         $title_info->title = $title;
-        $title_info->head_title = "홈 &gt; 게시판 &gt; ".$title."  &gt; ".$info->title."  &gt; 수정";
+        $title_info->head_title = " 게시판 &gt; ".$title."  &gt; ".$info->title."  &gt; 수정";
         $title_info->bread_crumb = "홈 &gt; 게시판 &gt; ".$title."  &gt; 수정";
 
         $proc_result = array();

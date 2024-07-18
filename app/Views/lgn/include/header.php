@@ -21,6 +21,8 @@
     <!-- InputMask -->
     <script src="/resource/vendor/moment/moment.min.js?ver=<?=env("app.jsVer") ?>"></script>
     <script src="/resource/vendor/inputmask/jquery.inputmask.min.js?ver=<?=env("app.jsVer") ?>"></script>
+
+    <link rel="stylesheet" href="/resource/community/css/community.css?ver=<?=env("app.cssVer") ?>"><!-- User CSS -->
 </head>
 
 <body class="hold-transition login-page">

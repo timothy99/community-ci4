@@ -1,4 +1,4 @@
-<form id="frm" name="frm">
+<form id="frm" name="frm" class="login-form">
     <div class="login-box">
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">

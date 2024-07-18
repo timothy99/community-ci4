@@ -5,12 +5,11 @@
             <div class="container">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>회원정보</h1>
+                        <h1><?=$title_info->title ?></h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="/">홈</a></li>
-                            <li class="breadcrumb-item active">회원정보</li>
+                            <li class="breadcrumb-item"><?=$title_info->bread_crumb ?></li>
                         </ol>
                     </div>
                 </div>

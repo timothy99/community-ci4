@@ -4,7 +4,6 @@ namespace App\Models\Usr;
 
 use CodeIgniter\Model;
 use App\Models\Common\SecurityModel;
-use Throwable;
 
 class PasswordModel extends Model
 {
@@ -15,15 +14,11 @@ class PasswordModel extends Model
         $message = "정상처리";
 
         $email = $data["email"];
-        $member_id = $data["member_id"];
 
         $db = $this->db;
         $builder = $db->table("member");
         $builder->where("del_yn", "N");
         $builder->where("email", $email);
-        if ($member_id != null) {
-            $builder->where("member_id", $member_id);
-        }
         $info = $builder->get()->getRow();
 
         $proc_result = array();
