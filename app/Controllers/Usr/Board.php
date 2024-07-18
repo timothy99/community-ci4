@@ -7,6 +7,7 @@ use App\Models\Usr\BoardModel;
 use App\Models\Common\PagingModel;
 use App\Models\Common\FileModel;
 use App\Models\Csl\CommentModel;
+use App\Models\Usr\BoardConfigModel;
 
 class Board extends BaseController
 {
@@ -19,6 +20,7 @@ class Board extends BaseController
     {
         $board_model = new BoardModel();
         $paging_model = new PagingModel();
+        $config_model = new BoardConfigModel();
 
         $board_id = $this->request->getUri()->getSegment(2); // segments 확인
 
@@ -42,9 +44,18 @@ class Board extends BaseController
         $data["cnt"] = $cnt;
         $paging_info = $paging_model->getPagingInfo($data);
 
+        $model_result = $config_model->getConfigInfo($data);
+        $title = $model_result["info"]->title;
+
+        $title_info = (object)array();
+        $title_info->title = $title;
+        $title_info->head_title = "홈 &gt; 게시판 &gt; ".$title."  &gt; 목록";
+        $title_info->bread_crumb = "홈 &gt; 게시판 &gt; ".$title."  &gt; 목록";
+
         $proc_result = array();
         $proc_result["result"] = $result;
         $proc_result["message"] = $message;
+        $proc_result["title_info"] = $title_info;
         $proc_result["list"] = $list;
         $proc_result["cnt"] = $cnt;
         $proc_result["paging_info"] = $paging_info;
@@ -59,6 +70,7 @@ class Board extends BaseController
         $board_model = new BoardModel();
         $file_model = new FileModel();
         $comment_model = new CommentModel();
+        $config_model = new BoardConfigModel();
 
         $board_id = $this->request->getUri()->getSegment(2);
         $b_idx = $this->request->getUri()->getSegment(4); // segments 확인
@@ -88,9 +100,18 @@ class Board extends BaseController
         $model_result = $comment_model->getCommentList($data);
         $comment_list = $model_result["list"];
 
+        $model_result = $config_model->getConfigInfo($data);
+        $title = $model_result["info"]->title;
+
+        $title_info = (object)array();
+        $title_info->title = $title;
+        $title_info->head_title = "홈 &gt; 게시판 &gt; ".$title."  &gt; ".$info->title."  &gt; 보기";
+        $title_info->bread_crumb = "홈 &gt; 게시판 &gt; ".$title."  &gt; 보기";
+
         $proc_result = array();
         $proc_result["result"] = $result;
         $proc_result["message"] = $message;
+        $proc_result["title_info"] = $title_info;
         $proc_result["info"] = $info;
         $proc_result["file_list"] = $file_list;
         $proc_result["comment_list"] = $comment_list;
@@ -101,6 +122,8 @@ class Board extends BaseController
 
     public function write()
     {
+        $config_model = new BoardConfigModel();
+
         $board_id = $this->request->getUri()->getSegment(2); // segments 확인
 
         $result = true;
@@ -117,9 +140,20 @@ class Board extends BaseController
         $info->contents = $contents;
         $info->contents_code = $contents_code;
 
+        $data["board_id"] = $board_id;
+
+        $model_result = $config_model->getConfigInfo($data);
+        $title = $model_result["info"]->title;
+
+        $title_info = (object)array();
+        $title_info->title = $title;
+        $title_info->head_title = "홈 &gt; 게시판 &gt; ".$title."  &gt; 쓰기";
+        $title_info->bread_crumb = "홈 &gt; 게시판 &gt; ".$title."  &gt; 쓰기";
+
         $proc_result = array();
         $proc_result["result"] = $result;
         $proc_result["message"] = $message;
+        $proc_result["title_info"] = $title_info;
         $proc_result["board_id"] = $board_id;
         $proc_result["b_idx"] = $b_idx;
         $proc_result["info"] = $info;
@@ -207,6 +241,7 @@ class Board extends BaseController
     {
         $board_model = new BoardModel();
         $file_model = new FileModel();
+        $config_model = new BoardConfigModel();
 
         $board_id = $this->request->getUri()->getSegment(2);
         $b_idx = $this->request->getUri()->getSegment(4);
@@ -229,11 +264,20 @@ class Board extends BaseController
             }
         }
 
+        $model_result = $config_model->getConfigInfo($data);
+        $title = $model_result["info"]->title;
+
+        $title_info = (object)array();
+        $title_info->title = $title;
+        $title_info->head_title = "홈 &gt; 게시판 &gt; ".$title."  &gt; ".$info->title."  &gt; 수정";
+        $title_info->bread_crumb = "홈 &gt; 게시판 &gt; ".$title."  &gt; 수정";
+
         $proc_result = array();
         $proc_result["result"] = $result;
         $proc_result["message"] = $message;
         $proc_result["board_id"] = $board_id;
         $proc_result["b_idx"] = $b_idx;
+        $proc_result["title_info"] = $title_info;
         $proc_result["info"] = $info;
         $proc_result["file_list"] = $file_list;
 

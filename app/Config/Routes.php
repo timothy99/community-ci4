@@ -36,12 +36,13 @@ $routes->get("/password/modify", "Usr\Password::modify");
 $routes->post("/password/change", "Usr\Password::change");
 
 $routes->get("/board", "Usr\Board::index");
-$routes->get("/board/(:alpha)/list", "Usr\Board::list");
-$routes->get("/board/(:alpha)/view/(:num)", "Usr\Board::view");
-$routes->get("/board/(:alpha)/write", "Usr\Board::write");
-$routes->get("/board/(:alpha)/edit/(:num)", "Usr\Board::edit");
-$routes->post("/board/(:alpha)/update", "Usr\Board::update");
-$routes->post("/board/(:alpha)/delete/(:num)", "Usr\Board::delete");
+$routes->get("/board/(:any)/list", "Usr\Board::list");
+$routes->get("/board/(:any)/view/(:num)", "Usr\Board::view");
+$routes->get("/board/(:any)/write", "Usr\Board::write");
+$routes->get("/board/(:any)/edit/(:num)", "Usr\Board::edit");
+$routes->post("/board/(:any)/update", "Usr\Board::update");
+$routes->post("/board/(:any)/delete/(:num)", "Usr\Board::delete");
+
 $routes->post("/file/upload", "Usr\File::upload");
 $routes->get("/file/view/(:alphanum)", "Usr\File::view");
 $routes->get("/file/download/(:alphanum)", "Usr\File::download");

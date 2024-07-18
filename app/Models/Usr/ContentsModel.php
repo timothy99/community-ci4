@@ -17,6 +17,8 @@ class ContentsModel extends Model
         $builder->where("c_idx", $c_idx);
         $info = $builder->get()->getRow();
 
+        $info->contents = nl2br_only($info->contents);
+
         $proc_result = array();
         $proc_result["result"] = $result;
         $proc_result["message"] = $message;

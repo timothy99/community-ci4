@@ -23,12 +23,17 @@ class Contents extends BaseController
 
         $model_result = $contents_model->getContentsInfo($c_idx);
         $info = $model_result["info"];
+        $title = $info->title;
 
-        $info->contents = nl2br_only($info->contents);
+        $title_info = (object)array();
+        $title_info->title = $title;
+        $title_info->head_title = "홈 &gt; 페이지 &gt; ".$title;
+        $title_info->bread_crumb = "홈 &gt; 페이지 &gt; ".$title;
 
         $proc_result = array();
         $proc_result["result"] = $result;
         $proc_result["message"] = $message;
+        $proc_result["title_info"] = $title_info;
         $proc_result["info"] = $info;
 
         return uview("/usr/contents/view", $proc_result);
