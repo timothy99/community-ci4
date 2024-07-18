@@ -30,3 +30,12 @@
     <script src="/resource/community/js/summernote-ko-KR.js"></script>
     <script src="/resource/community/js/summernote_setting.js?ver=<?=JS_VER ?>"></script><!-- summernote 사용자 설정 -->
 </head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1YHY605LGJ"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1YHY605LGJ');
+</script>
