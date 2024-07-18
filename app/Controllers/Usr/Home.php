@@ -28,14 +28,14 @@ class Home extends BaseController
         $data = array();
         $data["search_arr"]["rows"] = 3;
         $data["page"] = 1;
-        $data["board_id"] = "notice";
+        $data["board_id"] = "board6967";
         $data["search_arr"]["search_condition"] = null;
         $data["search_arr"]["search_text"] = null;
 
         $model_result = $board_model->getBoardList($data);
         $notice_list = $model_result["list"];
 
-        $data["board_id"] = "free";
+        $data["board_id"] = "board597";
         $model_result = $board_model->getBoardList($data);
         $free_list = $model_result["list"];
 
@@ -49,9 +49,15 @@ class Home extends BaseController
         $model_result = $youtube_model->getVideoList($data);
         $video_list = $model_result["list"];
 
+        $title_info = (object)array();
+        $title_info->title = "대시보드";
+        $title_info->head_title = "홈 &gt; 대시보드";
+        $title_info->bread_crumb = "홈 &gt; 대시보드";
+
         $proc_result = array();
         $proc_result["result"] = $result;
         $proc_result["message"] = $message;
+        $proc_result["title_info"] = $title_info;
         $proc_result["notice_list"] = $notice_list;
         $proc_result["free_list"] = $free_list;
         $proc_result["slide_list"] = $slide_list;

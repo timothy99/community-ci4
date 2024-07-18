@@ -61,5 +61,4 @@ class Ask extends BaseController
         return json_encode($proc_result);
     }
 
-
 }

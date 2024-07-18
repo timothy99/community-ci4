@@ -157,7 +157,7 @@ class BoardConfig extends BaseController
         $proc_result["info"] = $info;
 
         return aview("csl/board/config/view", $proc_result);
-    }
+    } 
 
     public function delete()
     {

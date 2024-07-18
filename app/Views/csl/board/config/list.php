@@ -57,8 +57,8 @@
                                 <thead class="text-center">
                                     <tr>
                                         <th>번호</th>
-                                        <th>제목</th>
                                         <th>게시판 아이디</th>
+                                        <th>제목</th>
                                         <th>입력자</th>
                                         <th>입력일</th>
                                     </tr>

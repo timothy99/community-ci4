@@ -112,7 +112,7 @@
                                         <tbody>
 <?php   foreach($notice_list as $no => $val) { ?>
                                             <tr>
-                                                <td><a href="/board/notice/view/<?=$val->b_idx ?>"><?=$val->title ?></a></td>
+                                                <td><a href="/board/<?=$val->board_id ?>/view/<?=$val->b_idx ?>"><?=$val->title ?></a></td>
                                                 <td><?=$val->ins_date_txt ?></td>
                                             </tr>
 <?php   } ?>
@@ -143,7 +143,7 @@
                                         <tbody>
 <?php   foreach($free_list as $no => $val) { ?>
                                             <tr>
-                                                <td><a href="/board/free/view/<?=$val->b_idx ?>"><?=$val->title ?></a></td>
+                                                <td><a href="/board/<?=$val->board_id ?>/view/<?=$val->b_idx ?>"><?=$val->title ?></a></td>
                                                 <td><?=$val->ins_date_txt ?></td>
                                             </tr>
 <?php   } ?>

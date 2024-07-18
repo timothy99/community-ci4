@@ -5,10 +5,10 @@
                             <a href="/" class="nav-link">홈</a>
                         </li>
                         <li class="nav-item">
-                            <a href="/board/notice/list" class="nav-link">공지사항</a>
+                            <a href="/board/board6967/list" class="nav-link">공지사항</a>
                         </li>
                         <li class="nav-item">
-                            <a href="/board/free/list" class="nav-link">자유게시판</a>
+                            <a href="/board/board597/list" class="nav-link">자유게시판</a>
                         </li>
 <?php   foreach ($menu_list as $no => $val) { ?>
                         <li class="nav-item dropdown">
