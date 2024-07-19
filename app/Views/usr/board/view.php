@@ -43,15 +43,15 @@
                                         </dl>
                                     </div>
                                 </div>
-<?php   if (getUserSessionInfo("member_id") == $info->ins_id) { ?>
                                 <div class="card-footer">
                                     <div class="d-flex justify-content-end">
                                         <button type="button" class="btn btn-warning ml-3" id="list" name="list">목록</button>
+<?php   if (getUserSessionInfo("member_id") == $info->ins_id) { ?>
                                         <button type="button" class="btn btn-danger ml-3" id="delete" name="delete">삭제</button>
                                         <button type="button" class="btn btn-success ml-3" id="edit" name="edit">수정</button>
+<?php   } ?>
                                     </div>
                                 </div>
-<?php   } ?>
                             </div>
                         </div>
                     </div>
