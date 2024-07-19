@@ -27,26 +27,28 @@
                         </div><!-- /.card-header -->
                         <div class="card-body">
                             <div class="col-12">
-                                <table class="table table-bordered table-responsive text-nowrap table-hover">
-                                    <tbody>
-                                        <tr>
-                                            <th>제목</th>
-                                            <td><?=$info->title ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th>내용</th>
-                                            <td><?=$info->contents ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th>입력자</th>
-                                            <td><?=$info->ins_id ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th>입력일</th>
-                                            <td><?=$info->ins_date_txt ?></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered text-nowrap table-hover">
+                                        <tbody>
+                                            <tr>
+                                                <th>제목</th>
+                                                <td><?=$info->title ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>내용</th>
+                                                <td><?=$info->contents ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>입력자</th>
+                                                <td><?=$info->ins_id ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>입력일</th>
+                                                <td><?=$info->ins_date_txt ?></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                         <div class="card-footer">

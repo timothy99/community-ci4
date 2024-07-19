@@ -54,40 +54,40 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table class="table table-bordered table-responsive text-nowrap table-hover">
-                                <thead class="text-center">
-                                    <tr>
-                                        <th>번호</th>
-                                        <th>이름</th>
-                                        <th>전화</th>
-                                        <th>입력일</th>
-                                        <th>작업</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                            <div class="table-responsive">
+                                <table class="table table-bordered text-nowrap table-hover">
+                                    <thead class="text-center">
+                                        <tr>
+                                            <th>번호</th>
+                                            <th>이름</th>
+                                            <th>전화</th>
+                                            <th>입력일</th>
+                                            <th>작업</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 <?php   foreach($list as $no => $val) { ?>
-                                    <tr>
-                                        <td><?=$val->list_no ?></td>
-                                        <td><?=$val->name ?></td>
-                                        <td><?=$val->phone ?></td>
-                                        <td><?=$val->ins_date_txt ?></td>
-                                        <td><button type="button" class="btn btn-danger btn-xs" id="delete" name="delete" onclick="ask_delete(<?=$val->a_idx ?>)">삭제</button></td>
-                                    </tr>
+                                        <tr>
+                                            <td><?=$val->list_no ?></td>
+                                            <td><?=$val->name ?></td>
+                                            <td><?=$val->phone ?></td>
+                                            <td><?=$val->ins_date_txt ?></td>
+                                            <td><button type="button" class="btn btn-danger btn-xs" id="delete" name="delete" onclick="ask_delete(<?=$val->a_idx ?>)">삭제</button></td>
+                                        </tr>
 <?php   } ?>
 <?php   if (count($list) == 0) { ?>
-                                    <tr>
-                                        <td colspan="5" class="text-center">데이터가 없습니다.</td>
-                                    </tr>
+                                        <tr>
+                                            <td colspan="5" class="text-center">데이터가 없습니다.</td>
+                                        </tr>
 <?php   } ?>
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        <!-- /.card-body -->
                         <div class="card-footer clearfix">
 <?=$paging_info["paging_view"] ?>
                         </div>
                     </div>
-                    <!-- /.card -->
                 </div>
             </div>
             <!-- /.row -->

@@ -27,49 +27,51 @@
                         </div><!-- /.card-header -->
                         <div class="card-body">
                             <div class="col-12">
-                                <table class="table table-bordered table-responsive text-nowrap table-hover">
-                                    <tbody>
-                                        <tr>
-                                            <th style="min-width:150px;max-width:170px;">정렬순서</th>
-                                            <td><?=$info->order_no ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th>제목</th>
-                                            <td><?=$info->title ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th>내용</th>
-                                            <td><?=$info->contents ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th>링크</th>
-                                            <td><?=$info->http_link ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th>게시기간</th>
-                                            <td><?=$info->start_date_txt ?> ~ <?=$info->end_date_txt ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th>노출여부</th>
-                                            <td><?=$info->display_yn ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th>이미지</th>
-                                            <td>
-                                                <img src="/csl/file/view/<?=$info->slide_file ?>" class="img-fluid"><br>
-                                                실제크기 : <?=$info->slide_file_info->image_width ?>px * <?=$info->slide_file_info->image_height ?>px
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>입력자</th>
-                                            <td><?=$info->ins_id ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th>입력일</th>
-                                            <td><?=$info->ins_date_txt ?></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered text-nowrap table-hover">
+                                        <tbody>
+                                            <tr>
+                                                <th style="min-width:150px;max-width:170px;">정렬순서</th>
+                                                <td><?=$info->order_no ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>제목</th>
+                                                <td><?=$info->title ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>내용</th>
+                                                <td><?=$info->contents ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>링크</th>
+                                                <td><?=$info->http_link ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>게시기간</th>
+                                                <td><?=$info->start_date_txt ?> ~ <?=$info->end_date_txt ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>노출여부</th>
+                                                <td><?=$info->display_yn ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>이미지</th>
+                                                <td>
+                                                    <img src="/csl/file/view/<?=$info->slide_file ?>" class="img-fluid"><br>
+                                                    실제크기 : <?=$info->slide_file_info->image_width ?>px * <?=$info->slide_file_info->image_height ?>px
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>입력자</th>
+                                                <td><?=$info->ins_id ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>입력일</th>
+                                                <td><?=$info->ins_date_txt ?></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                         <div class="card-footer">

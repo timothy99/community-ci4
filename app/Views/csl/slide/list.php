@@ -54,37 +54,39 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table class="table table-bordered table-responsive text-nowrap table-hover">
-                                <thead class="text-center">
-                                    <tr>
-                                        <th>번호</th>
-                                        <th>정렬순서</th>
-                                        <th>제목</th>
-                                        <th>게시기간</th>
-                                        <th>노출여부</th>
-                                        <th>입력자</th>
-                                        <th>입력일</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                            <div class="table-responsive">
+                                <table class="table table-bordered text-nowrap table-hover">
+                                    <thead class="text-center">
+                                        <tr>
+                                            <th>번호</th>
+                                            <th>정렬순서</th>
+                                            <th>제목</th>
+                                            <th>게시기간</th>
+                                            <th>노출여부</th>
+                                            <th>입력자</th>
+                                            <th>입력일</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 <?php   foreach($list as $no => $val) { ?>
-                                    <tr>
-                                        <td><?=$val->list_no ?></td>
-                                        <td><?=$val->order_no ?></td>
-                                        <td><a href="/csl/slide/view/<?=$val->s_idx ?>"><?=$val->title ?></a></td>
-                                        <td><?=$val->start_date_txt ?> ~ <?=$val->end_date_txt ?></td>
-                                        <td><?=$val->display_yn ?></td>
-                                        <td><?=$val->ins_id ?></td>
-                                        <td><?=$val->ins_date_txt ?></td>
-                                    </tr>
+                                        <tr>
+                                            <td><?=$val->list_no ?></td>
+                                            <td><?=$val->order_no ?></td>
+                                            <td><a href="/csl/slide/view/<?=$val->s_idx ?>"><?=$val->title ?></a></td>
+                                            <td><?=$val->start_date_txt ?> ~ <?=$val->end_date_txt ?></td>
+                                            <td><?=$val->display_yn ?></td>
+                                            <td><?=$val->ins_id ?></td>
+                                            <td><?=$val->ins_date_txt ?></td>
+                                        </tr>
 <?php   } ?>
 <?php   if (count($list) == 0) { ?>
-                                    <tr>
-                                        <td colspan="5" class="text-center">데이터가 없습니다.</td>
-                                    </tr>
+                                        <tr>
+                                            <td colspan="5" class="text-center">데이터가 없습니다.</td>
+                                        </tr>
 <?php   } ?>
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">

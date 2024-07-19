@@ -53,37 +53,39 @@
                         </div><!-- /.card-header -->
                         <div class="card-body">
                             <div class="col-12">
-                                <table class="table table-bordered table-responsive text-nowrap table-hover">
-                                    <thead class="text-center">
-                                        <tr>
-                                            <th>영상</th>
-                                            <th>썸네일</th>
-                                            <th>영상ID</th>
-                                            <th>채널ID</th>
-                                            <th>채널명</th>
-                                            <th>제목</th>
-                                            <th>입력일</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered text-nowrap table-hover">
+                                        <thead class="text-center">
+                                            <tr>
+                                                <th>영상</th>
+                                                <th>썸네일</th>
+                                                <th>영상ID</th>
+                                                <th>채널ID</th>
+                                                <th>채널명</th>
+                                                <th>제목</th>
+                                                <th>입력일</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
 <?php   foreach ($list as $no => $val) { ?>
-                                        <tr>
-                                            <td><object type="text/html" data="//www.youtube.com/embed/<?=$val->video_id ?>"></object></td>
-                                            <td><img src="<?=$val->thumbnail_default ?>"></td>
-                                            <td><?=$val->video_id ?></td>
-                                            <td><?=$val->channel_id ?></td>
-                                            <td><?=$val->channel_title ?></td>
-                                            <td><?=$val->title ?></td>
-                                            <td><?=$val->publish_time ?></td>
-                                        </tr>
+                                            <tr>
+                                                <td><object type="text/html" data="//www.youtube.com/embed/<?=$val->video_id ?>"></object></td>
+                                                <td><img src="<?=$val->thumbnail_default ?>"></td>
+                                                <td><?=$val->video_id ?></td>
+                                                <td><?=$val->channel_id ?></td>
+                                                <td><?=$val->channel_title ?></td>
+                                                <td><?=$val->title ?></td>
+                                                <td><?=$val->publish_time ?></td>
+                                            </tr>
 <?php   } ?>
 <?php   if (count($list) == 0) { ?>
-                                        <tr>
-                                            <td colspan="5">검색어를 입력하시거나 정확한 검색어를 넣어주세요.</td>
-                                        </tr>
+                                            <tr>
+                                                <td colspan="5">검색어를 입력하시거나 정확한 검색어를 넣어주세요.</td>
+                                            </tr>
 <?php   } ?>
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>

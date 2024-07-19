@@ -28,30 +28,32 @@
                         </div><!-- /.card-header -->
                         <div class="card-body">
                             <div class="col-12">
-                                <table class="table table-bordered table-responsive text-nowrap table-hover">
-                                    <tbody>
-                                        <tr>
-                                            <th>제목</th>
-                                            <td><?=$info->title ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th>분류</th>
-                                            <td><?=$info->category ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th>재생 아이디</th>
-                                            <td><?=$info->play_id ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th>입력자</th>
-                                            <td><?=$info->ins_id ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th>입력일</th>
-                                            <td><?=$info->ins_date_txt ?></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered text-nowrap table-hover">
+                                        <tbody>
+                                            <tr>
+                                                <th>제목</th>
+                                                <td><?=$info->title ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>분류</th>
+                                                <td><?=$info->category ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>재생 아이디</th>
+                                                <td><?=$info->play_id ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>입력자</th>
+                                                <td><?=$info->ins_id ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>입력일</th>
+                                                <td><?=$info->ins_date_txt ?></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                         <div class="card-footer">
@@ -73,33 +75,35 @@
                         </div><!-- /.card-header -->
                         <div class="card-body">
                             <div class="col-12">
-                                <table class="table table-bordered table-responsive text-nowrap table-hover">
-                                    <thead class="text-center">
-                                        <tr>
-                                            <th>영상</th>
-                                            <th>썸네일</th>
-                                            <th>채널명</th>
-                                            <th>제목</th>
-                                            <th>입력일</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered text-nowrap table-hover">
+                                        <thead class="text-center">
+                                            <tr>
+                                                <th>영상</th>
+                                                <th>썸네일</th>
+                                                <th>채널명</th>
+                                                <th>제목</th>
+                                                <th>입력일</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
 <?php   foreach ($list as $no => $val) { ?>
-                                        <tr>
-                                            <td><object type="text/html" data="//www.youtube.com/embed/<?=$val->video_id ?>"></object></td>
-                                            <td><img src="<?=$val->thumbnail_default ?>"></td>
-                                            <td><?=$val->channel_title ?></td>
-                                            <td><?=$val->title ?></td>
-                                            <td><?=$val->publish_time ?></td>
-                                        </tr>
+                                            <tr>
+                                                <td><object type="text/html" data="//www.youtube.com/embed/<?=$val->video_id ?>"></object></td>
+                                                <td><img src="<?=$val->thumbnail_default ?>"></td>
+                                                <td><?=$val->channel_title ?></td>
+                                                <td><?=$val->title ?></td>
+                                                <td><?=$val->publish_time ?></td>
+                                            </tr>
 <?php   } ?>
 <?php   if ($result == false) { ?>
-                                        <tr>
-                                            <td colspan="5">설정이 올바르지 않습니다. 채널 아이디나 분류를 다시 확인해주세요.</td>
-                                        </tr>
+                                            <tr>
+                                                <td colspan="5">설정이 올바르지 않습니다. 채널 아이디나 분류를 다시 확인해주세요.</td>
+                                            </tr>
 <?php   } ?>
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
