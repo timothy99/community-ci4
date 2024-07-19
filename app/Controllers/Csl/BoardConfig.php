@@ -91,8 +91,9 @@ class BoardConfig extends BaseController
         $bc_idx = $this->request->getPost("bc_idx", FILTER_SANITIZE_SPECIAL_CHARS);
         $board_id = $this->request->getPost("board_id", FILTER_SANITIZE_SPECIAL_CHARS);
         $title = $this->request->getPost("title", FILTER_SANITIZE_SPECIAL_CHARS);
-        $category_yn = $this->request->getPost("category_yn", FILTER_SANITIZE_SPECIAL_CHARS);
         $category = $this->request->getPost("category", FILTER_SANITIZE_SPECIAL_CHARS);
+        $category_yn = $this->request->getPost("category_yn", FILTER_SANITIZE_SPECIAL_CHARS);
+        $user_write = $this->request->getPost("user_write", FILTER_SANITIZE_SPECIAL_CHARS);
         $base_rows = $this->request->getPost("base_rows", FILTER_SANITIZE_SPECIAL_CHARS);
         $reg_date_yn = $this->request->getPost("reg_date_yn", FILTER_SANITIZE_SPECIAL_CHARS);
         $file_cnt = $this->request->getPost("file_cnt", FILTER_SANITIZE_SPECIAL_CHARS);
@@ -103,8 +104,9 @@ class BoardConfig extends BaseController
         $data["bc_idx"] = $bc_idx;
         $data["board_id"] = $board_id;
         $data["title"] = $title;
-        $data["category_yn"] = $category_yn;
         $data["category"] = $category;
+        $data["category_yn"] = $category_yn;
+        $data["user_write"] = $user_write;
         $data["base_rows"] = $base_rows;
         $data["reg_date_yn"] = $reg_date_yn;
         $data["file_cnt"] = $file_cnt;

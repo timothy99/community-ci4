@@ -46,6 +46,15 @@
                                 </div>
 
                                 <div class="form-group row">
+                                    <label for="category" class="col-sm-2 col-form-label">분류</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="category" name="category" value="<?=$info->category ?>">
+                                        <br>
+                                        분류를 입력하실땐 구분자를 ||(파이프 문자 2개)로 해서 입력해주세요.
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
                                     <label for="category_yn" class="col-sm-2 col-form-label">분류 사용여부</label>
                                     <div class="col-sm-10">
                                         <select class="form-control" id="category_yn" name="category_yn">
@@ -56,11 +65,14 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="category" class="col-sm-2 col-form-label">분류</label>
+                                    <label for="user_write" class="col-sm-2 col-form-label">사용자 글쓰기</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="category" name="category" value="<?=$info->category ?>">
+                                        <select class="form-control" id="user_write" name="user_write">
+                                            <option value="N">N</option>
+                                            <option value="Y">Y</option>
+                                        </select>
                                         <br>
-                                        분류를 입력하실땐 구분자를 ||(파이프 문자 2개)로 해서 입력해주세요.
+                                        사용자가 글쓰기 가능하게 할지 결정합니다. N으로 해두면 관리자 화면에서만 글쓰기가 가능합니다.
                                     </div>
                                 </div>
 
@@ -142,6 +154,7 @@
 
         $("#category_yn").val("<?=$info->category_yn ?>").prop("selected", true);
         $("#reg_date_yn").val("<?=$info->reg_date_yn ?>").prop("selected", true);
+        $("#user_write").val("<?=$info->user_write ?>").prop("selected", true);
     });
 
     $(function() {

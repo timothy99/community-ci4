@@ -32,10 +32,12 @@
                                     <dd class="col-sm-10"><?=$info->board_id ?></dd>
                                     <dt class="col-sm-2">제목</dt>
                                     <dd class="col-sm-10"><?=$info->title ?></dd>
-                                    <dt class="col-sm-2">분류 사용여부</dt>
-                                    <dd class="col-sm-10"><?=$info->category_yn ?></dd>
                                     <dt class="col-sm-2">분류</dt>
                                     <dd class="col-sm-10"><?=$info->category ?></dd>
+                                    <dt class="col-sm-2">분류 사용여부</dt>
+                                    <dd class="col-sm-10"><?=$info->category_yn ?></dd>
+                                    <dt class="col-sm-2">사용자 글쓰기</dt>
+                                    <dd class="col-sm-10"><?=$info->user_write ?></dd>
                                     <dt class="col-sm-2">줄 수</dt>
                                     <dd class="col-sm-10"><?=$info->base_rows ?></dd>
                                     <dt class="col-sm-2">등록일 기능</dt>

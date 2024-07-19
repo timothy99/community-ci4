@@ -175,8 +175,9 @@ class BoardConfigModel extends Model
 
         $board_id = $data["board_id"];
         $title = $data["title"];
-        $category_yn = $data["category_yn"];
         $category = $data["category"];
+        $category_yn = $data["category_yn"];
+        $user_write = $data["user_write"];
         $base_rows = $data["base_rows"];
         $reg_date_yn = $data["reg_date_yn"];
         $file_cnt = $data["file_cnt"];
@@ -188,8 +189,9 @@ class BoardConfigModel extends Model
         $builder = $db->table("board_config");
         $builder->set("board_id", $board_id);
         $builder->set("title", $title);
-        $builder->set("category_yn", $category_yn);
         $builder->set("category", $category);
+        $builder->set("category_yn", $category_yn);
+        $builder->set("user_write", $user_write);
         $builder->set("base_rows", $base_rows);
         $builder->set("reg_date_yn", $reg_date_yn);
         $builder->set("file_cnt", $file_cnt);
@@ -232,8 +234,9 @@ class BoardConfigModel extends Model
         $bc_idx = $data["bc_idx"];
         $board_id = $data["board_id"];
         $title = $data["title"];
-        $category_yn = $data["category_yn"];
         $category = $data["category"];
+        $category_yn = $data["category_yn"];
+        $user_write = $data["user_write"];
         $base_rows = $data["base_rows"];
         $reg_date_yn = $data["reg_date_yn"];
         $file_cnt = $data["file_cnt"];
@@ -253,8 +256,9 @@ class BoardConfigModel extends Model
         $builder = $db->table("board_config");
         $builder->set("board_id", $board_id);
         $builder->set("title", $title);
-        $builder->set("category_yn", $category_yn);
         $builder->set("category", $category);
+        $builder->set("category_yn", $category_yn);
+        $builder->set("user_write", $user_write);
         $builder->set("base_rows", $base_rows);
         $builder->set("reg_date_yn", $reg_date_yn);
         $builder->set("file_cnt", $file_cnt);

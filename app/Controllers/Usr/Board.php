@@ -45,7 +45,8 @@ class Board extends BaseController
         $paging_info = $paging_model->getPagingInfo($data);
 
         $model_result = $config_model->getConfigInfo($data);
-        $title = $model_result["info"]->title;
+        $config_info = $model_result["info"];
+        $title = $config_info->title;
 
         $title_info = (object)array();
         $title_info->title = $title;
@@ -56,6 +57,7 @@ class Board extends BaseController
         $proc_result["result"] = $result;
         $proc_result["message"] = $message;
         $proc_result["title_info"] = $title_info;
+        $proc_result["config_info"] = $config_info;
         $proc_result["list"] = $list;
         $proc_result["cnt"] = $cnt;
         $proc_result["paging_info"] = $paging_info;

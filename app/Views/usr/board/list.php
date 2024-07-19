@@ -80,7 +80,7 @@
                                 <!-- /.card-body -->
                                 <div class="card-footer clear-fix">
 <?=$paging_info["paging_view"] ?>
-<?php   if ($board_id != "notice") { ?>
+<?php   if ($config_info->user_write == "Y") { ?>
                                     <button type="button" class="btn btn-info float-right" id="write" name="write">글쓰기</button>
 <?php   } ?>
                                 </div>
