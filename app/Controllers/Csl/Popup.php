@@ -19,7 +19,6 @@ class Popup extends BaseController
     {
         $popup_model = new PopupModel();
         $paging_model = new PagingModel();
-        $date_model = new DateModel();
 
         $data = array();
         $data["page"] = $this->request->getGet("page") ?? 1;
@@ -186,6 +185,8 @@ class Popup extends BaseController
         $data["s_idx"] = $s_idx;
 
         $model_result = $popup_model->procPopupDelete($data);
+        $result = $model_result["result"];
+        $message = $model_result["message"];
 
         $proc_result = array();
         $proc_result["result"] = $result;
@@ -207,6 +208,8 @@ class Popup extends BaseController
         $message = "정상";
 
         $model_result = $popup_model->getPopupInfo($s_idx);
+        $result = $model_result["result"];
+        $message = $model_result["message"];
         $info = $model_result["info"];
 
         $info->popup_file_info = $file_model->getFileInfo($info->popup_file);

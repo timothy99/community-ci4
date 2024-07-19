@@ -53,16 +53,20 @@ class ContentsModel extends Model
         return $proc_result;
     }
 
-    public function getContentsInfo($c_idx)
+    public function getContentsInfo($data)
     {
         $result = true;
         $message = "목록 불러오기가 완료되었습니다.";
+
+        $c_idx = $data["c_idx"];
 
         $db = $this->db;
         $builder = $db->table("contents");
         $builder->where("del_yn", "N");
         $builder->where("c_idx", $c_idx);
         $info = $builder->get()->getRow();
+
+        $info->contents = nl2br_rn($info->contents);
 
         $proc_result = array();
         $proc_result["result"] = $result;

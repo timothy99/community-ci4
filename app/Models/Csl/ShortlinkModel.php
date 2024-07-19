@@ -49,6 +49,8 @@ class ShortlinkModel extends Model
 
     public function getShortlinkInfo($sl_idx)
     {
+        $date_model = new DateModel();
+
         $result = true;
         $message = "목록 불러오기가 완료되었습니다.";
 
@@ -58,6 +60,8 @@ class ShortlinkModel extends Model
         $builder->where("del_yn", "N");
         $builder->where("sl_idx", $sl_idx);
         $info = $builder->get()->getRow();
+
+        $info->ins_date_txt = $date_model->convertTextToDate($info->ins_date, 1, 1);
 
         $proc_result = array();
         $proc_result["result"] = $result;

@@ -5,7 +5,6 @@ namespace App\Controllers\Csl;
 use App\Controllers\BaseController;
 use App\Models\Csl\PrivacyModel;
 use App\Models\Common\PagingModel;
-use App\Models\Common\DateModel;
 
 class Privacy extends BaseController
 {
@@ -18,7 +17,6 @@ class Privacy extends BaseController
     {
         $privacy_model = new PrivacyModel();
         $paging_model = new PagingModel();
-        $date_model = new DateModel();
 
         $data = array();
         $data["page"] = $this->request->getGet("page") ?? 1;

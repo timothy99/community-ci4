@@ -18,7 +18,6 @@ class Shortlink extends BaseController
     {
         $shortlink_model = new ShortlinkModel();
         $paging_model = new PagingModel();
-        $date_model = new DateModel();
 
         $data = array();
         $data["page"] = $this->request->getGet("page") ?? 1;
@@ -116,7 +115,6 @@ class Shortlink extends BaseController
     public function view()
     {
         $shortlink_model = new ShortlinkModel();
-        $date_model = new DateModel();
 
         $sl_idx = $this->request->getUri()->getSegment(4);
 
@@ -127,8 +125,6 @@ class Shortlink extends BaseController
         $result = $model_result["result"];
         $message = $model_result["message"];
         $info = $model_result["info"];
-
-        $info->ins_date_txt = $date_model->convertTextToDate($info->ins_date, 1, 1);
 
         $proc_result = array();
         $proc_result["result"] = $result;
@@ -151,6 +147,8 @@ class Shortlink extends BaseController
         $data["sl_idx"] = $sl_idx;
 
         $model_result = $shortlink_model->procSlideDelete($data);
+        $result = $model_result["result"];
+        $message = $model_result["message"];
 
         $proc_result = array();
         $proc_result["result"] = $result;
@@ -163,7 +161,6 @@ class Shortlink extends BaseController
     public function edit()
     {
         $shortlink_model = new ShortlinkModel();
-        $date_model = new DateModel();
 
         $s_idx = $this->request->getUri()->getSegment(4);
 
@@ -171,9 +168,9 @@ class Shortlink extends BaseController
         $message = "정상";
 
         $model_result = $shortlink_model->getShortlinkInfo($s_idx);
+        $result = $model_result["result"];
+        $message = $model_result["message"];
         $info = $model_result["info"];
-
-        $info->ins_date_txt = $date_model->convertTextToDate($info->ins_date, 1, 1);
 
         $proc_result = array();
         $proc_result["result"] = $result;

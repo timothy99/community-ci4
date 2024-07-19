@@ -174,6 +174,8 @@ class Bulk extends BaseController
 
         $model_result = $bulk_model->getBulkInfo($bd_idx);
         $info = $model_result["info"];
+        $result = $model_result["result"];
+        $message = $model_result["message"];
 
         $proc_result = array();
         $proc_result["result"] = $result;
@@ -211,6 +213,8 @@ class Bulk extends BaseController
 
         if ($result == true) {
             $model_result = $bulk_model->procBulkUpdate($data);
+            $result = $model_result["result"];
+            $message = $model_result["message"];
         }
 
         $proc_result = array();
@@ -236,6 +240,8 @@ class Bulk extends BaseController
 
         if ($result == true) {
             $model_result = $bulk_model->procBulkDelete($data);
+            $result = $model_result["result"];
+            $message = $model_result["message"];
         }
 
         $proc_result = array();

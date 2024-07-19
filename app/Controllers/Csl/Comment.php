@@ -69,7 +69,6 @@ class Comment extends BaseController
         $bc_idx = $this->request->getUri()->getSegment(4);
 
         $model_result = $comment_model->getCommentInfo($bc_idx);
-        $info = $model_result["info"];
         $result = $model_result["result"];
         $message = $model_result["message"];
 
