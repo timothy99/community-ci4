@@ -27,7 +27,7 @@ class Contents extends BaseController
 
         $title_info = (object)array();
         $title_info->title = $title;
-        $title_info->head_title = "홈 &gt; 페이지 &gt; ".$title;
+        $title_info->head_title = " 페이지 &gt; ".$title;
         $title_info->bread_crumb = "홈 &gt; 페이지 &gt; ".$title;
 
         $proc_result = array();

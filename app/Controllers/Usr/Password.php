@@ -281,7 +281,9 @@ class Password extends BaseController
         $proc_result = array();
         $proc_result["result"] = $result;
         $proc_result["message"] = $message;
-        $proc_result["return_url"] = "/member/view";
+        $proc_result["return_url"] = "/";
+
+        session_destroy();
 
         return json_encode($proc_result);
     }
