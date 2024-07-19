@@ -102,8 +102,7 @@
                     <button type="button" class="btn btn-danger" id="cancel" name="cancel">취소하기</button>
                 </div>
             </div>
-            <!-- /.form-box -->
-        </div><!-- /.card -->
+        </div>
     </div>
 </form>
 

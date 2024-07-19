@@ -6,9 +6,7 @@
                 <strong><?=date("Y") ?> <a href="/"><?=env("app.companyName") ?></a> </strong>
             </footer>
         </div>
-        <aside class="control-sidebar control-sidebar-dark"><!-- Control Sidebar -->
-            <!-- Control sidebar content goes here -->
-        </aside><!-- /.control-sidebar -->
-    </div><!-- ./wrapper -->
+        <aside class="control-sidebar control-sidebar-dark"></aside>
+    </div>
 </body>
 </html>

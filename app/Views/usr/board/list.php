@@ -1,6 +1,4 @@
-        <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
             <section class="content-header">
                 <div class="container">
                     <div class="row mb-2">
@@ -13,10 +11,9 @@
                             </ol>
                         </div>
                     </div>
-                </div><!-- /.container -->
+                </div>
             </section>
 
-            <!-- Main content -->
             <div class="content">
                 <div class="container">
                     <div class="row mt-3">
@@ -51,7 +48,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div><!-- /.card-header -->
+                                </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table table-bordered text-nowrap table-hover">
@@ -79,7 +76,7 @@
                                         </table>
                                     </div>
                                 </div>
-                                <!-- /.card-body -->
+    
                                 <div class="card-footer clear-fix">
 <?=$paging_info["paging_view"] ?>
 <?php   if ($config_info->user_write == "Y") { ?>
@@ -88,10 +85,10 @@
                                 </div>
                             </div>
                         </div>
-                    </div><!-- /.row -->
-                </div><!-- /.container-fluid -->
-            </div><!-- /.content -->
-        </div><!-- /.content-wrapper -->
+                    </div>
+                </div>
+            </div>
+        </div>
 
 <script>
     $(window).on("load", function() {

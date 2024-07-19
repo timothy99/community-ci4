@@ -1,7 +1,5 @@
 <body class="hold-transition layout-top-nav">
-<!-- Site wrapper -->
     <div class="wrapper">
-        <!-- Navbar -->
         <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
             <div class="container">
                 <a href="/" class="navbar-brand">

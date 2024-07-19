@@ -1,5 +1,5 @@
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
+
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -12,10 +12,10 @@
                     </ol>
                 </div>
             </div>
-        </div><!-- /.container-fluid -->
+        </div>
     </section>
 
-    <!-- Main content -->
+
     <section class="content">
         <div class="container-fluid">
             <div class="row">
@@ -24,7 +24,7 @@
                         <div class="card-header">
                             <h3 class="card-title">메뉴</h3>
                         </div>
-                        <!-- /.card-header -->
+
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered text-nowrap table-hover">
@@ -101,18 +101,17 @@
                                 </table>
                             </div>
                         </div>
-                        <!-- /.card-body -->
+
                         <div class="card-footer clearfix">
                             <button type="button" class="btn btn-info float-right" id="write" name="write">최상위 등록</button>
                         </div>
                     </div>
-                    <!-- /.card -->
+
                 </div>
             </div>
-            <!-- /.row -->
-        </div><!-- /.container-fluid -->
+        </div>
     </section>
-    <!-- /.content -->
+
 </div>
 
 <script>

@@ -1,5 +1,5 @@
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
+
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -13,10 +13,10 @@
                     </ol>
                 </div>
             </div>
-        </div><!-- /.container-fluid -->
+        </div>
     </section>
 
-    <!-- Main content -->
+
     <section class="content">
         <div class="container-fluid">
             <div class="row">
@@ -24,7 +24,7 @@
                     <div class="card card-primary">
                         <div class="card-header">
                             <h3 class="card-title">상세보기</h3>
-                        </div><!-- /.card-header -->
+                        </div>
                         <div class="card-body">
                             <div class="col-12">
                                 <div class="table-responsive">
@@ -82,9 +82,9 @@
                 </div>
             </div>
 
-        </div><!-- /.container-fluid -->
+        </div>
     </section>
-    <!-- /.content -->
+
 </div>
 
 <script>

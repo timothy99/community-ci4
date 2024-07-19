@@ -1,6 +1,6 @@
-    <!-- Content Wrapper. Contains page content -->
+    
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
+
         <section class="content-header">
             <div class="container">
                 <div class="row mb-2">
@@ -13,10 +13,10 @@
                         </ol>
                     </div>
                 </div>
-            </div><!-- /.container -->
+            </div>
         </section>
 
-        <!-- Main content -->
+    
         <div class="content">
             <div class="container">
 
@@ -48,11 +48,10 @@
                             </div>
                         </div>
                     </div>
-                </div><!-- /.row -->
-
-            </div><!-- /.container-fluid -->
-        </div><!-- /.content -->
-    </div><!-- /.content-wrapper -->
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 <script>

@@ -1,5 +1,5 @@
 <form id="frm" name="frm" class="login-form login-form2">
-    <!-- Content Wrapper. Contains page content -->
+    
     <div class="login-box">
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
