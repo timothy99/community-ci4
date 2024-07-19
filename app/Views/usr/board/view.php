@@ -62,24 +62,26 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="col-12">
-                                        <table class="table table-bordered table-responsive text-nowrap table-hover">
-                                            <tbody>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered text-nowrap table-hover">
+                                                <tbody>
 <?php       foreach($comment_list as $no => $val) { ?>
-                                                <form id="frm_<?=$val->bc_idx ?>" name="frm_<?=$val->bc_idx ?>"></form>
+                                                    <form id="frm_<?=$val->bc_idx ?>" name="frm_<?=$val->bc_idx ?>"></form>
 <?php           if (getUserSessionInfo("member_id") == $info->ins_id) { ?>
-                                                <tr id="bc_<?=$val->bc_idx ?>">
-                                                    <td><?=$val->comment ?></td>
-                                                    <td style="width:70px"><button type="button" class="btn btn-xs btn-danger" id="comment_delete" name="comment_delete" onclick="comment_delete(<?=$val->bc_idx ?>)">삭제</button></td>
-                                                    <td style="width:70px"><button type="button" class="btn btn-xs btn-success" id="comment_edit" name="comment_edit" onclick="comment_edit(<?=$val->bc_idx ?>)">수정</button></td>
-                                                </tr>
+                                                    <tr id="bc_<?=$val->bc_idx ?>">
+                                                        <td><?=$val->comment ?></td>
+                                                        <td style="width:70px"><button type="button" class="btn btn-xs btn-danger" id="comment_delete" name="comment_delete" onclick="comment_delete(<?=$val->bc_idx ?>)">삭제</button></td>
+                                                        <td style="width:70px"><button type="button" class="btn btn-xs btn-success" id="comment_edit" name="comment_edit" onclick="comment_edit(<?=$val->bc_idx ?>)">수정</button></td>
+                                                    </tr>
 <?php           } else { ?>
-                                                <tr id="bc_<?=$val->bc_idx ?>">
-                                                    <td colspan="3"><?=$val->comment ?></td>
-                                                </tr>
+                                                    <tr id="bc_<?=$val->bc_idx ?>">
+                                                        <td colspan="3"><?=$val->comment ?></td>
+                                                    </tr>
 <?php           } ?>
 <?php       } ?>
-                                            </tbody>
-                                        </table>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                         <dl class="row">
                                             <dd class="col-sm-11 text-right">총 댓글수</dd>
                                             <dd class="col-sm-1 text-center"><?=count($comment_list) ?></dd>

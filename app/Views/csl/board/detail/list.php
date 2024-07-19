@@ -2,7 +2,6 @@
 <input type="hidden" id="category" name="category" value="<?=$data["search_arr"]["category"] ?>">
 
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -17,10 +16,9 @@
                     </ol>
                 </div>
             </div>
-        </div><!-- /.container-fluid -->
+        </div>
     </section>
 
-    <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
             <div class="row">
@@ -90,74 +88,71 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- /.card-header -->
                         <div class="card-body">
-                            <table class="table table-bordered table-responsive text-nowrap table-hover">
-                                <thead class="text-center">
-                                    <tr>
-                                        <th>번호</th>
+                            <div class="table-responsive">
+                                <table class="table table-bordered text-nowrap table-hover">
+                                    <thead class="text-center">
+                                        <tr>
+                                            <th>번호</th>
 <?php   if ($config->category_yn == "Y") { ?>
-                                        <th>분류</th>
+                                            <th>분류</th>
 <?php   } ?>
-                                        <th>제목</th>
-                                        <th>입력자</th>
+                                            <th>제목</th>
+                                            <th>입력자</th>
 <?php   if ($config->reg_date_yn == "Y") { ?>
-                                        <th>등록일</th>
+                                            <th>등록일</th>
 <?php   } ?>
-                                        <th>입력일</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                                            <th>입력일</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 <?php   foreach($notice_list as $no => $val) { ?>
-                                    <tr>
-                                        <td>공지</td>
+                                        <tr>
+                                            <td>공지</td>
 <?php       if ($config->category_yn == "Y") { ?>
-                                        <td><?=$val->category ?></td>
+                                            <td><?=$val->category ?></td>
 <?php       } ?>
-                                        <td><a href="/csl/board/<?=$data["board_id"] ?>/view/<?=$val->b_idx ?>"><?=$val->title ?></a></td>
-                                        <td><?=$val->member_info->member_nickname ?></td>
+                                            <td><a href="/csl/board/<?=$data["board_id"] ?>/view/<?=$val->b_idx ?>"><?=$val->title ?></a></td>
+                                            <td><?=$val->member_info->member_nickname ?></td>
 <?php       if ($config->reg_date_yn == "Y") { ?>
-                                        <td><?=$val->reg_date_txt ?></td>
+                                            <td><?=$val->reg_date_txt ?></td>
 <?php       } ?>
-                                        <td><?=$val->ins_date_txt ?></td>
-                                    </tr>
+                                            <td><?=$val->ins_date_txt ?></td>
+                                        </tr>
 <?php   } ?>
 
 <?php   foreach($list as $no => $val) { ?>
-                                    <tr>
-                                        <td><?=$val->list_no ?></td>
+                                        <tr>
+                                            <td><?=$val->list_no ?></td>
 <?php       if ($config->category_yn == "Y") { ?>
-                                        <td><?=$val->category ?></td>
+                                            <td><?=$val->category ?></td>
 <?php       } ?>
-                                        <td><a href="/csl/board/<?=$data["board_id"] ?>/view/<?=$val->b_idx ?>"><?=$val->title ?></a></td>
-                                        <td><?=$val->member_info->member_nickname ?></td>
+                                            <td><a href="/csl/board/<?=$data["board_id"] ?>/view/<?=$val->b_idx ?>"><?=$val->title ?></a></td>
+                                            <td><?=$val->member_info->member_nickname ?></td>
 <?php       if ($config->reg_date_yn == "Y") { ?>
-                                        <td><?=$val->reg_date_txt ?></td>
+                                            <td><?=$val->reg_date_txt ?></td>
 <?php       } ?>
-                                        <td><?=$val->ins_date_txt ?></td>
-                                    </tr>
+                                            <td><?=$val->ins_date_txt ?></td>
+                                        </tr>
 <?php   } ?>
 <?php   if (count($list) == 0) { ?>
-                                    <tr>
-                                        <td colspan="6" class="text-center">데이터가 없습니다.</td>
-                                    </tr>
+                                        <tr>
+                                            <td colspan="6" class="text-center">데이터가 없습니다.</td>
+                                        </tr>
 <?php   } ?>
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        <!-- /.card-body -->
                         <div class="card-footer clearfix">
 <?=$paging_info["paging_view"] ?>
                             <button type="button" class="btn btn-info float-right" id="write" name="write">글쓰기</button>
                         </div>
                     </div>
-                    <!-- /.card -->
                 </div>
             </div>
-            <!-- /.row -->
-        </div><!-- /.container-fluid -->
+        </div>
     </section>
-    <!-- /.content -->
 </div>
 
 <script>

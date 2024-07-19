@@ -102,27 +102,29 @@
                                     <h3 class="card-title m-0">최신 공지사항</h3>
                                 </div>
                                 <div class="card-body">
-                                    <table class="table table-bordered table-responsive text-nowrap table-hover">
-                                        <thead class="text-center">
-                                            <tr>
-                                                <th>제목</th>
-                                                <th>입력일</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered text-nowrap table-hover">
+                                            <thead class="text-center">
+                                                <tr>
+                                                    <th>제목</th>
+                                                    <th>입력일</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
 <?php   foreach($notice_list as $no => $val) { ?>
-                                            <tr>
-                                                <td><a href="/board/<?=$val->board_id ?>/view/<?=$val->b_idx ?>"><?=$val->title ?></a></td>
-                                                <td><?=$val->ins_date_txt ?></td>
-                                            </tr>
+                                                <tr>
+                                                    <td><a href="/board/<?=$val->board_id ?>/view/<?=$val->b_idx ?>"><?=$val->title ?></a></td>
+                                                    <td><?=$val->ins_date_txt ?></td>
+                                                </tr>
 <?php   } ?>
 <?php   if (count($notice_list) == 0) { ?>
-                                            <tr>
-                                                <td colspan="6" class="text-center">데이터가 없습니다.</td>
-                                            </tr>
+                                                <tr>
+                                                    <td colspan="6" class="text-center">데이터가 없습니다.</td>
+                                                </tr>
 <?php   } ?>
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -133,27 +135,29 @@
                                     <h3 class="card-title m-0">최신 자유게시판</h3>
                                 </div>
                                 <div class="card-body">
-                                    <table class="table table-bordered table-responsive text-nowrap table-hover">
-                                        <thead class="text-center">
-                                            <tr>
-                                                <th>제목</th>
-                                                <th>입력일</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered text-nowrap table-hover">
+                                            <thead class="text-center">
+                                                <tr>
+                                                    <th>제목</th>
+                                                    <th>입력일</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
 <?php   foreach($free_list as $no => $val) { ?>
-                                            <tr>
-                                                <td><a href="/board/<?=$val->board_id ?>/view/<?=$val->b_idx ?>"><?=$val->title ?></a></td>
-                                                <td><?=$val->ins_date_txt ?></td>
-                                            </tr>
+                                                <tr>
+                                                    <td><a href="/board/<?=$val->board_id ?>/view/<?=$val->b_idx ?>"><?=$val->title ?></a></td>
+                                                    <td><?=$val->ins_date_txt ?></td>
+                                                </tr>
 <?php   } ?>
 <?php   if (count($free_list) == 0) { ?>
-                                            <tr>
-                                                <td colspan="6" class="text-center">데이터가 없습니다.</td>
-                                            </tr>
+                                                <tr>
+                                                    <td colspan="6" class="text-center">데이터가 없습니다.</td>
+                                                </tr>
 <?php   } ?>
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>

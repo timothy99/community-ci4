@@ -44,33 +44,35 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table class="table table-bordered table-responsive table-responsive text-nowrap table-hover">
-                                <thead class="text-center">
-                                    <tr>
-                                        <th>번호</th>
+                            <div class="table-responsive">
+                                <table class="table table-bordered text-nowrap table-hover">
+                                    <thead class="text-center">
+                                        <tr>
+                                            <th>번호</th>
 <?php   if (count($list) > 0) { ?>
 <?php       foreach($list[0]->json_arr as $no => $val) { ?>
-                                        <th><?=$no ?></th>
+                                            <th><?=$no ?></th>
 <?php       } ?>
 <?php   } ?>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 <?php   foreach($list as $no => $val) { ?>
-                                    <tr>
-                                        <td><?=$val->list_no ?></td>
+                                        <tr>
+                                            <td><?=$val->list_no ?></td>
 <?php       foreach($val->json_arr as $no2 => $val2) { ?>
-                                        <td><?=$val2 ?></td>
+                                            <td><?=$val2 ?></td>
 <?php       } ?>
-                                    </tr>
+                                        </tr>
 <?php   } ?>
 <?php   if (count($list) == 0) { ?>
-                                    <tr>
-                                        <td colspan="3" class="text-center">데이터가 없습니다.</td>
-                                    </tr>
+                                        <tr>
+                                            <td colspan="3" class="text-center">데이터가 없습니다.</td>
+                                        </tr>
 <?php   } ?>
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">

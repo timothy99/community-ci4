@@ -26,54 +26,56 @@
                             <h3 class="card-title">회원정보 보기</h3>
                         </div><!-- /.card-header -->
                         <div class="card-body">
-                            <table class="table table-bordered table-responsive text-nowrap table-hover">
-                                <tbody>
-                                    <tr>
-                                        <th>아이디</th>
-                                        <td><?=$info->member_name ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th>이름</th>
-                                        <td><?=$info->member_name ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th>별명</th>
-                                        <td><?=$info->member_nickname ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th>이메일</th>
-                                        <td><?=$info->email ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th>전화</th>
-                                        <td><?=$info->phone ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th>우편번호</th>
-                                        <td><?=$info->post_code ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th>주소1</th>
-                                        <td><?=$info->addr1 ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th>주소2</th>
-                                        <td><?=$info->addr2 ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th>권한그룹</th>
-                                        <td><?=$info->auth_group ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th>마지막 접속일</th>
-                                        <td><?=$info->last_login_date_txt ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th>마지막IP</th>
-                                        <td><?=$info->last_login_ip ?></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="table-responsive">
+                                <table class="table table-bordered text-nowrap table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <th>아이디</th>
+                                            <td><?=$info->member_name ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th>이름</th>
+                                            <td><?=$info->member_name ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th>별명</th>
+                                            <td><?=$info->member_nickname ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th>이메일</th>
+                                            <td><?=$info->email ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th>전화</th>
+                                            <td><?=$info->phone ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th>우편번호</th>
+                                            <td><?=$info->post_code ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th>주소1</th>
+                                            <td><?=$info->addr1 ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th>주소2</th>
+                                            <td><?=$info->addr2 ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th>권한그룹</th>
+                                            <td><?=$info->auth_group ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th>마지막 접속일</th>
+                                            <td><?=$info->last_login_date_txt ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th>마지막IP</th>
+                                            <td><?=$info->last_login_ip ?></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <div class="card-footer">
                             <div class="d-flex justify-content-end">

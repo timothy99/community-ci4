@@ -27,17 +27,21 @@
                                 <h3 class="card-title m-0">회원정보</h3>
                             </div>
                             <div class="card-body">
-                                <table class="table table-bordered table-responsive text-nowrap table-hover">
-                                    <tbody>
-                                        <tr>
-                                            <th>아이디</th>
-                                            <td><?=$info->member_id ?></td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2">탈퇴 하시겠습니까? 블라블라</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div class="table-responsive">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered text-nowrap table-hover">
+                                            <tbody>
+                                                <tr>
+                                                    <th>아이디</th>
+                                                    <td><?=$info->member_id ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2">탈퇴 하시겠습니까? 블라블라</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-footer clear-fix d-flex justify-content-end">
                                 <button type="button" class="btn btn-danger ml-3" id="leave" name="leave">탈퇴</button>

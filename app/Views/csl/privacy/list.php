@@ -50,33 +50,35 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table class="table table-bordered table-responsive text-nowrap table-hover">
-                                <thead class="text-center">
-                                    <tr>
-                                        <th>번호</th>
-                                        <th>링크</th>
-                                        <th>메모</th>
-                                        <th>작업자</th>
-                                        <th>입력일</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                            <div class="table-responsive">
+                                <table class="table table-bordered text-nowrap table-hover">
+                                    <thead class="text-center">
+                                        <tr>
+                                            <th>번호</th>
+                                            <th>링크</th>
+                                            <th>메모</th>
+                                            <th>작업자</th>
+                                            <th>입력일</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 <?php   foreach($list as $no => $val) { ?>
-                                    <tr>
-                                        <td><?=$val->list_no ?></td>
-                                        <td><a href="<?=$val->http_link ?>" target="_blank"><?=$val->http_link ?></a></td>
-                                        <td><?=$val->memo ?></td>
-                                        <td><?=$val->ins_id ?></td>
-                                        <td><?=$val->ins_date_txt ?></td>
-                                    </tr>
+                                        <tr>
+                                            <td><?=$val->list_no ?></td>
+                                            <td><a href="<?=$val->http_link ?>" target="_blank"><?=$val->http_link ?></a></td>
+                                            <td><?=$val->memo ?></td>
+                                            <td><?=$val->ins_id ?></td>
+                                            <td><?=$val->ins_date_txt ?></td>
+                                        </tr>
 <?php   } ?>
 <?php   if (count($list) == 0) { ?>
-                                    <tr>
-                                        <td colspan="5" class="text-center">데이터가 없습니다.</td>
-                                    </tr>
+                                        <tr>
+                                            <td colspan="5" class="text-center">데이터가 없습니다.</td>
+                                        </tr>
 <?php   } ?>
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">

@@ -79,10 +79,6 @@
     right: 0
 }
 
-td:nth-last-child(1) {
-    width:100%;
-}
-
 .login-box, .register-box {
     margin-top: 2rem;
     width: 90%;
