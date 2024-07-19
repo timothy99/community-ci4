@@ -98,10 +98,17 @@
                                     <div class="card-body">
                                         <div class="form-group row">
                                             <label for="comment" class="col-sm-1 col-form-label">댓글</label>
+<?php   if (getUserSessionInfo("member_id") === null) { ?>
+                                            <div class="col-sm-10">
+                                                <textarea class="form-control" id="comment" name="comment" rows="4" disabled>댓글은 로그인후 작성이 가능합니다.</textarea>
+                                            </div>
+                                            <button type="button" class="btn btn-info float-right">등록</button>
+<?php   } else { ?>
                                             <div class="col-sm-10">
                                                 <textarea class="form-control" id="comment" name="comment" rows="4"></textarea>
                                             </div>
                                             <button type="button" class="btn btn-info float-right" id="comment_insert" name="comment_insert">등록</button>
+<?php   } ?>
                                         </div>
                                     </div>
                                 </div>
@@ -150,4 +157,7 @@
             ajax2("/comment/delete/"+bc_idx);
         }
     }
+
+
+
 </script>
