@@ -5,8 +5,6 @@
                 <a href="/" class="h1"><?=env("app.sitename") ?></a>
             </div>
             <div class="card-body">
-
-                <!-- Nested Row within Card Body -->
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="text-center">

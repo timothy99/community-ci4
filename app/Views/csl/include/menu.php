@@ -1,18 +1,13 @@
-    <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
-        <!-- Brand Logo -->
         <a href="/csl" class="brand-link text-center">
             <span class="brand-text font-weight-light"><?=env("app.sitename") ?></span>
         </a>
-        <!-- Sidebar -->
         <div class="sidebar">
-            <!-- Sidebar user (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="info">
                     <a href="/csl/member/logout" class="d-block"><?=getUserSessionInfo("member_nickname") ?></a>
                 </div>
             </div>
-            <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar nav-flat nav-child-indent flex-column">
                     <li class="nav-header">메뉴</li>
@@ -106,7 +101,5 @@
                     </li>
                 </ul>
             </nav>
-            <!-- /.sidebar-menu -->
         </div>
-        <!-- /.sidebar -->
     </aside>

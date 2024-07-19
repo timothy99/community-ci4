@@ -1,6 +1,5 @@
 <form id="frm" name="frm" onsubmit="return false" class="login-form">
     <div class="login-box">
-        <!-- Outer Row -->
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
                 <a href="/" class="h1"><?=env("app.sitename") ?></a>

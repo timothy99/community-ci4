@@ -1,5 +1,5 @@
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
+
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -14,10 +14,10 @@
                     </ol>
                 </div>
             </div>
-        </div><!-- /.container-fluid -->
+        </div>
     </section>
 
-    <!-- Main content -->
+
     <section class="content">
         <div class="container-fluid">
             <div class="row">
@@ -25,7 +25,7 @@
                     <div class="card card-primary">
                         <div class="card-header">
                             <h3 class="card-title"><?=$info->title ?></h3>
-                        </div><!-- /.card-header -->
+                        </div>
                         <div class="card-body">
                             <div class="col-12">
                                 <dl class="row">
@@ -64,7 +64,6 @@
                     </div>
                 </div>
             </div>
-            <!-- /.row -->
 <?php   if (count($comment_list) > 0) { ?>
             <div class="row">
                 <div class="col-12">
@@ -116,9 +115,9 @@
                     </div>
                 </div>
             </form>
-        </div><!-- /.container-fluid -->
+        </div>
     </section>
-    <!-- /.content -->
+
 </div>
 
 <script>
