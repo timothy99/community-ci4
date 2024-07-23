@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controllers\Usr;
+namespace App\Controllers\Lgn;
 
 use App\Controllers\BaseController;
 
-use App\Models\Usr\MemberModel;
+use App\Models\Lgn\MemberModel;
 
 class Member extends BaseController
 {
@@ -31,7 +31,7 @@ class Member extends BaseController
         $proc_result["info"] = $model_result["info"];
         $proc_result["title_info"] = $title_info;
 
-        return mview("usr/member/view", $proc_result);
+        return mview("lgn/member/view", $proc_result);
     }
 
     public function login()
@@ -42,7 +42,7 @@ class Member extends BaseController
             return redirect()->to("/");
         }
 
-        return mview("usr/member/login");
+        return mview("lgn/member/login");
     }
 
     public function signin()
@@ -122,7 +122,7 @@ class Member extends BaseController
         $data = array();
         $data["uri"] = $this->request->getUri()->getPath();
 
-        return mview("usr/member/join", $data);
+        return mview("lgn/member/join", $data);
     }
 
     public function duplicate()
@@ -198,7 +198,7 @@ class Member extends BaseController
     {
         session_destroy();
 
-        return redirect()->to("/home/home");
+        return redirect()->to("/");
     }
 
     public function edit()
@@ -219,7 +219,7 @@ class Member extends BaseController
         $proc_result["info"] = $model_result["info"];
         $proc_result["title_info"] = $title_info;
 
-        return mview("usr/member/edit", $proc_result);
+        return mview("lgn/member/edit", $proc_result);
     }
 
     public function update()
@@ -277,7 +277,7 @@ class Member extends BaseController
         $proc_result["info"] = $model_result["info"];
         $proc_result["title_info"] = $title_info;
 
-        return uview("usr/member/leave", $proc_result);
+        return mview("lgn/member/leave", $proc_result);
     }
 
     public function delete()

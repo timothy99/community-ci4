@@ -11,29 +11,6 @@ $routes->get("/home/home", "Usr\Home::home");
 $routes->get("/menu", "Usr\Menu::index");
 $routes->get("/menu/menu1", "Usr\Menu::menu1");
 $routes->get("/menu/menu2", "Usr\Menu::menu2");
-$routes->get("/member/myinfo", "Usr\Member::myinfo");
-$routes->get("/member/login", "Usr\Member::login");
-$routes->get("/member/join", "Usr\Member::join");
-$routes->post("/member/signup", "Usr\Member::signup");
-$routes->post("/member/signin", "Usr\Member::signin");
-$routes->get("/member/logout", "Usr\Member::logout");
-$routes->post("/member/duplicate", "Usr\Member::duplicate");
-$routes->get("/member/view", "Usr\Member::view");
-$routes->get("/member/edit", "Usr\Member::edit");
-$routes->post("/member/update", "Usr\Member::update");
-$routes->get("/member/leave", "Usr\Member::leave");
-$routes->post("/member/delete", "Usr\Member::delete");
-
-$routes->get("/password/find", "Usr\Password::find");
-$routes->post("/password/send", "Usr\Password::send");
-$routes->get("/password/forgot", "Usr\Password::forgot");
-$routes->post("/password/password", "Usr\Password::password");
-$routes->get("/password/reset/(:any)", "Usr\Password::reset");
-$routes->post("/password/update", "Usr\Password::update");
-$routes->get("/password/confirm", "Usr\Password::confirm");
-$routes->post("/password/search", "Usr\Password::search");
-$routes->get("/password/modify", "Usr\Password::modify");
-$routes->post("/password/change", "Usr\Password::change");
 
 $routes->get("/board", "Usr\Board::index");
 $routes->get("/board/(:any)/list", "Usr\Board::list");
@@ -55,21 +32,32 @@ $routes->post("/ask/write", "Usr\Ask::write");
 
 $routes->get("/s/(:num)", "Usr\Shortlink::hyperlink");
 
+$routes->get("/member/myinfo", "Lgn\Member::myinfo");
+$routes->get("/member/login", "Lgn\Member::login");
+$routes->get("/member/join", "Lgn\Member::join");
+$routes->post("/member/signup", "Lgn\Member::signup");
+$routes->post("/member/signin", "Lgn\Member::signin");
+$routes->get("/member/logout", "Lgn\Member::logout");
+$routes->post("/member/duplicate", "Lgn\Member::duplicate");
+$routes->get("/member/view", "Lgn\Member::view");
+$routes->get("/member/edit", "Lgn\Member::edit");
+$routes->post("/member/update", "Lgn\Member::update");
+$routes->get("/member/leave", "Lgn\Member::leave");
+$routes->post("/member/delete", "Lgn\Member::delete");
 
+$routes->get("/password/find", "Lgn\Password::find");
+$routes->post("/password/send", "Lgn\Password::send");
+$routes->get("/password/forgot", "Lgn\Password::forgot");
+$routes->post("/password/password", "Lgn\Password::password");
+$routes->get("/password/reset/(:any)", "Lgn\Password::reset");
+$routes->post("/password/update", "Lgn\Password::update");
+$routes->get("/password/confirm", "Lgn\Password::confirm");
+$routes->post("/password/search", "Lgn\Password::search");
+$routes->get("/password/modify", "Lgn\Password::modify");
+$routes->post("/password/change", "Lgn\Password::change");
 
-
-
-
-
-
-
-
-
-
-
-
-// 관리자
 $routes->get("/csl", "Csl\Member::index");
+
 $routes->get("/csl/member", "Csl\Member::index");
 $routes->get("/csl/member/list", "Csl\Member::list");
 $routes->get("/csl/member/view/(:alphanum)", "Csl\Member::view");
