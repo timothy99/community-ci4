@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Usr;
+namespace App\Models\Common;
 
 use CodeIgniter\Model;
 use Throwable;

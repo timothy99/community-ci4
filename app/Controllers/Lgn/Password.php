@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Controllers\Usr;
+namespace App\Controllers\Lgn;
 
 use App\Controllers\BaseController;
-use App\Models\Common\DateModel;
-use App\Models\Usr\PasswordModel;
-use App\Models\Usr\MailModel;
+use App\Models\Lgn\PasswordModel;
+use App\Models\Common\MailModel;
 
 class Password extends BaseController
 {
@@ -17,7 +16,7 @@ class Password extends BaseController
     // 아이디 찾기
     public function find()
     {
-        return mview("usr/password/find");
+        return mview("lgn/password/find");
     }
 
     // 아이디에 대한 이메일 보내기
@@ -65,7 +64,7 @@ class Password extends BaseController
     // 암호찾기
     public function forgot()
     {
-        return mview("usr/password/forgot");
+        return mview("lgn/password/forgot");
     }
 
     // 암호 초기화 메일 보내기
@@ -139,7 +138,7 @@ class Password extends BaseController
             redirect_alert("유효기간이 만료되었습니다. 다시 요청해주세요.", "/");
         }
 
-        return mview("usr/password/reset", $data);
+        return mview("lgn/password/reset", $data);
     }
 
     public function update()
@@ -210,7 +209,7 @@ class Password extends BaseController
     // 암호변경을 위한 암호 확인 화면
     public function confirm()
     {
-        return mview("usr/password/confirm");
+        return mview("lgn/password/confirm");
     }
 
     // 암호가 맞는지 확인
@@ -243,7 +242,7 @@ class Password extends BaseController
     // 암호변경을 위한 암호 확인 화면
     public function modify()
     {
-        return mview("usr/password/modify");
+        return mview("lgn/password/modify");
     }
 
     // 암호를 알고 있는 상태에서의 암호 변경

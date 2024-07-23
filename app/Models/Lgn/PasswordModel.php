@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Usr;
+namespace App\Models\Lgn;
 
 use CodeIgniter\Model;
 use App\Models\Common\SecurityModel;
