@@ -205,12 +205,10 @@ class BoardModel extends Model
         return $model_result;
     }
 
-    // 게시판 입력
     public function procBoardUpdate($data)
     {
         $date_model = new DateModel();
 
-        // 게시판 입력과 관련된 기본 정보
         $user_id = getUserSessionInfo("member_id");
         $today = date("YmdHis");
 
@@ -265,10 +263,8 @@ class BoardModel extends Model
         return $model_result;
     }
 
-    // 게시판 삭제
     public function procBoardDelete($data)
     {
-        // 게시판 입력과 관련된 기본 정보
         $member_id = getUserSessionInfo("member_id");
         $today = date("YmdHis");
 

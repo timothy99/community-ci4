@@ -28,7 +28,6 @@ class Popup extends BaseController
         $proc_result["result"] = $result;
         $proc_result["message"] = $message;
 
-
         return json_encode($proc_result);
     }
 

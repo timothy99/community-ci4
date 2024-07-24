@@ -1,5 +1,4 @@
 <div class="content-wrapper">
-
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -16,7 +15,6 @@
             </div>
         </div>
     </section>
-
 
     <section class="content">
         <div class="container-fluid">
@@ -44,7 +42,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-12">
                     <div class="card card-info">
@@ -91,10 +88,8 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </section>
-
 </div>
 
 <script>
@@ -121,5 +116,4 @@
         var search_text = $("#search_text").val();
         location.href = "/csl/youtube/search?search_text="+search_text;
     }
-
 </script>

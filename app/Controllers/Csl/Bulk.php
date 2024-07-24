@@ -11,7 +11,7 @@ class Bulk extends BaseController
 {
     public function index()
     {
-        return redirect()->to("/csl/bulk/list");
+        return redirect()->to("/csl");
     }
 
     public function list()

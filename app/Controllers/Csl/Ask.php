@@ -10,7 +10,7 @@ class Ask extends BaseController
 {
     public function index()
     {
-        return redirect()->to("/csl/slide/list");
+        return redirect()->to("/csl");
     }
 
     public function list()

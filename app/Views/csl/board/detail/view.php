@@ -1,5 +1,4 @@
 <div class="content-wrapper">
-
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -16,7 +15,6 @@
             </div>
         </div>
     </section>
-
 
     <section class="content">
         <div class="container-fluid">
@@ -74,7 +72,7 @@
                                     <table class="table table-bordered text-nowrap table-hover">
                                         <tbody>
 <?php       foreach($comment_list as $no => $val) { ?>
-<form id="frm_<?=$val->bc_idx ?>" name="frm_<?=$val->bc_idx ?>"><input type="hidden" id="ddd" name="ddd" value="123"></form>
+                                            <form id="frm_<?=$val->bc_idx ?>" name="frm_<?=$val->bc_idx ?>"><input type="hidden" id="ddd" name="ddd" value="123"></form>
                                             <tr id="bc_<?=$val->bc_idx ?>">
                                                 <td><?=$val->ins_id ?></td>
                                                 <td><?=$val->comment ?></td>
@@ -117,7 +115,6 @@
             </form>
         </div>
     </section>
-
 </div>
 
 <script>

@@ -4,7 +4,6 @@ namespace App\Models\Csl;
 
 use CodeIgniter\Model;
 use App\Models\Common\DateModel;
-use Throwable;
 
 class MenuModel extends Model
 {
@@ -80,10 +79,8 @@ class MenuModel extends Model
         return $proc_result;
     }
 
-    // 게시판 입력
     public function procMenuInsert($data)
     {
-        // 게시판 입력과 관련된 기본 정보
         $user_id = getUserSessionInfo("member_id");
         $today = date("YmdHis");
 
@@ -182,10 +179,8 @@ class MenuModel extends Model
         return $proc_result;
     }
 
-    // 게시판 입력
     public function procMenuUpdate($data)
     {
-        // 게시판 입력과 관련된 기본 정보
         $user_id = getUserSessionInfo("member_id");
         $today = date("YmdHis");
 
@@ -227,7 +222,6 @@ class MenuModel extends Model
 
     public function procMenuDelete($data)
     {
-        // 게시판 입력과 관련된 기본 정보
         $user_id = getUserSessionInfo("member_id");
         $today = date("YmdHis");
 

@@ -3,7 +3,6 @@
 namespace App\Models\Csl;
 
 use CodeIgniter\Model;
-use Throwable;
 use App\Models\Common\DateModel;
 
 class CommentModel extends Model
@@ -37,10 +36,8 @@ class CommentModel extends Model
         return $proc_result;
     }
 
-    // 게시판 입력
     public function procCommentInsert($data)
     {
-        // 게시판 입력과 관련된 기본 정보
         $user_id = getUserSessionInfo("member_id");
         $today = date("YmdHis");
 
@@ -132,10 +129,8 @@ class CommentModel extends Model
         return $proc_result;
     }
 
-    // 게시판 입력
     public function procCommentUpdate($data)
     {
-        // 게시판 입력과 관련된 기본 정보
         $user_id = getUserSessionInfo("member_id");
         $today = date("YmdHis");
 

@@ -48,7 +48,6 @@ class BulkModel extends Model
         return $proc_result;
     }
 
-    // 게시판 입력
     public function procBulkInsert($data)
     {
         $file_model = new FileModel();
@@ -60,7 +59,6 @@ class BulkModel extends Model
         $title = $data["title"];
         $bulk_file = $data["bulk_file"];
 
-        // 게시판 입력과 관련된 기본 정보
         $user_id = getUserSessionInfo("member_id");
         $today = date("YmdHis");
 
@@ -167,10 +165,9 @@ class BulkModel extends Model
         return $proc_result;
     }
 
-    // 게시판 입력
+
     public function procBulkUpdate($data)
     {
-        // 게시판 입력과 관련된 기본 정보
         $user_id = getUserSessionInfo("member_id");
         $today = date("YmdHis");
 

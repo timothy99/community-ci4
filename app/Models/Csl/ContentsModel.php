@@ -3,7 +3,6 @@
 namespace App\Models\Csl;
 
 use CodeIgniter\Model;
-use Throwable;
 use App\Models\Common\DateModel;
 
 class ContentsModel extends Model
@@ -76,10 +75,8 @@ class ContentsModel extends Model
         return $proc_result;
     }
 
-    // 게시판 입력
     public function procContentsInsert($data)
     {
-        // 게시판 입력과 관련된 기본 정보
         $user_id = getUserSessionInfo("member_id");
         $today = date("YmdHis");
 
@@ -118,10 +115,8 @@ class ContentsModel extends Model
         return $model_result;
     }
 
-    // 게시판 입력
     public function procContentsUpdate($data)
     {
-        // 게시판 입력과 관련된 기본 정보
         $user_id = getUserSessionInfo("member_id");
         $today = date("YmdHis");
 
@@ -157,10 +152,8 @@ class ContentsModel extends Model
         return $model_result;
     }
 
-    // 게시판 삭제
     public function procContentsDelete($data)
     {
-        // 게시판 입력과 관련된 기본 정보
         $member_id = getUserSessionInfo("member_id");
         $today = date("YmdHis");
 

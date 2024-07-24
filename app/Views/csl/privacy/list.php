@@ -1,5 +1,4 @@
 <div class="content-wrapper">
-
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -15,7 +14,6 @@
             </div>
         </div>
     </section>
-
 
     <section class="content">
         <div class="container-fluid">
@@ -48,7 +46,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered text-nowrap table-hover">
@@ -80,17 +77,14 @@
                                 </table>
                             </div>
                         </div>
-
                         <div class="card-footer clearfix">
 <?=$paging_info["paging_view"] ?>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </section>
-
 </div>
 
 <script>

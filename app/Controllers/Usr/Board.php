@@ -5,7 +5,7 @@ namespace App\Controllers\Usr;
 use App\Controllers\BaseController;
 use App\Models\Usr\BoardModel;
 use App\Models\Common\PagingModel;
-use App\Models\Common\FileModel;
+
 use App\Models\Csl\CommentModel;
 use App\Models\Usr\BoardConfigModel;
 
@@ -13,7 +13,7 @@ class Board extends BaseController
 {
     public function index()
     {
-        return redirect()->to("/board/notice/list");
+        return redirect()->to("/");
     }
 
     public function list()
@@ -70,7 +70,7 @@ class Board extends BaseController
     public function view()
     {
         $board_model = new BoardModel();
-        $file_model = new FileModel();
+
         $comment_model = new CommentModel();
         $config_model = new BoardConfigModel();
 
@@ -89,15 +89,6 @@ class Board extends BaseController
         $message = $model_result["message"];
         $info = $model_result["info"];
 
-        $file_arr = strlen($info->file_idxs) > 0 ? explode("|", $info->file_idxs) : array();
-        $file_list = array();
-        if (count($file_arr) > 0) {
-            foreach($file_arr as $no => $val) {
-                $file_info = $file_model->getFileInfo($val);
-                $file_list[] = $file_info;
-            }
-        }
-
         // 댓글목록
         $model_result = $comment_model->getCommentList($data);
         $comment_list = $model_result["list"];
@@ -115,7 +106,6 @@ class Board extends BaseController
         $proc_result["message"] = $message;
         $proc_result["title_info"] = $title_info;
         $proc_result["info"] = $info;
-        $proc_result["file_list"] = $file_list;
         $proc_result["comment_list"] = $comment_list;
         $proc_result["board_id"] = $board_id;
 
@@ -242,7 +232,6 @@ class Board extends BaseController
     public function edit()
     {
         $board_model = new BoardModel();
-        $file_model = new FileModel();
         $config_model = new BoardConfigModel();
 
         $board_id = $this->request->getUri()->getSegment(2);
@@ -257,14 +246,6 @@ class Board extends BaseController
 
         $model_result = $board_model->getBoardInfo($data);
         $info = $model_result["info"];
-        $file_arr = strlen($info->file_idxs) > 0 ? explode("|", $info->file_idxs) : array();
-        $file_list = array();
-        if (count($file_arr) > 0) {
-            foreach($file_arr as $no => $val) {
-                $file_info = $file_model->getFileInfo($val);
-                $file_list[] = $file_info;
-            }
-        }
 
         $model_result = $config_model->getConfigInfo($data);
         $title = $model_result["info"]->title;
@@ -281,7 +262,6 @@ class Board extends BaseController
         $proc_result["b_idx"] = $b_idx;
         $proc_result["title_info"] = $title_info;
         $proc_result["info"] = $info;
-        $proc_result["file_list"] = $file_list;
 
         return uview("usr/board/edit", $proc_result);
     }

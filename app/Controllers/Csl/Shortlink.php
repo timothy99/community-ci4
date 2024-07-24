@@ -11,7 +11,7 @@ class Shortlink extends BaseController
 {
     public function index()
     {
-        return redirect()->to("/csl/shortlink/list");
+        return redirect()->to("/csl");
     }
 
     public function list()

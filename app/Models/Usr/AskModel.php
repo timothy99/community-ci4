@@ -3,14 +3,11 @@
 namespace App\Models\Usr;
 
 use CodeIgniter\Model;
-use Throwable;
 
 class AskModel extends Model
 {
-    // 게시판 입력
     public function procAskInsert($data)
     {
-        // 게시판 입력과 관련된 기본 정보
         $user_id = getUserSessionInfo("member_id");
         $today = date("YmdHis");
 

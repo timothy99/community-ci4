@@ -4,7 +4,7 @@ namespace App\Controllers\Usr;
 
 use App\Controllers\BaseController;
 use App\Models\Usr\AskModel;
-use App\Models\Usr\MailModel;
+use App\Models\Common\MailModel;
 
 class Ask extends BaseController
 {

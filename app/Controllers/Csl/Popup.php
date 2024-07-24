@@ -12,7 +12,7 @@ class Popup extends BaseController
 {
     public function index()
     {
-        return redirect()->to("/csl/popup/list");
+        return redirect()->to("/csl");
     }
 
     public function list()

@@ -1,5 +1,4 @@
 <div class="content-wrapper">
-
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -15,8 +14,6 @@
             </div>
         </div>
     </section>
-
-
     <section class="content">
         <div class="container-fluid">
             <div class="row">
@@ -51,7 +48,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered text-nowrap table-hover">
@@ -83,18 +79,15 @@
                                 </table>
                             </div>
                         </div>
-
                         <div class="card-footer clearfix">
 <?=$paging_info["paging_view"] ?>
                             <button type="button" class="btn btn-info float-right" id="write" name="write">추가</button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </section>
-
 </div>
 
 <script>
@@ -103,7 +96,6 @@
         $("#li-board-config-list").addClass("menu-open");
         $("#upper-board-config-list").addClass("active");
         $("#a-board-config-list").addClass("active");
-
         // 셀렉트 박스 선택
         $("#search_condition").val("<?=$data["search_arr"]["search_condition"] ?>").prop("selected", true);
         $("#search_text").val("<?=$data["search_arr"]["search_text"] ?>");
@@ -124,6 +116,7 @@
         $("#write").click(function(e) {
             location.href = "/csl/board/config/write";
         });
+
     });
 
     function search() {

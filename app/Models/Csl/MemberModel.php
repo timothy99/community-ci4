@@ -3,8 +3,6 @@
 namespace App\Models\Csl;
 
 use CodeIgniter\Model;
-use App\Models\Common\SecurityModel;
-use Throwable;
 use App\Models\Common\DateModel;
 
 class MemberModel extends Model
@@ -171,7 +169,6 @@ class MemberModel extends Model
         return $proc_result;
     }
 
-    // 회원정보 입력
     public function procMemberDelete($data)
     {
         $result = true;

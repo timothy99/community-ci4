@@ -7,7 +7,6 @@ use CodeIgniter\Model;
 class SecurityModel extends Model
 {
     /**
-     * @author 배진모
      * @see 원하는 요청에 따른 랜덤 문자열 생성
      * @param string $method - 랜덤문자열 생성 방식
      * @param string $length - 랜덤문자열 길이
@@ -57,7 +56,6 @@ class SecurityModel extends Model
     }
 
     /**
-     * @author 배진모
      * @see 단방향 SHA512방식 암호화 문자열 제공
      * @param string $password - 암호화 이전 평문 문자열
      * @return string $password_enc - 암호화된 문자열

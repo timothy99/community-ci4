@@ -4,14 +4,8 @@
         </div>
         <strong><?=date("Y") ?> <a href="/"><?=env("app.companyName") ?></a> </strong>
     </footer>
-
-
-    <aside class="control-sidebar control-sidebar-dark">
-
-    </aside>
-
+    <aside class="control-sidebar control-sidebar-dark"></aside>
 </div>
-
 
 </body>
 </html>

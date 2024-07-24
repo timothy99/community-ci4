@@ -10,7 +10,7 @@ class Privacy extends BaseController
 {
     public function index()
     {
-        return redirect()->to("/csl/member/list");
+        return redirect()->to("/csl");
     }
 
     public function list()

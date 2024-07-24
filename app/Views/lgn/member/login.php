@@ -1,6 +1,5 @@
 <form id="frm" name="frm" class="login-form">
     <div class="login-box">
-
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
                 <a href="/" class="h1"><?=env("app.sitename") ?></a>
@@ -23,11 +22,8 @@
                     <a href="/member/join" class="btn btn-info text-center">신규가입</a>
                 </p>
             </div>
-
         </div>
-        
     </div>
-
 </form>
 
 <script>

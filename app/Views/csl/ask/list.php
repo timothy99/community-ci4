@@ -1,5 +1,4 @@
 <div class="content-wrapper">
-
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -51,7 +50,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered text-nowrap table-hover">
@@ -91,7 +89,6 @@
             </div>
         </div>
     </section>
-
 </div>
 
 <script>

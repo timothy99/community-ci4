@@ -11,7 +11,7 @@ class Board extends BaseController
 {
     public function index()
     {
-        return redirect()->to("/csl/board/notice/list");
+        return redirect()->to("/csl");
     }
 
     public function list()
@@ -207,6 +207,7 @@ class Board extends BaseController
         $result = $model_result["result"];
         $message = $model_result["message"];
         $info = $model_result["info"];
+        $data["info"] = $info;
 
         // 파일목록
         $model_result = $board_model->getBoardFileList($data);
@@ -275,6 +276,7 @@ class Board extends BaseController
 
         $model_result = $board_model->getBoardInfo($data);
         $info = $model_result["info"];
+        $data["info"] = $info;
 
         // 파일목록
         $model_result = $board_model->getBoardFileList($data);

@@ -83,10 +83,8 @@ class SlideModel extends Model
         return $proc_result;
     }
 
-    // 게시판 입력
     public function procSlideInsert($data)
     {
-        // 게시판 입력과 관련된 기본 정보
         $user_id = getUserSessionInfo("member_id");
         $today = date("YmdHis");
 
@@ -137,7 +135,6 @@ class SlideModel extends Model
         return $model_result;
     }
 
-    // 게시판 입력
     public function procSlideUpdate($data)
     {
         // 게시판 입력과 관련된 기본 정보
@@ -188,10 +185,8 @@ class SlideModel extends Model
         return $model_result;
     }
 
-    // 게시판 삭제
     public function procSlideDelete($data)
     {
-        // 게시판 입력과 관련된 기본 정보
         $member_id = getUserSessionInfo("member_id");
         $today = date("YmdHis");
 

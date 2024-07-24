@@ -11,7 +11,7 @@ class Contents extends BaseController
 {
     public function index()
     {
-        return redirect()->to("/csl/contents/list");
+        return redirect()->to("/csl");
     }
 
     public function list()
