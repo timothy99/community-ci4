@@ -6,7 +6,6 @@ use CodeIgniter\Model;
 
 class MenuModel extends Model
 {
-    // 메뉴리스트 생성
     public function getMenuList()
     {
         $result = true;

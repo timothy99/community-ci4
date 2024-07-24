@@ -3,8 +3,8 @@
 namespace App\Models\Usr;
 
 use CodeIgniter\Model;
-use Throwable;
 use App\Models\Common\DateModel;
+use App\Models\Common\FileModel;
 
 class BoardModel extends Model
 {
@@ -55,6 +55,7 @@ class BoardModel extends Model
     public function getBoardInfo($data)
     {
         $date_model = new DateModel();
+        $file_model = new FileModel();
 
         $result = true;
         $message = "정상처리";
@@ -69,6 +70,17 @@ class BoardModel extends Model
 
         $info->ins_date_txt = $date_model->convertTextToDate($info->ins_date, 1, 1);
 
+        $file_arr = strlen($info->file_idxs) > 0 ? explode("|", $info->file_idxs) : array();
+        $file_list = array();
+        if (count($file_arr) > 0) {
+            foreach($file_arr as $no => $val) {
+                $file_info = $file_model->getFileInfo($val);
+                $file_list[] = $file_info;
+            }
+        }
+
+        $info->file_list = $file_list;
+
         $proc_result = array();
         $proc_result["result"] = $result;
         $proc_result["message"] = $message;
@@ -77,10 +89,8 @@ class BoardModel extends Model
         return $proc_result;
     }
 
-    // 게시판 입력
     public function procBoardInsert($data)
     {
-        // 게시판 입력과 관련된 기본 정보
         $user_id = getUserSessionInfo("member_id");
         $today = date("YmdHis");
 
@@ -123,10 +133,8 @@ class BoardModel extends Model
         return $model_result;
     }
 
-    // 게시판 입력
     public function procBoardUpdate($data)
     {
-        // 게시판 입력과 관련된 기본 정보
         $user_id = getUserSessionInfo("member_id");
         $today = date("YmdHis");
 
@@ -168,10 +176,8 @@ class BoardModel extends Model
         return $model_result;
     }
 
-    // 게시판 삭제
     public function procBoardDelete($b_idx)
     {
-        // 게시판 입력과 관련된 기본 정보
         $member_id = getUserSessionInfo("member_id");
         $today = date("YmdHis");
 

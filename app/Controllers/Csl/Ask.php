@@ -3,7 +3,6 @@
 namespace App\Controllers\Csl;
 
 use App\Controllers\BaseController;
-use App\Models\Common\DateModel;
 use App\Models\Csl\AskModel;
 use App\Models\Common\PagingModel;
 
@@ -11,7 +10,7 @@ class Ask extends BaseController
 {
     public function index()
     {
-        return redirect()->to("/csl/slide/list");
+        return redirect()->to("/csl");
     }
 
     public function list()

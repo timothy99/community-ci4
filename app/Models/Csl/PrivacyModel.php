@@ -3,8 +3,6 @@
 namespace App\Models\Csl;
 
 use CodeIgniter\Model;
-use App\Models\Common\SecurityModel;
-use Exception;
 use App\Models\Common\DateModel;
 
 class PrivacyModel extends Model
@@ -73,8 +71,6 @@ class PrivacyModel extends Model
     // 회원정보 입력
     public function procMemberUpdate($data)
     {
-        $security_model = new SecurityModel();
-
         $result = true;
         $message = "정상처리";
 
@@ -127,8 +123,6 @@ class PrivacyModel extends Model
     // 회원정보 입력
     public function procMemberDelete($data)
     {
-        $security_model = new SecurityModel();
-
         $result = true;
         $message = "정상처리";
 

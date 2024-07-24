@@ -3,7 +3,6 @@
 namespace App\Models\Csl;
 
 use CodeIgniter\Model;
-use Throwable;
 use App\Models\Common\DateModel;
 
 class ContentsModel extends Model
@@ -53,16 +52,20 @@ class ContentsModel extends Model
         return $proc_result;
     }
 
-    public function getContentsInfo($c_idx)
+    public function getContentsInfo($data)
     {
         $result = true;
         $message = "목록 불러오기가 완료되었습니다.";
+
+        $c_idx = $data["c_idx"];
 
         $db = $this->db;
         $builder = $db->table("contents");
         $builder->where("del_yn", "N");
         $builder->where("c_idx", $c_idx);
         $info = $builder->get()->getRow();
+
+        $info->contents = nl2br_rn($info->contents);
 
         $proc_result = array();
         $proc_result["result"] = $result;
@@ -72,10 +75,8 @@ class ContentsModel extends Model
         return $proc_result;
     }
 
-    // 게시판 입력
     public function procContentsInsert($data)
     {
-        // 게시판 입력과 관련된 기본 정보
         $user_id = getUserSessionInfo("member_id");
         $today = date("YmdHis");
 
@@ -114,10 +115,8 @@ class ContentsModel extends Model
         return $model_result;
     }
 
-    // 게시판 입력
     public function procContentsUpdate($data)
     {
-        // 게시판 입력과 관련된 기본 정보
         $user_id = getUserSessionInfo("member_id");
         $today = date("YmdHis");
 
@@ -153,10 +152,8 @@ class ContentsModel extends Model
         return $model_result;
     }
 
-    // 게시판 삭제
     public function procContentsDelete($data)
     {
-        // 게시판 입력과 관련된 기본 정보
         $member_id = getUserSessionInfo("member_id");
         $today = date("YmdHis");
 

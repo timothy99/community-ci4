@@ -3,7 +3,6 @@
 namespace App\Models\Csl;
 
 use CodeIgniter\Model;
-use Throwable;
 use App\Models\Common\DateModel;
 
 class AskModel extends Model
@@ -47,11 +46,8 @@ class AskModel extends Model
         return $proc_result;
     }
 
-    // 게시판 삭제
     public function procAskDelete($data)
     {
-        // 게시판 입력과 관련된 기본 정보
-        $member_id = getUserSessionInfo("member_id");
         $today = date("YmdHis");
 
         $result = true;

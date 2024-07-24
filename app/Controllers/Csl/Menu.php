@@ -98,6 +98,8 @@ class Menu extends BaseController
         // 메뉴 업데이트 후 메뉴에 대한 json을 만들어서 메뉴불러오는데 지나치게 많은 쿼리를 실행하는걸 막는다.
         if ($result == true) {
             $model_result = $menu_model->procMenuJsonInsert($data);
+            $result = $model_result["result"];
+            $message = $model_result["message"];
         }
 
         $proc_result = array();
@@ -123,6 +125,8 @@ class Menu extends BaseController
 
         $model_result = $menu_model->getMenuInfo($data);
         $info = $model_result["info"];
+        $result = $model_result["result"];
+        $message = $model_result["message"];
 
         $proc_result = array();
         $proc_result["result"] = $result;
@@ -144,6 +148,8 @@ class Menu extends BaseController
         $data = array();
         $data["m_idx"] = $m_idx;
         $model_result = $menu_model->procMenuDelete($data);
+        $result = $model_result["result"];
+        $message = $model_result["message"];
 
         $proc_result = array();
         $proc_result["result"] = $result;

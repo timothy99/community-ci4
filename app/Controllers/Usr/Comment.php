@@ -9,7 +9,7 @@ class Comment extends BaseController
 {
     public function index()
     {
-        return redirect()->to("/board/notice/list");
+        return redirect()->to("/");
     }
 
     public function insert()

@@ -82,6 +82,7 @@ class YoutubeModel extends Model
         $play_id = $data->play_id;
         $key = env("youtube.api.key");
 
+        // channel인 경우 채널의 최신 동영상만 갖고 온다.
         if ($category == "channel") {
             $url = "https://www.googleapis.com/youtube/v3/search?order=".$order."&part=".$part."&channelId=".$play_id."&maxResults=".$max_result."&key=".$key;
         } else {
@@ -139,10 +140,8 @@ class YoutubeModel extends Model
         return $proc_result;
     }
 
-    // 게시판 입력
     public function procPlaylistInsert($data)
     {
-        // 게시판 입력과 관련된 기본 정보
         $user_id = getUserSessionInfo("member_id");
         $today = date("YmdHis");
 
@@ -183,10 +182,8 @@ class YoutubeModel extends Model
         return $model_result;
     }
 
-    // 게시판 입력
     public function procPlaylistUpdate($data)
     {
-        // 게시판 입력과 관련된 기본 정보
         $user_id = getUserSessionInfo("member_id");
         $today = date("YmdHis");
 

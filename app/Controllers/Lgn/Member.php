@@ -287,7 +287,7 @@ class Member extends BaseController
         $result = true;
         $message = "정상처리";
 
-        $model_result = $member_model->procMemberDelete();
+        $member_model->procMemberDelete();
 
         session_destroy();
 

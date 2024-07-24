@@ -12,7 +12,7 @@ class Member extends BaseController
 {
     public function index()
     {
-        return redirect()->to("/csl/member/list");
+        return redirect()->to("/csl");
     }
 
     public function list()
@@ -56,7 +56,6 @@ class Member extends BaseController
     public function view()
     {
         $member_model = new MemberModel();
-        $date_model = new DateModel();
 
         $member_id = $this->request->getUri()->getSegment(4); // segments 확인
 
@@ -67,7 +66,6 @@ class Member extends BaseController
         $result = $model_result["result"];
         $message = $model_result["message"];
         $info = $model_result["info"];
-        $info->last_login_date_txt = $date_model->convertTextToDate($info->last_login_date, 1, 1);
 
         $proc_result = array();
         $proc_result["result"] = $result;

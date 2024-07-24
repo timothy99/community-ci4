@@ -3,7 +3,6 @@
 namespace App\Models\Usr;
 
 use CodeIgniter\Model;
-use Throwable;
 
 class SlideModel extends Model
 {

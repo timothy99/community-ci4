@@ -6,7 +6,6 @@
             </div>
             <div class="card-body">
                 <p class="login-box-msg">기본정보</p>
-
                 <div class="input-group mb-3 d-flex align-items-center">
                     <div class="col-sm-3">
                         아이디
@@ -96,7 +95,6 @@
                         <input type="text" class="form-control ml-3" id="addr2" name="addr2">
                     </div>
                 </div>
-
                 <div class="row mt-3 d-flex justify-content-center">
                     <button type="button" class="btn btn-primary mr-3" id="signup" name="signup">가입하기</button>
                     <button type="button" class="btn btn-danger" id="cancel" name="cancel">취소하기</button>

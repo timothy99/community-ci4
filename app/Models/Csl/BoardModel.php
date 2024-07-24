@@ -5,6 +5,7 @@ namespace App\Models\Csl;
 use CodeIgniter\Model;
 use App\Models\Common\DateModel;
 use App\Models\Csl\MemberModel;
+use App\Models\Common\FileModel;
 
 class BoardModel extends Model
 {
@@ -77,6 +78,7 @@ class BoardModel extends Model
         $builder->where("del_yn", "N");
         $builder->where("board_id", $board_id);
         $info = $builder->get()->getRow();
+        $info->category_arr = explode("||", $info->category);
 
         $proc_result = array();
         $proc_result["result"] = $result;
@@ -112,6 +114,32 @@ class BoardModel extends Model
         $proc_result["info"] = $info;
 
         return $proc_result;
+    }
+
+    public function getBoardFileList($data)
+    {
+        $result = true;
+        $message = "파일목록을 잘 불러왔습니다";
+
+        $file_model = new FileModel();
+
+        $info = $data["info"];
+
+        $file_arr = strlen($info->file_idxs) > 0 ? explode("|", $info->file_idxs) : array();
+        $file_list = array();
+        if (count($file_arr) > 0) {
+            foreach($file_arr as $no => $val) {
+                $file_info = $file_model->getFileInfo($val);
+                $file_list[] = $file_info;
+            }
+        }
+
+        $model_result = array();
+        $model_result["result"] = $result;
+        $model_result["message"] = $message;
+        $model_result["list"] = $file_list;
+
+        return $model_result;
     }
 
     // 게시판 입력
@@ -177,12 +205,10 @@ class BoardModel extends Model
         return $model_result;
     }
 
-    // 게시판 입력
     public function procBoardUpdate($data)
     {
         $date_model = new DateModel();
 
-        // 게시판 입력과 관련된 기본 정보
         $user_id = getUserSessionInfo("member_id");
         $today = date("YmdHis");
 
@@ -237,10 +263,8 @@ class BoardModel extends Model
         return $model_result;
     }
 
-    // 게시판 삭제
     public function procBoardDelete($data)
     {
-        // 게시판 입력과 관련된 기본 정보
         $member_id = getUserSessionInfo("member_id");
         $today = date("YmdHis");
 

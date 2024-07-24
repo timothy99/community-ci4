@@ -16,18 +16,14 @@
                 </div>
             </div>
         </section>
-
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
-
                     <div class="col-md-12">
-            
                         <div class="card card-primary">
                             <div class="card-header">
                                 <h3 class="card-title">쓰기</h3>
                             </div>
-    
                             <div class="card-body">
                                 <div class="form-group row">
                                     <label for="member_name" class="col-sm-2 col-form-label">이름</label>
@@ -72,19 +68,14 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="card-footer">
                                 <div class="d-flex justify-content-end">
                                     <button type="button" class="btn btn-info ml-3" id="save" name="save">등록</button>
                                     <button type="button" class="btn btn-default ml-3" id="cancel" name="cancel">취소</button>
                                 </div>
                             </div>
-
                         </div>
-
-
                     </div>
-
                 </div>
             </div>
         </section>

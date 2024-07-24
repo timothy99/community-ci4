@@ -11,7 +11,7 @@ class Contents extends BaseController
 {
     public function index()
     {
-        return redirect()->to("/csl/contents/list");
+        return redirect()->to("/csl");
     }
 
     public function list()
@@ -149,6 +149,8 @@ class Contents extends BaseController
         $data["c_idx"] = $c_idx;
 
         $model_result = $contents_model->procContentsDelete($data);
+        $result = $model_result["result"];
+        $message = $model_result["message"];
 
         $proc_result = array();
         $proc_result["result"] = $result;
@@ -162,15 +164,18 @@ class Contents extends BaseController
     {
         $contents_model = new ContentsModel();
 
-        $c_idx = $this->request->getUri()->getSegment(4);
-
         $result = true;
         $message = "정상";
 
-        $model_result = $contents_model->getContentsInfo($c_idx);
-        $info = $model_result["info"];
+        $c_idx = $this->request->getUri()->getSegment(4);
 
-        $info->contents = nl2br_rn($info->contents);
+        $data = array();
+        $data["c_idx"] = $c_idx;
+
+        $model_result = $contents_model->getContentsInfo($data);
+        $info = $model_result["info"];
+        $result = $model_result["result"];
+        $message = $model_result["message"];
 
         $proc_result = array();
         $proc_result["result"] = $result;

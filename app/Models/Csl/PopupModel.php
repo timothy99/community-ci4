@@ -74,7 +74,6 @@ class PopupModel extends Model
         $info->start_date_txt = $date_model->convertTextToDate($info->start_date, 1, 10);
         $info->end_date_txt = $date_model->convertTextToDate($info->end_date, 1, 10);
 
-        logMessage($info); // 2000-01-01 00:00:00
         $proc_result = array();
         $proc_result["result"] = $result;
         $proc_result["message"] = $message;
@@ -83,10 +82,8 @@ class PopupModel extends Model
         return $proc_result;
     }
 
-    // 게시판 입력
     public function procPopupInsert($data)
     {
-        // 게시판 입력과 관련된 기본 정보
         $user_id = getUserSessionInfo("member_id");
         $today = date("YmdHis");
 
@@ -165,7 +162,6 @@ class PopupModel extends Model
         $start_date = $data["start_date"];
         $end_date = $data["end_date"];
         $display_yn = $data["display_yn"];
-
 
         $db = $this->db;
         $db->transStart();

@@ -6,16 +6,6 @@ use CodeIgniter\Model;
 
 class PagingModel extends Model
 {
-    /**
-     * [Description for getPagingArray]
-     * 페이징 생성
-     *
-     * @param array $data
-     *
-     * @return  array
-     *
-     * @author  timothy99
-     */
     public function getPagingArray(array $data): array
     {
         $cnt = $data["cnt"];

@@ -152,6 +152,8 @@ class Youtube extends BaseController
         $data["y_idx"] = $y_idx;
 
         $model_result = $youtube_model->procPlaylistDelete($data);
+        $result = $model_result["result"];
+        $message = $model_result["message"];
 
         $proc_result = array();
         $proc_result["result"] = $result;

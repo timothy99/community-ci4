@@ -6,13 +6,12 @@ use App\Controllers\BaseController;
 use App\Models\Csl\BoardModel;
 use App\Models\Csl\CommentModel;
 use App\Models\Common\PagingModel;
-use App\Models\Common\FileModel;
 
 class Board extends BaseController
 {
     public function index()
     {
-        return redirect()->to("/csl/board/notice/list");
+        return redirect()->to("/csl");
     }
 
     public function list()
@@ -23,6 +22,7 @@ class Board extends BaseController
         $board_id = $this->request->getUri()->getSegment(3); // segments 확인
         $category = $this->request->getGet("category", FILTER_SANITIZE_SPECIAL_CHARS) ?? "";
 
+        // 검색창을 열어야 하는지 확인
         $search_open = $this->request->getGet("search_open", FILTER_SANITIZE_SPECIAL_CHARS) ?? "Y";
         if ($search_open == "Y") {
             $collapsed_card = "";
@@ -47,9 +47,9 @@ class Board extends BaseController
         $data["search_arr"] = $search_arr;
         $data["board_id"] = $board_id;
 
+        // 게시판 정보
         $model_result = $board_model->getConfigInfo($data);
         $config = $model_result["info"];
-        $config->category_arr = explode("||", $config->category);
 
         $data["notice_yn"] = "N";
         $data["reg_date_yn"] = $config->reg_date_yn;
@@ -96,6 +96,7 @@ class Board extends BaseController
         $data = array();
         $data["board_id"] = $board_id;
 
+        // 게시판 정보
         $model_result = $board_model->getConfigInfo($data);
         $config = $model_result["info"];
         $config->category_arr = explode("||", $config->category);
@@ -186,7 +187,6 @@ class Board extends BaseController
     public function view()
     {
         $board_model = new BoardModel();
-        $file_model = new FileModel();
         $comment_model = new CommentModel();
 
         $board_id = $this->request->getUri()->getSegment(3, 0);
@@ -199,6 +199,7 @@ class Board extends BaseController
         $data["board_id"] = $board_id;
         $data["b_idx"] = $b_idx;
 
+        // 게시판 정보 확인
         $model_result = $board_model->getConfigInfo($data);
         $config = $model_result["info"];
 
@@ -206,15 +207,11 @@ class Board extends BaseController
         $result = $model_result["result"];
         $message = $model_result["message"];
         $info = $model_result["info"];
+        $data["info"] = $info;
 
-        $file_arr = strlen($info->file_idxs) > 0 ? explode("|", $info->file_idxs) : array();
-        $file_list = array();
-        if (count($file_arr) > 0) {
-            foreach($file_arr as $no => $val) {
-                $file_info = $file_model->getFileInfo($val);
-                $file_list[] = $file_info;
-            }
-        }
+        // 파일목록
+        $model_result = $board_model->getBoardFileList($data);
+        $file_list = $model_result["list"];
 
         // 댓글목록
         $model_result = $comment_model->getCommentList($data);
@@ -247,6 +244,8 @@ class Board extends BaseController
         $data["b_idx"] = $b_idx;
 
         $model_result = $board_model->procBoardDelete($data);
+        $result = $model_result["result"];
+        $message = $model_result["message"];
 
         $proc_result = array();
         $proc_result["result"] = $result;
@@ -260,7 +259,6 @@ class Board extends BaseController
     public function edit()
     {
         $board_model = new BoardModel();
-        $file_model = new FileModel();
 
         $board_id = $this->request->getUri()->getSegment(3, 0);
         $b_idx = $this->request->getUri()->getSegment(5, 0);
@@ -278,14 +276,11 @@ class Board extends BaseController
 
         $model_result = $board_model->getBoardInfo($data);
         $info = $model_result["info"];
-        $file_arr = strlen($info->file_idxs) > 0 ? explode("|", $info->file_idxs) : array();
-        $file_list = array();
-        if (count($file_arr) > 0) {
-            foreach($file_arr as $no => $val) {
-                $file_info = $file_model->getFileInfo($val);
-                $file_list[] = $file_info;
-            }
-        }
+        $data["info"] = $info;
+
+        // 파일목록
+        $model_result = $board_model->getBoardFileList($data);
+        $file_list = $model_result["list"];
 
         $proc_result = array();
         $proc_result["result"] = $result;

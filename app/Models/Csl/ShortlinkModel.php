@@ -3,7 +3,6 @@
 namespace App\Models\Csl;
 
 use CodeIgniter\Model;
-use Throwable;
 use App\Models\Common\DateModel;
 
 class ShortlinkModel extends Model
@@ -49,6 +48,8 @@ class ShortlinkModel extends Model
 
     public function getShortlinkInfo($sl_idx)
     {
+        $date_model = new DateModel();
+
         $result = true;
         $message = "목록 불러오기가 완료되었습니다.";
 
@@ -59,6 +60,8 @@ class ShortlinkModel extends Model
         $builder->where("sl_idx", $sl_idx);
         $info = $builder->get()->getRow();
 
+        $info->ins_date_txt = $date_model->convertTextToDate($info->ins_date, 1, 1);
+
         $proc_result = array();
         $proc_result["result"] = $result;
         $proc_result["message"] = $message;
@@ -67,10 +70,8 @@ class ShortlinkModel extends Model
         return $proc_result;
     }
 
-    // 게시판 입력
     public function procShortlinkInsert($data)
     {
-        // 게시판 입력과 관련된 기본 정보
         $user_id = getUserSessionInfo("member_id");
         $today = date("YmdHis");
 
@@ -109,10 +110,8 @@ class ShortlinkModel extends Model
         return $model_result;
     }
 
-    // 게시판 입력
     public function procShortlinkUpdate($data)
     {
-        // 게시판 입력과 관련된 기본 정보
         $user_id = getUserSessionInfo("member_id");
         $today = date("YmdHis");
 
@@ -148,10 +147,8 @@ class ShortlinkModel extends Model
         return $model_result;
     }
 
-    // 게시판 삭제
     public function procSlideDelete($data)
     {
-        // 게시판 입력과 관련된 기본 정보
         $member_id = getUserSessionInfo("member_id");
         $today = date("YmdHis");
 

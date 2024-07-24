@@ -5,20 +5,18 @@ namespace App\Controllers\Csl;
 use App\Controllers\BaseController;
 use App\Models\Csl\PrivacyModel;
 use App\Models\Common\PagingModel;
-use App\Models\Common\DateModel;
 
 class Privacy extends BaseController
 {
     public function index()
     {
-        return redirect()->to("/csl/member/list");
+        return redirect()->to("/csl");
     }
 
     public function list()
     {
         $privacy_model = new PrivacyModel();
         $paging_model = new PagingModel();
-        $date_model = new DateModel();
 
         $data = array();
         $data["page"] = $this->request->getGet("page") ?? 1;

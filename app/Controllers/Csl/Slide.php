@@ -12,7 +12,7 @@ class Slide extends BaseController
 {
     public function index()
     {
-        return redirect()->to("/csl/slide/list");
+        return redirect()->to("/csl");
     }
 
     public function list()
@@ -150,8 +150,6 @@ class Slide extends BaseController
     public function view()
     {
         $slide_model = new SlideModel();
-        $date_model = new DateModel();
-        $file_model = new FileModel();
 
         $s_idx = $this->request->getUri()->getSegment(4);
 
@@ -162,12 +160,6 @@ class Slide extends BaseController
         $result = $model_result["result"];
         $message = $model_result["message"];
         $info = $model_result["info"];
-
-        $info->slide_file_info = $file_model->getFileInfo($info->slide_file);
-        $info->ins_date_txt = $date_model->convertTextToDate($info->ins_date, 1, 1);
-        $info->start_date_txt = $date_model->convertTextToDate($info->start_date, 1, 1);
-        $info->end_date_txt = $date_model->convertTextToDate($info->end_date, 1, 1);
-        $info->contents = nl2br_only($info->contents);
 
         $proc_result = array();
         $proc_result["result"] = $result;
@@ -190,6 +182,8 @@ class Slide extends BaseController
         $data["s_idx"] = $s_idx;
 
         $model_result = $slide_model->procSlideDelete($data);
+        $result = $model_result["result"];
+        $message = $model_result["message"];
 
         $proc_result = array();
         $proc_result["result"] = $result;
@@ -202,8 +196,6 @@ class Slide extends BaseController
     public function edit()
     {
         $slide_model = new SlideModel();
-        $file_model = new FileModel();
-        $date_model = new DateModel();
 
         $s_idx = $this->request->getUri()->getSegment(4);
 
@@ -212,12 +204,6 @@ class Slide extends BaseController
 
         $model_result = $slide_model->getSlideInfo($s_idx);
         $info = $model_result["info"];
-
-        $info->slide_file_info = $file_model->getFileInfo($info->slide_file);
-        $info->ins_date_txt = $date_model->convertTextToDate($info->ins_date, 1, 1);
-        $info->start_date_txt = $date_model->convertTextToDate($info->start_date, 1, 10);
-        $info->end_date_txt = $date_model->convertTextToDate($info->end_date, 1, 10);
-        $info->contents = nl2br_rn($info->contents);
 
         $proc_result = array();
         $proc_result["result"] = $result;

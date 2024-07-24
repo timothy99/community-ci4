@@ -3,8 +3,6 @@
 namespace App\Models\Csl;
 
 use CodeIgniter\Model;
-use App\Models\Common\SecurityModel;
-use Throwable;
 use App\Models\Common\DateModel;
 
 class MemberModel extends Model
@@ -55,6 +53,8 @@ class MemberModel extends Model
 
     public function getMemberInfo($member_id)
     {
+        $date_model = new DateModel();
+
         $result = true;
         $message = "목록 불러오기가 완료되었습니다.";
 
@@ -63,6 +63,8 @@ class MemberModel extends Model
         $builder->where("del_yn", "N");
         $builder->where("member_id", $member_id);
         $info = $builder->get()->getRow();
+
+        $info->last_login_date_txt = $date_model->convertTextToDate($info->last_login_date, 1, 1);
 
         $proc_result = array();
         $proc_result["result"] = $result;
@@ -167,7 +169,6 @@ class MemberModel extends Model
         return $proc_result;
     }
 
-    // 회원정보 입력
     public function procMemberDelete($data)
     {
         $result = true;

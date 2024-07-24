@@ -1,143 +1,41 @@
-#--------------------------------------------------------------------
-# Example Environment Configuration file
-#
-# This file can be used as a starting point for your own
-# custom .env files, and contains most of the possible settings
-# available in a default install.
-#
-# By default, all of the settings are commented out. If you want
-# to override the setting, you must un-comment it by removing the '#'
-# at the beginning of the line.
-#--------------------------------------------------------------------
-
-#--------------------------------------------------------------------
-# ENVIRONMENT
-#--------------------------------------------------------------------
-
-# CI_ENVIRONMENT = production
-
-#--------------------------------------------------------------------
 # APP
-#--------------------------------------------------------------------
+app.baseURL = "http로 시작하는 주소"
+app.sitename = "사이트 이름을 넣으세요"
+app.sitenameAdmin = "관리자 사이트 이름을 넣으세요"
+app.companyName = "회사이름을 넣어주세요";
+app.programVer = "이건 겉멋을 위한 버전 정보입니다.";
+app.jsVer = "리프레시가 안될때를 대비 자바스크립트 버전을 입력하면 좋습니다.";
+app.cssVer = "리프레시가 안될떄는 대비 CSS버전을 입력하면 좋습니다.";
+app.managerEmail = "관리자의 메일 주소를 넣으놓으면 mailsend 기능을 쓸때 사용합니다.";
 
-# app.baseURL = ''
-# If you have trouble with `.`, you could also use `_`.
-# app_baseURL = ''
-# app.forceGlobalSecureRequests = false
-# app.CSPEnabled = false
+# TIMEZONE
+app.appTimezone = "Asia/Seoul"
 
-#--------------------------------------------------------------------
-# DATABASE
-#--------------------------------------------------------------------
+# LOGGER 4로 해두면 적당히 로그를 찍습니다. log_helper 는 레벨 4 이상으로 해 두어야 작동합니다.(ERROR 레벨 사용)
+logger.threshold = 4
 
-# database.default.hostname = localhost
-# database.default.database = ci4
-# database.default.username = root
-# database.default.password = root
-# database.default.DBDriver = MySQLi
-# database.default.DBPrefix =
-# database.default.port = 3306
-
-# database.tests.hostname = localhost
-# database.tests.database = ci4_test
-# database.tests.username = root
-# database.tests.password = root
-# database.tests.DBDriver = MySQLi
-# database.tests.DBPrefix =
-# database.tests.port = 3306
-
-#--------------------------------------------------------------------
-# CONTENT SECURITY POLICY
-#--------------------------------------------------------------------
-
-# contentsecuritypolicy.reportOnly = false
-# contentsecuritypolicy.defaultSrc = 'none'
-# contentsecuritypolicy.scriptSrc = 'self'
-# contentsecuritypolicy.styleSrc = 'self'
-# contentsecuritypolicy.imageSrc = 'self'
-# contentsecuritypolicy.baseURI = null
-# contentsecuritypolicy.childSrc = null
-# contentsecuritypolicy.connectSrc = 'self'
-# contentsecuritypolicy.fontSrc = null
-# contentsecuritypolicy.formAction = null
-# contentsecuritypolicy.frameAncestors = null
-# contentsecuritypolicy.frameSrc = null
-# contentsecuritypolicy.mediaSrc = null
-# contentsecuritypolicy.objectSrc = null
-# contentsecuritypolicy.pluginTypes = null
-# contentsecuritypolicy.reportURI = null
-# contentsecuritypolicy.sandbox = false
-# contentsecuritypolicy.upgradeInsecureRequests = false
-# contentsecuritypolicy.styleNonceTag = '{csp-style-nonce}'
-# contentsecuritypolicy.scriptNonceTag = '{csp-script-nonce}'
-# contentsecuritypolicy.autoNonce = true
-
-#--------------------------------------------------------------------
-# COOKIE
-#--------------------------------------------------------------------
-
-# cookie.prefix = ''
-# cookie.expires = 0
-# cookie.path = '/'
-# cookie.domain = ''
-# cookie.secure = false
-# cookie.httponly = false
-# cookie.samesite = 'Lax'
-# cookie.raw = false
-
-#--------------------------------------------------------------------
 # ENCRYPTION
-#--------------------------------------------------------------------
+encryption.key = "암호화 키"
+encryption.iv = "iv키"
+encryption.way = "암호화 방식"
 
-# encryption.key =
-# encryption.driver = OpenSSL
-# encryption.blockSize = 16
-# encryption.digest = SHA512
+# DATABASE
+database.default.hostname = "호스트"
+database.default.database = "이름"
+database.default.username = "사용자"
+database.default.password = "암호"
+database.default.DBDriver = "MySQLi"
+database.default.DBPrefix = "프리픽스는 안넣어도 됩니다."
+database.default.port = "생랴개도 되지만 포트가 3306이 아닐경우 넣어주셔야 합니다."
 
-#--------------------------------------------------------------------
-# HONEYPOT
-#--------------------------------------------------------------------
+# EMAIL
+smtp.host = "SMTP주소";
+smtp.user = "발신하는 주소";
+smtp.pass = "SMTP의 암호";
+smtp.port = "SMTP 포트번호";
+smtp.name = "보내는 사람 이름. 당연히 메일 보낼때 따로 지정하기가 가능합니다.";
 
-# honeypot.hidden = 'true'
-# honeypot.label = 'Fill This Field'
-# honeypot.name = 'honeypot'
-# honeypot.template = '<label>{label}</label><input type="text" name="{name}" value=""/>'
-# honeypot.container = '<div style="display:none">{template}</div>'
+# 회사 IP , 이 IP일 경우 CI_ENVIRONMENT를 devlopment로 변경한다. || 파이프2개로 구분합니다.
+development.ip = "1.1.1.1||8.8.8.8";
 
-#--------------------------------------------------------------------
-# SECURITY
-#--------------------------------------------------------------------
-
-# security.csrfProtection = 'cookie'
-# security.tokenRandomize = false
-# security.tokenName = 'csrf_token_name'
-# security.headerName = 'X-CSRF-TOKEN'
-# security.cookieName = 'csrf_cookie_name'
-# security.expires = 7200
-# security.regenerate = true
-# security.redirect = false
-# security.samesite = 'Lax'
-
-#--------------------------------------------------------------------
-# SESSION
-#--------------------------------------------------------------------
-
-# session.driver = 'CodeIgniter\Session\Handlers\FileHandler'
-# session.cookieName = 'ci_session'
-# session.expiration = 7200
-# session.savePath = null
-# session.matchIP = false
-# session.timeToUpdate = 300
-# session.regenerateDestroy = false
-
-#--------------------------------------------------------------------
-# LOGGER
-#--------------------------------------------------------------------
-
-# logger.threshold = 4
-
-#--------------------------------------------------------------------
-# CURLRequest
-#--------------------------------------------------------------------
-
-# curlrequest.shareOptions = false
+youtube.api.key = "youtube data avpi v3 용 api key";
