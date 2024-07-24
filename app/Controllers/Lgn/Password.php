@@ -130,7 +130,8 @@ class Password extends BaseController
         $info = $model_result["info"];
 
         if ($info === null) {
-            redirect_alert("초기화 정보가 없습니다", "/");
+            redirect_alert("초기화 정보가 없습니다. 메일 요청을 여러번 하셨다면 가장 최근의 링크를 선택해주세요.", "/");
+            exit;
         }
 
         $today = date("YmdHis");
