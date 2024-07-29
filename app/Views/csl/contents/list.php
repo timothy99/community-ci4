@@ -56,6 +56,7 @@
                                     <thead class="text-center">
                                         <tr>
                                             <th>번호</th>
+                                            <th>콘텐츠ID</th>
                                             <th>제목</th>
                                             <th>입력자</th>
                                             <th>입력일</th>
@@ -65,6 +66,7 @@
 <?php   foreach($list as $no => $val) { ?>
                                         <tr>
                                             <td><?=$val->list_no ?></td>
+                                            <td><?=$val->contents_id ?></td>
                                             <td><a href="/csl/contents/view/<?=$val->c_idx ?>"><?=$val->title ?></a></td>
                                             <td><?=$val->ins_id ?></td>
                                             <td><?=$val->ins_date_txt ?></td>
@@ -72,7 +74,7 @@
 <?php   } ?>
 <?php   if (count($list) == 0) { ?>
                                         <tr>
-                                            <td colspan="4" class="text-center">데이터가 없습니다.</td>
+                                            <td colspan="5" class="text-center">데이터가 없습니다.</td>
                                         </tr>
 <?php   } ?>
                                     </tbody>

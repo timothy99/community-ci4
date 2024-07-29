@@ -56,6 +56,7 @@ class Contents extends BaseController
 
         $info = (object)array();
         $info->c_idx = 0;
+        $info->contents_id = "";
         $info->title = "";
         $info->contents = "&nbsp;";
         $info->contents_code = "&nbsp;";
@@ -76,6 +77,7 @@ class Contents extends BaseController
         $message = "정상처리 되었습니다.";
 
         $c_idx = $this->request->getPost("c_idx", FILTER_SANITIZE_SPECIAL_CHARS);
+        $contents_id = $this->request->getPost("contents_id", FILTER_SANITIZE_SPECIAL_CHARS);
         $title = $this->request->getPost("title", FILTER_SANITIZE_SPECIAL_CHARS);
         $summer_code = (string)$this->request->getPost("summer_code");
         $summer_code = str_replace("<p><br></p><p>", "", $summer_code);
@@ -88,6 +90,7 @@ class Contents extends BaseController
 
         $data = array();
         $data["c_idx"] = $c_idx;
+        $data["contents_id"] = $contents_id;
         $data["title"] = $title;
         $data["contents"] = $summer_code;
 

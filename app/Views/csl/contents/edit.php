@@ -30,6 +30,12 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
+                                    <label for="contents_id" class="col-sm-2 col-form-label">콘텐츠 아이디</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="contents_id" name="contents_id"  value="<?=$info->contents_id ?>">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label for="title" class="col-sm-2 col-form-label">제목</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="title" name="title"  value="<?=$info->title ?>">
