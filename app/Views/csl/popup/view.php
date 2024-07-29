@@ -67,7 +67,7 @@
                                             <tr>
                                                 <th>이미지</th>
                                                 <td>
-                                                    <img src="/csl/file/view/<?=$info->popup_file ?>" class="img-fluid"><br>
+                                                    <img src="/file/view/<?=$info->popup_file ?>" class="img-fluid"><br>
                                                     실제크기 : <?=$info->popup_file_info->image_width ?>px * <?=$info->popup_file_info->image_height ?>px
                                                 </td>
                                             </tr>

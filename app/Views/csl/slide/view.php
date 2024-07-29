@@ -55,7 +55,7 @@
                                             <tr>
                                                 <th>이미지</th>
                                                 <td>
-                                                    <img src="/csl/file/view/<?=$info->slide_file ?>" class="img-fluid"><br>
+                                                    <img src="/file/view/<?=$info->slide_file ?>" class="img-fluid"><br>
                                                     실제크기 : <?=$info->slide_file_info->image_width ?>px * <?=$info->slide_file_info->image_height ?>px
                                                 </td>
                                             </tr>

@@ -79,7 +79,7 @@
                                         <ul class="list-unstyled" id="slide_file_visible">
 <?php   if ($info->slide_file_info != null) { ?>
                                             <li id="<?=$info->slide_file_info->file_id ?>">
-                                                <a href="/csl/file/download/<?=$info->slide_file_info->file_id ?>"><?=$info->slide_file_info->file_name_org ?></a>
+                                                <a href="/file/download/<?=$info->slide_file_info->file_id ?>"><?=$info->slide_file_info->file_name_org ?></a>
                                                 <span class="ml-3"><button type="button" id="<?=$info->slide_file_info->file_id ?>" class="btn btn-danger btn-xs" onclick="file_delete('<?=$info->slide_file_info->file_id ?>')">삭제</button></span>
                                             </li>
 <?php   } ?>
@@ -129,6 +129,6 @@
         var file_name_org = proc_result.file_name_org;
 
         $("#"+input_file_id+"_hidden").val(file_id);
-        $("#"+input_file_id+"_visible").html("<li id='"+file_id+"'><a href='/csl/file/download/"+file_id+"'>"+file_name_org+"</a><span class='ml-3'><button type='button' id='"+file_id+"' class='btn btn-danger btn-xs' onclick='file_delete(\""+file_id+"\")'>삭제</button></span></li>");
+        $("#"+input_file_id+"_visible").html("<li id='"+file_id+"'><a href='/file/download/"+file_id+"'>"+file_name_org+"</a><span class='ml-3'><button type='button' id='"+file_id+"' class='btn btn-danger btn-xs' onclick='file_delete(\""+file_id+"\")'>삭제</button></span></li>");
     }
 </script>

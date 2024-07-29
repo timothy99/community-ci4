@@ -84,11 +84,6 @@ $routes->post("/csl/board/(:any)/update", "Csl\Board::update");
 $routes->get("/csl/board/(:any)/view/(:num)", "Csl\Board::view");
 $routes->post("/csl/board/(:any)/delete/(:num)", "Csl\Board::delete");
 
-$routes->post("/csl/file/upload", "Csl\File::upload");
-$routes->post("/csl/file/list", "Csl\File::list");
-$routes->get("/csl/file/view/(:alphanum)", "Csl\File::view");
-$routes->get("/csl/file/download/(:alphanum)", "Csl\File::download");
-
 $routes->post("/csl/comment/insert", "Csl\Comment::insert");
 $routes->post("/csl/comment/delete/(:num)", "Csl\Comment::delete");
 $routes->post("/csl/comment/edit/(:num)", "Csl\Comment::edit");
