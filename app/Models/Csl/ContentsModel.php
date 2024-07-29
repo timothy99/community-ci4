@@ -83,12 +83,14 @@ class ContentsModel extends Model
         $result = true;
         $message = "입력이 잘 되었습니다";
 
+        $contents_id = $data["contents_id"];
         $title = $data["title"];
         $contents = $data["contents"];
 
         $db = $this->db;
         $db->transStart();
         $builder = $db->table("contents");
+        $builder->set("contents_id", $contents_id);
         $builder->set("title", $title);
         $builder->set("contents", $contents);
         $builder->set("del_yn", "N");
@@ -124,12 +126,14 @@ class ContentsModel extends Model
         $message = "입력이 잘 되었습니다";
 
         $c_idx = $data["c_idx"];
+        $contents_id = $data["contents_id"];
         $title = $data["title"];
         $contents = $data["contents"];
 
         $db = $this->db;
         $db->transStart();
         $builder = $db->table("contents");
+        $builder->set("contents_id", $contents_id);
         $builder->set("title", $title);
         $builder->set("contents", $contents);
         $builder->set("upd_id", $user_id);

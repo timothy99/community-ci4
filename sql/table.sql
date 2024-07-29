@@ -161,6 +161,7 @@ create index mng_bulk_detail_b_idx_index on mng_bulk_detail (b_idx);
 
 create table mng_contents (
     c_idx int auto_increment comment '콘텐츠 인덱스' primary key,
+    contents_id varchar(50) default null comment '콘텐츠 아이디',
     title varchar(1000) not null comment '제목 - 구분용이며 페이지 기능에서는 사용하지 않음',
     contents varchar(4000) not null comment '내용',
     del_yn enum ('Y', 'N') default 'N' not null comment '삭제 여부',
@@ -169,6 +170,10 @@ create table mng_contents (
     upd_id varchar(70) not null comment '수정자',
     upd_date varchar(14) not null comment '수정일'
 ) comment '콘텐츠';
+
+/*
+alter table mng_contents add contents_id varchar(50) default null comment '콘텐츠 아이디' after c_idx;
+*/
 
 create table mng_menu (
     m_idx int not null auto_increment comment '인덱스',

@@ -29,6 +29,10 @@
                                     <table class="table table-bordered text-nowrap table-hover">
                                         <tbody>
                                             <tr>
+                                                <th>콘텐츠 아이디</th>
+                                                <td><?=$info->contents_id ?></td>
+                                            </tr>
+                                            <tr>
                                                 <th>제목</th>
                                                 <td><?=$info->title ?></td>
                                             </tr>
