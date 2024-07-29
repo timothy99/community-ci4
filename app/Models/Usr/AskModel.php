@@ -15,12 +15,14 @@ class AskModel extends Model
         $message = "입력이 잘 되었습니다";
 
         $name = $data["name"];
+        $contents = $data["contents"];
         $phone = $data["phone"];
 
         $db = $this->db;
         $db->transStart();
         $builder = $db->table("ask");
         $builder->set("name", $name);
+        $builder->set("contents", $contents);
         $builder->set("phone", $phone);
         $builder->set("ins_date", $today);
         $builder->set("upd_date", $today);

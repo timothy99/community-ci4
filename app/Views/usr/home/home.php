@@ -71,9 +71,15 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="contents" class="col-sm-2 col-form-label">연락처</label>
+                                    <label for="phone" class="col-sm-2 col-form-label">연락처</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="phone" name="phone">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="contents" class="col-sm-2 col-form-label">내용</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="contents" name="contents">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -199,5 +205,6 @@
 
     function ask_write() {
         ajax1("/ask/write", "frm");
+        alert("등록되었습니다");
     }
 </script>

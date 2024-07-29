@@ -17,6 +17,7 @@ class Ask extends BaseController
         $message = "정상처리 되었습니다.";
 
         $name = $this->request->getPost("name", FILTER_SANITIZE_SPECIAL_CHARS);
+        $contents = $this->request->getPost("contents", FILTER_SANITIZE_SPECIAL_CHARS);
         $phone = $this->request->getPost("phone", FILTER_SANITIZE_SPECIAL_CHARS);
         $agree_yn = $this->request->getPost("agree_yn", FILTER_SANITIZE_SPECIAL_CHARS);
 
@@ -37,6 +38,7 @@ class Ask extends BaseController
 
         $data = array();
         $data["name"] = $name;
+        $data["contents"] = $contents;
         $data["phone"] = $phone;
         if ($result == true) {
             $model_result = $ask_model->procAskInsert($data);
@@ -49,7 +51,7 @@ class Ask extends BaseController
             $data = array();
             $data["receive_email"] = env("app.managerEmail");
             $data["title"] = $name."님의 간편문의가 등록되었습니다.";
-            $data["contents"] = "성함 : ".$name."<br>연락처 : ".$phone;
+            $data["contents"] = "성함 : ".$name."<br>연락처 : ".$phone."<br>내용 : ".$contents;
             $model_result = $mail_model->procMailSend($data);
         }
 

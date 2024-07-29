@@ -5,6 +5,7 @@ function ajax1(ajax_url, form_id) {
         url: ajax_url,
         type: "POST",
         dataType: "json",
+        async: false,
         data: $("#"+form_id).serialize(),
         success: function(proc_result) {
             var result = proc_result.result;
@@ -27,6 +28,7 @@ function ajax2(ajax_url) {
         url: ajax_url,
         type: "POST",
         dataType: "json",
+        async: false,
         success: function(proc_result) {
             var result = proc_result.result;
             var message = proc_result.message;
@@ -49,6 +51,7 @@ function ajax3(ajax_url, form_id, div_id) {
         type: "POST",
         dataType: "json",
         data: $("#"+form_id).serialize(),
+        async: false,
         success: function(proc_result) {
             var result = proc_result.result;
             var message = proc_result.message;
@@ -70,6 +73,7 @@ function ajax4(ajax_url, div_id) {
         url: ajax_url,
         type: "POST",
         dataType: "json",
+        async: false,
         success: function(proc_result) {
             var result = proc_result.result;
             var message = proc_result.message;
@@ -94,6 +98,7 @@ function ajax5(ajax_url, form_data) {
         data: form_data,
         contentType: false,
         processData: false,
+        async: false,
         success: function(proc_result) {
             var result = proc_result.result;
             var message = proc_result.message;
@@ -115,6 +120,7 @@ function ajax6(ajax_url, form_id) {
         url: ajax_url,
         type: "POST",
         dataType: "json",
+        async: false,
         data: $("#"+form_id).serialize(),
         success: function(proc_result) {
             $("#progress").remove();
@@ -130,6 +136,7 @@ function ajax7(ajax_url) {
         url: ajax_url,
         type: "POST",
         dataType: "json",
+        async: false,
         success: function(proc_result) {
             $("#progress").remove();
         }
