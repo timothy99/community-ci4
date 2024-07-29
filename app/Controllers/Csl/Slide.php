@@ -6,7 +6,6 @@ use App\Controllers\BaseController;
 use App\Models\Common\DateModel;
 use App\Models\Csl\SlideModel;
 use App\Models\Common\PagingModel;
-use App\Models\Common\FileModel;
 
 class Slide extends BaseController
 {
