@@ -29,7 +29,11 @@
                             <div class="card-tools">
                                 <div class="input-group input-group-sm">
                                     <button type="button" class="btn btn-primary btn-sm ml-3" data-card-widget="collapse" onclick="change_collapse()">
+<?php   if ($data["search_arr"]["search_open"] == "Y") { ?>
                                         <i class="fas fa-minus"></i>
+<?php   } else { ?>
+                                        <i class="fas fa-plus"></i>
+<?php   } ?>
                                     </button>
                                 </div>
                             </div>
@@ -202,6 +206,7 @@
         } else {
             $("#search_open").val("Y");
         }
+        search();
     }
 
     function search_category(category) {
