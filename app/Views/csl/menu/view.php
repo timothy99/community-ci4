@@ -38,7 +38,7 @@
                                     <dt class="col-sm-2">첨부파일</dt>
                                     <dd class="col-sm-10">
 <?php   foreach($file_list as $no => $val) { ?>
-                                        <a href="/csl/file/download/<?=$val->file_id ?>"><?=$val->file_name_org ?></a><br>
+                                        <a href="/file/download/<?=$val->file_id ?>"><?=$val->file_name_org ?></a><br>
 <?php   } ?>
                                     </dd>
                                     <dt class="col-sm-2">입력자</dt>
