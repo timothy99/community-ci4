@@ -154,12 +154,15 @@ class Popup extends BaseController
     {
         $popup_model = new PopupModel();
 
-        $p_idx = $this->request->getUri()->getSegment(4);
-
         $result = true;
         $message = "정상";
 
-        $model_result = $popup_model->getPopupInfo($p_idx);
+        $p_idx = $this->request->getUri()->getSegment(4);
+
+        $data = array();
+        $data["p_idx"] = $p_idx;
+
+        $model_result = $popup_model->getPopupInfo($data);
         $result = $model_result["result"];
         $message = $model_result["message"];
         $info = $model_result["info"];
@@ -179,10 +182,10 @@ class Popup extends BaseController
 
         $popup_model = new PopupModel();
 
-        $s_idx = $this->request->getUri()->getSegment(4);
+        $p_idx = $this->request->getUri()->getSegment(4);
 
         $data = array();
-        $data["s_idx"] = $s_idx;
+        $data["p_idx"] = $p_idx;
 
         $model_result = $popup_model->procPopupDelete($data);
         $result = $model_result["result"];
@@ -199,23 +202,19 @@ class Popup extends BaseController
     public function edit()
     {
         $popup_model = new PopupModel();
-        $file_model = new FileModel();
-        $date_model = new DateModel();
-
-        $s_idx = $this->request->getUri()->getSegment(4);
 
         $result = true;
         $message = "정상";
 
-        $model_result = $popup_model->getPopupInfo($s_idx);
+        $p_idx = $this->request->getUri()->getSegment(4);
+
+        $data = array();
+        $data["p_idx"] = $p_idx;
+
+        $model_result = $popup_model->getPopupInfo($data);
         $result = $model_result["result"];
         $message = $model_result["message"];
         $info = $model_result["info"];
-
-        $info->popup_file_info = $file_model->getFileInfo($info->popup_file);
-        $info->ins_date_txt = $date_model->convertTextToDate($info->ins_date, 1, 1);
-        $info->start_date_txt = $date_model->convertTextToDate($info->start_date, 1, 10);
-        $info->end_date_txt = $date_model->convertTextToDate($info->end_date, 1, 10);
 
         $proc_result = array();
         $proc_result["result"] = $result;

@@ -55,13 +55,15 @@ class PopupModel extends Model
         return $proc_result;
     }
 
-    public function getPopupInfo($p_idx)
+    public function getPopupInfo($data)
     {
         $date_model = new DateModel();
         $file_model = new FileModel();
 
         $result = true;
         $message = "목록 불러오기가 완료되었습니다.";
+
+        $p_idx = $data["p_idx"];
 
         $db = $this->db;
         $builder = $db->table("popup");
@@ -207,7 +209,7 @@ class PopupModel extends Model
         $result = true;
         $message = "입력이 잘 되었습니다";
 
-        $s_idx = $data["s_idx"];
+        $p_idx = $data["p_idx"];
 
         $db = $this->db;
         $db->transStart();
@@ -215,7 +217,7 @@ class PopupModel extends Model
         $builder->set("del_yn", "Y");
         $builder->set("upd_id", $member_id);
         $builder->set("upd_date", $today);
-        $builder->where("s_idx", $s_idx);
+        $builder->where("p_idx", $p_idx);
         $result = $builder->update();
 
         if ($db->transStatus() === false) {
