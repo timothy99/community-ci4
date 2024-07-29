@@ -116,7 +116,6 @@ class Contents extends BaseController
     public function view()
     {
         $contents_model = new ContentsModel();
-        $date_model = new DateModel();
 
         $result = true;
         $message = "정상";
@@ -130,9 +129,6 @@ class Contents extends BaseController
         $result = $model_result["result"];
         $message = $model_result["message"];
         $info = $model_result["info"];
-
-        $info->ins_date_txt = $date_model->convertTextToDate($info->ins_date, 1, 1);
-        $info->contents = nl2br_only($info->contents);
 
         $proc_result = array();
         $proc_result["result"] = $result;

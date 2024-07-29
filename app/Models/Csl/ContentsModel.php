@@ -54,6 +54,8 @@ class ContentsModel extends Model
 
     public function getContentsInfo($data)
     {
+        $date_model = new DateModel();
+
         $result = true;
         $message = "목록 불러오기가 완료되었습니다.";
 
@@ -65,7 +67,7 @@ class ContentsModel extends Model
         $builder->where("c_idx", $c_idx);
         $info = $builder->get()->getRow();
 
-        $info->contents = nl2br_rn($info->contents);
+        $info->ins_date_txt = $date_model->convertTextToDate($info->ins_date, 1, 1);
 
         $proc_result = array();
         $proc_result["result"] = $result;
