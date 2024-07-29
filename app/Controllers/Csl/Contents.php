@@ -115,12 +115,15 @@ class Contents extends BaseController
         $contents_model = new ContentsModel();
         $date_model = new DateModel();
 
-        $c_idx = $this->request->getUri()->getSegment(4);
-
         $result = true;
         $message = "정상";
 
-        $model_result = $contents_model->getContentsInfo($c_idx);
+        $c_idx = $this->request->getUri()->getSegment(4);
+
+        $data = array();
+        $data["c_idx"] = $c_idx;
+
+        $model_result = $contents_model->getContentsInfo($data);
         $result = $model_result["result"];
         $message = $model_result["message"];
         $info = $model_result["info"];
