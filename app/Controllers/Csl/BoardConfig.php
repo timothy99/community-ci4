@@ -67,6 +67,7 @@ class BoardConfig extends BaseController
         $info->title = "게시판".$random_board_number;
         $info->base_rows = 10;
         $info->reg_date_yn = "N";
+        $info->user_write = "N";
         $info->category_yn = "N";
         $info->file_cnt = "1";
         $info->file_upload_size_limit = "10";
