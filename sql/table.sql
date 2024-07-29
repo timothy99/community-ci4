@@ -256,11 +256,16 @@ create table mng_popup (
 create table mng_ask (
     a_idx int auto_increment comment '문의 인덱스' primary key,
     name varchar(200) not null comment '이름',
+    contents varchar(4000) default null comment '내용',
     phone varchar(32) not null comment '전화',
     del_yn enum ('Y', 'N') default 'N' not null comment '삭제 여부',
     ins_date varchar(14) not null comment '입력일',
     upd_date varchar(14) not null comment '수정일'
 ) comment '단순문의';
+
+/*
+alter table mng_ask add contents varchar(4000) default null comment '내용' after name;
+*/
 
 create table mng_shortlink (
     sl_idx int not null auto_increment comment '단축url 인덱스',
