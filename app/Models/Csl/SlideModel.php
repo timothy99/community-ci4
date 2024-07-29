@@ -42,8 +42,8 @@ class SlideModel extends Model
 
             $list[$no]->list_no = $cnt-$no-(($page-1)*$rows);
             $list[$no]->ins_date_txt = $date_model->convertTextToDate($val->ins_date, 1, 1);
-            $list[$no]->start_date_txt = $date_model->convertTextToDate($val->start_date, 1, 1);
-            $list[$no]->end_date_txt = $date_model->convertTextToDate($val->end_date, 1, 1);
+            $list[$no]->start_date_txt = $date_model->convertTextToDate($val->start_date, 1, 2);
+            $list[$no]->end_date_txt = $date_model->convertTextToDate($val->end_date, 1, 2);
         }
 
         $proc_result = array();
@@ -71,8 +71,8 @@ class SlideModel extends Model
 
         $info->slide_file_info = $file_model->getFileInfo($info->slide_file);
         $info->ins_date_txt = $date_model->convertTextToDate($info->ins_date, 1, 1);
-        $info->start_date_txt = $date_model->convertTextToDate($info->start_date, 1, 1);
-        $info->end_date_txt = $date_model->convertTextToDate($info->end_date, 1, 1);
+        $info->start_date_txt = $date_model->convertTextToDate($info->start_date, 1, 2);
+        $info->end_date_txt = $date_model->convertTextToDate($info->end_date, 1, 2);
         $info->contents = nl2br_only($info->contents);
 
         $proc_result = array();

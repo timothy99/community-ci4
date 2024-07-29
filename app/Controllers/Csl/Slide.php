@@ -90,8 +90,8 @@ class Slide extends BaseController
         $order_no = $this->request->getPost("order_no", FILTER_SANITIZE_SPECIAL_CHARS);
         $slide_file = $this->request->getPost("slide_file_hidden", FILTER_SANITIZE_SPECIAL_CHARS);
         $display_yn = $this->request->getPost("display_yn");
-        $start_date_txt = $this->request->getPost("start_date").":00";
-        $end_date_txt = $this->request->getPost("end_date").":59";
+        $start_date_txt = $this->request->getPost("start_date")." 00:00:00";
+        $end_date_txt = $this->request->getPost("end_date")." 23:59:59";
 
         $start_date = $date_model->convertTextToDate($start_date_txt, 2, 3);
         $end_date = $date_model->convertTextToDate($end_date_txt, 2, 3);
