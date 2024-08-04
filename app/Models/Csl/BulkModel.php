@@ -3,7 +3,7 @@
 namespace App\Models\Csl;
 
 use CodeIgniter\Model;
-use App\Models\Common\FileModel;
+use App\Models\Common\UploadModel;
 use App\Models\Common\SpreadsheetModel;
 use App\Models\Common\DateModel;
 
@@ -50,7 +50,7 @@ class BulkModel extends Model
 
     public function procBulkInsert($data)
     {
-        $file_model = new FileModel();
+        $upload_model = new UploadModel();
         $spreadsheet_model = new SpreadsheetModel();
 
         $result = true;
@@ -62,7 +62,7 @@ class BulkModel extends Model
         $user_id = getUserSessionInfo("member_id");
         $today = date("YmdHis");
 
-        $file_info = $file_model->getFileInfo($bulk_file);
+        $file_info = $upload_model->getFileInfo($bulk_file);
         $model_result = $spreadsheet_model->procExcelRead($file_info);
         $list = $model_result["list"];
 

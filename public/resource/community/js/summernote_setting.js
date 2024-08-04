@@ -37,7 +37,7 @@ function uploadSummernoteFile(file) {
                 if (category == "image") {
                     var file_html = "<img src='/file/view/"+file_id+"' class='img-fluid'>";
                 } else {
-                    var file_html = "<a href='/file/download/"+file_id+"'>"+file_name_org+"</a>";
+                    var file_html = "<a href='/download/download/"+file_id+"'>"+file_name_org+"</a>";
                 }
                 $("#contents").summernote("pasteHTML", file_html);
             }
