@@ -32,6 +32,10 @@
                                             <td><?=$info->member_name ?></td>
                                         </tr>
                                         <tr>
+                                            <th>암호</th>
+                                            <td><a href="/csl/member/password/<?=$info->member_id ?>" class="btn btn-warning btn-xs">암호변경</a></td>
+                                        </tr>
+                                        <tr>
                                             <th>이름</th>
                                             <td><?=$info->member_name ?></td>
                                         </tr>
