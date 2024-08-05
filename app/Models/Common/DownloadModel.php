@@ -16,7 +16,6 @@ class DownloadModel extends Model
         $builder->where("file_id", $file_id);
         $builder->where("del_yn", "N");
         $db_info = $builder->get()->getFirstRow(); // 쿼리 실행
-        $db_info->file_path = UPLOADPATH.$db_info->file_directory."/".$db_info->file_name_uploaded;
 
         if($db_info == null) {
             $db_info = new stdClass;
@@ -25,6 +24,7 @@ class DownloadModel extends Model
             $db_info->file_name_uploaded = null;
             $db_info->file_name_org = null;
         } else {
+            $db_info->file_path = UPLOADPATH.$db_info->file_directory."/".$db_info->file_name_uploaded;
             $file_id = $db_info->file_id;
             $file_name_org = $db_info->file_name_org;
             $db_info->file_name_org = $file_name_org;
