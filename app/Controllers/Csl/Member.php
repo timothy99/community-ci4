@@ -204,4 +204,56 @@ class Member extends BaseController
         $spreadsheet_model->procExcelWrite($content_list, $filename, $header_list); // 엑셀출력
     }
 
+    public function password()
+    {
+        $member_model = new MemberModel();
+
+        $member_id = $this->request->getUri()->getSegment(4); // segments 확인
+
+        $result = true;
+        $message = "정상";
+
+        $model_result = $member_model->getMemberInfo($member_id);
+        $info = $model_result["info"];
+
+        $proc_result = array();
+        $proc_result["result"] = $result;
+        $proc_result["message"] = $message;
+        $proc_result["info"] = $info;
+
+        return aview("csl/member/password", $proc_result);
+    }
+
+    public function change()
+    {
+        $member_model = new MemberModel();
+
+        $result = true;
+        $message = "정상처리 되었습니다.";
+
+        $member_id = $this->request->getPost("member_id");
+        $member_password = $this->request->getPost("member_password", FILTER_SANITIZE_SPECIAL_CHARS);
+        $member_password_confirm = $this->request->getPost("member_password_confirm", FILTER_SANITIZE_SPECIAL_CHARS);
+
+        if ($member_password != $member_password_confirm) {
+            $result = false;
+            $message = "암호가 다릅니다. 정확히 입력해주세요.";
+        }
+
+        if ($result == true) {
+            $data = array();
+            $data["member_id"] = $member_id;
+            $data["member_password"] = $member_password;
+
+            $model_result = $member_model->procMemberPasswordUpdate($data);
+        }
+
+        $proc_result = array();
+        $proc_result["result"] = $result;
+        $proc_result["message"] = $message;
+        $proc_result["return_url"] = "/csl/member/view/".$member_id;
+
+        return json_encode($proc_result);
+    }
+
 }

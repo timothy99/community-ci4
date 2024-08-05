@@ -71,6 +71,8 @@ $routes->get("/csl/member/edit/(:alphanum)", "Csl\Member::edit");
 $routes->post("/csl/member/update", "Csl\Member::update");
 $routes->post("/csl/member/delete/(:alphanum)", "Csl\Member::delete");
 $routes->get("/csl/member/excel", "Csl\Member::excel");
+$routes->get("/csl/member/password/(:alphanum)", "Csl\Member::password");
+$routes->post("/csl/member/change", "Csl\Member::change");
 
 $routes->get("/csl/board/config/list", "Csl\BoardConfig::list");
 $routes->get("/csl/board/config/write", "Csl\BoardConfig::write");

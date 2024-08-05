@@ -4,6 +4,7 @@ namespace App\Models\Csl;
 
 use CodeIgniter\Model;
 use App\Models\Common\DateModel;
+use App\Models\Common\SecurityModel;
 
 class MemberModel extends Model
 {
@@ -185,6 +186,42 @@ class MemberModel extends Model
         $builder->set("del_yn", "Y");
         $builder->set("upd_id", $upd_id);
         $builder->set("upd_date", $today);
+        $builder->where("member_id", $member_id);
+        $result = $builder->update();
+
+        if ($db->transStatus() === false) {
+            $result = false;
+            $message = "입력에 오류가 발생했습니다.";
+            $db->transRollback();
+        } else {
+            $db->transCommit();
+        }
+
+        $proc_result = array();
+        $proc_result["result"] = $result;
+        $proc_result["message"] = $message;
+
+        return $proc_result;
+    }
+
+    // 회원 암호 강제 변경
+    public function procMemberPasswordUpdate($data)
+    {
+        $security_model = new SecurityModel();
+
+        $result = true;
+        $message = "정상처리";
+
+        $member_id = $data["member_id"];
+        $member_password = $data["member_password"];
+
+        $member_password = $data["member_password"];
+        $member_password_enc = $security_model->getPasswordEncrypt($member_password);
+
+        $db = $this->db;
+        $db->transStart();
+        $builder = $db->table("member");
+        $builder->set("member_password", $member_password_enc);
         $builder->where("member_id", $member_id);
         $result = $builder->update();
 
