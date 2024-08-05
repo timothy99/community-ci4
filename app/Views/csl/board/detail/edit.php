@@ -156,4 +156,8 @@
         $("#ul_file_list").append("<li id='ul_"+file_id+"'><input type='hidden' id='file_list' name='file_list[]' value='"+file_id+"'></li>");
         $("#visible_file_list").append("<li id='visible_"+file_id+"'><a href='/download/download/"+file_id+"'>"+file_name_org+"</a><span class='ml-3'><button type='button' id='"+file_id+"' class='btn btn-danger btn-xs' onclick='file_delete(\""+file_id+"\")'>삭제</button></span></li>");
     }
+
+    function delete_after(file_id) {
+        // do nothing, reserved function location
+    }
 </script>
