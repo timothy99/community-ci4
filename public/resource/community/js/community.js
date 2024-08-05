@@ -170,7 +170,9 @@ function upload(file_id, method) {
 // 첨부파일 삭제(화면에서만)
 function file_delete(file_id) {
     $("#"+file_id).remove();
+    $("input[value='"+file_id+"']").val("");
     $("#visible_"+file_id).val("");
+    delete_after(file_id);
 }
 
 // base64decode
