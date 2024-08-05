@@ -4,7 +4,7 @@
 <?php   foreach($popup_list as $no => $val) { ?>
         <div id="popup_<?=$val->p_idx ?>" class="hd_pops" style="top:<?=$val->position_top ?>px;left:<?=$val->position_left ?>px">
             <div class="hd_pops_con" style="width:<?=$val->popup_width ?>px;height:<?=$val->popup_height ?>px">
-                <p><img src="/file/view/<?=$val->popup_file ?>" alt="<?=$val->title ?>" class="img-fluid"></p>
+                <p><img src="/download/view/<?=$val->popup_file ?>" alt="<?=$val->title ?>" class="img-fluid"></p>
             </div>
             <div class="hd_pops_footer">
                 <button class="hd_pops_reject" onclick="popup_disabled(<?=$val->p_idx ?>, <?=$val->disabled_hours ?>)"><strong><?=$val->disabled_hours ?></strong>시간 동안 다시 열람하지 않습니다.</button>
@@ -39,7 +39,7 @@
                             <div class="carousel-inner">
 <?php   foreach ($slide_list as $no => $val) { ?>
                                 <div class="carousel-item <?=$val->active_class ?>">
-                                    <img src="/file/view/<?=$val->slide_file ?>" class="d-block w-100" alt="...">
+                                    <img src="/download/view/<?=$val->slide_file ?>" class="d-block w-100" alt="...">
                                     <div class="carousel-caption d-none d-md-block">
                                         <h5><?=$val->title ?></h5>
                                         <p><?=$val->contents ?></p>

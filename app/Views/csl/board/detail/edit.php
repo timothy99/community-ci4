@@ -87,7 +87,7 @@
                                 <div class="form-group row">
                                     <label for="attach" class="col-sm-2 col-form-label">파일첨부</label>
                                     <div class="col-sm-5">
-                                        <input type="file" class="form-control" id="attach" name="attach" onchange="upload(this.id)">
+                                        <input type="file" class="form-control" id="attach" name="attach" onchange="upload(this.id, 'board')">
                                     </div>
                                     <div class="col-sm-5">
                                         <ul class="list-unstyled" id="visible_file_list">
@@ -148,10 +148,12 @@
     });
 
     function upload_after(proc_result) {
-        var file_id = proc_result.file_id;
-        var file_name_org = proc_result.file_name_org;
+        var info = proc_result.info;
+        var file_id = info.file_id;
+        var input_file_id = info.input_file_id;
+        var file_name_org = info.file_name_org;
 
         $("#ul_file_list").append("<li id='ul_"+file_id+"'><input type='hidden' id='file_list' name='file_list[]' value='"+file_id+"'></li>");
-        $("#visible_file_list").append("<li id='visible_"+file_id+"'><a href='/file/download/"+file_id+"'>"+file_name_org+"</a><span class='ml-3'><button type='button' id='"+file_id+"' class='btn btn-danger btn-xs' onclick='file_delete(\""+file_id+"\")'>삭제</button></span></li>");
+        $("#visible_file_list").append("<li id='visible_"+file_id+"'><a href='/download/download/"+file_id+"'>"+file_name_org+"</a><span class='ml-3'><button type='button' id='"+file_id+"' class='btn btn-danger btn-xs' onclick='file_delete(\""+file_id+"\")'>삭제</button></span></li>");
     }
 </script>

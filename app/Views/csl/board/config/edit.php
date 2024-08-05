@@ -89,7 +89,7 @@
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="file_cnt" name="file_cnt" value="<?=$info->file_cnt ?>">
                                         <br>
-                                        첨부파일수는 자유롭게 지정가능하며, 0으로 지정할 경우 무한대로 입력가능합니다.
+                                        첨부파일수는 자유롭게 지정가능하며, 1이상 입력가능합니다.
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -97,7 +97,7 @@
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="file_upload_size_limit" name="file_upload_size_limit" value="<?=$info->file_upload_size_limit ?>">
                                         <br>
-                                        개별용량은 자유롭게 지정가능하며 메가바이트(MB)단위로 입력하세요. 0은 제한없습니다. 다만 너무 높게 설정할 경우 서버설정에 의해 오류가 발생할 수 있습니다.
+                                        개별용량은 자유롭게 지정가능하며 메가바이트(MB)단위로 입력하세요. 1이상 입력가능합니다. 다만 너무 높게 설정할 경우 서버설정에 의해 오류가 발생할 수 있습니다.
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -105,7 +105,7 @@
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="file_upload_size_total" name="file_upload_size_total" value="<?=$info->file_upload_size_total ?>">
                                         <br>
-                                        최대용량은 자유롭게 지정가능하며, 0으로 지정할 경우 무한대로 입력가능합니다. 다만 너무 높게 설정할 경우 서버설정에 의해 오류가 발생할 수 있습니다.
+                                        최대용량은 자유롭게 지정가능하며, 1이상 입력가능합니다. 다만 너무 높게 설정할 경우 서버설정에 의해 오류가 발생할 수 있습니다.
                                     </div>
                                 </div>
                             </div>

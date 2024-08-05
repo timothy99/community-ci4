@@ -22,9 +22,13 @@ $routes->get("/board/(:any)/edit/(:num)", "Usr\Board::edit");
 $routes->post("/board/(:any)/update", "Usr\Board::update");
 $routes->post("/board/(:any)/delete/(:num)", "Usr\Board::delete");
 
-$routes->post("/file/upload", "Usr\File::upload");
-$routes->get("/file/view/(:alphanum)", "Usr\File::view");
-$routes->get("/file/download/(:alphanum)", "Usr\File::download");
+$routes->post("/upload/general", "Usr\Upload::general");
+$routes->post("/upload/board", "Usr\Upload::board");
+$routes->post("/upload/image", "Usr\Upload::image");
+$routes->post("/upload/original", "Usr\Upload::original");
+
+$routes->get("/download/view/(:alphanum)", "Usr\Download::view");
+$routes->get("/download/download/(:alphanum)", "Usr\Download::download");
 
 $routes->get("/contents/view/(:num)", "Usr\Contents::view");
 

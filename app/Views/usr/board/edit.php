@@ -53,13 +53,13 @@
                                 <div class="form-group row">
                                     <label for="attach" class="col-sm-2 col-form-label">파일첨부</label>
                                     <div class="col-sm-5">
-                                        <input type="file" class="form-control" id="attach" name="attach" onchange="upload(this.id)">
+                                        <input type="file" class="form-control" id="attach" name="attach" onchange="upload(this.id, 'general')">
                                     </div>
                                     <div class="col-sm-5">
                                         <ul class="list-unstyled" id="visible_file_list">
 <?php   foreach($info->file_list as $no1 => $val1) { ?>
                                             <li id="visible_<?=$val1->file_id ?>">
-                                                <a href="/file/download/<?=$val1->file_id ?>">
+                                                <a href="/download/download/<?=$val1->file_id ?>">
                                                     <?=$val1->file_name_org ?>
                                                 </a>
                                                 <span class="ml-3">
@@ -116,6 +116,6 @@
         var file_name_org = proc_result.file_name_org;
 
         $("#ul_file_list").append("<li id='ul_"+file_id+"'><input type='hidden' id='file_list' name='file_list[]' value='"+file_id+"'></li>");
-        $("#visible_file_list").append("<li id='visible_"+file_id+"'><a href='/file/download/"+file_id+"'>"+file_name_org+"</a><span class='ml-3'><button type='button' id='"+file_id+"' class='btn btn-danger btn-xs' onclick='file_delete(\""+file_id+"\")'>삭제</button></span></li>");
+        $("#visible_file_list").append("<li id='visible_"+file_id+"'><a href='/download/download/"+file_id+"'>"+file_name_org+"</a><span class='ml-3'><button type='button' id='"+file_id+"' class='btn btn-danger btn-xs' onclick='file_delete(\""+file_id+"\")'>삭제</button></span></li>");
     }
 </script>

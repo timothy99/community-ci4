@@ -73,13 +73,13 @@
                                 <div class="form-group row">
                                     <label for="slide_file" class="col-sm-2 col-form-label">이미지</label>
                                     <div class="col-sm-5">
-                                        <input type="file" class="form-control" id="slide_file" name="slide_file" onchange="upload(this.id)">
+                                        <input type="file" class="form-control" id="slide_file" name="slide_file" onchange="upload(this.id, 'general')">
                                     </div>
                                     <div class="col-sm-5">
                                         <ul class="list-unstyled" id="slide_file_visible">
 <?php   if ($info->slide_file_info != null) { ?>
                                             <li id="<?=$info->slide_file_info->file_id ?>">
-                                                <a href="/file/download/<?=$info->slide_file_info->file_id ?>"><?=$info->slide_file_info->file_name_org ?></a>
+                                                <a href="/download/download/<?=$info->slide_file_info->file_id ?>"><?=$info->slide_file_info->file_name_org ?></a>
                                                 <span class="ml-3"><button type="button" id="<?=$info->slide_file_info->file_id ?>" class="btn btn-danger btn-xs" onclick="file_delete('<?=$info->slide_file_info->file_id ?>')">삭제</button></span>
                                             </li>
 <?php   } ?>
@@ -124,11 +124,12 @@
     });
 
     function upload_after(proc_result) {
-        var file_id = proc_result.file_id;
-        var input_file_id = proc_result.input_file_id;
-        var file_name_org = proc_result.file_name_org;
+        var info = proc_result.info;
+        var file_id = info.file_id;
+        var input_file_id = info.input_file_id;
+        var file_name_org = info.file_name_org;
 
         $("#"+input_file_id+"_hidden").val(file_id);
-        $("#"+input_file_id+"_visible").html("<li id='"+file_id+"'><a href='/file/download/"+file_id+"'>"+file_name_org+"</a><span class='ml-3'><button type='button' id='"+file_id+"' class='btn btn-danger btn-xs' onclick='file_delete(\""+file_id+"\")'>삭제</button></span></li>");
+        $("#"+input_file_id+"_visible").html("<li id='"+file_id+"'><a href='/download/download/"+file_id+"'>"+file_name_org+"</a><span class='ml-3'><button type='button' id='"+file_id+"' class='btn btn-danger btn-xs' onclick='file_delete(\""+file_id+"\")'>삭제</button></span></li>");
     }
 </script>

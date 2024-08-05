@@ -145,14 +145,14 @@ function ajax7(ajax_url) {
 
 
 // 파일첨부 로직
-function upload(file_id) {
+function upload(file_id, method) {
     var progress_html = $("<div id='progress' style='display:none;'><div id='progress_loading'><img id='loading_img' src='/resource/community/image/loading.gif'/></div></div>").appendTo(document.body).show();
     var form_data = new FormData($("#frm")[0]);
     form_data.append("file_id", file_id);
     $.ajax({
         data : form_data,
         type : "POST",
-        url : "/file/upload",
+        url : "/upload/"+method,
         dataType: "json",
         processData : false,
         contentType : false,

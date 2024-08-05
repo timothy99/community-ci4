@@ -4,7 +4,7 @@ namespace App\Models\Csl;
 
 use CodeIgniter\Model;
 use App\Models\Common\DateModel;
-use App\Models\Common\FileModel;
+use App\Models\Common\DownloadModel;
 
 class PopupModel extends Model
 {
@@ -58,7 +58,7 @@ class PopupModel extends Model
     public function getPopupInfo($data)
     {
         $date_model = new DateModel();
-        $file_model = new FileModel();
+        $download_model = new DownloadModel();
 
         $result = true;
         $message = "목록 불러오기가 완료되었습니다.";
@@ -71,7 +71,7 @@ class PopupModel extends Model
         $builder->where("p_idx", $p_idx);
         $info = $builder->get()->getRow();
 
-        $info->popup_file_info = $file_model->getFileInfo($info->popup_file);
+        $info->popup_file_info = $download_model->getFileInfo($info->popup_file);
         $info->ins_date_txt = $date_model->convertTextToDate($info->ins_date, 1, 1);
         $info->start_date_txt = $date_model->convertTextToDate($info->start_date, 1, 10);
         $info->end_date_txt = $date_model->convertTextToDate($info->end_date, 1, 10);
