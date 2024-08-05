@@ -14,7 +14,7 @@ class UploadModel extends Model
         $result = true;
         $message = "파일 업로드가 완료되었습니다.";
 
-        $file_id = $data["file_id"];
+        $file_id = $data["input_file_id"];
         $user_file = $data["user_file"];
 
         if ($user_file->getName() == null) {
@@ -100,7 +100,7 @@ class UploadModel extends Model
         $result = true;
         $message = "파일 업로드가 완료되었습니다.";
 
-        $file_id = $data["file_id"];
+        $file_id = $data["input_file_id"];
         $user_file = $data["user_file"];
 
         if ($user_file->getName() == null) {
@@ -565,6 +565,7 @@ class UploadModel extends Model
 
         $model_result = $board_model->getConfigInfo($data);
         $config = $model_result["info"];
+        logMessage($config);
 
         $file_upload_size_limit = $config->file_upload_size_limit;
         $file_upload_size_total = $config->file_upload_size_total;

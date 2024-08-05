@@ -4,7 +4,7 @@ namespace App\Models\Csl;
 
 use CodeIgniter\Model;
 use App\Models\Common\DateModel;
-use App\Models\Common\FileModel;
+use App\Models\Common\DownloadModel;
 
 class SlideModel extends Model
 {
@@ -58,7 +58,7 @@ class SlideModel extends Model
     public function getSlideInfo($s_idx)
     {
         $date_model = new DateModel();
-        $file_model = new FileModel();
+        $download_model = new DownloadModel();
 
         $result = true;
         $message = "목록 불러오기가 완료되었습니다.";
@@ -69,7 +69,7 @@ class SlideModel extends Model
         $builder->where("s_idx", $s_idx);
         $info = $builder->get()->getRow();
 
-        $info->slide_file_info = $file_model->getFileInfo($info->slide_file);
+        $info->slide_file_info = $download_model->getFileInfo($info->slide_file);
         $info->ins_date_txt = $date_model->convertTextToDate($info->ins_date, 1, 1);
         $info->start_date_txt = $date_model->convertTextToDate($info->start_date, 1, 2);
         $info->end_date_txt = $date_model->convertTextToDate($info->end_date, 1, 2);

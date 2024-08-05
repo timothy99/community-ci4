@@ -55,7 +55,7 @@ class BoardModel extends Model
     public function getBoardInfo($data)
     {
         $date_model = new DateModel();
-        $file_model = new FileModel();
+        $download_model = new DownloadModel();
 
         $result = true;
         $message = "정상처리";
@@ -74,7 +74,7 @@ class BoardModel extends Model
         $file_list = array();
         if (count($file_arr) > 0) {
             foreach($file_arr as $no => $val) {
-                $file_info = $file_model->getFileInfo($val);
+                $file_info = $download_model->getFileInfo($val);
                 $file_list[] = $file_info;
             }
         }

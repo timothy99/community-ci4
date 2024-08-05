@@ -5,7 +5,7 @@ namespace App\Models\Csl;
 use CodeIgniter\Model;
 use App\Models\Common\DateModel;
 use App\Models\Csl\MemberModel;
-use App\Models\Common\FileModel;
+use App\Models\Common\DownloadModel;
 
 class BoardModel extends Model
 {
@@ -121,7 +121,7 @@ class BoardModel extends Model
         $result = true;
         $message = "파일목록을 잘 불러왔습니다";
 
-        $file_model = new FileModel();
+        $download_model = new DownloadModel();
 
         $info = $data["info"];
 
@@ -129,7 +129,7 @@ class BoardModel extends Model
         $file_list = array();
         if (count($file_arr) > 0) {
             foreach($file_arr as $no => $val) {
-                $file_info = $file_model->getFileInfo($val);
+                $file_info = $download_model->getFileInfo($val);
                 $file_list[] = $file_info;
             }
         }

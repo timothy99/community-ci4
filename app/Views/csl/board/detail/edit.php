@@ -150,6 +150,7 @@
     function upload_after(proc_result) {
         var info = proc_result.info;
         var file_id = info.file_id;
+        var input_file_id = info.input_file_id;
         var file_name_org = info.file_name_org;
 
         $("#ul_file_list").append("<li id='ul_"+file_id+"'><input type='hidden' id='file_list' name='file_list[]' value='"+file_id+"'></li>");

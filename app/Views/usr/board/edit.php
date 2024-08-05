@@ -53,7 +53,7 @@
                                 <div class="form-group row">
                                     <label for="attach" class="col-sm-2 col-form-label">파일첨부</label>
                                     <div class="col-sm-5">
-                                        <input type="file" class="form-control" id="attach" name="attach" onchange="upload(this.id)">
+                                        <input type="file" class="form-control" id="attach" name="attach" onchange="upload(this.id, 'general')">
                                     </div>
                                     <div class="col-sm-5">
                                         <ul class="list-unstyled" id="visible_file_list">
