@@ -165,8 +165,6 @@ class Board extends BaseController
         $b_idx = $this->request->getPost("b_idx", FILTER_SANITIZE_SPECIAL_CHARS);
         $title = $this->request->getPost("title", FILTER_SANITIZE_SPECIAL_CHARS);
         $summer_code = (string)$this->request->getPost("summer_code");
-        $summer_code = str_replace("<p><br></p><p>", "", $summer_code);
-        $summer_code = str_replace("\r\n", "", $summer_code);
 
         $file_list = $this->request->getPost("file_list") ?? array();
         if (count($file_list) > 0) {

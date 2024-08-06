@@ -141,8 +141,6 @@ class Board extends BaseController
         $b_idx = $this->request->getPost("b_idx", FILTER_SANITIZE_SPECIAL_CHARS);
         $title = $this->request->getPost("title", FILTER_SANITIZE_SPECIAL_CHARS);
         $summer_code = (string)$this->request->getPost("summer_code");
-        $summer_code = str_replace("<p><br></p><p>", "", $summer_code);
-        $summer_code = str_replace("\r\n", "", $summer_code);
         $category = $this->request->getPost("category", FILTER_SANITIZE_SPECIAL_CHARS);
         $notice_yn = $this->request->getPost("notice_yn", FILTER_SANITIZE_SPECIAL_CHARS) ?? "N";
         $reg_date = $this->request->getPost("reg_date", FILTER_SANITIZE_SPECIAL_CHARS) ?? date("Y-m-d H:i:s");
