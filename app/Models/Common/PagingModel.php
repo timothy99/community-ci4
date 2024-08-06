@@ -80,11 +80,11 @@ class PagingModel extends Model
     {
         $uri_path = current_url(true)->getPath();
 
-        $view_file = $data["view_file"] ?? "/csl/paging/paging";
+        $paging_file = $data["paging_file"] ?? "/csl/paging/paging";
         $http_query = http_build_query($data["search_arr"]);
         $paging = $data["paging"];
 
-        $paging_view = view($view_file, ["paging"=>$paging, "http_query"=>$http_query, "href_link"=>$uri_path]); // 페이징 뷰
+        $paging_view = view($paging_file, ["paging"=>$paging, "http_query"=>$http_query, "href_link"=>$uri_path]); // 페이징 뷰
 
         return $paging_view;
     }
