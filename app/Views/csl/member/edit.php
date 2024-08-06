@@ -64,7 +64,7 @@
                                         <button type="button" class="btn btn-info" onclick="postcode_open()">주소검색</button>
                                     </div>
                                 </div>
-                                <div class="form-group row">
+                                <div class="form-group row" id="post_div" style="display:none">
                                     <div class="col-sm-2"></div>
                                     <div class="col-sm-10">
                                         <div id="wrap" style="display:none;border:1px solid;width:100%;height:300px;margin:5px 0;position:relative">

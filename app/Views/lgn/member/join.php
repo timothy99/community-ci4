@@ -74,8 +74,8 @@
                         <button type="button" class="btn btn-info btn-user btn-block ml-3" onclick="postcode_open()">검색</button>
                     </div>
                 </div>
-                <div class="input-group mb-3">
-                    <div id="wrap" style="display:none;border:1px solid;width:100%;height:300px;margin:5px 0;position:relative">
+                <div class="form-group row" id="post_div" style="display:none">
+                    <div id="wrap" style="display:block;border:1px solid;width:100%;height:300px;margin:5px 0;position:relative">
                         <img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="postcode_close()" alt="접기 버튼">
                     </div>
                 </div>
