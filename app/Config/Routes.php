@@ -159,3 +159,5 @@ $routes->post("/csl/youtube/update", "Csl\Youtube::update");
 $routes->get("/csl/youtube/view/(:num)", "Csl\Youtube::view");
 $routes->post("/csl/youtube/delete/(:num)", "Csl\Youtube::delete");
 $routes->get("/csl/youtube/search", "Csl\Youtube::search");
+
+$routes->post("/summernote/cleaner", "Usr\Summernote::cleaner");
