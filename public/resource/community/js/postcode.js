@@ -1,7 +1,5 @@
 function postcode_close() {
-    var element_wrap = document.getElementById("wrap");
-    // iframe을 넣은 element를 안보이게 한다.
-    element_wrap.style.display = "none";
+    document.getElementById("post_div").style.display = "none";
 }
 
 function postcode_open() {
@@ -51,7 +49,7 @@ function postcode_open() {
 
             // iframe을 넣은 element를 안보이게 한다.
             // (autoClose:false 기능을 이용한다면, 아래 코드를 제거해야 화면에서 사라지지 않는다.)
-            element_wrap.style.display = "none";
+            postcode_close();
 
             // 우편번호 찾기 화면이 보이기 이전으로 scroll 위치를 되돌린다.
             document.body.scrollTop = currentScroll;
@@ -65,5 +63,5 @@ function postcode_open() {
     }).embed(element_wrap);
 
     // iframe을 넣은 element를 보이게 한다.
-    element_wrap.style.display = "block";
+    document.getElementById("post_div").style.display = "flex";
 }
