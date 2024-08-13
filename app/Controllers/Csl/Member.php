@@ -179,10 +179,10 @@ class Member extends BaseController
         $search_arr["search_text"] = $search_text;
         $search_arr["search_condition"] = $search_condition;
         $search_arr["auth_group"] = $auth_group;
+        $search_arr["rows"] = 0;
 
         $data = array();
         $data["search_arr"] = $search_arr;
-        $data["rows"] = 0;
         $data["page"] = 0;
 
         $model_result = $member_model->getMemberList($data);
