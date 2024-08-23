@@ -27,6 +27,7 @@ $routes->post("/upload/board", "Usr\Upload::board");
 $routes->post("/upload/image", "Usr\Upload::image");
 $routes->post("/upload/original", "Usr\Upload::original");
 
+$routes->get("/download/view", "Usr\Download::view");
 $routes->get("/download/view/(:alphanum)", "Usr\Download::view");
 $routes->get("/download/download/(:alphanum)", "Usr\Download::download");
 

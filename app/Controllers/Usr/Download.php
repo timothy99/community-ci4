@@ -19,7 +19,13 @@ class Download extends BaseController
 
         $file_id = $this->request->getUri()->getSegment(3);
 
-        $file_info = $download_model->getFileInfo($file_id); // 파일소유권 확인 및 파일 정보 확인
+        $file_info = (object)array();
+        if ($file_id == null) { // 파일 아이디가 없다는건 파일 정보가 애초에 없다는 말이니
+            $file_info->file_path = null; // 공백 no image 파일이 다운로드 되도록 처리한다.
+        } else {
+            $file_info = $download_model->getFileInfo($file_id); // 파일소유권 확인 및 파일 정보 확인
+        }
+
         $raw_file = $download_model->getRawFile($this->response, $file_info->file_path); // 파일 다운로드
 
         return $raw_file;
