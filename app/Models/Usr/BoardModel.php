@@ -4,7 +4,7 @@ namespace App\Models\Usr;
 
 use CodeIgniter\Model;
 use App\Models\Common\DateModel;
-use App\Models\Common\FileModel;
+use App\Models\Common\DownloadModel;
 
 class BoardModel extends Model
 {
@@ -41,6 +41,7 @@ class BoardModel extends Model
         foreach($list as $no => $val) {
             $list[$no]->list_no = $cnt-$start_row-$no;
             $list[$no]->ins_date_txt = $date_model->convertTextToDate($val->ins_date, 1, 1);
+            $list[$no]->file_arr = explode("|", $val->file_idxs);
         }
 
         $proc_result = array();
@@ -205,6 +206,32 @@ class BoardModel extends Model
         $model_result = array();
         $model_result["result"] = $result;
         $model_result["message"] = $message;
+
+        return $model_result;
+    }
+
+    public function getBoardFileList($data)
+    {
+        $result = true;
+        $message = "파일목록을 잘 불러왔습니다";
+
+        $download_model = new DownloadModel();
+
+        $info = $data["info"];
+
+        $file_arr = strlen($info->file_idxs) > 0 ? explode("|", $info->file_idxs) : array();
+        $file_list = array();
+        if (count($file_arr) > 0) {
+            foreach($file_arr as $no => $val) {
+                $file_info = $download_model->getFileInfo($val);
+                $file_list[] = $file_info;
+            }
+        }
+
+        $model_result = array();
+        $model_result["result"] = $result;
+        $model_result["message"] = $message;
+        $model_result["list"] = $file_list;
 
         return $model_result;
     }

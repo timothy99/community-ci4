@@ -26,6 +26,15 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
+                                    <label for="type" class="col-sm-2 col-form-label">게시판 종류</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control" id="type" name="type">
+                                            <option value="board">게시판</option>
+                                            <option value="gallery">갤러리</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label for="board_id" class="col-sm-2 col-form-label">게시판 아이디</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="board_id" name="board_id" value="<?=$info->board_id ?>">
@@ -132,6 +141,7 @@
         $("#category_yn").val("<?=$info->category_yn ?>").prop("selected", true);
         $("#reg_date_yn").val("<?=$info->reg_date_yn ?>").prop("selected", true);
         $("#user_write").val("<?=$info->user_write ?>").prop("selected", true);
+        $("#type").val("<?=$info->type ?>").prop("selected", true);
     });
 
     $(function() {

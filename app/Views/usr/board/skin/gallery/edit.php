@@ -6,24 +6,23 @@
     <input type="hidden" id="contents_code" name="contents_code" value='<?=base64_encode($info->contents) ?>'>
     <input type="hidden" id="summer_code" name="summer_code">
     <ul id="ul_file_list" name="ul_file_list" style="display:none">
-<?php   foreach($file_list as $no => $val) { ?>
-        <li id="<?=$val->file_id ?>">
+<?php   foreach($info->file_list as $no => $val) { ?>
+        <li id="ul_<?=$val->file_id ?>">
             <input type="hidden" id="file_list" name="file_list[]" value="<?=$val->file_id ?>">
         </li>
 <?php   } ?>
     </ul>
+
     <div class="content-wrapper">
         <section class="content-header">
-            <div class="container-fluid">
+            <div class="container">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1><?=$config_info->title ?></h1>
+                        <h1><?=$title_info->title ?></h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="/">홈</a></li>
-                            <li class="breadcrumb-item active">게시판</li>
-                            <li class="breadcrumb-item active"><?=$config_info->title ?></li>
+                            <li class="breadcrumb-item"><?=$title_info->bread_crumb ?></li>
                         </ol>
                     </div>
                 </div>
@@ -31,7 +30,7 @@
         </section>
 
         <section class="content">
-            <div class="container-fluid">
+            <div class="container">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card card-primary">
@@ -42,42 +41,9 @@
                                 <div class="form-group row">
                                     <label for="title" class="col-sm-2 col-form-label">제목</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="title" name="title" value="<?=$info->title ?>" placeholder="제목을 입력하세요">
+                                        <input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력하세요">
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-2">
-                                        <label for="title" class="col-form-label">공지</label>
-                                    </div>
-                                    <div class="col-sm-10">
-                                        <div class="form-check pt-2">
-                                            <input class="form-check-input" type="checkbox" id="notice_yn" name="notice_yn" value="Y">
-                                            <label class="form-check-label">상단에 등록</label>
-                                        </div>
-                                    </div>
-                                </div>
-<?php   if ($config_info->category_yn== "Y") { ?>
-                                <div class="form-group row">
-                                    <label for="reg_date" class="col-sm-2 col-form-label">분류</label>
-                                    <div class="col-sm-10">
-                                        <select class="form-control" id="category" name="category">
-                                            <option value="">선택하세요</option>
-<?php       foreach ($config_info->category_arr as $no => $val) { ?>
-                                            <option value="<?=$val ?>"><?=$val ?></option>
-<?php       } ?>
-                                        </select>
-                                    </div>
-                                </div>
-<?php   } ?>
-
-<?php   if ($config_info->reg_date_yn  == "Y") { ?>
-                                <div class="form-group row">
-                                    <label for="reg_date" class="col-sm-2 col-form-label">등록일</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="reg_date" name="reg_date" value="<?=$info->reg_date ?>">
-                                    </div>
-                                </div>
-<?php   } ?>
                                 <div class="form-group row">
                                     <label for="contents" class="col-sm-2 col-form-label">내용</label>
                                     <div class="col-sm-10">
@@ -87,19 +53,20 @@
                                 <div class="form-group row">
                                     <label for="attach" class="col-sm-2 col-form-label">파일첨부</label>
                                     <div class="col-sm-5">
-                                        <input type="file" class="form-control" id="attach" name="attach" onchange="upload(this.id, 'board')">
+                                        <input type="file" class="form-control" id="attach" name="attach" onchange="upload(this.id, 'image')">
                                     </div>
                                     <div class="col-sm-5">
                                         <ul class="list-unstyled" id="visible_file_list">
-<?php   foreach($file_list as $no1 => $val1) { ?>
-                                            <li id="<?=$val1->file_id ?>">
-                                                <a href="/csl/attach/download/<?=$val1->file_id ?>"><?=$val1->file_name_org ?></a>
-                                                &nbsp;&nbsp;&nbsp;
-                                                <a id="<?=$val1->file_id ?>" href="javascript:void(0)" onclick="file_delete('<?=$val1->file_id ?>')">
-                                                    <span class="ml-3">
-                                                        <button type="button" id="<?=$val1->file_id ?>" class="btn btn-danger btn-xs" onclick="file_delete('<?=$val1->file_id ?>')">삭제</button>
-                                                    </span>
+<?php   foreach($info->file_list as $no1 => $val1) { ?>
+                                            <li id="visible_<?=$val1->file_id ?>">
+                                                <a href="/download/download/<?=$val1->file_id ?>">
+                                                    <?=$val1->file_name_org ?>
                                                 </a>
+                                                <span class="ml-3">
+                                                    <button type="button" id="<?=$val1->file_id ?>" class="btn btn-danger btn-xs" onclick="file_delete('<?=$val1->file_id ?>')">
+                                                        삭제
+                                                    </button>
+                                                </span>
                                             </li>
 <?php   } ?>
                                         </ul>
@@ -123,23 +90,20 @@
 <script>
     $(window).on("load", function() {
         // 메뉴강조
-        $("#li-board-config-list").addClass("menu-open");
-        $("#upper-board-config-list").addClass("active");
-        $("#a-board-manage-list").addClass("active");
+        $("#li-board-notice-list").addClass("menu-open");
+        $("#upper-board-notice-list").addClass("active");
+        $("#a-board-<?=$board_id ?>-list").addClass("active");
 
+        $("#title").val("<?=$info->title ?>"); // 내용채우기
         $("#contents").summernote(summernote_settings); // 썸머노트 초기화
         var contents_code = $("#contents_code").val();
         $("#contents").summernote("pasteHTML",  decodeUnicode(contents_code)); // 내용 넣기
-
-        $("#reg_date").inputmask("datetime", {inputFormat:"yyyy-mm-dd HH:MM:ss"});
-        $("#category").val("<?=$info->category ?>").prop("selected", true);
-        $("#notice_yn:checkbox[value='<?=$info->notice_yn ?>']").prop('checked', true);
     });
 
     $(function() {
         $("#save").click(function(e) {
             $("#summer_code").val($("#contents").summernote("code"));
-            ajax1("/csl/board/<?=$board_id ?>/update", "frm");
+            ajax1("/board/<?=$board_id ?>/update", "frm");
         });
 
         $("#cancel").click(function(e) {
@@ -150,7 +114,6 @@
     function upload_after(proc_result) {
         var info = proc_result.info;
         var file_id = info.file_id;
-        var input_file_id = info.input_file_id;
         var file_name_org = info.file_name_org;
 
         $("#ul_file_list").append("<li id='ul_"+file_id+"'><input type='hidden' id='file_list' name='file_list[]' value='"+file_id+"'></li>");
@@ -158,6 +121,7 @@
     }
 
     function delete_after(file_id) {
-        // do nothing, reserved function location
+        $("#ul_"+file_id).remove();
+        $("#visible_"+file_id).remove();
     }
 </script>

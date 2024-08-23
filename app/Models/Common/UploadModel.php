@@ -565,7 +565,6 @@ class UploadModel extends Model
 
         $model_result = $board_model->getConfigInfo($data);
         $config = $model_result["info"];
-        logMessage($config);
 
         $file_upload_size_limit = $config->file_upload_size_limit;
         $file_upload_size_total = $config->file_upload_size_total;

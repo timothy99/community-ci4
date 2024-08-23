@@ -28,6 +28,8 @@
                                 <dl class="row">
                                     <dt class="col-sm-2">게시판 아이디</dt>
                                     <dd class="col-sm-10"><?=$info->board_id ?></dd>
+                                    <dt class="col-sm-2">스킨</dt>
+                                    <dd class="col-sm-10"><?=$info->type ?></dd>
                                     <dt class="col-sm-2">제목</dt>
                                     <dd class="col-sm-10"><?=$info->title ?></dd>
                                     <dt class="col-sm-2">분류</dt>

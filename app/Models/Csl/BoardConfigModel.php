@@ -172,6 +172,7 @@ class BoardConfigModel extends Model
         $insert_id = 0;
 
         $board_id = $data["board_id"];
+        $type = $data["type"];
         $title = $data["title"];
         $category = $data["category"];
         $category_yn = $data["category_yn"];
@@ -186,6 +187,7 @@ class BoardConfigModel extends Model
         $db->transStart();
         $builder = $db->table("board_config");
         $builder->set("board_id", $board_id);
+        $builder->set("type", $type);
         $builder->set("title", $title);
         $builder->set("category", $category);
         $builder->set("category_yn", $category_yn);
@@ -229,6 +231,7 @@ class BoardConfigModel extends Model
 
         $bc_idx = $data["bc_idx"];
         $board_id = $data["board_id"];
+        $type = $data["type"];
         $title = $data["title"];
         $category = $data["category"];
         $category_yn = $data["category_yn"];
@@ -251,6 +254,7 @@ class BoardConfigModel extends Model
         $db->transStart();
         $builder = $db->table("board_config");
         $builder->set("board_id", $board_id);
+        $builder->set("type", $type);
         $builder->set("title", $title);
         $builder->set("category", $category);
         $builder->set("category_yn", $category_yn);

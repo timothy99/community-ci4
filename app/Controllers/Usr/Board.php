@@ -64,7 +64,7 @@ class Board extends BaseController
         $proc_result["data"] = $data;
         $proc_result["board_id"] = $board_id;
 
-        return uview("usr/board/list", $proc_result);
+        return uview("usr/board/skin/".$config_info->type."/list", $proc_result);
     }
 
     public function view()
@@ -94,7 +94,8 @@ class Board extends BaseController
         $comment_list = $model_result["list"];
 
         $model_result = $config_model->getConfigInfo($data);
-        $title = $model_result["info"]->title;
+        $config_info = $model_result["info"];
+        $title = $config_info->title;
 
         $title_info = (object)array();
         $title_info->title = $title;
@@ -109,7 +110,7 @@ class Board extends BaseController
         $proc_result["comment_list"] = $comment_list;
         $proc_result["board_id"] = $board_id;
 
-        return uview("usr/board/view", $proc_result);
+        return uview("usr/board/skin/".$config_info->type."/view", $proc_result);
     }
 
     public function write()
@@ -131,11 +132,13 @@ class Board extends BaseController
         $info->title = $title;
         $info->contents = $contents;
         $info->contents_code = $contents_code;
+        $info->file_list = array();
 
         $data["board_id"] = $board_id;
 
         $model_result = $config_model->getConfigInfo($data);
-        $title = $model_result["info"]->title;
+        $config_info = $model_result["info"];
+        $title = $config_info->title;
 
         $title_info = (object)array();
         $title_info->title = $title;
@@ -149,9 +152,8 @@ class Board extends BaseController
         $proc_result["board_id"] = $board_id;
         $proc_result["b_idx"] = $b_idx;
         $proc_result["info"] = $info;
-        $proc_result["file_list"] = array();
 
-        return uview("usr/board/edit", $proc_result);
+        return uview("usr/board/skin/".$config_info->type."/edit", $proc_result);
     }
 
     public function update()
@@ -244,14 +246,21 @@ class Board extends BaseController
 
         $model_result = $board_model->getBoardInfo($data);
         $info = $model_result["info"];
+        $data["info"] = $info;
 
         $model_result = $config_model->getConfigInfo($data);
-        $title = $model_result["info"]->title;
+        $config_info = $model_result["info"];
+        $config_info->category_arr = explode("||", $config_info->category);
+        $title = $config_info->title;
 
         $title_info = (object)array();
         $title_info->title = $title;
         $title_info->head_title = " 게시판 &gt; ".$title."  &gt; ".$info->title."  &gt; 수정";
         $title_info->bread_crumb = "홈 &gt; 게시판 &gt; ".$title."  &gt; 수정";
+
+        // 파일목록
+        $model_result = $board_model->getBoardFileList($data);
+        $file_list = $model_result["list"];
 
         $proc_result = array();
         $proc_result["result"] = $result;
@@ -259,9 +268,11 @@ class Board extends BaseController
         $proc_result["board_id"] = $board_id;
         $proc_result["b_idx"] = $b_idx;
         $proc_result["title_info"] = $title_info;
+        $proc_result["config_info"] = $config_info;
         $proc_result["info"] = $info;
+        $proc_result["file_list"] = $file_list;
 
-        return uview("usr/board/edit", $proc_result);
+        return uview("usr/board/skin/".$config_info->type."/edit", $proc_result);
     }
 
 }
