@@ -4,6 +4,7 @@ namespace App\Models\Csl;
 
 use CodeIgniter\Model;
 use App\Models\Common\DateModel;
+use Exception;
 
 class YoutubeModel extends Model
 {
@@ -152,26 +153,30 @@ class YoutubeModel extends Model
         $category = $data["category"];
         $play_id = $data["play_id"];
 
-        $db = $this->db;
-        $db->transStart();
-        $builder = $db->table("youtube");
-        $builder->set("title", $title);
-        $builder->set("category", $category);
-        $builder->set("play_id", $play_id);
-        $builder->set("del_yn", "N");
-        $builder->set("ins_id", $user_id);
-        $builder->set("ins_date", $today);
-        $builder->set("upd_id", $user_id);
-        $builder->set("upd_date", $today);
-        $result = $builder->insert();
-        $insert_id = $db->insertID();
+        try {
+            $db = $this->db;
+            $db->transStart();
+            $builder = $db->table("youtube");
+            $builder->set("title", $title);
+            $builder->set("category", $category);
+            $builder->set("play_id", $play_id);
+            $builder->set("del_yn", "N");
+            $builder->set("ins_id", $user_id);
+            $builder->set("ins_date", $today);
+            $builder->set("upd_id", $user_id);
+            $builder->set("upd_date", $today);
+            $result = $builder->insert();
+            $insert_id = $db->insertID();
 
-        if ($db->transStatus() === false) {
+            if ($result == false) { 
+                throw new Exception($db->error(["message"]));
+            } else {
+                $db->transComplete();
+            }
+        } catch (Exception $exception) {
             $result = false;
-            $message = "입력에 오류가 발생했습니다.";
+            $message = "입력에 오류가 발생했습니다.\n".$exception->getMessage();
             $db->transRollback();
-        } else {
-            $db->transCommit();
         }
 
         $model_result = array();
@@ -195,23 +200,27 @@ class YoutubeModel extends Model
         $category = $data["category"];
         $play_id = $data["play_id"];
 
-        $db = $this->db;
-        $db->transStart();
-        $builder = $db->table("youtube");
-        $builder->set("title", $title);
-        $builder->set("category", $category);
-        $builder->set("play_id", $play_id);
-        $builder->set("upd_id", $user_id);
-        $builder->set("upd_date", $today);
-        $builder->where("y_idx", $y_idx);
-        $result = $builder->update();
+        try {
+            $db = $this->db;
+            $db->transStart();
+            $builder = $db->table("youtube");
+            $builder->set("title", $title);
+            $builder->set("category", $category);
+            $builder->set("play_id", $play_id);
+            $builder->set("upd_id", $user_id);
+            $builder->set("upd_date", $today);
+            $builder->where("y_idx", $y_idx);
+            $result = $builder->update();
 
-        if ($db->transStatus() === false) {
+            if ($result == false) { 
+                throw new Exception($db->error(["message"]));
+            } else {
+                $db->transComplete();
+            }
+        } catch (Exception $exception) {
             $result = false;
-            $message = "입력에 오류가 발생했습니다.";
+            $message = "입력에 오류가 발생했습니다.\n".$exception->getMessage();
             $db->transRollback();
-        } else {
-            $db->transCommit();
         }
 
         $model_result = array();
@@ -233,21 +242,24 @@ class YoutubeModel extends Model
 
         $y_idx = $data["y_idx"];
 
-        $db = $this->db;
-        $db->transStart();
-        $builder = $db->table("youtube");
-        $builder->set("del_yn", "Y");
-        $builder->set("upd_id", $member_id);
-        $builder->set("upd_date", $today);
-        $builder->where("y_idx", $y_idx);
-        $result = $builder->update();
-
-        if ($db->transStatus() === false) {
+        try {
+            $db = $this->db;
+            $db->transStart();
+            $builder = $db->table("youtube");
+            $builder->set("del_yn", "Y");
+            $builder->set("upd_id", $member_id);
+            $builder->set("upd_date", $today);
+            $builder->where("y_idx", $y_idx);
+            $result = $builder->update();
+            if ($result == false) { 
+                throw new Exception($db->error(["message"]));
+            } else {
+                $db->transComplete();
+            }
+        } catch (Exception $exception) {
             $result = false;
-            $message = "입력에 오류가 발생했습니다.";
+            $message = "입력에 오류가 발생했습니다.\n".$exception->getMessage();
             $db->transRollback();
-        } else {
-            $db->transCommit();
         }
 
         $model_result = array();

@@ -5,6 +5,7 @@ namespace App\Models\Common;
 use CodeIgniter\Model;
 use App\Models\Common\SecurityModel;
 use App\Models\Csl\BoardModel;
+use Exception;
 
 class UploadModel extends Model
 {
@@ -514,32 +515,36 @@ class UploadModel extends Model
         $result = true;
         $message = "입력이 잘 되었습니다";
 
-        $db = $this->db;
-        $db->transStart();
-        $builder = $db->table("file");
-        $builder->set("file_id", $file_id);
-        $builder->set("file_name_org", $file_name_org);
-        $builder->set("file_directory", $file_directory);
-        $builder->set("file_name_uploaded", $file_name_uploaded);
-        $builder->set("file_size", $file_size);
-        $builder->set("file_ext", $file_ext);
-        $builder->set("image_width", $image_width);
-        $builder->set("image_height", $image_height);
-        $builder->set("mime_type", $mime_type);
-        $builder->set("category", $category);
-        $builder->set("del_yn", "N");
-        $builder->set("ins_id", $member_id);
-        $builder->set("ins_date", $today);
-        $builder->set("upd_id", $member_id);
-        $builder->set("upd_date", $today);
-        $result = $builder->insert();
+        try {
+            $db = $this->db;
+            $db->transStart();
+            $builder = $db->table("file");
+            $builder->set("file_id", $file_id);
+            $builder->set("file_name_org", $file_name_org);
+            $builder->set("file_directory", $file_directory);
+            $builder->set("file_name_uploaded", $file_name_uploaded);
+            $builder->set("file_size", $file_size);
+            $builder->set("file_ext", $file_ext);
+            $builder->set("image_width", $image_width);
+            $builder->set("image_height", $image_height);
+            $builder->set("mime_type", $mime_type);
+            $builder->set("category", $category);
+            $builder->set("del_yn", "N");
+            $builder->set("ins_id", $member_id);
+            $builder->set("ins_date", $today);
+            $builder->set("upd_id", $member_id);
+            $builder->set("upd_date", $today);
+            $result = $builder->insert();
 
-        if ($db->transStatus() === false) {
+            if ($result == false) { 
+                throw new Exception($db->error()["message"]);
+            } else {
+                $db->transComplete();
+            }
+        } catch (Exception $exception) {
             $result = false;
-            $message = "입력에 오류가 발생했습니다.";
+            $message = "입력에 오류가 발생했습니다.\n".$exception->getMessage();
             $db->transRollback();
-        } else {
-            $db->transCommit();
         }
 
         $model_result = array();
