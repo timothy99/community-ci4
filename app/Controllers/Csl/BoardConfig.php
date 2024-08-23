@@ -3,11 +3,8 @@
 namespace App\Controllers\Csl;
 
 use App\Controllers\BaseController;
-use App\Models\Common\DateModel;
 use App\Models\Csl\BoardConfigModel;
-use App\Models\Csl\CommentModel;
 use App\Models\Common\PagingModel;
-use App\Models\Common\FileModel;
 
 class BoardConfig extends BaseController
 {
@@ -64,6 +61,7 @@ class BoardConfig extends BaseController
         $info->bc_idx = 0;
         $info->board_id = "board".$random_board_number;
         $info->category = "";
+        $info->type = "board";
         $info->title = "게시판".$random_board_number;
         $info->base_rows = 10;
         $info->reg_date_yn = "N";
@@ -91,6 +89,7 @@ class BoardConfig extends BaseController
 
         $bc_idx = $this->request->getPost("bc_idx", FILTER_SANITIZE_SPECIAL_CHARS);
         $board_id = $this->request->getPost("board_id", FILTER_SANITIZE_SPECIAL_CHARS);
+        $type = $this->request->getPost("type", FILTER_SANITIZE_SPECIAL_CHARS);
         $title = $this->request->getPost("title", FILTER_SANITIZE_SPECIAL_CHARS);
         $category = $this->request->getPost("category", FILTER_SANITIZE_SPECIAL_CHARS);
         $category_yn = $this->request->getPost("category_yn", FILTER_SANITIZE_SPECIAL_CHARS);
@@ -104,6 +103,7 @@ class BoardConfig extends BaseController
         $data = array();
         $data["bc_idx"] = $bc_idx;
         $data["board_id"] = $board_id;
+        $data["type"] = $type;
         $data["title"] = $title;
         $data["category"] = $category;
         $data["category_yn"] = $category_yn;

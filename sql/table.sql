@@ -61,6 +61,7 @@ create table mng_board_comment (
 create table mng_board_config (
     bc_idx int not null auto_increment comment '인덱스',
     board_id varchar(20) default null comment '게시판 아이디',
+    type varchar(100) default null comment '타입(스킨)',
     category varchar(300) default null comment '카테고리',
     category_yn varchar(1) null comment '카테고리 사용여부',
     user_write varchar(1) default 'Y' not null comment '사용자가 글쓰기 가능하게 할지 여부',

@@ -98,8 +98,8 @@ class Board extends BaseController
 
         // 게시판 정보
         $model_result = $board_model->getConfigInfo($data);
-        $config = $model_result["info"];
-        $config->category_arr = explode("||", $config->category);
+        $config_info = $model_result["info"];
+        $config_info->category_arr = explode("||", $config_info->category);
 
         $b_idx = 0;
         $title = "";
@@ -124,7 +124,7 @@ class Board extends BaseController
         $proc_result["board_id"] = $board_id;
         $proc_result["b_idx"] = $b_idx;
         $proc_result["info"] = $info;
-        $proc_result["config"] = $config;
+        $proc_result["config_info"] = $config_info;
         $proc_result["file_list"] = array();
 
         return aview("csl/board/detail/edit", $proc_result);
@@ -269,8 +269,8 @@ class Board extends BaseController
         $data["b_idx"] = $b_idx;
 
         $model_result = $board_model->getConfigInfo($data);
-        $config = $model_result["info"];
-        $config->category_arr = explode("||", $config->category);
+        $config_info = $model_result["info"];
+        $config_info->category_arr = explode("||", $config_info->category);
 
         $model_result = $board_model->getBoardInfo($data);
         $info = $model_result["info"];
@@ -287,7 +287,7 @@ class Board extends BaseController
         $proc_result["b_idx"] = $b_idx;
         $proc_result["info"] = $info;
         $proc_result["file_list"] = $file_list;
-        $proc_result["config"] = $config;
+        $proc_result["config_info"] = $config_info;
 
         return aview("csl/board/detail/edit", $proc_result);
     }
