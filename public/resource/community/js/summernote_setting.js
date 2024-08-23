@@ -21,25 +21,26 @@ function uploadSummernoteFile(file) {
     $.ajax({
         data : formData,
         type : "POST",
-        url : "/file/upload",
+        url : "/upload/general",
         dataType: "json",
         processData : false,
         contentType : false,
         success : function(proc_result) {
-            var result = proc_result.result;
-            var message = proc_result.message;
+            var info = proc_result.info;
+            var result = info.result;
+            var message = info.message;
             if (result == false) {
                 alert(message);
             } else {
-                var category = proc_result.category;
-                var file_id = proc_result.file_id;
-                var file_name_org = proc_result.file_name_org;
+                var category = info.category;
+                var file_id = info.file_id;
+                var file_name_org = info.file_name_org;
                 if (category == "image") {
                     var file_html = "<img src='/download/view/"+file_id+"' class='img-fluid'>";
                 } else {
                     var file_html = "<a href='/download/download/"+file_id+"'>"+file_name_org+"</a>";
                 }
-                $("#contents").summernote("code", file_html);
+                $("#contents").summernote("pasteHTML", file_html);
             }
         }
     });
