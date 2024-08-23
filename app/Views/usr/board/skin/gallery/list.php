@@ -47,7 +47,7 @@
 <?php   foreach ($list as $no => $val) { ?>
                                 <div class="col-md-3">
                                     <a href="/board/<?=$val->board_id ?>/view/<?=$val->b_idx ?>">
-                                        <img src="/download/view/<?=$val->file_arr[0] ?>" alt="Photo 1" class="img-fluid"><br>
+                                        <img src="/download/view/<?=$val->file_arr[0] ?>" alt="<?=$val->title ?>" class="img-fluid"><br>
                                         <p class="text-center"><?=$val->title ?></p>
                                     </a>
                                 </div>
