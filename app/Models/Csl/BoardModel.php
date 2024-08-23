@@ -6,6 +6,7 @@ use CodeIgniter\Model;
 use App\Models\Common\DateModel;
 use App\Models\Csl\MemberModel;
 use App\Models\Common\DownloadModel;
+use Exception;
 
 class BoardModel extends Model
 {
@@ -171,30 +172,34 @@ class BoardModel extends Model
 
         $reg_date = $date_model->convertTextToDate($reg_date, 2, 3);
 
-        $db = $this->db;
-        $db->transStart();
-        $builder = $db->table("board");
-        $builder->set("board_id", $board_id);
-        $builder->set("title", $title);
-        $builder->set("contents", $contents);
-        $builder->set("file_idxs", $file_idxs);
-        $builder->set("category", $category);
-        $builder->set("notice_yn", $notice_yn);
-        $builder->set("reg_date", $reg_date);
-        $builder->set("del_yn", "N");
-        $builder->set("ins_id", $user_id);
-        $builder->set("ins_date", $today);
-        $builder->set("upd_id", $user_id);
-        $builder->set("upd_date", $today);
-        $result = $builder->insert();
-        $insert_id = $db->insertID();
+        try {
+            $db = $this->db;
+            $db->transStart();
+            $builder = $db->table("board");
+            $builder->set("board_id", $board_id);
+            $builder->set("title", $title);
+            $builder->set("contents", $contents);
+            $builder->set("file_idxs", $file_idxs);
+            $builder->set("category", $category);
+            $builder->set("notice_yn", $notice_yn);
+            $builder->set("reg_date", $reg_date);
+            $builder->set("del_yn", "N");
+            $builder->set("ins_id", $user_id);
+            $builder->set("ins_date", $today);
+            $builder->set("upd_id", $user_id);
+            $builder->set("upd_date", $today);
+            $result = $builder->insert();
+            $insert_id = $db->insertID();
 
-        if ($db->transStatus() === false) {
+            if ($result == false) { 
+                throw new Exception($db->error()["message"]);
+            } else {
+                $db->transComplete();
+            }
+        } catch (Exception $exception) {
             $result = false;
-            $message = "입력에 오류가 발생했습니다.";
+            $message = "입력에 오류가 발생했습니다.\n".$exception->getMessage();
             $db->transRollback();
-        } else {
-            $db->transCommit();
         }
 
         $model_result = array();
@@ -232,28 +237,32 @@ class BoardModel extends Model
 
         $reg_date = $date_model->convertTextToDate($reg_date, 2, 3);
 
-        $db = $this->db;
-        $db->transStart();
-        $builder = $db->table("board");
-        $builder->set("board_id", $board_id);
-        $builder->set("title", $title);
-        $builder->set("contents", $contents);
-        $builder->set("file_idxs", $file_idxs);
-        $builder->set("category", $category);
-        $builder->set("notice_yn", $notice_yn);
-        $builder->set("reg_date", $reg_date);
-        $builder->set("del_yn", "N");
-        $builder->set("upd_id", $user_id);
-        $builder->set("upd_date", $today);
-        $builder->where("b_idx", $b_idx);
-        $result = $builder->update();
+        try {
+            $db = $this->db;
+            $db->transStart();
+            $builder = $db->table("board");
+            $builder->set("board_id", $board_id);
+            $builder->set("title", $title);
+            $builder->set("contents", $contents);
+            $builder->set("file_idxs", $file_idxs);
+            $builder->set("category", $category);
+            $builder->set("notice_yn", $notice_yn);
+            $builder->set("reg_date", $reg_date);
+            $builder->set("del_yn", "N");
+            $builder->set("upd_id", $user_id);
+            $builder->set("upd_date", $today);
+            $builder->where("b_idx", $b_idx);
+            $result = $builder->update();
 
-        if ($db->transStatus() === false) {
+            if ($result == false) { 
+                throw new Exception($db->error()["message"]);
+            } else {
+                $db->transComplete();
+            }
+        } catch (Exception $exception) {
             $result = false;
-            $message = "입력에 오류가 발생했습니다.";
+            $message = "입력에 오류가 발생했습니다.\n".$exception->getMessage();
             $db->transRollback();
-        } else {
-            $db->transCommit();
         }
 
         $model_result = array();
@@ -273,28 +282,32 @@ class BoardModel extends Model
 
         $b_idx = $data["b_idx"];
 
-        $db = $this->db;
-        $db->transStart();
-        $builder = $db->table("board");
-        $builder->set("del_yn", "Y");
-        $builder->set("upd_id", $member_id);
-        $builder->set("upd_date", $today);
-        $builder->where("b_idx", $b_idx);
-        $result = $builder->update();
+        try {
+            $db = $this->db;
+            $db->transStart();
+            $builder = $db->table("board");
+            $builder->set("del_yn", "Y");
+            $builder->set("upd_id", $member_id);
+            $builder->set("upd_date", $today);
+            $builder->where("b_idx", $b_idx);
+            $result = $builder->update();
 
-        $builder = $db->table("board_comment");
-        $builder->set("del_yn", "Y");
-        $builder->set("upd_id", $member_id);
-        $builder->set("upd_date", $today);
-        $builder->where("b_idx", $b_idx);
-        $result = $builder->update();
+            $builder = $db->table("board_comment");
+            $builder->set("del_yn", "Y");
+            $builder->set("upd_id", $member_id);
+            $builder->set("upd_date", $today);
+            $builder->where("b_idx", $b_idx);
+            $result = $builder->update();
 
-        if ($db->transStatus() === false) {
+            if ($result == false) { 
+                throw new Exception($db->error()["message"]);
+            } else {
+                $db->transComplete();
+            }
+        } catch (Exception $exception) {
             $result = false;
-            $message = "입력에 오류가 발생했습니다.";
+            $message = "입력에 오류가 발생했습니다.\n".$exception->getMessage();
             $db->transRollback();
-        } else {
-            $db->transCommit();
         }
 
         $model_result = array();

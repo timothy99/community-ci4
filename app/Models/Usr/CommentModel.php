@@ -5,6 +5,7 @@ namespace App\Models\Usr;
 use CodeIgniter\Model;
 use Throwable;
 use App\Models\Common\DateModel;
+use Exception;
 
 class CommentModel extends Model
 {
@@ -46,25 +47,29 @@ class CommentModel extends Model
         $b_idx = $data["b_idx"];
         $comment = $data["comment"];
 
-        $db = $this->db;
-        $db->transStart();
-        $builder = $db->table("board_comment");
-        $builder->set("b_idx", $b_idx);
-        $builder->set("comment", $comment);
-        $builder->set("del_yn", "N");
-        $builder->set("ins_id", $user_id);
-        $builder->set("ins_date", $today);
-        $builder->set("upd_id", $user_id);
-        $builder->set("upd_date", $today);
-        $result = $builder->insert();
-        $insert_id = $db->insertID();
+        try {
+            $db = $this->db;
+            $db->transStart();
+            $builder = $db->table("board_comment");
+            $builder->set("b_idx", $b_idx);
+            $builder->set("comment", $comment);
+            $builder->set("del_yn", "N");
+            $builder->set("ins_id", $user_id);
+            $builder->set("ins_date", $today);
+            $builder->set("upd_id", $user_id);
+            $builder->set("upd_date", $today);
+            $result = $builder->insert();
+            $insert_id = $db->insertID();
 
-        if ($db->transStatus() === false) {
+            if ($result == false) { 
+                throw new Exception($db->error(["message"]));
+            } else {
+                $db->transComplete();
+            }
+        } catch (Exception $exception) {
             $result = false;
-            $message = "입력에 오류가 발생했습니다.";
+            $message = "입력에 오류가 발생했습니다.\n".$exception->getMessage();
             $db->transRollback();
-        } else {
-            $db->transCommit();
         }
 
         $model_result = array();
@@ -83,21 +88,25 @@ class CommentModel extends Model
         $result = true;
         $message = "입력이 잘 되었습니다";
 
-        $db = $this->db;
-        $db->transStart();
-        $builder = $db->table("board_comment");
-        $builder->set("del_yn", "Y");
-        $builder->set("upd_id", $member_id);
-        $builder->set("upd_date", $today);
-        $builder->where("bc_idx", $bc_idx);
-        $result = $builder->update();
+        try {
+            $db = $this->db;
+            $db->transStart();
+            $builder = $db->table("board_comment");
+            $builder->set("del_yn", "Y");
+            $builder->set("upd_id", $member_id);
+            $builder->set("upd_date", $today);
+            $builder->where("bc_idx", $bc_idx);
+            $result = $builder->update();
 
-        if ($db->transStatus() === false) {
+            if ($result == false) { 
+                throw new Exception($db->error(["message"]));
+            } else {
+                $db->transComplete();
+            }
+        } catch (Exception $exception) {
             $result = false;
-            $message = "입력에 오류가 발생했습니다.";
+            $message = "입력에 오류가 발생했습니다.\n".$exception->getMessage();
             $db->transRollback();
-        } else {
-            $db->transCommit();
         }
 
         $model_result = array();
@@ -137,22 +146,25 @@ class CommentModel extends Model
         $bc_idx = $data["bc_idx"];
         $comment = $data["comment"];
 
-        $db = $this->db;
-        $db->transStart();
-        $builder = $db->table("board_comment");
-        $builder->set("comment", $comment);
-        $builder->set("upd_id", $user_id);
-        $builder->set("upd_date", $today);
-        $builder->where("bc_idx", $bc_idx);
-        $result = $builder->update();
-        $db->transComplete();
+        try {
+            $db = $this->db;
+            $db->transStart();
+            $builder = $db->table("board_comment");
+            $builder->set("comment", $comment);
+            $builder->set("upd_id", $user_id);
+            $builder->set("upd_date", $today);
+            $builder->where("bc_idx", $bc_idx);
+            $result = $builder->update();
 
-        if ($db->transStatus() === false) {
+            if ($result == false) { 
+                throw new Exception($db->error(["message"]));
+            } else {
+                $db->transComplete();
+            }
+        } catch (Exception $exception) {
             $result = false;
-            $message = "입력에 오류가 발생했습니다.";
+            $message = "입력에 오류가 발생했습니다.\n".$exception->getMessage();
             $db->transRollback();
-        } else {
-            $db->transCommit();
         }
 
         $model_result = array();

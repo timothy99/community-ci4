@@ -4,6 +4,7 @@ namespace App\Models\Csl;
 
 use CodeIgniter\Model;
 use App\Models\Common\DateModel;
+use Exception;
 
 class ContentsModel extends Model
 {
@@ -89,26 +90,30 @@ class ContentsModel extends Model
         $title = $data["title"];
         $contents = $data["contents"];
 
-        $db = $this->db;
-        $db->transStart();
-        $builder = $db->table("contents");
-        $builder->set("contents_id", $contents_id);
-        $builder->set("title", $title);
-        $builder->set("contents", $contents);
-        $builder->set("del_yn", "N");
-        $builder->set("ins_id", $user_id);
-        $builder->set("ins_date", $today);
-        $builder->set("upd_id", $user_id);
-        $builder->set("upd_date", $today);
-        $result = $builder->insert();
-        $insert_id = $db->insertID();
+        try {
+            $db = $this->db;
+            $db->transStart();
+            $builder = $db->table("contents");
+            $builder->set("contents_id", $contents_id);
+            $builder->set("title", $title);
+            $builder->set("contents", $contents);
+            $builder->set("del_yn", "N");
+            $builder->set("ins_id", $user_id);
+            $builder->set("ins_date", $today);
+            $builder->set("upd_id", $user_id);
+            $builder->set("upd_date", $today);
+            $result = $builder->insert();
+            $insert_id = $db->insertID();
 
-        if ($db->transStatus() === false) {
+            if ($result == false) { 
+                throw new Exception($db->error()["message"]);
+            } else {
+                $db->transComplete();
+            }
+        } catch (Exception $exception) {
             $result = false;
-            $message = "입력에 오류가 발생했습니다.";
+            $message = "입력에 오류가 발생했습니다.\n".$exception->getMessage();
             $db->transRollback();
-        } else {
-            $db->transCommit();
         }
 
         $model_result = array();
@@ -132,23 +137,27 @@ class ContentsModel extends Model
         $title = $data["title"];
         $contents = $data["contents"];
 
-        $db = $this->db;
-        $db->transStart();
-        $builder = $db->table("contents");
-        $builder->set("contents_id", $contents_id);
-        $builder->set("title", $title);
-        $builder->set("contents", $contents);
-        $builder->set("upd_id", $user_id);
-        $builder->set("upd_date", $today);
-        $builder->where("c_idx", $c_idx);
-        $result = $builder->update();
+        try {
+            $db = $this->db;
+            $db->transStart();
+            $builder = $db->table("contents");
+            $builder->set("contents_id2", $contents_id);
+            $builder->set("title", $title);
+            $builder->set("contents", $contents);
+            $builder->set("upd_id", $user_id);
+            $builder->set("upd_date", $today);
+            $builder->where("c_idx", $c_idx);
+            $result = $builder->update();
 
-        if ($db->transStatus() === false) {
+            if ($result == false) {
+                throw new Exception($db->error()["message"]);
+            } else {
+                $db->transComplete();
+            }
+        } catch (Exception $exception) {
             $result = false;
-            $message = "입력에 오류가 발생했습니다.";
+            $message = "입력에 오류가 발생했습니다.\n".$exception->getMessage();
             $db->transRollback();
-        } else {
-            $db->transCommit();
         }
 
         $model_result = array();
@@ -168,21 +177,25 @@ class ContentsModel extends Model
 
         $c_idx = $data["c_idx"];
 
-        $db = $this->db;
-        $db->transStart();
-        $builder = $db->table("contents");
-        $builder->set("del_yn", "Y");
-        $builder->set("upd_id", $member_id);
-        $builder->set("upd_date", $today);
-        $builder->where("c_idx", $c_idx);
-        $result = $builder->update();
+        try {
+            $db = $this->db;
+            $db->transStart();
+            $builder = $db->table("contents");
+            $builder->set("del_yn", "Y");
+            $builder->set("upd_id", $member_id);
+            $builder->set("upd_date", $today);
+            $builder->where("c_idx", $c_idx);
+            $result = $builder->update();
 
-        if ($db->transStatus() === false) {
+            if ($result == false) { 
+                throw new Exception($db->error()["message"]);
+            } else {
+                $db->transComplete();
+            }
+        } catch (Exception $exception) {
             $result = false;
-            $message = "입력에 오류가 발생했습니다.";
+            $message = "입력에 오류가 발생했습니다.\n".$exception->getMessage();
             $db->transRollback();
-        } else {
-            $db->transCommit();
         }
 
         $model_result = array();

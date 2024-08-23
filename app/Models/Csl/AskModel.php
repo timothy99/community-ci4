@@ -4,6 +4,7 @@ namespace App\Models\Csl;
 
 use CodeIgniter\Model;
 use App\Models\Common\DateModel;
+use Exception;
 
 class AskModel extends Model
 {
@@ -55,20 +56,24 @@ class AskModel extends Model
 
         $a_idx = $data["a_idx"];
 
-        $db = $this->db;
-        $db->transStart();
-        $builder = $db->table("ask");
-        $builder->set("del_yn", "Y");
-        $builder->set("upd_date", $today);
-        $builder->where("a_idx", $a_idx);
-        $result = $builder->update();
+        try {
+            $db = $this->db;
+            $db->transStart();
+            $builder = $db->table("ask");
+            $builder->set("del_yn", "Y");
+            $builder->set("upd_date", $today);
+            $builder->where("a_idx", $a_idx);
+            $result = $builder->update();
 
-        if ($db->transStatus() === false) {
+            if ($result == false) { 
+                throw new Exception($db->error()["message"]);
+            } else {
+                $db->transComplete();
+            }
+        } catch (Exception $exception) {
             $result = false;
-            $message = "입력에 오류가 발생했습니다.";
+            $message = "입력에 오류가 발생했습니다.\n".$exception->getMessage();
             $db->transRollback();
-        } else {
-            $db->transCommit();
         }
 
         $model_result = array();

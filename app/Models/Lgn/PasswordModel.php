@@ -4,6 +4,7 @@ namespace App\Models\Lgn;
 
 use CodeIgniter\Model;
 use App\Models\Common\SecurityModel;
+use Exception;
 
 class PasswordModel extends Model
 {
@@ -67,27 +68,32 @@ class PasswordModel extends Model
         $reset_key = $security_model->getRandomString(4, 32); // 보안을 위한 랜덤문자 생성
         $expire_date = date("YmdHis", strtotime("+15 minutes"));
 
-        $db = $this->db;
-        $db->transStart();
-        $builder = $db->table("member_reset");
-        $builder->where("email", $email);
-        $builder->where("member_id", $member_id);
-        $result = $builder->delete();
+        try {
+            $db = $this->db;
+            $db->transStart();
 
-        $builder = $db->table("member_reset");
-        $builder->set("member_id", $member_id);
-        $builder->set("email", $email);
-        $builder->set("reset_key", $reset_key);
-        $builder->set("expire_date", $expire_date);
-        $result = $builder->insert();
-        $insert_id = $db->insertID();
+            $builder = $db->table("member_reset");
+            $builder->where("email", $email);
+            $builder->where("member_id", $member_id);
+            $result = $builder->delete();
 
-        if ($db->transStatus() === false) {
+            $builder = $db->table("member_reset");
+            $builder->set("member_id", $member_id);
+            $builder->set("email", $email);
+            $builder->set("reset_key", $reset_key);
+            $builder->set("expire_date", $expire_date);
+            $result = $builder->insert();
+            $insert_id = $db->insertID();
+
+            if ($result == false) { 
+                throw new Exception($db->error(["message"]));
+            } else {
+                $db->transComplete();
+            }
+        } catch (Exception $exception) {
             $result = false;
-            $message = "입력에 오류가 발생했습니다.";
+            $message = "입력에 오류가 발생했습니다.\n".$exception->getMessage();
             $db->transRollback();
-        } else {
-            $db->transCommit();
         }
 
         $proc_result = array();
@@ -134,20 +140,24 @@ class PasswordModel extends Model
         $member_password = $data["member_password"];
         $member_password_enc = $security_model->getPasswordEncrypt($member_password);
 
-        $db = $this->db;
-        $db->transStart();
-        $builder = $db->table("member");
-        $builder->set("member_password", $member_password_enc);
-        $builder->where("email", $email);
-        $builder->where("member_id", $member_id);
-        $result = $builder->update();
+        try {
+            $db = $this->db;
+            $db->transStart();
+            $builder = $db->table("member");
+            $builder->set("member_password", $member_password_enc);
+            $builder->where("email", $email);
+            $builder->where("member_id", $member_id);
+            $result = $builder->update();
 
-        if ($db->transStatus() === false) {
+            if ($result == false) { 
+                throw new Exception($db->error(["message"]));
+            } else {
+                $db->transComplete();
+            }
+        } catch (Exception $exception) {
             $result = false;
-            $message = "입력에 오류가 발생했습니다.";
+            $message = "입력에 오류가 발생했습니다.\n".$exception->getMessage();
             $db->transRollback();
-        } else {
-            $db->transCommit();
         }
 
         $proc_result = array();
@@ -202,19 +212,23 @@ class PasswordModel extends Model
         $member_password = $data["member_password"];
         $member_password_enc = $security_model->getPasswordEncrypt($member_password);
 
-        $db = $this->db;
-        $db->transStart();
-        $builder = $db->table("member");
-        $builder->set("member_password", $member_password_enc);
-        $builder->where("member_id", $member_id);
-        $result = $builder->update();
+        try {
+            $db = $this->db;
+            $db->transStart();
+            $builder = $db->table("member");
+            $builder->set("member_password", $member_password_enc);
+            $builder->where("member_id", $member_id);
+            $result = $builder->update();
 
-        if ($db->transStatus() === false) {
+            if ($result == false) { 
+                throw new Exception($db->error(["message"]));
+            } else {
+                $db->transComplete();
+            }
+        } catch (Exception $exception) {
             $result = false;
-            $message = "입력에 오류가 발생했습니다.";
+            $message = "입력에 오류가 발생했습니다.\n".$exception->getMessage();
             $db->transRollback();
-        } else {
-            $db->transCommit();
         }
 
         $proc_result = array();

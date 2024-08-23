@@ -5,6 +5,7 @@ namespace App\Models\Csl;
 use CodeIgniter\Model;
 use App\Models\Common\DateModel;
 use App\Models\Common\DownloadModel;
+use Exception;
 
 class SlideModel extends Model
 {
@@ -100,31 +101,35 @@ class SlideModel extends Model
         $end_date = $data["end_date"];
         $display_yn = $data["display_yn"];
 
-        $db = $this->db;
-        $db->transStart();
-        $builder = $db->table("slide");
-        $builder->set("title", $title);
-        $builder->set("contents", $contents);
-        $builder->set("slide_file", $slide_file);
-        $builder->set("order_no", $order_no);
-        $builder->set("http_link", $http_link);
-        $builder->set("start_date", $start_date);
-        $builder->set("end_date", $end_date);
-        $builder->set("display_yn", $display_yn);
-        $builder->set("del_yn", "N");
-        $builder->set("ins_id", $user_id);
-        $builder->set("ins_date", $today);
-        $builder->set("upd_id", $user_id);
-        $builder->set("upd_date", $today);
-        $result = $builder->insert();
-        $insert_id = $db->insertID();
+        try {
+            $db = $this->db;
+            $db->transStart();
+            $builder = $db->table("slide");
+            $builder->set("title", $title);
+            $builder->set("contents", $contents);
+            $builder->set("slide_file", $slide_file);
+            $builder->set("order_no", $order_no);
+            $builder->set("http_link", $http_link);
+            $builder->set("start_date", $start_date);
+            $builder->set("end_date", $end_date);
+            $builder->set("display_yn", $display_yn);
+            $builder->set("del_yn", "N");
+            $builder->set("ins_id", $user_id);
+            $builder->set("ins_date", $today);
+            $builder->set("upd_id", $user_id);
+            $builder->set("upd_date", $today);
+            $result = $builder->insert();
+            $insert_id = $db->insertID();
 
-        if ($db->transStatus() === false) {
+            if ($result == false) { 
+                throw new Exception($db->error(["message"]));
+            } else {
+                $db->transComplete();
+            }
+        } catch (Exception $exception) {
             $result = false;
-            $message = "입력에 오류가 발생했습니다.";
+            $message = "입력에 오류가 발생했습니다.\n".$exception->getMessage();
             $db->transRollback();
-        } else {
-            $db->transCommit();
         }
 
         $model_result = array();
@@ -154,28 +159,32 @@ class SlideModel extends Model
         $end_date = $data["end_date"];
         $display_yn = $data["display_yn"];
 
-        $db = $this->db;
-        $db->transStart();
-        $builder = $db->table("slide");
-        $builder->set("title", $title);
-        $builder->set("contents", $contents);
-        $builder->set("slide_file", $slide_file);
-        $builder->set("order_no", $order_no);
-        $builder->set("http_link", $http_link);
-        $builder->set("start_date", $start_date);
-        $builder->set("end_date", $end_date);
-        $builder->set("display_yn", $display_yn);
-        $builder->set("upd_id", $user_id);
-        $builder->set("upd_date", $today);
-        $builder->where("s_idx", $s_idx);
-        $result = $builder->update();
+        try {
+            $db = $this->db;
+            $db->transStart();
+            $builder = $db->table("slide");
+            $builder->set("title", $title);
+            $builder->set("contents", $contents);
+            $builder->set("slide_file", $slide_file);
+            $builder->set("order_no", $order_no);
+            $builder->set("http_link", $http_link);
+            $builder->set("start_date", $start_date);
+            $builder->set("end_date", $end_date);
+            $builder->set("display_yn", $display_yn);
+            $builder->set("upd_id", $user_id);
+            $builder->set("upd_date", $today);
+            $builder->where("s_idx", $s_idx);
+            $result = $builder->update();
 
-        if ($db->transStatus() === false) {
+            if ($result == false) { 
+                throw new Exception($db->error(["message"]));
+            } else {
+                $db->transComplete();
+            }
+        } catch (Exception $exception) {
             $result = false;
-            $message = "입력에 오류가 발생했습니다.";
+            $message = "입력에 오류가 발생했습니다.\n".$exception->getMessage();
             $db->transRollback();
-        } else {
-            $db->transCommit();
         }
 
         $model_result = array();
@@ -195,21 +204,25 @@ class SlideModel extends Model
 
         $s_idx = $data["s_idx"];
 
-        $db = $this->db;
-        $db->transStart();
-        $builder = $db->table("slide");
-        $builder->set("del_yn", "Y");
-        $builder->set("upd_id", $member_id);
-        $builder->set("upd_date", $today);
-        $builder->where("s_idx", $s_idx);
-        $result = $builder->update();
+        try {
+            $db = $this->db;
+            $db->transStart();
+            $builder = $db->table("slide");
+            $builder->set("del_yn", "Y");
+            $builder->set("upd_id", $member_id);
+            $builder->set("upd_date", $today);
+            $builder->where("s_idx", $s_idx);
+            $result = $builder->update();
 
-        if ($db->transStatus() === false) {
+            if ($result == false) { 
+                throw new Exception($db->error(["message"]));
+            } else {
+                $db->transComplete();
+            }
+        } catch (Exception $exception) {
             $result = false;
-            $message = "입력에 오류가 발생했습니다.";
+            $message = "입력에 오류가 발생했습니다.\n".$exception->getMessage();
             $db->transRollback();
-        } else {
-            $db->transCommit();
         }
 
         $model_result = array();

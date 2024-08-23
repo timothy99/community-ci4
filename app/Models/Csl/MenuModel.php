@@ -4,6 +4,7 @@ namespace App\Models\Csl;
 
 use CodeIgniter\Model;
 use App\Models\Common\DateModel;
+use Exception;
 
 class MenuModel extends Model
 {
@@ -112,36 +113,40 @@ class MenuModel extends Model
             $new_menu_position = $menu_position + 1;
         }
 
-        $db = $this->db;
-        $db->transStart();
-        $builder = $db->table("menu");
-        $builder->set("upper_idx", $upper_idx);
-        $builder->set("idx1", $idx1);
-        $builder->set("idx2", $idx2);
-        $builder->set("idx3", $idx3);
-        $builder->set("menu_position", $new_menu_position);
-        $builder->set("menu_name", $menu_name);
-        $builder->set("http_link", $http_link);
-        $builder->set("order_no", $order_no);
-        $builder->set("del_yn", "N");
-        $builder->set("ins_id", $user_id);
-        $builder->set("ins_date", $today);
-        $builder->set("upd_id", $user_id);
-        $builder->set("upd_date", $today);
-        $result = $builder->insert();
-        $insert_id = $db->insertID();
+        try {
+            $db = $this->db;
+            $db->transStart();
+            $builder = $db->table("menu");
+            $builder->set("upper_idx", $upper_idx);
+            $builder->set("idx1", $idx1);
+            $builder->set("idx2", $idx2);
+            $builder->set("idx3", $idx3);
+            $builder->set("menu_position", $new_menu_position);
+            $builder->set("menu_name", $menu_name);
+            $builder->set("http_link", $http_link);
+            $builder->set("order_no", $order_no);
+            $builder->set("del_yn", "N");
+            $builder->set("ins_id", $user_id);
+            $builder->set("ins_date", $today);
+            $builder->set("upd_id", $user_id);
+            $builder->set("upd_date", $today);
+            $result = $builder->insert();
+            $insert_id = $db->insertID();
 
-        $builder = $db->table("menu");
-        $builder->set("idx".$new_menu_position, $insert_id);
-        $builder->where("m_idx", $insert_id);
-        $result = $builder->update();
+            $builder = $db->table("menu");
+            $builder->set("idx".$new_menu_position, $insert_id);
+            $builder->where("m_idx", $insert_id);
+            $result = $builder->update();
 
-        if ($db->transStatus() === false) {
+            if ($result == false) { 
+                throw new Exception($db->error(["message"]));
+            } else {
+                $db->transComplete();
+            }
+        } catch (Exception $exception) {
             $result = false;
-            $message = "입력에 오류가 발생했습니다.";
+            $message = "입력에 오류가 발생했습니다.\n".$exception->getMessage();
             $db->transRollback();
-        } else {
-            $db->transCommit();
         }
 
         $model_result = array();
@@ -192,25 +197,29 @@ class MenuModel extends Model
         $http_link = $data["http_link"];
         $order_no = $data["order_no"];
 
-        $db = $this->db;
-        $db->transStart();
-        $builder = $db->table("menu");
-        $builder->set("menu_name", $menu_name);
-        $builder->set("http_link", $http_link);
-        $builder->set("order_no", $order_no);
-        $builder->set("ins_id", $user_id);
-        $builder->set("ins_date", $today);
-        $builder->set("upd_id", $user_id);
-        $builder->set("upd_date", $today);
-        $builder->where("m_idx", $m_idx);
-        $result = $builder->update();
+        try {
+            $db = $this->db;
+            $db->transStart();
+            $builder = $db->table("menu");
+            $builder->set("menu_name", $menu_name);
+            $builder->set("http_link", $http_link);
+            $builder->set("order_no", $order_no);
+            $builder->set("ins_id", $user_id);
+            $builder->set("ins_date", $today);
+            $builder->set("upd_id", $user_id);
+            $builder->set("upd_date", $today);
+            $builder->where("m_idx", $m_idx);
+            $result = $builder->update();
 
-        if ($db->transStatus() === false) {
+            if ($result == false) { 
+                throw new Exception($db->error(["message"]));
+            } else {
+                $db->transComplete();
+            }
+        } catch (Exception $exception) {
             $result = false;
-            $message = "입력에 오류가 발생했습니다.";
+            $message = "입력에 오류가 발생했습니다.\n".$exception->getMessage();
             $db->transRollback();
-        } else {
-            $db->transCommit();
         }
 
         $model_result = array();
@@ -230,23 +239,27 @@ class MenuModel extends Model
 
         $m_idx = $data["m_idx"];
 
-        $db = $this->db;
-        $db->transStart();
-        $builder = $db->table("menu");
-        $builder->set("del_yn", "Y");
-        $builder->set("upd_id", $user_id);
-        $builder->set("upd_date", $today);
-        $builder->orWhere("idx1", $m_idx);
-        $builder->orWhere("idx2", $m_idx);
-        $builder->orWhere("idx3", $m_idx);
-        $result = $builder->update();
+        try {
+            $db = $this->db;
+            $db->transStart();
+            $builder = $db->table("menu");
+            $builder->set("del_yn", "Y");
+            $builder->set("upd_id", $user_id);
+            $builder->set("upd_date", $today);
+            $builder->orWhere("idx1", $m_idx);
+            $builder->orWhere("idx2", $m_idx);
+            $builder->orWhere("idx3", $m_idx);
+            $result = $builder->update();
 
-        if ($db->transStatus() === false) {
+            if ($result == false) { 
+                throw new Exception($db->error(["message"]));
+            } else {
+                $db->transComplete();
+            }
+        } catch (Exception $exception) {
             $result = false;
-            $message = "입력에 오류가 발생했습니다.";
+            $message = "입력에 오류가 발생했습니다.\n".$exception->getMessage();
             $db->transRollback();
-        } else {
-            $db->transCommit();
         }
 
         $model_result = array();
@@ -282,41 +295,45 @@ class MenuModel extends Model
         $list = $model_result["list"];
         $menu_json = json_encode($list);
 
-        $db = $this->db;
-        $db->transStart();
+        try {
+            $db = $this->db;
+            $db->transStart();
 
-        $builder = $db->table("menu_json");
-        $builder->where("category", "user");
-        $builder->where("del_yn", "N");
-        $list = $builder->get()->getResult();
-        $cnt = count($list);
-        if ($cnt == 0) {
             $builder = $db->table("menu_json");
-            $builder->set("menu_json", $menu_json);
-            $builder->set("category", "user");
-            $builder->set("del_yn", "N");
-            $builder->set("ins_id", $user_id);
-            $builder->set("ins_date", $today);
-            $builder->set("upd_id", $user_id);
-            $builder->set("upd_date", $today);
             $builder->where("category", "user");
-            $result = $builder->insert();
-        } else {
-            $builder = $db->table("menu_json");
-            $builder->set("menu_json", $menu_json);
-            $builder->set("category", "user");
-            $builder->set("upd_id", $user_id);
-            $builder->set("upd_date", $today);
-            $builder->where("category", "user");
-            $result = $builder->update();
-        }
+            $builder->where("del_yn", "N");
+            $list = $builder->get()->getResult();
+            $cnt = count($list);
+            if ($cnt == 0) {
+                $builder = $db->table("menu_json");
+                $builder->set("menu_json", $menu_json);
+                $builder->set("category", "user");
+                $builder->set("del_yn", "N");
+                $builder->set("ins_id", $user_id);
+                $builder->set("ins_date", $today);
+                $builder->set("upd_id", $user_id);
+                $builder->set("upd_date", $today);
+                $builder->where("category", "user");
+                $result = $builder->insert();
+            } else {
+                $builder = $db->table("menu_json");
+                $builder->set("menu_json", $menu_json);
+                $builder->set("category", "user");
+                $builder->set("upd_id", $user_id);
+                $builder->set("upd_date", $today);
+                $builder->where("category", "user");
+                $result = $builder->update();
+            }
 
-        if ($db->transStatus() === false) {
+            if ($result == false) { 
+                throw new Exception($db->error(["message"]));
+            } else {
+                $db->transComplete();
+            }
+        } catch (Exception $exception) {
             $result = false;
-            $message = "입력에 오류가 발생했습니다.";
+            $message = "입력에 오류가 발생했습니다.\n".$exception->getMessage();
             $db->transRollback();
-        } else {
-            $db->transCommit();
         }
 
         $model_result = array();

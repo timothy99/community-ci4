@@ -5,6 +5,7 @@ namespace App\Models\Csl;
 use CodeIgniter\Model;
 use App\Models\Common\DateModel;
 use App\Models\Common\SecurityModel;
+use Exception;
 
 class BoardConfigModel extends Model
 {
@@ -183,34 +184,38 @@ class BoardConfigModel extends Model
         $file_upload_size_limit = $data["file_upload_size_limit"];
         $file_upload_size_total = $data["file_upload_size_total"];
 
-        $db = $this->db;
-        $db->transStart();
-        $builder = $db->table("board_config");
-        $builder->set("board_id", $board_id);
-        $builder->set("type", $type);
-        $builder->set("title", $title);
-        $builder->set("category", $category);
-        $builder->set("category_yn", $category_yn);
-        $builder->set("user_write", $user_write);
-        $builder->set("base_rows", $base_rows);
-        $builder->set("reg_date_yn", $reg_date_yn);
-        $builder->set("file_cnt", $file_cnt);
-        $builder->set("file_upload_size_limit", $file_upload_size_limit);
-        $builder->set("file_upload_size_total", $file_upload_size_total);
-        $builder->set("del_yn", "N");
-        $builder->set("ins_id", $user_id);
-        $builder->set("ins_date", $today);
-        $builder->set("upd_id", $user_id);
-        $builder->set("upd_date", $today);
-        $result = $builder->insert();
-        $insert_id = $db->insertID();
+        try {
+            $db = $this->db;
+            $db->transStart();
+            $builder = $db->table("board_config");
+            $builder->set("board_id", $board_id);
+            $builder->set("type", $type);
+            $builder->set("title", $title);
+            $builder->set("category", $category);
+            $builder->set("category_yn", $category_yn);
+            $builder->set("user_write", $user_write);
+            $builder->set("base_rows", $base_rows);
+            $builder->set("reg_date_yn", $reg_date_yn);
+            $builder->set("file_cnt", $file_cnt);
+            $builder->set("file_upload_size_limit", $file_upload_size_limit);
+            $builder->set("file_upload_size_total", $file_upload_size_total);
+            $builder->set("del_yn", "N");
+            $builder->set("ins_id", $user_id);
+            $builder->set("ins_date", $today);
+            $builder->set("upd_id", $user_id);
+            $builder->set("upd_date", $today);
+            $result = $builder->insert();
+            $insert_id = $db->insertID();
 
-        if ($db->transStatus() === false) {
+            if ($result == false) { 
+                throw new Exception($db->error()["message"]);
+            } else {
+                $db->transComplete();
+            }
+        } catch (Exception $exception) {
             $result = false;
-            $message = "입력에 오류가 발생했습니다.";
+            $message = "입력에 오류가 발생했습니다.\n".$exception->getMessage();
             $db->transRollback();
-        } else {
-            $db->transCommit();
         }
 
         $model_result = array();
@@ -250,31 +255,35 @@ class BoardConfigModel extends Model
         }
         $category = implode("||", $category_arr);
 
-        $db = $this->db;
-        $db->transStart();
-        $builder = $db->table("board_config");
-        $builder->set("board_id", $board_id);
-        $builder->set("type", $type);
-        $builder->set("title", $title);
-        $builder->set("category", $category);
-        $builder->set("category_yn", $category_yn);
-        $builder->set("user_write", $user_write);
-        $builder->set("base_rows", $base_rows);
-        $builder->set("reg_date_yn", $reg_date_yn);
-        $builder->set("file_cnt", $file_cnt);
-        $builder->set("file_upload_size_limit", $file_upload_size_limit);
-        $builder->set("file_upload_size_total", $file_upload_size_total);
-        $builder->set("upd_id", $user_id);
-        $builder->set("upd_date", $today);
-        $builder->where("bc_idx", $bc_idx);
-        $result = $builder->update();
+        try {
+            $db = $this->db;
+            $db->transStart();
+            $builder = $db->table("board_config");
+            $builder->set("board_id", $board_id);
+            $builder->set("type", $type);
+            $builder->set("title", $title);
+            $builder->set("category", $category);
+            $builder->set("category_yn", $category_yn);
+            $builder->set("user_write", $user_write);
+            $builder->set("base_rows", $base_rows);
+            $builder->set("reg_date_yn", $reg_date_yn);
+            $builder->set("file_cnt", $file_cnt);
+            $builder->set("file_upload_size_limit", $file_upload_size_limit);
+            $builder->set("file_upload_size_total", $file_upload_size_total);
+            $builder->set("upd_id", $user_id);
+            $builder->set("upd_date", $today);
+            $builder->where("bc_idx", $bc_idx);
+            $result = $builder->update();
 
-        if ($db->transStatus() === false) {
+            if ($result == false) { 
+                throw new Exception($db->error()["message"]);
+            } else {
+                $db->transComplete();
+            }
+        } catch (Exception $exception) {
             $result = false;
-            $message = "입력에 오류가 발생했습니다.";
+            $message = "입력에 오류가 발생했습니다.\n".$exception->getMessage();
             $db->transRollback();
-        } else {
-            $db->transCommit();
         }
 
         $model_result = array();
@@ -299,44 +308,47 @@ class BoardConfigModel extends Model
 
         $bc_idx = $data["bc_idx"];
 
-        $db = $this->db;
-        $db->transStart();
+        try {
+            $db = $this->db;
+            $db->transStart();
+            // 설정 삭제
+            $builder = $db->table("board_config");
+            $builder->set("del_yn", "Y");
+            $builder->set("upd_id", $member_id);
+            $builder->set("upd_date", $today);
+            $builder->where("bc_idx", $bc_idx);
+            $result = $builder->update();
 
-        // 설정 삭제
-        $builder = $db->table("board_config");
-        $builder->set("del_yn", "Y");
-        $builder->set("upd_id", $member_id);
-        $builder->set("upd_date", $today);
-        $builder->where("bc_idx", $bc_idx);
-        $result = $builder->update();
+            // 게시판 게시물 삭제
+            $builder = $db->table("board");
+            $builder->set("del_yn", "Y");
+            $builder->set("upd_id", $member_id);
+            $builder->set("upd_date", $today);
+            $builder->where("board_id", $board_id);
+            $result = $builder->update();
 
-        // 게시판 게시물 삭제
-        $builder = $db->table("board");
-        $builder->set("del_yn", "Y");
-        $builder->set("upd_id", $member_id);
-        $builder->set("upd_date", $today);
-        $builder->where("board_id", $board_id);
-        $result = $builder->update();
+            // 게시물 댓글 삭제 서브쿼리 사용
+            $sub_query = $db->table("board a");
+            $sub_query->select("b.bc_idx");
+            $sub_query->join("board_comment b", "a.b_idx = b.b_idx");
+            $sub_query->where("a.board_id", $board_id);
 
-        // 게시물 댓글 삭제 서브쿼리 사용
-        $sub_query = $db->table("board a");
-        $sub_query->select("b.bc_idx");
-        $sub_query->join("board_comment b", "a.b_idx = b.b_idx");
-        $sub_query->where("a.board_id", $board_id);
+            $builder = $db->table("board_comment c");
+            $builder->set("del_yn", "Y");
+            $builder->set("upd_id", $member_id);
+            $builder->set("upd_date", $today);
+            $builder->whereIn("bc_idx", $sub_query);
+            $result = $builder->update();
 
-        $builder = $db->table("board_comment c");
-        $builder->set("del_yn", "Y");
-        $builder->set("upd_id", $member_id);
-        $builder->set("upd_date", $today);
-        $builder->whereIn("bc_idx", $sub_query);
-        $result = $builder->update();
-
-        if ($db->transStatus() === false) {
+            if ($result == false) { 
+                throw new Exception($db->error()["message"]);
+            } else {
+                $db->transComplete();
+            }
+        } catch (Exception $exception) {
             $result = false;
-            $message = "입력에 오류가 발생했습니다.";
+            $message = "입력에 오류가 발생했습니다.\n".$exception->getMessage();
             $db->transRollback();
-        } else {
-            $db->transCommit();
         }
 
         $model_result = array();

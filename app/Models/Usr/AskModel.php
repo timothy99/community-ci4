@@ -3,6 +3,7 @@
 namespace App\Models\Usr;
 
 use CodeIgniter\Model;
+use Exception;
 
 class AskModel extends Model
 {
@@ -18,23 +19,27 @@ class AskModel extends Model
         $contents = $data["contents"];
         $phone = $data["phone"];
 
-        $db = $this->db;
-        $db->transStart();
-        $builder = $db->table("ask");
-        $builder->set("name", $name);
-        $builder->set("contents", $contents);
-        $builder->set("phone", $phone);
-        $builder->set("ins_date", $today);
-        $builder->set("upd_date", $today);
-        $result = $builder->insert();
-        $insert_id = $db->insertID();
+        try {
+            $db = $this->db;
+            $db->transStart();
+            $builder = $db->table("ask");
+            $builder->set("name", $name);
+            $builder->set("contents", $contents);
+            $builder->set("phone", $phone);
+            $builder->set("ins_date", $today);
+            $builder->set("upd_date", $today);
+            $result = $builder->insert();
+            $insert_id = $db->insertID();
 
-        if ($db->transStatus() === false) {
+            if ($result == false) { 
+                throw new Exception($db->error(["message"]));
+            } else {
+                $db->transComplete();
+            }
+        } catch (Exception $exception) {
             $result = false;
-            $message = "입력에 오류가 발생했습니다.";
+            $message = "입력에 오류가 발생했습니다.\n".$exception->getMessage();
             $db->transRollback();
-        } else {
-            $db->transCommit();
         }
 
         $model_result = array();
