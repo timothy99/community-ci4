@@ -58,8 +58,8 @@ class Contents extends BaseController
         $info->c_idx = 0;
         $info->contents_id = "";
         $info->title = "";
-        $info->contents = "&nbsp;";
-        $info->contents_code = "&nbsp;";
+        $info->contents = "";
+        $info->contents_code = "";
 
         $proc_result = array();
         $proc_result["result"] = $result;

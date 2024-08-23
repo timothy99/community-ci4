@@ -124,8 +124,8 @@ class Board extends BaseController
 
         $b_idx = 0;
         $title = "";
-        $contents = "&nbsp;";
-        $contents_code = "&nbsp;";
+        $contents = "";
+        $contents_code = "";
 
         $info = (object)array();
         $info->b_idx = $b_idx;

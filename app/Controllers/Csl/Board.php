@@ -103,8 +103,8 @@ class Board extends BaseController
 
         $b_idx = 0;
         $title = "";
-        $contents = "&nbsp;";
-        $contents_code = "&nbsp;";
+        $contents = "";
+        $contents_code = "";
         $reg_date = date("Y-m-d H:i:s");
         $category = "";
         $notice_yn = "N";
