@@ -15,7 +15,6 @@ class UploadModel extends Model
         $result = true;
         $message = "파일 업로드가 완료되었습니다.";
 
-        $file_id = $data["input_file_id"];
         $user_file = $data["user_file"];
 
         if ($user_file->getName() == null) {
@@ -41,10 +40,6 @@ class UploadModel extends Model
 
         // 이미지인지 확인
         if ($result == true) { // 파일이 정상인 경우
-            $validation_rule = ["file"=>["label"=>"Image File", "rules"=>"uploaded[".$file_id."]|is_image[".$file_id."]"]]; // 이미지인지 검증
-            $validation_result = $this->validate($validation_rule);
-            $data["category"] = $validation_result === true ? "image" : "file";
-            $data["allowed_type"] = $data["category"]; // 업로드를 허용할 타입을 결정. 이미지인지 파일인지에 따라 유동적이니 category를 따른다. 
             $data["mime_type"] = $user_file->getMimeType(); // mimetype확인
             $data["file_ext"] = $user_file->getClientExtension(); // 파일 확장자
         }
@@ -54,6 +49,7 @@ class UploadModel extends Model
             $model_result = $this->checkMimeType($data);
             $result = $model_result["result"];
             $message = $model_result["message"];
+            $data["category"] = $model_result["category"];
         }
 
         // 허용되는 파일 형식이라면 저장한다.
@@ -66,6 +62,7 @@ class UploadModel extends Model
             $data["file_id"] = $file_info["file_id"];
             $file_path = $file_info["file_directory"]."/".$file_info["file_name_uploaded"];
             $data["file_path"] = $file_path;
+            $data["file_size"] = $file_info["file_size"];
         }
 
         if ($result == true) {
@@ -101,7 +98,6 @@ class UploadModel extends Model
         $result = true;
         $message = "파일 업로드가 완료되었습니다.";
 
-        $file_id = $data["input_file_id"];
         $user_file = $data["user_file"];
 
         if ($user_file->getName() == null) {
@@ -126,10 +122,6 @@ class UploadModel extends Model
 
         // 이미지인지 확인
         if ($result == true) { // 파일이 정상인 경우
-            $validation_rule = ["file"=>["label"=>"Image File", "rules"=>"uploaded[".$file_id."]|is_image[".$file_id."]"]]; // 이미지인지 검증
-            $validation_result = $this->validate($validation_rule);
-            $data["category"] = $validation_result === true ? "image" : "file";
-            $data["allowed_type"] = $data["category"]; // 업로드를 허용할 타입을 결정. 이미지인지 파일인지에 따라 유동적이니 category를 따른다. 
             $data["mime_type"] = $user_file->getMimeType(); // mimetype확인
             $data["file_ext"] = $user_file->getClientExtension(); // 파일 확장자
         }
@@ -139,6 +131,7 @@ class UploadModel extends Model
             $model_result = $this->checkMimeType($data);
             $result = $model_result["result"];
             $message = $model_result["message"];
+            $data["category"] = $model_result["category"];
         }
 
         // 허용되는 파일 형식이라면 저장한다.
@@ -151,6 +144,7 @@ class UploadModel extends Model
             $data["file_id"] = $file_info["file_id"];
             $file_path = $file_info["file_directory"]."/".$file_info["file_name_uploaded"];
             $data["file_path"] = $file_path;
+            $data["file_size"] = $file_info["file_size"];
         }
 
         if ($result == true) {
@@ -186,7 +180,6 @@ class UploadModel extends Model
         $result = true;
         $message = "파일 업로드가 완료되었습니다.";
 
-        $file_id = $data["file_id"];
         $user_file = $data["user_file"];
 
         if ($user_file->getName() == null) {
@@ -212,12 +205,12 @@ class UploadModel extends Model
 
         // 파일이 해당되는 mimetype에 있음 정상 결과를 반환한다.
         if ($result == true) {
-            $data["allowed_type"] = "both"; // 업로드를 허용할 타입을 결정. 이미지인지 파일인지에 따라 유동적이니 category를 따른다. 
             $data["mime_type"] = $user_file->getMimeType(); // mimetype확인
             $data["file_ext"] = $user_file->getClientExtension(); // 파일 확장자
             $model_result = $this->checkMimeType($data);
             $result = $model_result["result"];
             $message = $model_result["message"];
+            $data["category"] = $model_result["category"];
         }
 
         // 허용되는 파일 형식이라면 저장한다.
@@ -230,6 +223,17 @@ class UploadModel extends Model
             $data["file_id"] = $file_info["file_id"];
             $file_path = $file_info["file_directory"]."/".$file_info["file_name_uploaded"];
             $data["file_path"] = $file_path;
+            $data["file_size"] = $file_info["file_size"];
+
+            if ($data["category"] == "image") {
+                $image = \Config\Services::image();
+                $image->withFile(UPLOADPATH.$file_path);
+                $data["image_width"] = $image->getWidth();
+                $data["image_height"] = $image->getHeight();
+            } else {
+                $data["image_width"] = 0;
+                $data["image_height"] = 0;
+            }
         }
 
         if ($result == true) {
@@ -252,7 +256,6 @@ class UploadModel extends Model
         $result = true;
         $message = "파일 업로드가 완료되었습니다.";
 
-        $file_id = $data["file_id"];
         $user_file = $data["user_file"];
 
         if ($user_file->getName() == null) {
@@ -278,10 +281,6 @@ class UploadModel extends Model
 
         // 이미지인지 확인
         if ($result == true) { // 파일이 정상인 경우
-            $validation_rule = ["file"=>["label"=>"Image File", "rules"=>"uploaded[".$file_id."]|is_image[".$file_id."]"]]; // 이미지인지 검증
-            $validation_result = $this->validate($validation_rule);
-            $data["category"] = $validation_result === true ? "image" : "file";
-            $data["allowed_type"] = "image"; // 업로드를 허용할 타입을 결정. 이미지인지 파일인지에 따라 유동적이니 category를 따른다. 
             $data["mime_type"] = $user_file->getMimeType(); // mimetype확인
             $data["file_ext"] = $user_file->getClientExtension(); // 파일 확장자
         }
@@ -291,6 +290,7 @@ class UploadModel extends Model
             $model_result = $this->checkMimeType($data);
             $result = $model_result["result"];
             $message = $model_result["message"];
+            $data["category"] = $model_result["category"];
         }
 
         // 허용되는 파일 형식이라면 저장한다.
@@ -303,6 +303,7 @@ class UploadModel extends Model
             $data["file_id"] = $file_info["file_id"];
             $file_path = $file_info["file_directory"]."/".$file_info["file_name_uploaded"];
             $data["file_path"] = $file_path;
+            $data["file_size"] = $file_info["file_size"];
         }
 
         if ($result == true) {
@@ -341,9 +342,9 @@ class UploadModel extends Model
         $upload_size = $data["upload_size"];
         $limit_size = $data["limit_size"];
 
-        $limit_size = $limit_size*1024*1024; // MB단위로 입력된 숫자를 바이트 단위로 변경
+        $limit_size_byte = $limit_size*1024*1024; // MB단위로 입력된 숫자를 바이트 단위로 변경
         // 입력받은 이미지 사이즈와 비교해서
-        if ($upload_size > $limit_size) { // 이미지 사이즈가 크면
+        if ($upload_size > $limit_size_byte) { // 이미지 사이즈가 크면
             $check_file_size = false; // false 반환
         } else { // 이미지 사이즈가 규정보다 작으면
             $check_file_size = true; // true 반환
@@ -364,14 +365,17 @@ class UploadModel extends Model
     // 확장자 체크 해서 필터에 따라 분류가 맞는지 확인
     public function checkMimeType($data)
     {
-        $result = true;
-        $message = "업로드가 허용되는 파일형식입니다.";
+        $result = false;
+        $message = "업로드가 허용되지 않는 파일형식입니다.";
+
+        $check_image_type = false;
+        $check_file_type = false;
+        $category = "unknown";
 
         $allowed_type = $data["allowed_type"];
         $user_file_type = $data["mime_type"];
 
         $image_type = array();
-        $mime_type = array();
         $file_type = array();
 
         // 이미지용 mime_type
@@ -391,27 +395,34 @@ class UploadModel extends Model
         $file_type[] = "application/zip"; // ZIP
         $file_type[] = "application/x-hwp"; // 한글파일
 
-        if ($allowed_type == "image") {
-            $mime_type = $image_type;
-        } else if ($allowed_type == "file") {
-            $mime_type = $file_type;
-        } else if ($allowed_type == "both") {
-            $mime_type = array_merge($image_type, $file_type);
-        } else {
-            // do nothing
+        $check_image_type = in_array($user_file_type, $image_type);
+        $check_file_type = in_array($user_file_type, $file_type);
+
+        if ($allowed_type == "image" && $check_image_type === true) {
+            $category = "image";
+            $result = true;
         }
 
-        $check_mime_type = in_array($user_file_type, $mime_type);
+        if ($allowed_type == "file" && $check_file_type === true) {
+            $category = "file";
+            $result = true;
+        }
 
-        if ($check_mime_type === false) {
-            $result = false;
-            $message = "해당 형식은 업로드가 허용되지 않습니다.";
+        if ($allowed_type == "both" && ($check_image_type === true || $check_file_type === true)) {
+            if ($check_image_type === true) {
+                $category = "image";
+            }
+            if ($check_file_type === true) {
+                $category = "file";
+            }
+            $result = true;
         }
 
         $proc_result = array();
         $proc_result["result"] = $result;
         $proc_result["message"] = $message;
-        $proc_result["check_mime_type"] = $check_mime_type;
+        $proc_result["category"] = $category;
+        
 
         return $proc_result;
     }
@@ -427,6 +438,7 @@ class UploadModel extends Model
         $random_name = $user_file->getRandomName(); // 랜덤네임 생성
         $user_file->store($upload_date_path, $random_name); // 저장
         $file_id = $security_model->getRandomString(4, 32); // 보안을 위한 랜덤문자 생성
+        $file_size = $user_file->getSize();
 
         $file_info = array();
         $file_info["file_name_org"] = $user_file->getClientName();
@@ -434,6 +446,7 @@ class UploadModel extends Model
         $file_info["file_name_uploaded"] = $random_name;
         $file_info["file_id"] = $file_id;
         $file_info["file_path"] = $file_id;
+        $file_info["file_size"] = $file_size;
 
         return $file_info;
     }
