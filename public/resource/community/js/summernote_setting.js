@@ -39,7 +39,7 @@ function uploadSummernoteFile(file) {
                 } else {
                     var file_html = "<a href='/download/download/"+file_id+"'>"+file_name_org+"</a>";
                 }
-                $("#contents").summernote("pasteHTML", file_html);
+                $("#contents").summernote("code", file_html);
             }
         }
     });

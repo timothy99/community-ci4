@@ -97,7 +97,7 @@
         $("#title").val("<?=$info->title ?>"); // 내용채우기
         $("#contents").summernote(summernote_settings); // 썸머노트 초기화
         var contents_code = $("#contents_code").val();
-        $("#contents").summernote("pasteHTML",  decodeUnicode(contents_code)); // 내용 넣기
+        $("#contents").summernote("code",  decodeUnicode(contents_code)); // 내용 넣기
     });
 
     $(function() {

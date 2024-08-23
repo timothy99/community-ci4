@@ -129,7 +129,7 @@
 
         $("#contents").summernote(summernote_settings); // 썸머노트 초기화
         var contents_code = $("#contents_code").val();
-        $("#contents").summernote("pasteHTML",  decodeUnicode(contents_code)); // 내용 넣기
+        $("#contents").summernote("code",  decodeUnicode(contents_code)); // 내용 넣기
 
         $("#reg_date").inputmask("datetime", {inputFormat:"yyyy-mm-dd HH:MM:ss"});
         $("#category").val("<?=$info->category ?>").prop("selected", true);
