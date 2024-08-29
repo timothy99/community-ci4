@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/resource/vendor/fontawesome-free/css/all.min.css?ver=<?=env("app.cssVer") ?>">
     <link rel="stylesheet" href="/resource/csl/css/adminlte.min.css?ver=<?=env("app.cssVer") ?>">
     <link rel="stylesheet" href="/resource/community/css/community.css?ver=<?=env("app.cssVer") ?>">
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet"><!-- 썸머노트 CSS -->
 
     <script src="/resource/vendor/jquery/jquery.min.js?ver=<?=env("app.jsVer") ?>"></script>
     <script src="/resource/vendor/bootstrap/js/bootstrap.bundle.min.js?ver=<?=env("app.jsVer") ?>"></script>
@@ -19,8 +19,7 @@
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="/resource/vendor/moment/moment.min.js?ver=<?=env("app.jsVer") ?>"></script>
     <script src="/resource/vendor/inputmask/jquery.inputmask.min.js?ver=<?=env("app.jsVer") ?>"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
-    <script src="/resource/community/js/summernote-ko-KR.js"></script>
-    <script src="/resource/community/js/summernote_setting.js?ver=<?=JS_VER ?>"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script><!-- 썸머노트 라이트 -->
+    <script src="/resource/community/js/summernote-ko-KR.js?ver=<?=env("app.jsVer") ?>"></script><!-- 썸머노트 한국어 -->
+    <script src="/resource/community/js/summernote_setting.js?ver=<?=env("app.jsVer") ?>"></script><!-- 썸머노트 설정 -->
 </head>
