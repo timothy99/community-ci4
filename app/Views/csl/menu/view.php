@@ -24,28 +24,48 @@
                         </div>
                         <div class="card-body">
                             <div class="col-12">
-                                <dl class="row">
-                                    <dt class="col-sm-2">제목</dt>
-                                    <dd class="col-sm-10"><?=$info->title ?></dd>
-                                    <dt class="col-sm-2">분류1</dt>
-                                    <dd class="col-sm-10"><?=$info->category1 ?></dd>
-                                    <dt class="col-sm-2">분류2</dt>
-                                    <dd class="col-sm-10"><?=$info->category2 ?></dd>
-                                    <dt class="col-sm-2">내용</dt>
-                                    <dd class="col-sm-10"><?=$info->contents ?></dd>
-                                    <dt class="col-sm-2">링크</dt>
-                                    <dd class="col-sm-10"><?=$info->http_link ?></dd>
-                                    <dt class="col-sm-2">첨부파일</dt>
-                                    <dd class="col-sm-10">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-bordered table-sm">
+                                        <tbody>
+                                            <tr>
+                                                <th>제목</th>
+                                                <td><?=$info->title ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>분류1</th>
+                                                <td><?=$info->category1 ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>분류2</th>
+                                                <td><?=$info->category2 ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>내용</th>
+                                                <td><?=$info->contents ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>링크</th>
+                                                <td><?=$info->http_link ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>첨부파일</th>
+                                                <td>
 <?php   foreach($file_list as $no => $val) { ?>
-                                        <a href="/download/download/<?=$val->file_id ?>"><?=$val->file_name_org ?></a><br>
+                                                    <a href="/download/download/<?=$val->file_id ?>"><?=$val->file_name_org ?></a><br>
 <?php   } ?>
-                                    </dd>
-                                    <dt class="col-sm-2">입력자</dt>
-                                    <dd class="col-sm-10"><?=$info->ins_id ?></dd>
-                                    <dt class="col-sm-2">입력일</dt>
-                                    <dd class="col-sm-10"><?=$info->ins_date_txt ?></dd>
-                                </dl>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>입력자</th>
+                                                <td><?=$info->ins_id ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>입력일</th>
+                                                <td><?=$info->ins_date_txt ?></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                         <div class="card-footer">
