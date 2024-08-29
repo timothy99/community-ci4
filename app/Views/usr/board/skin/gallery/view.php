@@ -23,26 +23,36 @@
                                     <h3 class="card-title"><?=$info->title ?></h3>
                                 </div>
                                 <div class="card-body">
-                                    <div class="col-12">
-                                        <dl class="row">
-                                            <dt class="col-sm-2">내용</dt>
-                                            <dd class="col-sm-10">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-bordered table-sm">
+                                            <tbody>
+                                                <tr>
+                                                    <th>내용</th>
+                                                    <td>
 <?php   foreach($info->file_list as $no => $val) { ?>
-                                                <img src="/download/view/<?=$val->file_id ?>" class="img-fluid"><br><br>
+                                                        <img src="/download/view/<?=$val->file_id ?>" class="img-fluid"><br><br>
 <?php   } ?>
-                                                <?=$info->contents ?>
-                                            </dd>
-                                            <dt class="col-sm-2">입력자</dt>
-                                            <dd class="col-sm-10"><?=$info->ins_id ?></dd>
-                                            <dt class="col-sm-2">입력일</dt>
-                                            <dd class="col-sm-10"><?=$info->ins_date_txt ?></dd>
-                                            <dt class="col-sm-2">첨부파일</dt>
-                                            <dd class="col-sm-10">
+                                                        <?=$info->contents ?>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>입력자</th>
+                                                    <td><?=$info->ins_id ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>입력일</th>
+                                                    <td><?=$info->ins_date_txt ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>첨부파일</th>
+                                                    <td>
 <?php   foreach($info->file_list as $no => $val) { ?>
-                                                <a href="/download/download/<?=$val->file_id ?>"><?=$val->file_name_org ?></a><br>
+                                                        <a href="/download/download/<?=$val->file_id ?>"><?=$val->file_name_org ?></a><br>
 <?php   } ?>
-                                            </dd>
-                                        </dl>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                                 <div class="card-footer">
@@ -84,8 +94,8 @@
                                             </table>
                                         </div>
                                         <dl class="row">
-                                            <dd class="col-sm-11 text-right">총 댓글수</dd>
-                                            <dd class="col-sm-1 text-center"><?=count($comment_list) ?></dd>
+                                            <dd class="col-sm-11 text-right">총 댓글수</td>
+                                            <dd class="col-sm-1 text-center"><?=count($comment_list) ?></td>
                                         </dl>
                                     </div>
                                 </div>

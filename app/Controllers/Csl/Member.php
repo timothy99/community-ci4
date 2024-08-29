@@ -12,7 +12,7 @@ class Member extends BaseController
 {
     public function index()
     {
-        return redirect()->to("/csl");
+        return redirect()->to("/csl/member/list");
     }
 
     public function list()

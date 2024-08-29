@@ -75,6 +75,9 @@ $routes->get("/csl/member/excel", "Csl\Member::excel");
 $routes->get("/csl/member/password/(:alphanum)", "Csl\Member::password");
 $routes->post("/csl/member/change", "Csl\Member::change");
 
+$routes->get("/csl/board", "Csl\Board::index");
+$routes->get("/csl/board/config", "Csl\BoardConfig::index");
+
 $routes->get("/csl/board/config/list", "Csl\BoardConfig::list");
 $routes->get("/csl/board/config/write", "Csl\BoardConfig::write");
 $routes->get("/csl/board/config/edit/(:num)", "Csl\BoardConfig::edit");
@@ -82,6 +85,7 @@ $routes->post("/csl/board/config/update", "Csl\BoardConfig::update");
 $routes->get("/csl/board/config/view/(:num)", "Csl\BoardConfig::view");
 $routes->post("/csl/board/config/delete/(:num)", "Csl\BoardConfig::delete");
 
+$routes->get("/csl/board/manage", "Csl\BoardManage::index");
 $routes->get("/csl/board/manage/list", "Csl\BoardManage::list");
 
 $routes->get("/csl/board/(:any)/list", "Csl\Board::list");
@@ -91,6 +95,7 @@ $routes->post("/csl/board/(:any)/update", "Csl\Board::update");
 $routes->get("/csl/board/(:any)/view/(:num)", "Csl\Board::view");
 $routes->post("/csl/board/(:any)/delete/(:num)", "Csl\Board::delete");
 
+$routes->get("/csl/comment", "Csl\Comment::index");
 $routes->post("/csl/comment/insert", "Csl\Comment::insert");
 $routes->post("/csl/comment/delete/(:num)", "Csl\Comment::delete");
 $routes->post("/csl/comment/edit/(:num)", "Csl\Comment::edit");
@@ -108,6 +113,7 @@ $routes->post("/csl/slide/update", "Csl\Slide::update");
 $routes->get("/csl/slide/view/(:num)", "Csl\Slide::view");
 $routes->post("/csl/slide/delete/(:num)", "Csl\Slide::delete");
 
+$routes->get("/csl/contents", "Csl\Contents::index");
 $routes->get("/csl/contents/list", "Csl\Contents::list");
 $routes->get("/csl/contents/write", "Csl\Contents::write");
 $routes->get("/csl/contents/edit/(:num)", "Csl\Contents::edit");
@@ -117,6 +123,7 @@ $routes->post("/csl/contents/delete/(:num)", "Csl\Contents::delete");
 
 $routes->post("/mail/send", "Usr\Mail::send");
 
+$routes->get("/csl/bulk", "Csl\Bulk::index");
 $routes->get("/csl/bulk/list", "Csl\Bulk::list");
 $routes->get("/csl/bulk/excel/write", "Csl\Bulk::excelWrite");
 $routes->post("/csl/bulk/excel/upload", "Csl\Bulk::excelUpload");
@@ -126,6 +133,7 @@ $routes->get("/csl/bulk/edit/(:num)", "Csl\Bulk::edit");
 $routes->post("/csl/bulk/update", "Csl\Bulk::update");
 $routes->post("/csl/bulk/delete/(:num)/(:num)", "Csl\Bulk::delete");
 
+$routes->get("/csl/menu", "Csl\Menu::index");
 $routes->get("/csl/menu/list", "Csl\Menu::list");
 $routes->get("/csl/menu/write/(:num)", "Csl\Menu::write");
 $routes->get("/csl/menu/edit/(:num)", "Csl\Menu::edit");
@@ -133,6 +141,7 @@ $routes->post("/csl/menu/update", "Csl\Menu::update");
 $routes->get("/csl/menu/view/(:num)", "Csl\Menu::view");
 $routes->post("/csl/menu/delete/(:num)", "Csl\Menu::delete");
 
+$routes->get("/csl/popup", "Csl\Popup::index");
 $routes->get("/csl/popup/list", "Csl\Popup::list");
 $routes->get("/csl/popup/write", "Csl\Popup::write");
 $routes->get("/csl/popup/edit/(:num)", "Csl\Popup::edit");
@@ -153,6 +162,7 @@ $routes->post("/csl/shortlink/delete/(:num)", "Csl\Shortlink::delete");
 $routes->get("/csl/privacy", "Csl\Privacy::index");
 $routes->get("/csl/privacy/list", "Csl\Privacy::list");
 
+$routes->get("/csl/youtube", "Csl\Youtube::index");
 $routes->get("/csl/youtube/list", "Csl\Youtube::list");
 $routes->get("/csl/youtube/write", "Csl\Youtube::write");
 $routes->get("/csl/youtube/edit/(:num)", "Csl\Youtube::edit");

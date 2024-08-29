@@ -25,38 +25,72 @@
                         </div>
                         <div class="card-body">
                             <div class="col-12">
-                                <dl class="row">
-                                    <dt class="col-sm-2">게시판 아이디</dt>
-                                    <dd class="col-sm-10"><?=$info->board_id ?></dd>
-                                    <dt class="col-sm-2">스킨</dt>
-                                    <dd class="col-sm-10"><?=$info->type ?></dd>
-                                    <dt class="col-sm-2">제목</dt>
-                                    <dd class="col-sm-10"><?=$info->title ?></dd>
-                                    <dt class="col-sm-2">분류</dt>
-                                    <dd class="col-sm-10"><?=$info->category ?></dd>
-                                    <dt class="col-sm-2">분류 사용여부</dt>
-                                    <dd class="col-sm-10"><?=$info->category_yn ?></dd>
-                                    <dt class="col-sm-2">사용자 글쓰기</dt>
-                                    <dd class="col-sm-10"><?=$info->user_write ?></dd>
-                                    <dt class="col-sm-2">줄 수</dt>
-                                    <dd class="col-sm-10"><?=$info->base_rows ?></dd>
-                                    <dt class="col-sm-2">등록일 기능</dt>
-                                    <dd class="col-sm-10"><?=$info->reg_date_yn ?></dd>
-                                    <dt class="col-sm-2">첨부파일 수</dt>
-                                    <dd class="col-sm-10"><?=number_format($info->file_cnt) ?></dd>
-                                    <dt class="col-sm-2">개별 최대 용량</dt>
-                                    <dd class="col-sm-10"><?=number_format($info->file_upload_size_limit) ?>MB</dd>
-                                    <dt class="col-sm-2">첨부 최대 용량</dt>
-                                    <dd class="col-sm-10"><?=number_format($info->file_upload_size_total) ?>MB</dd>
-                                    <dt class="col-sm-2">입력자</dt>
-                                    <dd class="col-sm-10"><?=$info->ins_id ?></dd>
-                                    <dt class="col-sm-2">입력일</dt>
-                                    <dd class="col-sm-10"><?=$info->ins_date_txt ?></dd>
-                                    <dt class="col-sm-2">수정자</dt>
-                                    <dd class="col-sm-10"><?=$info->upd_id ?></dd>
-                                    <dt class="col-sm-2">수정일</dt>
-                                    <dd class="col-sm-10"><?=$info->upd_date_txt ?></dd>
-                                </dl>
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-bordered table-sm">
+                                        <tbody>
+                                            <tr>
+                                                <th>게시판 아이디</th>
+                                                <td><?=$info->board_id ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>스킨</th>
+                                                <td><?=$info->type ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>제목</th>
+                                                <td><?=$info->title ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>분류</th>
+                                                <td><?=$info->category ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>분류 사용여부</th>
+                                                <td><?=$info->category_yn ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>사용자 글쓰기</th>
+                                                <td><?=$info->user_write ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>줄 수</th>
+                                                <td><?=$info->base_rows ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>등록일 기능</th>
+                                                <td><?=$info->reg_date_yn ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>첨부파일 수</th>
+                                                <td><?=number_format($info->file_cnt) ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>개별 최대 용량</th>
+                                                <td><?=number_format($info->file_upload_size_limit) ?>MB</td>
+                                            </tr>
+                                            <tr>
+                                                <th>첨부 최대 용량</th>
+                                                <td><?=number_format($info->file_upload_size_total) ?>MB</td>
+                                            </tr>
+                                            <tr>
+                                                <th>입력자</th>
+                                                <td><?=$info->ins_id ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>입력일</th>
+                                                <td><?=$info->ins_date_txt ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>수정자</th>
+                                                <td><?=$info->upd_id ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>수정일</th>
+                                                <td><?=$info->upd_date_txt ?></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                         <div class="card-footer">

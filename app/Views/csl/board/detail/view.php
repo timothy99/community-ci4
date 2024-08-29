@@ -25,31 +25,49 @@
                             <h3 class="card-title"><?=$info->title ?></h3>
                         </div>
                         <div class="card-body">
-                            <div class="col-12">
-                                <dl class="row">
-                                    <dt class="col-sm-2">공지여부</dt>
-                                    <dd class="col-sm-10"><?=$info->notice_yn ?></dd>
+                            <div class="row">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-bordered table-sm">
+                                        <tbody>
+                                            <tr>
+                                                <th>공지여부</th>
+                                                <td><?=$info->notice_yn ?></td>
+                                            </tr>
 <?php   if ($config->category_yn == "Y") { ?>
-                                    <dt class="col-sm-2">분류</dt>
-                                    <dd class="col-sm-10"><?=$info->category ?></dd>
+                                            <tr>
+                                                <th>분류</th>
+                                                <td><?=$info->category ?></td>
+                                            </tr>
 <?php   } ?>
 <?php   if ($config->reg_date_yn == "Y") { ?>
-                                    <dt class="col-sm-2">등록일</dt>
-                                    <dd class="col-sm-10"><?=$info->reg_date_txt ?></dd>
+                                            <tr>
+                                                <th>등록일</th>
+                                                <td><?=$info->reg_date_txt ?></td>
+                                            </tr>
 <?php   } ?>
-                                    <dt class="col-sm-2">내용</dt>
-                                    <dd class="col-sm-10"><?=$info->contents ?></dd>
-                                    <dt class="col-sm-2">입력자</dt>
-                                    <dd class="col-sm-10"><?=$info->member_info->member_nickname ?>[<?=$info->ins_id ?>]</dd>
-                                    <dt class="col-sm-2">입력일</dt>
-                                    <dd class="col-sm-10"><?=$info->ins_date_txt ?></dd>
-                                    <dt class="col-sm-2">첨부파일</dt>
-                                    <dd class="col-sm-10">
+                                            <tr>
+                                                <th>내용</th>
+                                                <td><?=$info->contents ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>입력자</th>
+                                                <td><?=$info->member_info->member_nickname ?>[<?=$info->ins_id ?>]</td>
+                                            </tr>
+                                            <tr>
+                                                <th>입력일</th>
+                                                <td><?=$info->ins_date_txt ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>첨부파일</th>
+                                                <td>
 <?php   foreach($file_list as $no => $val) { ?>
-                                        <a href="/download/download/<?=$val->file_id ?>"><?=$val->file_name_org ?></a><br>
+                                                    <a href="/download/download/<?=$val->file_id ?>"><?=$val->file_name_org ?></a><br>
 <?php   } ?>
-                                    </dd>
-                                </dl>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                         <div class="card-footer">
@@ -87,8 +105,10 @@
                                 </div>
                             </div>
                             <dl class="row">
-                                <dd class="col-sm-11 text-right">총 댓글수</dd>
-                                <dd class="col-sm-1 text-center"><?=count($comment_list) ?></dd>
+                                <dd class="col-sm-11 text-right">총 댓글수</td>
+			</tr>
+                                <dd class="col-sm-1 text-center"><?=count($comment_list) ?></td>
+			</tr>
                             </dl>
                         </div>
                     </div>
