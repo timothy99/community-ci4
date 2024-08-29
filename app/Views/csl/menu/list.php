@@ -42,7 +42,7 @@
 <?php   foreach($list as $no => $val) { // 1차 메뉴 ?>
                                         <tr>
                                             <td class="text-center"><?=$val->order_no ?></td>
-                                            <td><a href="/csl/book/list/<?=$val->m_idx ?>"><?=$val->menu_name ?></a></td>
+                                            <td><?=$val->menu_name ?></td>
                                             <td></td>
                                             <td></td>
                                             <td><?=$val->idx1 ?></td>
@@ -59,7 +59,7 @@
                                         <tr>
                                             <td class="text-center"><?=$val2->order_no ?></td>
                                             <td></td>
-                                            <td><a href="/csl/book/list/<?=$val2->m_idx ?>"><?=$val2->menu_name ?></a></td>
+                                            <td><?=$val2->menu_name ?></td>
                                             <td></td>
                                             <td><?=$val2->idx1 ?></td>
                                             <td><?=$val2->idx2 ?></td>
@@ -76,7 +76,7 @@
                                             <td class="text-center"><?=$val3->order_no ?></td>
                                             <td></td>
                                             <td></td>
-                                            <td><a href="/csl/book/list/<?=$val3->m_idx ?>"><?=$val3->menu_name ?></a></td>
+                                            <td><?=$val3->menu_name ?></td>
                                             <td><?=$val3->idx1 ?></td>
                                             <td><?=$val3->idx2 ?></td>
                                             <td><?=$val3->idx3 ?></td>
