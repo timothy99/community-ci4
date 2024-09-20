@@ -115,10 +115,17 @@ class YoutubeModel extends Model
 
                 $title = $val->snippet->title;
                 $description = $val->snippet->description;
-                $thumbnail_default = $val->snippet->thumbnails->default->url;
-                $thumbnail_medium = $val->snippet->thumbnails->medium->url;
-                $thumbnail_high = $val->snippet->thumbnails->high->url;
-                $channel_title = $val->snippet->channelTitle;
+                if (isset($val->snippet->thumbnails->default) == true) {
+                    $thumbnail_default = $val->snippet->thumbnails->default->url;
+                    $thumbnail_medium = $val->snippet->thumbnails->medium->url;
+                    $thumbnail_high = $val->snippet->thumbnails->high->url;
+                    $channel_title = $val->snippet->channelTitle;
+                } else {
+                    $thumbnail_default = null;
+                    $thumbnail_medium = null;
+                    $thumbnail_high = null;
+                    $channel_title = null;
+                }
 
                 $info = (object)array();
                 $info->video_id = $video_id;
