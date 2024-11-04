@@ -36,7 +36,10 @@ class AuthorityModel extends Model
         $uri = $segment0."/".$segment1;
 
         $login_arr = array();
-        $login_arr[] = "mypage/mypage";
+        $login_arr[] = "member/view";
+        $login_arr[] = "member/leave";
+        $login_arr[] = "member/delete";
+        $login_arr[] = "member/edit";
         if (in_array($uri, $login_arr) == true && $auth_group == "guest") {
             header("Location: /member/login");
             exit;

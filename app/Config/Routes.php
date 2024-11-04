@@ -39,7 +39,6 @@ $routes->post("/ask/write", "Usr\Ask::write");
 
 $routes->get("/s/(:num)", "Usr\Shortlink::hyperlink");
 
-$routes->get("/member/myinfo", "Lgn\Member::myinfo");
 $routes->get("/member/login", "Lgn\Member::login");
 $routes->get("/member/join", "Lgn\Member::join");
 $routes->post("/member/signup", "Lgn\Member::signup");
