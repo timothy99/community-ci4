@@ -106,9 +106,7 @@
                             </div>
                             <dl class="row">
                                 <dd class="col-sm-11 text-right">총 댓글수</td>
-			</tr>
                                 <dd class="col-sm-1 text-center"><?=count($comment_list) ?></td>
-			</tr>
                             </dl>
                         </div>
                     </div>

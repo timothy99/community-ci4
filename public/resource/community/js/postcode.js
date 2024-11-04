@@ -64,4 +64,5 @@ function postcode_open() {
 
     // iframe을 넣은 element를 보이게 한다.
     document.getElementById("post_div").style.display = "flex";
+    document.getElementById("wrap").style.display = "block";
 }
