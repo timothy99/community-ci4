@@ -19,13 +19,6 @@
                     <div class="col-sm-6">
                         <h1><?=$config_info->title ?></h1>
                     </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="/">홈</a></li>
-                            <li class="breadcrumb-item active">게시판</li>
-                            <li class="breadcrumb-item active"><?=$config_info->title ?></li>
-                        </ol>
-                    </div>
                 </div>
             </div>
         </section>

@@ -21,12 +21,6 @@
                     <div class="col-sm-6">
                         <h1>대시보드</h1>
                     </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="/">홈</a></li>
-                            <li class="breadcrumb-item active">대시보드</li>
-                        </ol>
-                    </div>
                 </div>
             </div>
         </section>
