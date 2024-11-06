@@ -6,7 +6,6 @@ use App\Controllers\BaseController;
 use App\Models\Common\DateModel;
 use App\Models\Csl\PopupModel;
 use App\Models\Common\PagingModel;
-use App\Models\Common\FileModel;
 
 class Popup extends BaseController
 {
