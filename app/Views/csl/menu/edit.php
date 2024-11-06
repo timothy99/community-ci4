@@ -13,11 +13,6 @@
                     <div class="col-sm-4">
                         <h1>메뉴생성</h1>
                     </div>
-                    <div class="col-sm-8">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item">메뉴생성</li>
-                        </ol>
-                    </div>
                 </div>
             </div>
         </section>

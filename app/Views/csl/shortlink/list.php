@@ -5,12 +5,6 @@
                 <div class="col-sm-6">
                     <h1>단축url</h1>
                 </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">홈</a></li>
-                        <li class="breadcrumb-item active">단축url</li>
-                    </ol>
-                </div>
             </div>
         </div>
     </section>

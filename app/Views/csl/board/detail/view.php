@@ -5,13 +5,6 @@
                 <div class="col-sm-6">
                     <h1><?=$config->title ?></h1>
                 </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="/">홈</a></li>
-                        <li class="breadcrumb-item active">게시판</li>
-                        <li class="breadcrumb-item active"><?=$config->title ?></li>
-                    </ol>
-                </div>
             </div>
         </div>
     </section>
