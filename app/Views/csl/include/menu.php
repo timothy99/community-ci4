@@ -49,6 +49,11 @@
                             <p>콘텐츠</p>
                         </a>
                     </li>
+                    <li class="nav-item" id="li-calendar-list">
+                        <a href="/csl/calendar/list" class="nav-link" id="a-calendar-list">
+                            <p>일정</p>
+                        </a>
+                    </li>
                     <li class="nav-item" id="li-youtube-list">
                         <a href="/csl/youtube/list" class="nav-link" id="upper-youtube-list">
                             <p>

@@ -169,3 +169,11 @@ $routes->post("/csl/youtube/update", "Csl\Youtube::update");
 $routes->get("/csl/youtube/view/(:num)", "Csl\Youtube::view");
 $routes->post("/csl/youtube/delete/(:num)", "Csl\Youtube::delete");
 $routes->get("/csl/youtube/search", "Csl\Youtube::search");
+
+$routes->get("/csl/calendar/list", "Csl\Calendar::list");
+$routes->post("/csl/calendar/month", "Csl\Calendar::month"); // 그 달의 스케쥴 불러오기
+$routes->get("/csl/calendar/write", "Csl\Calendar::write");
+$routes->post("/csl/calendar/update", "Csl\Calendar::update");
+$routes->get("/csl/calendar/view", "Csl\Calendar::view");
+$routes->get("/csl/calendar/edit", "Csl\Calendar::edit");
+$routes->post("/csl/calendar/delete/(:num)", "Csl\Calendar::delete");

@@ -22,4 +22,7 @@ function privacyInsert($memo)
     $builder->set("ins_date", $today);
     $builder->set("upd_id", $member_id);
     $builder->set("upd_date", $today);
+    $result = $builder->insert();
+
+    return $result;
 }
