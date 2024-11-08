@@ -5,7 +5,6 @@
                 <div class="col-sm-4">
                     <h1>메뉴관리</h1>
                 </div>
-                </div>
             </div>
         </div>
     </section>
