@@ -39,6 +39,15 @@ class DebugToolbar implements FilterInterface
      */
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {
-        Services::toolbar()->prepare($request, $response);
+        // 이제 ajax등 툴바를 사용하지 말아야 하는 페이지에 대해서는 툴바가 보이지 않게 수정한다.
+        $path = $request->getUri()->getPath();
+        $path_arr = array();
+        $path_arr[] = "/csl/calendar/month";
+
+        if (in_array($path, $path_arr)) {
+            // do nothing
+        } else {
+            Services::toolbar()->prepare($request, $response);
+        }
     }
 }
