@@ -1,14 +1,5 @@
         <div class="collapse navbar-collapse order-3 justify-content-end" id="navbarCollapse">
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a href="/" class="nav-link">홈</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/board/board6967/list" class="nav-link">공지사항</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/board/board597/list" class="nav-link">자유게시판</a>
-                </li>
 <?php   foreach ($menu_list as $no => $val) { ?>
                 <li class="nav-item dropdown">
                     <a id="dropdownSubMenu1" href="<?=$val->http_link ?>" data-toggle="<?php if (count($val->list) > 0) echo "dropdown"; ?>" aria-haspopup="true" aria-expanded="false" class="nav-link <?php if (count($val->list) > 0) echo "dropdown-toggle"; ?>"><?=$val->menu_name ?></a>
