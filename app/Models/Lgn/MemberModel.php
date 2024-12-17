@@ -159,7 +159,7 @@ class MemberModel extends Model
         $addr1 = $data["addr1"];
         $addr2 = $data["addr2"];
 
-        $auth_group = "common";
+        $auth_group = "일반";
         $member_password_enc = $security_model->getPasswordEncrypt($member_password);
 
         try {

@@ -83,9 +83,9 @@
                                     <div class="col-sm-10">
                                         <select class="form-control" id="auth_group" name="auth_group">
                                             <option value="">선택하세요</option>
-                                            <option value="common">일반</option>
-                                            <option value="office">기관</option>
-                                            <option value="admin">관리자</option>
+                                            <option value="일반">일반</option>
+                                            <option value="관리자">관리자</option>
+                                            <option value="최고관리자">최고관리자</option>
                                         </select>
                                     </div>
                                 </div>
