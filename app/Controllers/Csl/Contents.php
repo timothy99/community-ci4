@@ -79,7 +79,7 @@ class Contents extends BaseController
         $c_idx = $this->request->getPost("c_idx", FILTER_SANITIZE_SPECIAL_CHARS);
         $contents_id = $this->request->getPost("contents_id", FILTER_SANITIZE_SPECIAL_CHARS);
         $title = $this->request->getPost("title", FILTER_SANITIZE_SPECIAL_CHARS);
-        $summer_code = (string)$this->request->getPost("summer_code");
+        $contents = $this->request->getPost("contents");
 
         if ($title == null) {
             $result = false;
@@ -90,7 +90,7 @@ class Contents extends BaseController
         $data["c_idx"] = $c_idx;
         $data["contents_id"] = $contents_id;
         $data["title"] = $title;
-        $data["contents"] = $summer_code;
+        $data["contents"] = $contents;
 
         if ($result == true) {
             if ($c_idx == 0) {

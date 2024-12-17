@@ -1,8 +1,5 @@
 <form class="form-horizontal" id="frm" name="frm">
     <input type="hidden" id="c_idx" name="c_idx" value="<?=$info->c_idx ?>">
-    <input type="hidden" id="summernote_code" name="summernote_code">
-    <input type="hidden" id="contents_code" name="contents_code" value='<?=base64_encode($info->contents) ?>'>
-    <input type="hidden" id="summer_code" name="summer_code">
     <div class="content-wrapper">
         <section class="content-header">
             <div class="container-fluid">
@@ -38,7 +35,7 @@
                                 <div class="form-group row">
                                     <label for="contents" class="col-sm-2 col-form-label">내용</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="contents" name="contents">
+                                        <textarea class="form-control" id="contents" name="contents" rows="8"><?=$info->contents ?></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -62,15 +59,10 @@
         $("#li-contents-list").addClass("menu-open");
         $("#upper-contents-list").addClass("active");
         $("#a-contents-list").addClass("active");
-
-        $("#contents").summernote(summernote_settings); // 썸머노트 초기화
-        var contents_code = $("#contents_code").val();
-        $("#contents").summernote("code",  decodeUnicode(contents_code)); // 내용 넣기
     });
 
     $(function() {
         $("#save").click(function(e) {
-            $("#summer_code").val($("#contents").summernote("code"));
             ajax1("/csl/contents/update", "frm");
         });
 
