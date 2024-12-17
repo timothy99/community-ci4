@@ -141,7 +141,7 @@ class ContentsModel extends Model
             $db = $this->db;
             $db->transStart();
             $builder = $db->table("contents");
-            $builder->set("contents_id2", $contents_id);
+            $builder->set("contents_id", $contents_id);
             $builder->set("title", $title);
             $builder->set("contents", $contents);
             $builder->set("upd_id", $user_id);
