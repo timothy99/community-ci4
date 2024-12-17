@@ -3,7 +3,6 @@
 namespace App\Models\Common;
 
 use CodeIgniter\Model;
-use stdClass;
 use Throwable;
 
 class DownloadModel extends Model
@@ -18,16 +17,9 @@ class DownloadModel extends Model
         $db_info = $builder->get()->getFirstRow(); // 쿼리 실행
 
         if($db_info == null) {
-            $db_info = new stdClass;
-            $db_info->download_html = null;
-            $db_info->file_directory = null;
-            $db_info->file_name_uploaded = null;
-            $db_info->file_name_org = null;
+            // do nothing
         } else {
             $db_info->file_path = UPLOADPATH.$db_info->file_directory."/".$db_info->file_name_uploaded;
-            $file_id = $db_info->file_id;
-            $file_name_org = $db_info->file_name_org;
-            $db_info->file_name_org = $file_name_org;
         }
 
         return $db_info;
