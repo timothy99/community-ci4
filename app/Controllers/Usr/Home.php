@@ -35,7 +35,7 @@ class Home extends BaseController
         $model_result = $board_model->getBoardList($data);
         $notice_list = $model_result["list"];
 
-        $data["board_id"] = "board597";
+        $data["board_id"] = "free";
         $model_result = $board_model->getBoardList($data);
         $free_list = $model_result["list"];
 
