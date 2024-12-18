@@ -93,7 +93,7 @@ class Member extends BaseController
             }
 
             $auth_group = getUserSessionInfo("auth_group");
-            if ($auth_group == "admin") {
+            if (in_array($auth_group, ["관리자", "최고관리자"]) == true) {
                 $return_url = "/csl/member/list";
             }
         } else {
