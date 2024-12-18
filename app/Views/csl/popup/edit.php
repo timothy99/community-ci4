@@ -98,6 +98,15 @@
                                         </ul>
                                     </div>
                                 </div>
+                                <div class="form-group row">
+                                    <label for="preview" class="col-sm-2 col-form-label"></label>
+                                    <div class="col-sm-10" id="popup_preview">
+<?php   if ($info->popup_file_info != null) { ?>
+                                        <img src="/download/view/<?=$info->popup_file_info->file_id ?>" class="img-fluid"><br>
+                                        이미지 실제크기 : <?=$info->popup_file_info->image_width ?>px * <?=$info->popup_file_info->image_height ?>px
+<?php   } ?>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-footer">
                                 <div class="d-flex justify-content-end">
@@ -140,12 +149,15 @@
         var file_id = info.file_id;
         var input_file_id = info.input_file_id;
         var file_name_org = info.file_name_org;
+        var image_width = info.image_width;
+        var image_height = info.image_height;
 
         $("#"+input_file_id+"_hidden").val(file_id);
         $("#"+input_file_id+"_visible").html("<li id='"+file_id+"'><a href='/download/download/"+file_id+"'>"+file_name_org+"</a><span class='ml-3'><button type='button' id='"+file_id+"' class='btn btn-danger btn-xs' onclick='file_delete(\""+file_id+"\")'>삭제</button></span></li>");
+        $("#popup_preview").html("<img src='/download/view/"+file_id+"' class='img-fluid'><br>이미지 실제크기 : "+image_width+"px * "+image_height+"px");
     }
 
     function delete_after(file_id) {
-        // do nothing, reserved function location
+        $("#popup_preview").html(" ");
     }
 </script>
