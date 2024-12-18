@@ -23,7 +23,7 @@
                                     <table class="table table-hover table-bordered table-sm">
                                         <tbody>
                                             <tr>
-                                                <th>공지여부</th>
+                                                <th style="min-width:150px;">공지여부</th>
                                                 <td><?=$info->notice_yn ?></td>
                                             </tr>
 <?php   if ($config->category_yn == "Y") { ?>
@@ -106,6 +106,7 @@
                 </div>
             </div>
 <?php   } ?>
+<?php   if ($config->comment_write == "예") { ?>
             <form id="insert_frm" name="insert_frm">
                 <input type="hidden" id="b_idx" name="b_idx" value="<?=$info->b_idx ?>">
                 <div class="row">
@@ -124,6 +125,7 @@
                     </div>
                 </div>
             </form>
+<?php   } ?>
         </div>
     </section>
 </div>

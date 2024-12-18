@@ -178,6 +178,7 @@ class BoardConfigModel extends Model
         $category = $data["category"];
         $category_yn = $data["category_yn"];
         $user_write = $data["user_write"];
+        $comment_write = $data["comment_write"];
         $base_rows = $data["base_rows"];
         $reg_date_yn = $data["reg_date_yn"];
         $file_cnt = $data["file_cnt"];
@@ -194,6 +195,7 @@ class BoardConfigModel extends Model
             $builder->set("category", $category);
             $builder->set("category_yn", $category_yn);
             $builder->set("user_write", $user_write);
+            $builder->set("comment_write", $comment_write);
             $builder->set("base_rows", $base_rows);
             $builder->set("reg_date_yn", $reg_date_yn);
             $builder->set("file_cnt", $file_cnt);
@@ -241,6 +243,7 @@ class BoardConfigModel extends Model
         $category = $data["category"];
         $category_yn = $data["category_yn"];
         $user_write = $data["user_write"];
+        $comment_write = $data["comment_write"];
         $base_rows = $data["base_rows"];
         $reg_date_yn = $data["reg_date_yn"];
         $file_cnt = $data["file_cnt"];
@@ -265,6 +268,7 @@ class BoardConfigModel extends Model
             $builder->set("category", $category);
             $builder->set("category_yn", $category_yn);
             $builder->set("user_write", $user_write);
+            $builder->set("comment_write", $comment_write);
             $builder->set("base_rows", $base_rows);
             $builder->set("reg_date_yn", $reg_date_yn);
             $builder->set("file_cnt", $file_cnt);

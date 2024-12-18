@@ -28,13 +28,15 @@ class Home extends BaseController
         $data = array();
         $data["search_arr"]["rows"] = 3;
         $data["page"] = 1;
-        $data["board_id"] = "board6967";
         $data["search_arr"]["search_condition"] = null;
         $data["search_arr"]["search_text"] = null;
 
+        // 공지사항
+        $data["board_id"] = "notice";
         $model_result = $board_model->getBoardList($data);
         $notice_list = $model_result["list"];
 
+        // 자유게시판
         $data["board_id"] = "free";
         $model_result = $board_model->getBoardList($data);
         $free_list = $model_result["list"];

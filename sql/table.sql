@@ -65,6 +65,7 @@ create table mng_board_config (
     category varchar(300) default null comment '카테고리',
     category_yn varchar(1) null comment '카테고리 사용여부',
     user_write varchar(1) default 'Y' not null comment '사용자가 글쓰기 가능하게 할지 여부',
+    comment_write varchar(10) default '예' not null comment '사용자가 댓글쓰기 가능하게 할지 여부',
     title varchar(1000) not null comment '제목',
     base_rows int not null comment '화면에 기본으로 보여줄 줄 수',
     reg_date_yn varchar(1) null comment '입력일 수정 기능 사용 여부',
@@ -81,6 +82,7 @@ create table mng_board_config (
 ) comment='게시판 설정 관리';
 
 -- alter table mng_board_config add user_write varchar(1) default 'Y' not null comment '사용자가 글쓰기 가능하게 할지 여부' after category_yn;
+-- alter table mng_board_config add comment_write varchar(1) default '예' not null comment '사용자가 댓글쓰기 가능하게 할지 여부' after user_write;
 
 create table mng_file (
     f_idx int not null auto_increment comment '연번',
