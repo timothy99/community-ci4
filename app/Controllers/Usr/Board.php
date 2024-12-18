@@ -109,6 +109,7 @@ class Board extends BaseController
         $proc_result["info"] = $info;
         $proc_result["comment_list"] = $comment_list;
         $proc_result["board_id"] = $board_id;
+        $proc_result["config_info"] = $config_info;
 
         return uview("usr/board/skin/".$config_info->type."/view", $proc_result);
     }

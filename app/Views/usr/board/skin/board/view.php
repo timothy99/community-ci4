@@ -73,12 +73,13 @@
 <?php           if (getUserSessionInfo("member_id") == $info->ins_id) { ?>
                                                     <tr id="bc_<?=$val->bc_idx ?>">
                                                         <td><?=$val->comment ?></td>
+                                                        <td><?=$val->ins_id ?></td>
                                                         <td style="width:70px"><button type="button" class="btn btn-xs btn-danger" id="comment_delete" name="comment_delete" onclick="comment_delete(<?=$val->bc_idx ?>)">삭제</button></td>
                                                         <td style="width:70px"><button type="button" class="btn btn-xs btn-success" id="comment_edit" name="comment_edit" onclick="comment_edit(<?=$val->bc_idx ?>)">수정</button></td>
                                                     </tr>
 <?php           } else { ?>
                                                     <tr id="bc_<?=$val->bc_idx ?>">
-                                                        <td colspan="3"><?=$val->comment ?></td>
+                                                        <td colspan="4"><?=$val->comment ?></td>
                                                     </tr>
 <?php           } ?>
 <?php       } ?>
@@ -95,6 +96,7 @@
                         </div>
                     </div>
 <?php   } ?>
+<?php   if ($config_info->comment_write == "예") { ?>
                     <form id="insert_frm" name="insert_frm">
                         <input type="hidden" id="b_idx" name="b_idx" value="<?=$info->b_idx ?>">
                         <div class="row">
@@ -103,23 +105,24 @@
                                     <div class="card-body">
                                         <div class="form-group row">
                                             <label for="comment" class="col-sm-1 col-form-label">댓글</label>
-<?php   if (getUserSessionInfo("member_id") === null) { ?>
+<?php       if (getUserSessionInfo("member_id") === null) { ?>
                                             <div class="col-sm-10">
                                                 <textarea class="form-control" id="comment" name="comment" rows="4" disabled>댓글은 로그인후 작성이 가능합니다.</textarea>
                                             </div>
                                             <button type="button" class="btn btn-info float-right">등록</button>
-<?php   } else { ?>
+<?php       } else { ?>
                                             <div class="col-sm-10">
                                                 <textarea class="form-control" id="comment" name="comment" rows="4"></textarea>
                                             </div>
                                             <button type="button" class="btn btn-info float-right" id="comment_insert" name="comment_insert">등록</button>
-<?php   } ?>
+<?php       } ?>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </form>
+<?php   } ?>
                 </div>
             </div>
         </div>

@@ -69,6 +69,17 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label for="comment_write" class="col-sm-2 col-form-label">댓글 기능 사용여부</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control" id="comment_write" name="comment_write">
+                                            <option value="아니요">아니요</option>
+                                            <option value="예">예</option>
+                                        </select>
+                                        <br>
+                                        사용자가 댓글 쓰기 가능하게 할지 결정합니다. N으로 해두면 관리자 화면에서만 댓글 쓰기가 가능합니다.
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label for="base_rows" class="col-sm-2 col-form-label">줄 수</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="base_rows" name="base_rows" value="<?=$info->base_rows ?>">
@@ -133,6 +144,7 @@
         $("#upper-board-config-list").addClass("active");
         $("#a-board-config-list").addClass("active");
         $("#category_yn").val("<?=$info->category_yn ?>").prop("selected", true);
+        $("#comment_write").val("<?=$info->comment_write ?>").prop("selected", true);
         $("#reg_date_yn").val("<?=$info->reg_date_yn ?>").prop("selected", true);
         $("#user_write").val("<?=$info->user_write ?>").prop("selected", true);
         $("#type").val("<?=$info->type ?>").prop("selected", true);

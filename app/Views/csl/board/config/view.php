@@ -47,6 +47,10 @@
                                                 <td><?=$info->user_write ?></td>
                                             </tr>
                                             <tr>
+                                                <th>댓글쓰기</th>
+                                                <td><?=$info->comment_write ?></td>
+                                            </tr>
+                                            <tr>
                                                 <th>줄 수</th>
                                                 <td><?=$info->base_rows ?></td>
                                             </tr>
