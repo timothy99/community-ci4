@@ -110,7 +110,7 @@
                                             <td><?=$val->category ?></td>
 <?php       } ?>
                                             <td><a href="/csl/board/<?=$data["board_id"] ?>/view/<?=$val->b_idx ?>"><?=$val->title ?></a></td>
-                                            <td><?=$val->member_info->member_nickname ?></td>
+                                            <td><?=$val->member_info->member_nickname ?>[<?=$val->member_info->member_id ?>]</td>
 <?php       if ($config->reg_date_yn == "Y") { ?>
                                             <td><?=$val->reg_date_txt ?></td>
 <?php       } ?>
@@ -125,7 +125,7 @@
                                             <td><?=$val->category ?></td>
 <?php       } ?>
                                             <td><a href="/csl/board/<?=$data["board_id"] ?>/view/<?=$val->b_idx ?>"><?=$val->title ?></a></td>
-                                            <td><?=$val->member_info->member_nickname ?></td>
+                                            <td><?=$val->member_info->member_nickname ?>[<?=$val->member_info->member_id ?>]</td>
 <?php       if ($config->reg_date_yn == "Y") { ?>
                                             <td><?=$val->reg_date_txt ?></td>
 <?php       } ?>
