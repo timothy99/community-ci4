@@ -93,6 +93,7 @@
                         </div>
                         <div class="card-footer">
                             <div class="d-flex justify-content-end">
+                                <a href="/csl/board/<?=$info->board_id ?>/list" class="btn btn-warning ml-3">보기</a>
                                 <button type="button" class="btn btn-danger ml-3" id="delete" name="delete">삭제</button>
                                 <button type="button" class="btn btn-success ml-3" id="edit" name="edit">수정</button>
                                 <button type="button" class="btn btn-info ml-3" id="list" name="list">목록</button>

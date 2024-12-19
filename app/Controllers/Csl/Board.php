@@ -81,7 +81,7 @@ class Board extends BaseController
         $proc_result["data"] = $data;
         $proc_result["config"] = $config;
 
-        return aview("csl/board/detail/list", $proc_result);
+        return aview("csl/board/detail/skin/".$config->type."/list", $proc_result);
     }
 
     public function write()
@@ -127,7 +127,7 @@ class Board extends BaseController
         $proc_result["config_info"] = $config_info;
         $proc_result["file_list"] = array();
 
-        return aview("csl/board/detail/edit", $proc_result);
+        return aview("csl/board/detail/skin/".$config_info->type."/edit", $proc_result);
     }
 
     public function update()
@@ -224,7 +224,7 @@ class Board extends BaseController
         $proc_result["comment_list"] = $comment_list;
         $proc_result["config"] = $config;
 
-        return aview("csl/board/detail/view", $proc_result);
+        return aview("csl/board/detail/skin/".$config->type."/view", $proc_result);
     }
 
     public function delete()
@@ -289,7 +289,7 @@ class Board extends BaseController
         $proc_result["file_list"] = $file_list;
         $proc_result["config_info"] = $config_info;
 
-        return aview("csl/board/detail/edit", $proc_result);
+        return aview("csl/board/detail/skin/".$config_info->type."/edit", $proc_result);
     }
 
 }

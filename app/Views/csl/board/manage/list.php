@@ -50,6 +50,7 @@
                                         <tr>
                                             <th>번호</th>
                                             <th>제목</th>
+                                            <th>형태</th>
                                             <th>게시판 아이디</th>
                                             <th>입력자</th>
                                             <th>입력일</th>
@@ -60,6 +61,7 @@
                                         <tr>
                                             <td><?=$val->list_no ?></td>
                                             <td><?=$val->board_id ?></td>
+                                            <td><?=$val->type ?></td>
                                             <td><a href="/csl/board/<?=$val->board_id ?>/list"><?=$val->title ?></a></td>
                                             <td><?=$val->ins_id ?></td>
                                             <td><?=$val->ins_date_txt ?></td>

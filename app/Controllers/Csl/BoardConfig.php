@@ -66,6 +66,7 @@ class BoardConfig extends BaseController
         $info->base_rows = 10;
         $info->reg_date_yn = "N";
         $info->user_write = "N";
+        $info->comment_write = "아니요";
         $info->category_yn = "N";
         $info->file_cnt = "1";
         $info->file_upload_size_limit = "10";

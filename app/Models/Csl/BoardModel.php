@@ -14,6 +14,7 @@ class BoardModel extends Model
     {
         $date_model = new DateModel();
         $member_model = new MemberModel();
+        $download_model = new DownloadModel();
 
         $result = true;
         $message = "목록 불러오기가 완료되었습니다.";
@@ -56,6 +57,8 @@ class BoardModel extends Model
             $list[$no]->ins_date_txt = $date_model->convertTextToDate($val->ins_date, 1, 1);
             $list[$no]->reg_date_txt = $date_model->convertTextToDate($val->reg_date, 1, 1);
             $list[$no]->member_info = $member_model->getMemberInfo($val->ins_id)["info"];
+            $file_arr = explode("|", $val->file_idxs);
+            $list[$no]->file_info = $download_model->getFileInfo($file_arr[0]);
         }
 
         $proc_result = array();
@@ -248,7 +251,6 @@ class BoardModel extends Model
             $builder->set("category", $category);
             $builder->set("notice_yn", $notice_yn);
             $builder->set("reg_date", $reg_date);
-            $builder->set("del_yn", "N");
             $builder->set("upd_id", $user_id);
             $builder->set("upd_date", $today);
             $builder->where("b_idx", $b_idx);
