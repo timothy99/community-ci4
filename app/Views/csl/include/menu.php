@@ -11,19 +11,9 @@
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar nav-flat nav-child-indent flex-column">
                     <li class="nav-header">메뉴</li>
-                    <li class="nav-item" id="li-member-list">
-                        <a href="/csl/member/list" class="nav-link" id="a-member-list">
-                            <p>회원</p>
-                        </a>
-                    </li>
                     <li class="nav-item" id="li-menu-list">
                         <a href="/csl/menu/list" class="nav-link" id="a-menu-list">
                             <p>사용자 메뉴</p>
-                        </a>
-                    </li>
-                    <li class="nav-item" id="li-bulk-list">
-                        <a href="/csl/bulk/list" class="nav-link" id="a-bulk-list">
-                            <p>벌크</p>
                         </a>
                     </li>
                     <li class="nav-item" id="li-slide-list">
@@ -94,11 +84,25 @@
                             </li>
                         </ul>
                     </li>
+
+<?php   if (getUserSessionInfo("auth_group") == "최고관리자") { ?>
+                    <li class="nav-item" id="li-member-list">
+                        <a href="/csl/member/list" class="nav-link" id="a-member-list">
+                            <p>회원</p>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="li-bulk-list">
+                        <a href="/csl/bulk/list" class="nav-link" id="a-bulk-list">
+                            <p>벌크</p>
+                        </a>
+                    </li>
+
                     <li class="nav-item" id="li-privacy-list">
                         <a href="/csl/privacy/list" class="nav-link" id="a-privacy-list">
                             <p>개인정보</p>
                         </a>
                     </li>
+<?php   } ?>
                     <li class="nav-item" id="li-member-logout">
                         <a href="/member/logout" class="nav-link" id="a-member-logout">
                             <p>로그아웃</p>
