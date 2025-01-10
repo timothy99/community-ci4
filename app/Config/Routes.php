@@ -62,7 +62,7 @@ $routes->post("/password/search", "Lgn\Password::search");
 $routes->get("/password/modify", "Lgn\Password::modify");
 $routes->post("/password/change", "Lgn\Password::change");
 
-$routes->get("/csl", "Csl\Member::index");
+$routes->get("/csl", "Csl\Slide::index");
 
 $routes->get("/csl/member", "Csl\Member::index");
 $routes->get("/csl/member/list", "Csl\Member::list");

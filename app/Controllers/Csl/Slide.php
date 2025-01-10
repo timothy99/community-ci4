@@ -11,7 +11,7 @@ class Slide extends BaseController
 {
     public function index()
     {
-        return redirect()->to("/csl");
+        return redirect()->to("/csl/slide/list");
     }
 
     public function list()
