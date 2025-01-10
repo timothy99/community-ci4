@@ -72,7 +72,7 @@
 <?php   } ?>
 <?php   if (count($list) == 0) { ?>
                                         <tr>
-                                            <td colspan="5" class="text-center">데이터가 없습니다.</td>
+                                            <td colspan="7" class="text-center">데이터가 없습니다.</td>
                                         </tr>
 <?php   } ?>
                                     </tbody>

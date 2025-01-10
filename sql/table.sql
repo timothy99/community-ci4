@@ -220,7 +220,7 @@ create table mng_member_reset (
 ) comment='암호를 초기화 하기 위한 정보';
 
 create table mng_slide (
-    s_idx int auto_increment comment '슬라이드 인덱스' primary key,
+    s_idx int auto_increment comment '슬라이드 인덱스',
     title varchar(1000) not null comment '제목',
     contents varchar(4000) not null comment '내용-슬라이드에선 실제 내용 출력되지 않으므로 alt내용을 의미함',
     http_link varchar(1000) not null comment 'http 링크',
@@ -233,7 +233,8 @@ create table mng_slide (
     ins_id varchar(70) not null comment '입력자',
     ins_date varchar(14) not null comment '입력일',
     upd_id varchar(70) not null comment '수정자',
-    upd_date varchar(14) not null comment '수정일'
+    upd_date varchar(14) not null comment '수정일',
+    primary key (s_idx)
 ) comment '슬라이드';
 
 create table mng_popup (
