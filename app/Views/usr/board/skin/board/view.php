@@ -130,7 +130,7 @@
 <script>
     $(function() {
         $("#list").click(function(e) {
-            location.href = "/board/<?=$board_id ?>/list";
+            location.href = "<?=getUserSessionInfo("previous_url") ?>";
         });
 
         $("#edit").click(function(e) {
