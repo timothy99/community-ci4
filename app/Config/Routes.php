@@ -177,3 +177,7 @@ $routes->post("/csl/calendar/update", "Csl\Calendar::update");
 $routes->get("/csl/calendar/view", "Csl\Calendar::view");
 $routes->get("/csl/calendar/edit", "Csl\Calendar::edit");
 $routes->post("/csl/calendar/delete/(:num)", "Csl\Calendar::delete");
+
+// 테이블명세서 생성하기
+$routes->get("/csl/table/write", "Csl\Table::write");
+$routes->post("/csl/table/view", "Csl\Table::view");
