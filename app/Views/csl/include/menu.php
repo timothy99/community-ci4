@@ -84,7 +84,11 @@
                             </li>
                         </ul>
                     </li>
-
+                    <li class="nav-item" id="li-table-write">
+                        <a href="/csl/table/write" class="nav-link" id="a-table-write">
+                            <p>테이블 명세서</p>
+                        </a>
+                    </li>
 <?php   if (getUserSessionInfo("auth_group") == "최고관리자") { ?>
                     <li class="nav-item" id="li-member-list">
                         <a href="/csl/member/list" class="nav-link" id="a-member-list">
