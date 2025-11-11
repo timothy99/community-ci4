@@ -29,7 +29,7 @@
                         </div>
                         <div class="card-footer">
                             <div class="d-flex justify-content-end">
-                                <button type="button" class="btn btn-info ml-3" id="search" name="search">검색</button>
+                                <button type="button" class="btn btn-info ml-3" id="search_button" name="search_button">검색</button>
                             </div>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
 <?php   } ?>
 <?php   if (count($list) == 0) { ?>
                                             <tr>
-                                                <td colspan="5">검색어를 입력하시거나 정확한 검색어를 넣어주세요.</td>
+                                                <td colspan="7">검색어를 입력하시거나 정확한 검색어를 넣어주세요.</td>
                                             </tr>
 <?php   } ?>
                                         </tbody>

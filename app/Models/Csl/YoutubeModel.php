@@ -282,7 +282,7 @@ class YoutubeModel extends Model
 
         $key = env("youtube.api.key");
 
-        $url = "https://www.googleapis.com/youtube/v3/search?key=".$key."&part=snippet&q=".$search_text."&maxResults=10";
+        $url = "https://www.googleapis.com/youtube/v3/search?key=".$key."&part=snippet&q=".urlencode($search_text)."&maxResults=10";
 
         $data = array();
         $data["url"] = $url;
