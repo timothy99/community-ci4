@@ -2,6 +2,27 @@
 
 namespace Config;
 
+// Define ENVIRONMENT based on IP address from .env file
+if (!defined('ENVIRONMENT')) {
+    $envFile = __DIR__ . '/../../.env';
+    $developmentIps = '';
+    
+    if (file_exists($envFile)) {
+        $envContent = file_get_contents($envFile);
+        if (preg_match('/^development\.ip\s*=\s*["\']?([^"\'\r\n]+)["\']?$/m', $envContent, $matches)) {
+            $developmentIps = trim($matches[1]);
+        }
+    }
+    
+    if (!empty($developmentIps)) {
+        $ip_arr = explode('||', $developmentIps);
+        $ip_addr = $_SERVER['REMOTE_ADDR'] ?? '';
+        define('ENVIRONMENT', in_array($ip_addr, $ip_arr) ? 'development' : 'production');
+    } else {
+        define('ENVIRONMENT', 'production');
+    }
+}
+
 /**
  * Paths
  *
@@ -12,11 +33,6 @@ namespace Config;
  * share a system folder between multiple applications, and more.
  *
  * All paths are relative to the project's root folder.
- *
- * NOTE: This class is required prior to Autoloader instantiation,
- *       and does not extend BaseConfig.
- *
- * @immutable
  */
 class Paths
 {
@@ -28,7 +44,7 @@ class Paths
      * This must contain the name of your "system" folder. Include
      * the path if the folder is not in the same directory as this file.
      */
-    public string $systemDirectory = __DIR__ . '/../../system';
+    public string $systemDirectory = __DIR__ . '/../../vendor/codeigniter4/framework/system';
 
     /**
      * ---------------------------------------------------------------

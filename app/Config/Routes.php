@@ -8,7 +8,7 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get("/", "Usr\Home::index");
 
 $routes->get("/home", "Usr\Home::index");
-$routes->get("/home/home", "Usr\Home::home");
+$routes->get("/home/main", "Usr\Home::main");
 
 $routes->get("/menu", "Usr\Menu::index");
 $routes->get("/menu/menu1", "Usr\Menu::menu1");

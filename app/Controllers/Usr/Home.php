@@ -12,10 +12,10 @@ class Home extends BaseController
 {
     public function index()
     {
-        return redirect()->to("/home/home");
+        return redirect()->to("/home/main");
     }
 
-    public function home()
+    public function main()
     {
         $board_model = new BoardModel();
         $slide_model = new SlideModel();
@@ -66,7 +66,7 @@ class Home extends BaseController
         $proc_result["popup_list"] = $popup_list;
         $proc_result["video_list"] = $video_list;
 
-        return uview("usr/home/home", $proc_result);
+        return uview("usr/home/main", $proc_result);
     }
 
 }
