@@ -16,8 +16,15 @@ class MenuModel extends Model
         $builder->where("category", "user");
         $builder->where("del_yn", "N");
         $info = $builder->get()->getRow();
-        $menu_json = $info->menu_json;
-        $list = json_decode($menu_json);
+
+        if ($info == null) {
+            $result = false;
+            $message = "메뉴 정보가 존재하지 않습니다.";
+            $list = array();
+        } else {
+            $menu_json = $info->menu_json;
+            $list = json_decode($menu_json);
+        }
 
         $proc_result = array();
         $proc_result["result"] = $result;

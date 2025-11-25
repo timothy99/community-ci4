@@ -32,33 +32,37 @@ class YoutubeModel extends Model
         $model_result = $this->getPlaylistInfo($data);
         $data = $model_result["info"];
 
-        $result = true;
-        $message = "성공";
-
-        $max_result = 4;
-        $order = "date";
-        $part = "snippet";
-        $category = $data->category;
-        $play_id = $data->play_id;
-        $key = env("youtube.api.key");
-
-        if ($category == "channel") {
-            $url = "https://www.googleapis.com/youtube/v3/search?order=".$order."&part=".$part."&channelId=".$play_id."&maxResults=".$max_result."&key=".$key;
-        } else {
-            $url = "https://www.googleapis.com/youtube/v3/playlistItems?order=".$order."&part=".$part."&playlistId=".$play_id."&maxResults=".$max_result."&key=".$key;
+        if ($data == null) {
+            $result = false;
+            $message = "유튜브 설정이 존재하지 않습니다.";
         }
 
-        $data = array();
-        $data["url"] = $url;
+        if ($result == true) {
+            $max_result = 4;
+            $order = "date";
+            $part = "snippet";
+            $category = $data->category;
+            $play_id = $data->play_id;
+            $key = env("youtube.api.key");
 
-        $helper_result = getCurlGet($data);
+            if ($category == "channel") {
+                $url = "https://www.googleapis.com/youtube/v3/search?order=".$order."&part=".$part."&channelId=".$play_id."&maxResults=".$max_result."&key=".$key;
+            } else {
+                $url = "https://www.googleapis.com/youtube/v3/playlistItems?order=".$order."&part=".$part."&playlistId=".$play_id."&maxResults=".$max_result."&key=".$key;
+            }
 
-        $result = $helper_result["result"];
-        $message = $helper_result["message"];
-        $json_list = json_decode($helper_result["response"]);
+            $data = array();
+            $data["url"] = $url;
 
-        $result = isset($json_list->error->code) ? false : true;
-        $message = "설정이 올바르지 않습니다.";
+            $helper_result = getCurlGet($data);
+
+            $result = $helper_result["result"];
+            $message = $helper_result["message"];
+            $json_list = json_decode($helper_result["response"]);
+
+            $result = isset($json_list->error->code) ? false : true;
+            $message = "설정이 올바르지 않습니다.";
+        }
 
         $list = array();
         if ($result == true) {

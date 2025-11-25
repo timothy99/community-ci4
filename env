@@ -1,41 +1,69 @@
+#--------------------------------------------------------------------
+# Example Environment Configuration file
+#
+# This file can be used as a starting point for your own
+# custom .env files, and contains most of the possible settings
+# available in a default install.
+#
+# By default, all of the settings are commented out. If you want
+# to override the setting, you must un-comment it by removing the '#'
+# at the beginning of the line.
+#--------------------------------------------------------------------
+
+#--------------------------------------------------------------------
+# ENVIRONMENT
+#--------------------------------------------------------------------
+
+# CI_ENVIRONMENT = production
+
+#--------------------------------------------------------------------
 # APP
-app.baseURL = "http로 시작하는 주소"
-app.sitename = "사이트 이름을 넣으세요"
-app.sitenameAdmin = "관리자 사이트 이름을 넣으세요"
-app.companyName = "회사이름을 넣어주세요";
-app.programVer = "이건 겉멋을 위한 버전 정보입니다.";
-app.jsVer = "리프레시가 안될때를 대비 자바스크립트 버전을 입력하면 좋습니다.";
-app.cssVer = "리프레시가 안될떄는 대비 CSS버전을 입력하면 좋습니다.";
-app.managerEmail = "관리자의 메일 주소를 넣으놓으면 mailsend 기능을 쓸때 사용합니다.";
+#--------------------------------------------------------------------
 
-# TIMEZONE
-app.appTimezone = "Asia/Seoul"
+# app.baseURL = ''
+# If you have trouble with `.`, you could also use `_`.
+# app_baseURL = ''
+# app.forceGlobalSecureRequests = false
+# app.CSPEnabled = false
 
-# LOGGER 4로 해두면 적당히 로그를 찍습니다. log_helper 는 레벨 4 이상으로 해 두어야 작동합니다.(ERROR 레벨 사용)
-logger.threshold = 4
-
-# ENCRYPTION
-encryption.key = "암호화 키"
-encryption.iv = "iv키"
-encryption.way = "암호화 방식"
-
+#--------------------------------------------------------------------
 # DATABASE
-database.default.hostname = "호스트"
-database.default.database = "이름"
-database.default.username = "사용자"
-database.default.password = "암호"
-database.default.DBDriver = "MySQLi"
-database.default.DBPrefix = "프리픽스는 안넣어도 됩니다."
-database.default.port = "생랴개도 되지만 포트가 3306이 아닐경우 넣어주셔야 합니다."
+#--------------------------------------------------------------------
 
-# EMAIL
-smtp.host = "SMTP주소";
-smtp.user = "발신하는 주소";
-smtp.pass = "SMTP의 암호";
-smtp.port = "SMTP 포트번호";
-smtp.name = "보내는 사람 이름. 당연히 메일 보낼때 따로 지정하기가 가능합니다.";
+# database.default.hostname = localhost
+# database.default.database = ci4
+# database.default.username = root
+# database.default.password = root
+# database.default.DBDriver = MySQLi
+# database.default.DBPrefix =
+# database.default.port = 3306
 
-# 회사 IP , 이 IP일 경우 CI_ENVIRONMENT를 devlopment로 변경한다. || 파이프2개로 구분합니다.
-development.ip = "1.1.1.1||8.8.8.8";
+# If you use MySQLi as tests, first update the values of Config\Database::$tests.
+# database.tests.hostname = localhost
+# database.tests.database = ci4_test
+# database.tests.username = root
+# database.tests.password = root
+# database.tests.DBDriver = MySQLi
+# database.tests.DBPrefix =
+# database.tests.charset = utf8mb4
+# database.tests.DBCollat = utf8mb4_general_ci
+# database.tests.port = 3306
 
-youtube.api.key = "youtube data avpi v3 용 api key";
+#--------------------------------------------------------------------
+# ENCRYPTION
+#--------------------------------------------------------------------
+
+# encryption.key =
+
+#--------------------------------------------------------------------
+# SESSION
+#--------------------------------------------------------------------
+
+# session.driver = 'CodeIgniter\Session\Handlers\FileHandler'
+# session.savePath = null
+
+#--------------------------------------------------------------------
+# LOGGER
+#--------------------------------------------------------------------
+
+# logger.threshold = 4
