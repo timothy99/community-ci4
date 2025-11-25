@@ -1,68 +1,53 @@
-# CodeIgniter 4 Application Starter
+# community-ci4
+코드이그나이터 프레임워크로 개발된 커뮤니티 기능을 하는 프로그램의 readme 입니다.
 
-## What is CodeIgniter?
+## 기본설정
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+### env 설정
+1. env파일을 .env로 복사합니다.
+2. DB설정을 합니다.
+3. 설명에 따라 기타 필요한 사항들을 입력합니다.
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+### App.php 설정
+* index.php가 주소줄에 보이는것을 방지하기 위해 40번 라인의 public $indexPage 를 널로 변경
+```
+public $indexPage = 'index.php'     ->      public $indexPage = 'index.php'
+```
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+### Events.php 설정
+* 이미 설정은 되어 있습니다. 설명을 위해 추가합니다.
+    - 기본 언어설정 팩 추가
+    - 쿼리가 실행되고 나면 logModifyQuery(); 함수를 실행하도록 이벤트 추가
+    - 기본 권한설정 기능이 실행되도록 Authority_model 추가
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+#### Constants.php 설정
+* 추가로 설정해야 하는 함수는 다음과 같습니다.
+    - CSS_VER : CSS버전
+    - JS_VER : JS버전
+    - PROGRAM_VER : 메뉴 하단의 프로그램 버전 릴리즈 될때마다 변경하면 됩니다.
+    - SITE_NAME : 사이트 명칭
+    - UPLOADPATH : 파일 업로드 경로
 
-## Installation & updates
-
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
-
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
-
-## Setup
-
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
-
-## Important Change with index.php
-
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
-
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
-
-**Please** read the user guide for a better explanation of how CI4 works!
-
-## Repository Management
-
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
-
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
-
-## Server Requirements
-
-PHP version 8.1 or higher is required, with the following extensions installed:
-
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
-
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
-> - The end of life date for PHP 8.1 will be December 31, 2025.
-
-Additionally, make sure that the following extensions are enabled in your PHP:
-
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+## 디렉토리 구성 및 일부 필수 수정해야할 파일 목록
+* 위 내용을 정리해둔 것으로 이중 헬퍼는 설명된것 외에 추가로 더 있습니다. 헬퍼등 각 파일에 대한 설명은 파일 내의 주석을 확인하시기 바랍니다.
+```
++-- Config                      # 설정파일
+|   └-- App.php                 # App 기본설정, 사이트별 설정은 여기에서 하지 말고 .env파일에서 설정하도록 한다.
+|   └-- Constants.php           # 시스템 기본 상수 설정
+|   └-- Events.php              # 프로그램이 최초 작동할때 실행되어야 할 함수들
+|   └-- Routes.php              # 프로그램이 실행될때의 기능 get, post, cli등으로 구분된다.
++-- Helpers
+|   └-- logging_helper.php      # 쿼리 로깅등을 지원해 주는 헬퍼
+|   └-- session_helper.php      # 세션을 편리하게 사용하기 위한 세션 헬퍼
++-- Controller
+|   └-- Csl                     # 관리자 컨트롤러
+|   └-- Usr                     # 사용자 컨트롤러
++-- Model
+|   └-- Csl                     # 관리자 모델
+|   └-- Usr                     # 사용자 모델
++-- Views
+|   └-- csl                     # 관리자 뷰
+|   └-- usr                     # 사용자 뷰
++-- .env                        # 각종환경설정 파일
++-- README.md                   # 지금보고 있는 파일
+```
